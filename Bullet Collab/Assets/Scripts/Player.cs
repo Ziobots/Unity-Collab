@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private float veritcal;
 
     public float speed = 8f;
-    public Rigid
+    public Rigidbody2D rb;
 
     private bool facingRight = true;
     private bool flipDebounce = true;
@@ -16,6 +16,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+
+    }
+
+    void FixedUpdate() {
+        
     }
 }

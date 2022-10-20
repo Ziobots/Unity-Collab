@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    private float horizontal;
+    private float veritcal;
 
-    }
+    public float speed = 8f;
+    public Rigid
+
+    private bool facingRight = true;
+    private bool flipDebounce = true;
 
     // Update is called once per frame
     void Update()
     {
-
+        horizontal = Input.GetAxisRaw("Horizontal");
     }
 }

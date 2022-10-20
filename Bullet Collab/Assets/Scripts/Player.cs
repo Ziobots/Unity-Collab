@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate() {
-        // Handle Movement Here
+        // Handle Movement Here 
 
         rb.MovePosition(rb.position + movement.normalized * speed * Time.fixedDeltaTime);
     }

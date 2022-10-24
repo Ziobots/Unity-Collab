@@ -30,7 +30,22 @@ public class Player : MonoBehaviour
 
         // Player Visuals
         if (arrow != null){
-            arrow.up = (mousePosition - (Vector2)transform.position).normalized;
+            Vector2 arrowPos = (Vector2)transform.position + (mousePosition.normalized);
+            Vector2 arrowDir = (mousePosition - (Vector2)arrow.position).normalized;
+            float distance = Vector2.Distance(transform.position,mousePosition);
+            
+            if (distance <= 1){
+                arrowPos = arrowPos - arrowDir;// - (mousePosition.normalized);
+            }
+
+            //arrowPos = (Vector2)transform.position + new Vector2(rightDir.x,0f);
+
+            arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 0.5f);
+            arrow.right = arrowDir;
+            print("Data");
+            print(distance);
+            print(arrowDir);
+            arrow.GetComponent<SpriteRenderer>().flipY = (bool)(arrowDir.x < 0);
         }
     }
 

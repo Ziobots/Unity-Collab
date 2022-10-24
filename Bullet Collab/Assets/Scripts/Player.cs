@@ -8,12 +8,13 @@ public class Player : MonoBehaviour
 {
     // Movement Variables
     public Vector2 movement;
-    public float walkSpeed = 1f;
+    public float walkSpeed = 6f;
     public Rigidbody2D rb;
 
     // Mouse Variables
     public Vector2 mousePosition;
     public Transform arrow;
+    public Vector2 arrowDirection = new Vector2(0,0);
 
     private bool facingRight = true;
     //private bool flipDebounce = tdrue;
@@ -21,8 +22,25 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Arrow Movement
+        if (arrow != null){
+            arrowDirection = (mousePosition - (Vector2)arrow.position).normalized;
+
+            Vector2 arrowDir = arrowDirection * 1.2f;
+            Vector2 arrowPos = (Vector2)transform.position + arrowDir;//(mousePosition.normalized);
+            float distance = Vector2.Distance(transform.position,mousePosition);
+            
+            if (distance <= 2f){
+                arrowPos = (Vector2)transform.position - ((arrowDir * 0.5f) * (1.5f - distance));// - (mousePosition.normalized);
+            }
+
+            arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 1f);
+            arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 1f);
+            arrow.GetComponent<SpriteRenderer>().flipY = !facingRight;
+        }
+
         // Update Variables
-        facingRight = (bool)(movement.x > 0);
+        facingRight = (bool)(arrowDirection.x > 0);
 
         // Movement Input Here
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -31,30 +49,16 @@ public class Player : MonoBehaviour
         // Mouse Direction Here
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Arrow
-        if (arrow != null){
-            Vector2 arrowDir = (mousePosition - (Vector2)arrow.position).normalized;
-            Vector2 arrowPos = (Vector2)transform.position + arrowDir;//(mousePosition.normalized);
-            float distance = Vector2.Distance(transform.position,mousePosition);
-            
-            if (distance <= 2f){
-                arrowPos = (Vector2)transform.position - (arrowDir * (1.5f - distance));// - (mousePosition.normalized);
-            }
-
-            arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 0.5f);
-            arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 1f);
-
-            //arrow.GetComponent<SpriteRenderer>().flipY = (bool)(arrowDir.x < 0);
-        }
-
-        float yRot = Mathf.Lerp(transform.rotation.y,facingRight ? 180 : 0,Time.fixedDeltaTime * 0.5f);
-        transform.Rotate(0,yRot,0);
+        // Flip Effect
+        Quaternion setRotationEuler = Quaternion.Euler(0,facingRight ? 0f : 180f,0);
+        transform.rotation = Quaternion.Lerp(transform.rotation,setRotationEuler,Time.fixedDeltaTime * 0.8f);
     }
 
     // Fixed Update is called every physics step
     void FixedUpdate() {
         // Handle Movement Here 
 
-        rb.MovePosition(rb.position + movement.normalized * walkSpeed * Time.fixedDeltaTime);
+        Vector3 moveDirection = (movement.normalized * walkSpeed);
+        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 10f);
     }
 }

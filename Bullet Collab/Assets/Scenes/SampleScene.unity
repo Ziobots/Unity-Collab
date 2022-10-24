@@ -474,6 +474,7 @@ MonoBehaviour:
   rb: {fileID: 1725522059}
   mousePosition: {x: 0, y: 0}
   arrow: {fileID: 110910047}
+  arrowDirection: {x: 0, y: 0}
 --- !u!61 &1725522058
 BoxCollider2D:
   m_ObjectHideFlags: 0

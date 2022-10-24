@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
     public float walkSpeed = 8f;
     public Rigidbody2D rb;
 
-    // 
+    // Mouse Variables
+    public Vector2 mousePosition;
+    public Transform arrow;
 
     //private bool facingRight = true;
     //private bool flipDebounce = tdrue;
@@ -19,11 +21,20 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Handle Input Here
+        // Movement Input Here
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        // Mouse Direction Here
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // Player Visuals
+        if (arrow != null){
+            arrow.up = (mousePosition - (Vector2)transform.position).normalized;
+        }
     }
 
+    // Fixed Update is called every physics step
     void FixedUpdate() {
         // Handle Movement Here 
 

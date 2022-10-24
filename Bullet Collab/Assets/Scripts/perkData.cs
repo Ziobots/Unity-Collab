@@ -11,7 +11,7 @@ public class perkData : ScriptableObject
     public float perkRarity;
     public bool stackablePerk = true;
 
-    public virtual void loadPerk(){
+    public virtual void loadPerk(GameObject player,int Count){
 
     }
 }

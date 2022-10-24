@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Create Perk/test")]
-public class testPerk : perkData
+[CreateAssetMenu(menuName = "Create Perk/other")]
+public class otherPerk : perkData
 {
-    public int test = 0;
+    public string word = "Hello";
 
     public override void loadPerk(GameObject player,int Count){
 

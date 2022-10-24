@@ -6,13 +6,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Vector2 movement;
-
-    public float speed = 8f;
+    // Movement Variables
+    public Vector2 movement;
+    public float walkSpeed = 8f;
     public Rigidbody2D rb;
 
+    // 
+
     //private bool facingRight = true;
-    //private bool flipDebounce = true;
+    //private bool flipDebounce = tdrue;
 
     // Update is called once per frame
     void Update()
@@ -25,6 +27,6 @@ public class Player : MonoBehaviour
     void FixedUpdate() {
         // Handle Movement Here 
 
-        rb.MovePosition(rb.position + movement.normalized * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement.normalized * walkSpeed * Time.fixedDeltaTime);
     }
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Create Perk/other")]
-public class otherPerk : perkData
+[CreateAssetMenu(menuName = "ScriptableObjects/Perk/speedUp")]
+public class speedUp : perkData
 {
-    public string word = "Hello";
+    public int speedInc = 1;
 
     public override void loadPerk(GameObject player,int Count){
 

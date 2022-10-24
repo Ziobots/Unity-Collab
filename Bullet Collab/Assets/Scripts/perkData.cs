@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Perk Base Info - do not edit, all perks inherit these fields
 public class perkData : ScriptableObject
 {
     public string perkName;
@@ -14,11 +15,4 @@ public class perkData : ScriptableObject
     public virtual void loadPerk(GameObject player,int Count){
 
     }
-}
-
-public class perkSaved : MonoBehaviour
-{
-    // Variables used when saving
-    public int perkID;
-    public int perkCount;
 }

@@ -19,7 +19,7 @@ public class sharedData : MonoBehaviour
 
     // Temporary Data
     public static float currency;
-    public List<perkSaved> perkList = new List<perkSaved>();
+    public List<string> perkIDList = new List<string>();
 
     // runs at the start of the game
     private void Awake() {

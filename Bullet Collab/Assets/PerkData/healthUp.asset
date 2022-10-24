@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23642e0ccf826b48bf84afbeae37d44, type: 3}
-  m_Name: hi
+  m_Script: {fileID: 11500000, guid: 5772bf18b6d0cdc49b915d97b48603ed, type: 3}
+  m_Name: healthUp
   m_EditorClassIdentifier: 
   perkName: 
   perkCost: 0
   perkDescription: 
   perkRarity: 0
   stackablePerk: 1
-  word: Hello
+  healthInc: 1

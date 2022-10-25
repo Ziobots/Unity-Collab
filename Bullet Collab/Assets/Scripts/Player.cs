@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
     private bool facingRight = true;
 
@@ -71,7 +71,10 @@ public class Player : MonoBehaviour
 
         // Bullet Fire
         if (Input.GetButtonDown("Fire1")) {
-            Instantiate(bulletPrefab,launchPoint.position,launchPoint.rotation,bulletFolder);
+            bulletSystem newBullet = Instantiate(bulletPrefab,launchPoint.position,launchPoint.rotation,bulletFolder);
+            if (newBullet != null){
+                newBullet.bulletOwner = this;
+            }
         }
     }
 

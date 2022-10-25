@@ -321,21 +321,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3712469795825231833, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3712469796038768168, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3712469796038768168, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.14121088
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3712469796038768168, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7879926
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3712469796038768168, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.061050452
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3712469796038768168, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -368,6 +372,30 @@ PrefabInstance:
     - target: {fileID: 3712469796038768171, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_Name
       value: PlayerObj
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712469797439708416, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712469797439708428, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712469797439708428, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712469797439708428, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: m_UsedByComposite
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712469797439708429, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712469797439708430, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3712469797439708431, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: bulletFolder

@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
     public Transform launchPoint;
     public Transform bulletFolder;
 
-    private void moveGun(){
-        if (arrow != null){
+    private void moveGun() {
+        if (arrow != null) {
             arrowDirection = (mousePosition - (Vector2)arrow.position).normalized;
 
             Vector2 arrowDir = arrowDirection * 1.2f;
@@ -51,8 +51,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         // Arrow Movement
         moveGun();
 
@@ -71,7 +70,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation,setRotationEuler,Time.fixedDeltaTime * 0.8f);
 
         // Bullet Fire
-        if (Input.GetButtonDown("Fire1")){
+        if (Input.GetButtonDown("Fire1")) {
             Instantiate(bulletPrefab,launchPoint.position,launchPoint.rotation,bulletFolder);
         }
     }

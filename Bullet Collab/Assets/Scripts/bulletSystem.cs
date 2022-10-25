@@ -11,15 +11,27 @@ public class bulletSystem : MonoBehaviour
     // Movement Variables
     public Rigidbody2D rb;
 
-    private void Awake() {
+    // Bullet Local Variabls
+    private float createTime;
+    private float lifeTime = 20f;
 
+    private void Awake() {
+        createTime = Time.time;
+    }
+
+    private void removeBullet(Collision2D hit) {
+        print(hit);
+        Destroy(gameObject);
     }
 
     void FixedUpdate() {
         rb.velocity = transform.right * bulletSpeed * Time.fixedDeltaTime * 100f;
+        if (Time.time - createTime >= lifeTime){
+            removeBullet(null);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        Destroy(gameObject);
+        removeBullet(other);
     }
 }

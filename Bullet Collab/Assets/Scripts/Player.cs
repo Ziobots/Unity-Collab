@@ -9,19 +9,21 @@ public class Player : MonoBehaviour
     private bool facingRight = true;
 
     // Movement Variables
-    public Vector2 movement;
+    [HideInInspector] public Vector2 movement;
     public float walkSpeed = 6f;
     public Rigidbody2D rb;
 
     // Mouse Variables
-    public Vector2 mousePosition;
+    [HideInInspector] public Vector2 mousePosition;
+    [HideInInspector] public Vector2 arrowDirection = new Vector2(0,0);
     public Transform arrow;
-    public Vector2 arrowDirection = new Vector2(0,0);
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Arrow Movement
+    // Bullet Variables
+    public bulletSystem bulletPrefab;
+    public Transform launchPoint;
+    public Transform bulletFolder;
+
+    private void moveGun(){
         if (arrow != null){
             arrowDirection = (mousePosition - (Vector2)arrow.position).normalized;
 
@@ -46,6 +48,13 @@ public class Player : MonoBehaviour
                 arrow.GetComponent<SpriteRenderer>().flipY = !facingRight;
             }
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Arrow Movement
+        moveGun();
 
         // Update Variables
         facingRight = (bool)(arrowDirection.x > 0);
@@ -60,6 +69,11 @@ public class Player : MonoBehaviour
         // Flip Effect
         Quaternion setRotationEuler = Quaternion.Euler(0,facingRight ? 0f : 180f,0);
         transform.rotation = Quaternion.Lerp(transform.rotation,setRotationEuler,Time.fixedDeltaTime * 0.8f);
+
+        // Bullet Fire
+        if (Input.GetButtonDown("Fire1")){
+            Instantiate(bulletPrefab,launchPoint.position,launchPoint.rotation,bulletFolder);
+        }
     }
 
     // Fixed Update is called every physics step

@@ -1,3 +1,13 @@
+/*******************************************************************************
+* Name : sharedData.cs
+* Section Description : This is where player data will be stored. Scoreboard Database 
+* will reference this for login, name, score, etc.
+* -------------------------------
+* - HISTORY OF CHANGES -
+* -------------------------------
+* Date		Software Version	Initials		Description
+* 10/23/22  0.10                 DS              Made the thing
+*******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

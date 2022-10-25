@@ -37,9 +37,9 @@ public class Player : Entity
             }
 
             // Set Gun Position
-            arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 1f);
+            arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 10f);
             // Rotate Gun
-            arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 1f);
+            arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 10f);
             
             // Gun Flip Direction
             if (arrow.transform.rotation.eulerAngles.y == 180){// this part is to fix some weird rotation rounding error
@@ -52,9 +52,6 @@ public class Player : Entity
 
     // Update is called once per frame
     void Update() {
-        // Arrow Movement
-        moveGun();
-
         // Update Variables
         facingRight = (bool)(arrowDirection.x > 0);
 
@@ -64,10 +61,6 @@ public class Player : Entity
 
         // Mouse Direction Here
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        // Flip Effect
-        Quaternion setRotationEuler = Quaternion.Euler(0,facingRight ? 0f : 180f,0);
-        transform.rotation = Quaternion.Lerp(transform.rotation,setRotationEuler,Time.fixedDeltaTime * 0.8f);
 
         // Bullet Fire
         if (Input.GetButtonDown("Fire1")) {
@@ -80,6 +73,11 @@ public class Player : Entity
 
     // Fixed Update is called every physics step
     void FixedUpdate() {
+        // Arrow Movement
+        moveGun();
+        // Flip Effect
+        Quaternion setRotationEuler = Quaternion.Euler(0, facingRight ? 0f : 180f, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
         // Smooth Movement 
         Vector3 moveDirection = (movement.normalized * walkSpeed);
         rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 10f);

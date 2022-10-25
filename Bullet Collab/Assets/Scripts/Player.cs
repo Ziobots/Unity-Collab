@@ -38,8 +38,13 @@ public class Player : MonoBehaviour
             arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 1f);
             // Rotate Gun
             arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 1f);
+            
             // Gun Flip Direction
-            arrow.GetComponent<SpriteRenderer>().flipY = !facingRight;
+            if (arrow.transform.rotation.eulerAngles.y == 180){// this part is to fix some weird rotation rounding error
+                arrow.GetComponent<SpriteRenderer>().flipY = facingRight;
+            }else{
+                arrow.GetComponent<SpriteRenderer>().flipY = !facingRight;
+            }
         }
 
         // Update Variables

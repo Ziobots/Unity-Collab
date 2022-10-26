@@ -1,3 +1,12 @@
+/*******************************************************************************
+* Name : speedUp.cs
+* Section Description : This is an example perk to permanently increase Player Speed
+* -------------------------------
+* - HISTORY OF CHANGES -
+* -------------------------------
+* Date		Software Version	Initials		Description
+* 10/23/22  0.10                 DS              Made the thing
+*******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

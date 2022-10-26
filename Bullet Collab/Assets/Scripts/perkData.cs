@@ -1,3 +1,12 @@
+/*******************************************************************************
+* Name : perkData.cs
+* Section Description : This is the abstract class for each perk the player can pick up.
+* -------------------------------
+* - HISTORY OF CHANGES -
+* -------------------------------
+* Date		Software Version	Initials		Description
+* 10/23/22  0.10                 DS              Made the thing
+*******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

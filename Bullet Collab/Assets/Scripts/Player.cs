@@ -1,4 +1,16 @@
-// Make sure to add that thing the teacher wants saying who edit what and when (check slides)
+/*******************************************************************************
+* Name : Player.cs
+* Section Description : This code handles player inputs, movement, and weapon position. It uses Unity's input detectors.
+* Update activates every frame and fixed update activates separately of that so that the physics should function the same
+* no matter the specs of the user's system.
+* -------------------------------
+* - HISTORY OF CHANGES -
+* -------------------------------
+* Date		Software Version	Initials		Description
+* 10/24/22  0.10                 DS              Made the thing
+* 10/25/22  0.11                 KJ              Moved gun and flip to Fixed, changed Lerp alpha values to 10
+*******************************************************************************/
+
 
 using System.Collections;
 using System.Collections.Generic;

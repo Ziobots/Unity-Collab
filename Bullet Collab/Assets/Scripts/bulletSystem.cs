@@ -1,3 +1,12 @@
+/*******************************************************************************
+* Name : bulletSystem.cs
+* Section Description : This handles bullet generation, movement, and collision.
+* -------------------------------
+* - HISTORY OF CHANGES -
+* -------------------------------
+* Date		Software Version	Initials		Description
+* 10/24/22  0.10                 DS              Made the thing
+*******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

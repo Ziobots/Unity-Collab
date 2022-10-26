@@ -18,22 +18,10 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    private bool facingRight = true;
-
-    // Movement Variables
-    [HideInInspector] public Vector2 movement;
-    public float walkSpeed = 6f;
-    public Rigidbody2D rb;
-
     // Mouse Variables
     [HideInInspector] public Vector2 mousePosition;
     [HideInInspector] public Vector2 arrowDirection = new Vector2(0,0);
     public Transform arrow;
-
-    // Bullet Variables
-    public bulletSystem bulletPrefab;
-    public Transform launchPoint;
-    public Transform bulletFolder;
 
     private void moveGun() {
         if (arrow != null) {
@@ -49,7 +37,7 @@ public class Player : Entity
             }
 
             // Set Gun Position
-            arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 10f);
+            arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 30f);
             // Rotate Gun
             arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 10f);
             
@@ -76,10 +64,7 @@ public class Player : Entity
 
         // Bullet Fire
         if (Input.GetButtonDown("Fire1")) {
-            bulletSystem newBullet = Instantiate(bulletPrefab,launchPoint.position,launchPoint.rotation,bulletFolder);
-            if (newBullet != null){
-                newBullet.bulletOwner = this;
-            }
+            fireBullets();
         }
     }
 

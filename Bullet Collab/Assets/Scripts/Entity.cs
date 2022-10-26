@@ -14,15 +14,37 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public float health;
+
+    // Movement Variables
+    [HideInInspector] public Vector2 movement;
+    public float walkSpeed = 6f;
+    public Rigidbody2D rb;
+    [HideInInspector] public bool facingRight = true;
+
+        // Bullet Variables
+    public bulletSystem bulletPrefab;
+    public List<Transform> launchPoints = new List<Transform>();
+
+    public Transform bulletFolder;
+
+    // Entity will fire Bullets
+    public void fireBullets(){
+        foreach(Transform point in launchPoints){
+            bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
+            if (newBullet != null){
+                newBullet.bulletOwner = this;
+            }
+        }
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         
+    }
+
+    // bullets will call this when they hit
+    void takeDamage(int amount){
+
     }
 }

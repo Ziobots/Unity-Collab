@@ -60,7 +60,9 @@ public class bulletSystem : MonoBehaviour
         if ((!damageOwner) && (bulletOwner != null) && (myCollider != null)){
             Collider2D ownerCollider = bulletOwner.GetComponent<Collider2D>();
             if (ownerCollider && !myCollider.IsTouching(ownerCollider)){
-                damageOwner = true;
+                if (Time.time - createTime > 0.25f){
+                    damageOwner = true;
+                }
             }
         }
     }

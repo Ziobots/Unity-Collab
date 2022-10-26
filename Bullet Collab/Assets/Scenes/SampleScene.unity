@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &90744634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3712469797203752306, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+  m_PrefabInstance: {fileID: 3712469795851730310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3712469796038768168, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.48
       objectReference: {fileID: 0}
     - target: {fileID: 3712469796038768168, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -401,5 +406,13 @@ PrefabInstance:
       propertyPath: bulletFolder
       value: 
       objectReference: {fileID: 700863669}
+    - target: {fileID: 3712469797439708431, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: launchPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712469797439708431, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: launchPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 90744634}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}

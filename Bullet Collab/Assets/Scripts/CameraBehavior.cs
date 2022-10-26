@@ -26,6 +26,12 @@ public class CameraBehavior : MonoBehaviour
     private float mouseDistance = 0;
     public Vector2 mouseDirection;
 
+    // Camera Default Values
+    public void resetCamera() {
+        cameraZoom = 5;
+        extraZoom = 0;
+    }
+
     // Late Update is called after the normal Update - important because of input stuff
     private void FixedUpdate() {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -49,7 +55,7 @@ public class CameraBehavior : MonoBehaviour
         }
 
         // Calculate the Zoom Level, Lerp for smooth transition
-        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize,cameraZoom + extraZoom,Time.fixedDeltaTime * 10f);
+        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize,cameraZoom + extraZoom,Time.fixedDeltaTime * 1f);
 
         // Calculate the New Position, Lerp for smooth transition
         Vector3 setPosition = new Vector3(cameraPosition.x,cameraPosition.y,-10);

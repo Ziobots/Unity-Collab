@@ -37,8 +37,8 @@ public class CameraBehavior : MonoBehaviour
             // Check if Camera should factor the Mouse Position when finding the new Position
             if (factorMouse){
                 mouseDistance = Vector2.Distance(followPosition,mousePosition);
-                mouseDistance = Mathf.Clamp(mouseDistance,0f,10f);
-                extraZoom = mouseDistance / 10f;
+                mouseDistance = Mathf.Clamp(mouseDistance,0f,13f);
+                extraZoom = mouseDistance / 20f;
 
                 mouseDirection = (mousePosition - (Vector2)followPosition).normalized;
 
@@ -49,11 +49,10 @@ public class CameraBehavior : MonoBehaviour
         }
 
         // Calculate the Zoom Level, Lerp for smooth transition
-        print(cameraZoom + extraZoom);
-        //Camera.main.orthographicSize = cameraZoom + extraZoom;//Mathf.Lerp(cameraZoom,cameraZoom + extraZoom,Time.fixedDeltaTime * 1f);
+        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize,cameraZoom + extraZoom,Time.fixedDeltaTime * 10f);
 
         // Calculate the New Position, Lerp for smooth transition
         Vector3 setPosition = new Vector3(cameraPosition.x,cameraPosition.y,-10);
-        transform.position = Vector3.Lerp(transform.position,setPosition,Time.fixedDeltaTime * 10f);
+        transform.position = Vector3.Lerp(transform.position,setPosition,Time.fixedDeltaTime * 5f);
     }
 }

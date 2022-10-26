@@ -241,7 +241,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: -1000
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -290,6 +290,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followObject: {fileID: 693162314}
   factorMouse: 1
+  cameraZoom: 5
+  extraZoom: 0
+  cameraPosition: {x: 0, y: 0}
+  mousePosition: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
 --- !u!1 &693162314 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3712469797439708416, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}

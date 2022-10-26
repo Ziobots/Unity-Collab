@@ -11,7 +11,6 @@
 * 10/25/22  0.11                 KJ              Moved gun and flip to Fixed, changed Lerp alpha values to 10
 *******************************************************************************/
 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

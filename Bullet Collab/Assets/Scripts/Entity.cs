@@ -8,13 +8,14 @@
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
 *******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public float health;
+    public float health = 5;
 
     // Movement Variables
     [HideInInspector] public Vector2 movement;
@@ -39,12 +40,17 @@ public class Entity : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update(){
-        
+    void Update() {
+
+    }
+
+    // Fixed Update is called every physics step
+    void FixedUpdate() {
+
     }
 
     // bullets will call this when they hit
-    void takeDamage(int amount){
+    public void takeDamage(int amount){
 
     }
 }

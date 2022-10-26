@@ -7,6 +7,7 @@
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
 *******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class bulletSystem : MonoBehaviour
 {   
     // Editable Variables
     public float bulletSpeed = 1f;
+    public float bulletDamage = 1f;
     public float bulletSize = 0.5f;
     public Entity bulletOwner;
 

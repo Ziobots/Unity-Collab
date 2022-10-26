@@ -24,9 +24,9 @@ public class Entity : MonoBehaviour
     [HideInInspector] public bool facingRight = true;
 
         // Bullet Variables
+    [HideInInspector] public float attackTime = 0;
     public bulletSystem bulletPrefab;
     public List<Transform> launchPoints = new List<Transform>();
-
     public Transform bulletFolder;
 
     // Entity will fire Bullets
@@ -51,6 +51,12 @@ public class Entity : MonoBehaviour
 
     // bullets will call this when they hit
     public void takeDamage(int amount){
+        if (amount > 0){
+            health -= amount;
 
+            if (rb != null){
+                rb.velocity = new Vector3(0,0,0);
+            }
+        }
     }
 }

@@ -63,6 +63,7 @@ public class Player : Entity
 
         // Bullet Fire
         if (Input.GetButtonDown("Fire1")) {
+            attackTime = Time.time;
             fireBullets();
         }
     }

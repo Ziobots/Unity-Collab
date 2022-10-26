@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1245196261793414157}
   m_Layer: 0
   m_Name: bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,6 +138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 5
   bulletSize: 0.5
+  bulletDamage: 1
   bulletOwner: {fileID: 0}
   rb: {fileID: 1245196261793414158}
   myCollider: {fileID: 1245196261793414159}
+  canBeHit: 0

@@ -16,7 +16,10 @@ public class Enemy : Entity
 {
     // Update is called once per frame
     void Update() {
-
+        if(Time.time - attackTime >= 1f){
+            attackTime = Time.time;
+            fireBullets();
+        }
     }
 
     // Fixed Update is called every physics step

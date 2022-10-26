@@ -16,8 +16,8 @@ public class bulletSystem : MonoBehaviour
 {   
     // Editable Variables
     public float bulletSpeed = 1f;
-    public float bulletDamage = 1f;
     public float bulletSize = 0.5f;
+    public int bulletDamage = 1;
     public Entity bulletOwner;
 
     // Base Variables
@@ -37,6 +37,13 @@ public class bulletSystem : MonoBehaviour
     private void removeBullet(Collider2D hit) {
         if (myCollider.enabled){
             myCollider.enabled = false;
+
+            if (hit != null && hit.gameObject != null){
+                Entity hitObj = hit.gameObject.GetComponent<Entity>();
+                if (hitObj != null){
+                    hitObj.takeDamage((int)bulletDamage);
+                }
+            }
 
             Destroy(gameObject);
         }
@@ -78,6 +85,10 @@ public class bulletSystem : MonoBehaviour
                 if (ownerCollider == otherCollider && !damageOwner){
                     return;
                 }
+            }
+
+            if (otherCollider.gameObject.tag == "Bullet"){
+                return;
             }
         }
 

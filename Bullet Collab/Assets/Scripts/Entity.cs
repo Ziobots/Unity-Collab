@@ -30,7 +30,7 @@ public class Entity : MonoBehaviour
     public Transform bulletFolder;
 
     // Entity will fire Bullets
-    public void fireBullets(){
+    public virtual void fireBullets(){
         foreach(Transform point in launchPoints){
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
             if (newBullet != null){
@@ -50,7 +50,7 @@ public class Entity : MonoBehaviour
     }
 
     // bullets will call this when they hit
-    public void takeDamage(int amount){
+    public virtual void takeDamage(int amount){
         if (amount > 0){
             health -= amount;
 

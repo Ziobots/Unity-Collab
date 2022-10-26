@@ -25,6 +25,11 @@ public class CameraBehavior : MonoBehaviour
     [HideInInspector] public Vector2 mousePosition;
     private float mouseDistance = 0;
     public Vector2 mouseDirection;
+    public Transform reticle;
+
+    private void Start() {
+        Cursor.visible = false;
+    }
 
     // Camera Default Values
     public void resetCamera() {
@@ -34,7 +39,9 @@ public class CameraBehavior : MonoBehaviour
 
     // Late Update is called after the normal Update - important because of input stuff
     private void FixedUpdate() {
+        // Move the reticle
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        reticle.position = mousePosition;
 
         // Check if the Camera is following an object
         if (followObject != null){

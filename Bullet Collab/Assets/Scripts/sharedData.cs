@@ -7,7 +7,9 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/23/22  0.10                 DS              Made the thing
+* 10/23/22  0.11                 DS              Added Health to connect to healthbar
 *******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,21 +17,35 @@ using UnityEngine;
 public class sharedData : MonoBehaviour
 {
     // reference for use in other scripts
-    public static sharedData dataInstance;
+    public sharedData dataInstance;
 
     // User Information
-    public static string userName;
-    public static int userID; 
+    public string userName;
+    public int userID; 
 
     // Persistant Data
-    public static int runCount;
-    public static int winCount;
-    public static float maxScore;
-    public static float minTime; // in seconds
+    public int runCount;
+    public int winCount;
+    public float maxScore;
+    public float minTime; // in seconds
 
     // Temporary Data
-    public static float currency;
+    public int currenthealth;
+    public int maxHealth;
+    public float currency;
     public List<string> perkIDList = new List<string>();
+
+    // Reset the Run Data
+    public void resetTempData() {
+        maxHealth = 6;
+        currenthealth = maxHealth;
+        currency = 0;
+        perkIDList = new List<string>();
+    }
+
+    private void Start() {
+        resetTempData();
+    }
 
     // runs at the start of the game
     private void Awake() {

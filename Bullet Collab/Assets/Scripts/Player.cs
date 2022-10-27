@@ -49,6 +49,15 @@ public class Player : Entity
         }
     }
 
+    public override void takeDamage(int amount){
+        // Run Damage Visual
+        base.takeDamage(amount);
+
+        // Update Data
+        dataInfo.currenthealth -= amount;
+        uiUpdate.updateHealth(); 
+    }
+
     // Update is called once per frame
     void Update() {
         // Update Variables

@@ -15,7 +15,14 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    // Base Data Stuff
+    public GameObject dataManager;
+    [HideInInspector] public sharedData dataInfo;
     public float health = 5;
+
+    // UI Stuff
+    public GameObject uiManager;
+    [HideInInspector] public UIManager uiUpdate;
 
     // Movement Variables
     [HideInInspector] public Vector2 movement;
@@ -23,7 +30,7 @@ public class Entity : MonoBehaviour
     public Rigidbody2D rb;
     [HideInInspector] public bool facingRight = true;
 
-        // Bullet Variables
+    // Bullet Variables
     [HideInInspector] public float attackTime = 0;
     public bulletSystem bulletPrefab;
     public List<Transform> launchPoints = new List<Transform>();
@@ -36,6 +43,18 @@ public class Entity : MonoBehaviour
             if (newBullet != null){
                 newBullet.bulletOwner = this;
             }
+        }
+    }
+
+    private void Start() {
+        // Get data management script
+        if (dataManager != null){
+            dataInfo = dataManager.GetComponent<sharedData>();
+        }
+
+        // Get UI management script
+        if (uiManager != null){
+            uiUpdate = uiManager.GetComponent<UIManager>();
         }
     }
 

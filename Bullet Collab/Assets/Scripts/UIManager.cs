@@ -57,6 +57,9 @@ public class UIManager : MonoBehaviour
 
     // Start of Game update UI
     private void Start() {
+        // Keep UI between Scenes
+        DontDestroyOnLoad(gameObject);
+
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();

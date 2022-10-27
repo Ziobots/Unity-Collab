@@ -7,7 +7,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/23/22  0.10                 DS              Made the thing
-* 10/23/22  0.11                 DS              Added Health to connect to healthbar
+* 10/26/22  0.11                 DS              Added Health to connect to healthbar
 *******************************************************************************/
 
 using System.Collections;
@@ -30,6 +30,7 @@ public class sharedData : MonoBehaviour
     public float minTime; // in seconds
 
     // Temporary Data
+    public string currentSceneID;
     public int currenthealth;
     public int maxHealth;
     public float currency;
@@ -45,6 +46,7 @@ public class sharedData : MonoBehaviour
 
     private void Start() {
         resetTempData();
+        DontDestroyOnLoad(gameObject);
     }
 
     // runs at the start of the game

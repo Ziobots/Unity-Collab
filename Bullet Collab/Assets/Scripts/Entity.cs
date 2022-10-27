@@ -46,7 +46,7 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private void Start() {
+    public virtual void Start() {
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();

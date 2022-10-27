@@ -28,6 +28,7 @@ public class CameraBehavior : MonoBehaviour
     public Transform reticle;
 
     private void Start() {
+        DontDestroyOnLoad(gameObject);
         Cursor.visible = false;
     }
 

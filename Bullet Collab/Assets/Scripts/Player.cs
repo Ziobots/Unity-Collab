@@ -22,17 +22,20 @@ public class Player : Entity
     [HideInInspector] public Vector2 arrowDirection = new Vector2(0,0);
     public Transform arrow;
 
+    // Rig Variables
+    public Transform playerRig;
+
     private void moveGun() {
         if (arrow != null) {
             arrowDirection = (mousePosition - (Vector2)arrow.position).normalized;
 
             Vector2 arrowDir = arrowDirection * 1.2f;
-            Vector2 arrowPos = (Vector2)transform.position + arrowDir;//(mousePosition.normalized);
-            float distance = Vector2.Distance(transform.position,mousePosition);
+            Vector2 arrowPos = (Vector2)playerRig.position + arrowDir;//(mousePosition.normalized);
+            float distance = Vector2.Distance(playerRig.position,mousePosition);
             
             // Check if gun is too close to Player
             if (distance <= 2f){
-                arrowPos = (Vector2)transform.position - ((arrowDir * 0.5f) * (1.5f - distance));// - (mousePosition.normalized);
+                arrowPos = (Vector2)playerRig.position - ((arrowDir * 0.5f) * (1.5f - distance));// - (mousePosition.normalized);
             }
 
             // Set Gun Position
@@ -56,6 +59,15 @@ public class Player : Entity
         // Update Data
         dataInfo.currenthealth -= amount;
         uiUpdate.updateHealth(); 
+    }
+
+    // Carry Player between scenes
+    public override void Start() {
+        // Keep Player between Scenes
+        DontDestroyOnLoad(gameObject);
+
+        // Entity Setup
+        base.Start();
     }
 
     // Update is called once per frame
@@ -83,7 +95,7 @@ public class Player : Entity
         moveGun();
         // Flip Effect
         Quaternion setRotationEuler = Quaternion.Euler(0, facingRight ? 0f : 180f, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
+        playerRig.rotation = Quaternion.Lerp(playerRig.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
         // Smooth Movement 
         Vector3 moveDirection = (movement.normalized * walkSpeed);
         rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 10f);

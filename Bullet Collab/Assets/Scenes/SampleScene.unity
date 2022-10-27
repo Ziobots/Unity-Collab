@@ -17523,8 +17523,8 @@ MonoBehaviour:
   winCount: 0
   maxScore: 0
   minTime: 0
-  currenthealth: 0
-  maxHealth: 0
+  currenthealth: 6
+  maxHealth: 6
   currency: 0
   perkIDList: []
 --- !u!4 &1356760224

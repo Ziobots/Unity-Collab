@@ -31,27 +31,25 @@ public class UIManager : MonoBehaviour
             heartMax = dataInfo.currenthealth;
         }
 
-        for (int i = 1; i < heartMax; i++){
+        for (int i = 2; i <= heartMax; i += 2){
             // Health is split into wholes and halves, maybe temporary hearts
-            int baseIndex = i - (1 - i % 2);
-            GameObject newHeart = GameObject.Find(healthBar.name + "/heart_" + baseIndex);
+            GameObject newHeart = GameObject.Find(healthBar.name + "/heart_" + i);
+
             if (newHeart == null){
                 newHeart = Instantiate(heartPrefab,healthBar.transform);
             }
 
             // Setup the heart
             if (newHeart != null){
-                newHeart.name = "heart_" + baseIndex;
-                if (i > dataInfo.maxHealth){
-                    // temporary heart?
-                }else if (i <= dataInfo.currenthealth){
-                    if (i % 2 == 0){
-                        newHeart.GetComponent<Image>().sprite = Resources.Load<Sprite>("Hearts_0");
+                newHeart.name = "heart_" + i;
+                if (i <= (dataInfo.currenthealth + 1)){
+                    if (i > dataInfo.currenthealth){
+                        newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("Hearts")[1];
                     }else{
-                        newHeart.GetComponent<Image>().sprite = Resources.Load<Sprite>("Hearts_1");
+                        newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("Hearts")[0];
                     }
                 }else{
-                    newHeart.GetComponent<Image>().sprite = Resources.Load<Sprite>("Hearts_2");
+                    newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("Hearts")[2];
                 }
             }
         }

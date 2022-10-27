@@ -19,15 +19,23 @@ using UnityEngine.Tilemaps;
 
 public class RoofTransparency : MonoBehaviour
 {
-    public Tilemaps;
-    public float bulletSpeed = 1f;
+    public Tilemap Foreground;
 
-    private void OnTriggerStay2D(Collider2D otherCollider)
+    // If the player touches the area, make the tilemap translucent
+    private void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        //if there is a collision between this boxCollider and a player object
         if (otherCollider.gameObject.tag == "Player")
         {
-            UnityEngine.Debug.Log("Change alpha to 0.3f");
+            Foreground.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        }
+    }
+
+    // If the player leaves the area, make the tilemap normal again
+    private void OnTriggerExit2D(Collider2D otherCollider) {
+        if (otherCollider.gameObject.tag == "Player") 
+        {
+            Foreground.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
         }
     }
 }

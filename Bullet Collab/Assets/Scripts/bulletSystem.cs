@@ -5,7 +5,8 @@
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 10/24/22  0.10                 DS              Made the thing
+* 10/24/22  0.10                DS              Made the thing
+* 10/27/22  0.11                KJ              Changed collision to ignore Foreground
 *******************************************************************************/
 
 using System.Collections;
@@ -79,15 +80,20 @@ public class bulletSystem : MonoBehaviour
     // When the Bullet overlaps an object with a Collider2D
     private void OnTriggerEnter2D(Collider2D otherCollider) {
         // Check to ignore bullet owner
-        if (otherCollider != null){
-            if (bulletOwner != null){
+        if (otherCollider != null)
+        {
+            if (bulletOwner != null)
+            {
                 Collider2D ownerCollider = bulletOwner.GetComponent<Collider2D>();
-                if (ownerCollider == otherCollider && !damageOwner){
+                if (ownerCollider == otherCollider && !damageOwner)// If collider that spawned bullet and target collider are the same, exit
+                {
                     return;
                 }
             }
 
-            if (otherCollider.gameObject.tag == "Bullet"){
+            // If target collider is another bullet or the Foreground tilemap
+            if (otherCollider.gameObject.tag == "Bullet" || otherCollider.gameObject.tag == "Foreground")
+            {
                 return;
             }
         }

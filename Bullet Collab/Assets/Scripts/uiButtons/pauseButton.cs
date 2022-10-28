@@ -33,6 +33,7 @@ public class pauseButton : MonoBehaviour
     // Pause Menu Functions
     public void pauseGame(){
         cursorObj.GetComponent<mouseCursor>().reticleActive = false;
+        cursorObj.GetComponent<mouseCursor>().updateHover(cursorObj.GetComponent<mouseCursor>().isHovering);
 
         gamePaused = true;
         pausePanel.SetActive(true);
@@ -42,7 +43,7 @@ public class pauseButton : MonoBehaviour
     // un-Pause the game
     public void resumeGame(){
         cursorObj.GetComponent<mouseCursor>().reticleActive = true;
-        cursorObj.GetComponent<mouseCursor>().cursorStopHover();
+        cursorObj.GetComponent<mouseCursor>().updateHover(false);
 
         gamePaused = false;
         pausePanel.SetActive(false);

@@ -21,7 +21,6 @@ public class mouseCursor : MonoBehaviour
     // cursor Variables
     public bool isHovering = false;
     public bool reticleActive = true;
-    private bool currentReticleActive = true;
     [HideInInspector] public Vector2 mousePosition;
 
     public void cursorHover(){
@@ -45,8 +44,8 @@ public class mouseCursor : MonoBehaviour
     public void updateHover(bool hovering){
         if (hovering){
             cursorHover();
-        }{
-           cursorStopHover() ;
+        }else{
+            cursorStopHover();
         }
     }
 
@@ -63,12 +62,6 @@ public class mouseCursor : MonoBehaviour
             
             //set the position of cursor from the world point
             gameObject.GetComponent<RectTransform>().anchoredPosition = screenPosition;
-        }
-
-        // Check for reticle Change
-        if (currentReticleActive != reticleActive){
-            currentReticleActive = reticleActive;
-            updateHover(isHovering);
         }
     }
 }

@@ -25,7 +25,6 @@ public class CameraBehavior : MonoBehaviour
     [HideInInspector] public Vector2 mousePosition;
     private float mouseDistance = 0;
     public Vector2 mouseDirection;
-    public Transform reticle;
 
     private void Start() {
         DontDestroyOnLoad(gameObject);
@@ -42,7 +41,6 @@ public class CameraBehavior : MonoBehaviour
     private void FixedUpdate() {
         // Move the reticle
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        reticle.position = mousePosition;
 
         // Check if the Camera is following an object
         if (followObject != null){

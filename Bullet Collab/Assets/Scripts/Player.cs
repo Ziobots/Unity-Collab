@@ -2,7 +2,7 @@
 * Name : Player.cs
 * Section Description : This code handles player inputs, movement, and weapon position. It uses Unity's input detectors.
 * Update activates every frame and fixed update activates separately of that so that the physics should function the same
-* no matter the specs of the user's system.
+* no matter the specs of the user's system. 
 * -------------------------------
 * - HISTORY OF CHANGES -
 * -------------------------------

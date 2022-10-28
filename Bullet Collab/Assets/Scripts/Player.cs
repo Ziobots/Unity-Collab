@@ -21,6 +21,7 @@ public class Player : Entity
     [HideInInspector] public Vector2 mousePosition;
     [HideInInspector] public Vector2 arrowDirection = new Vector2(0,0);
     public Transform arrow;
+    public GameObject cursorObj;
 
     // Rig Variables
     public Transform playerRig;
@@ -84,8 +85,10 @@ public class Player : Entity
 
         // Bullet Fire
         if (Input.GetButtonDown("Fire1")) {
-            attackTime = Time.time;
-            fireBullets();
+            if (cursorObj == null || !cursorObj.GetComponent<mouseCursor>().isHovering){
+                attackTime = Time.time;
+                fireBullets();
+            }
         }
     }
 

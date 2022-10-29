@@ -15,10 +15,11 @@ using UnityEngine;
 public class bulletSystem : MonoBehaviour
 {   
     // Editable Variables
+    public GameObject bulletOwner;
     public float bulletSpeed = 1f;
     public float bulletSize = 0.5f;
     public int bulletDamage = 1;
-    public Entity bulletOwner;
+    public int bulletBounces = 0;
 
     // Base Variables
     public Rigidbody2D rb;
@@ -32,6 +33,7 @@ public class bulletSystem : MonoBehaviour
 
     private void Awake() {
         createTime = Time.time;
+
     }
 
     private void removeBullet(Collider2D hit) {
@@ -46,6 +48,22 @@ public class bulletSystem : MonoBehaviour
             }
 
             Destroy(gameObject);
+        }
+    }
+
+    public void bounceBullet(Collider2D otherCollider) {
+        if (otherCollider != null){
+            // get a list of contact points from collider
+            List<ContactPoint2D> contactPoints = new List<ContactPoint2D>();
+            otherCollider.GetContacts(contactPoints);
+
+            Vector2 origin = transform.position - transform.right.normalized;
+            RaycastHit2D contact = Physics2D.Raycast(origin,transform.right.normalized,2f,LayerMask.GetMask("Default"));
+
+            if (contact){
+                damageOwner = true;
+                transform.right = Vector2.Reflect(transform.right,contact.normal);
+            }
         }
     }
 
@@ -77,21 +95,34 @@ public class bulletSystem : MonoBehaviour
     }
 
     // When the Bullet overlaps an object with a Collider2D
+    //private void OnCollisionEnter2D(Collision2D otherCollider) {
     private void OnTriggerEnter2D(Collider2D otherCollider) {
+        bool entityHit = true;
+
         // Check to ignore bullet owner
         if (otherCollider != null){
-            if (bulletOwner != null){
-                Collider2D ownerCollider = bulletOwner.GetComponent<Collider2D>();
-                if (ownerCollider == otherCollider && !damageOwner){
-                    return;
-                }
-            }
-
+            // Check for collision type
             if (otherCollider.gameObject.tag == "Bullet"){
                 return;
+            }else if (otherCollider.gameObject.tag == "Level"){
+                entityHit = false;
+            }else{
+                if (bulletOwner != null && otherCollider.gameObject){
+                    if (otherCollider.gameObject == bulletOwner && !damageOwner){
+                        return;
+                    }
+                }
             }
         }
 
-        removeBullet(otherCollider);
+        // do on hit effect
+
+
+        if (bulletBounces <= 0 || entityHit){
+            removeBullet(otherCollider);
+        }else if (otherCollider != null){
+            bulletBounces -= 1;
+            bounceBullet(otherCollider);
+        }
     }
 }

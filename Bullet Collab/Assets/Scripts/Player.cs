@@ -25,6 +25,7 @@ public class Player : Entity
 
     // Rig Variables
     public Transform playerRig;
+    public float armDistance = 0;
 
     private void moveGun() {
         if (arrow != null) {
@@ -44,6 +45,9 @@ public class Player : Entity
             // Rotate Gun
             arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 10f);
             
+            // Set Arm Distance
+            armDistance = Vector2.Distance(playerRig.position,arrow.position + (arrow.right.normalized * 1f));
+
             // Gun Flip Direction
             if (arrow.transform.rotation.eulerAngles.y == 180){// this part is to fix some weird rotation rounding error
                 arrow.GetComponent<SpriteRenderer>().flipY = facingRight;
@@ -85,9 +89,15 @@ public class Player : Entity
 
         // Bullet Fire
         if (Input.GetButtonDown("Fire1")) {
+            // Check if mouse is hovering button
             if (cursorObj == null || !cursorObj.GetComponent<mouseCursor>().isHovering){
-                attackTime = Time.time;
-                fireBullets();
+                // check if player is too close to wall
+                Vector2 origin = playerRig.position;
+                RaycastHit2D contact = Physics2D.Raycast(origin,arrowDirection.normalized,armDistance * 1.1f,LayerMask.GetMask("Default"));
+                if (!contact){
+                    attackTime = Time.time;
+                    fireBullets();
+                }
             }
         }
     }

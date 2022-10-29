@@ -41,7 +41,8 @@ public class Entity : MonoBehaviour
         foreach(Transform point in launchPoints){
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
             if (newBullet != null){
-                newBullet.bulletOwner = this;
+                newBullet.bulletOwner = gameObject;
+                newBullet.bulletBounces = 5;
             }
         }
     }
@@ -74,7 +75,7 @@ public class Entity : MonoBehaviour
             health -= amount;
 
             if (rb != null){
-                rb.velocity = new Vector3(0,0,0);
+                //rb.velocity = new Vector3(0,0,0);
             }
         }
     }

@@ -42,6 +42,7 @@ public class Entity : MonoBehaviour
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
             if (newBullet != null){
                 newBullet.bulletOwner = gameObject;
+                newBullet.bulletSpeed = 5f;
                 newBullet.bulletBounces = 5;
             }
         }

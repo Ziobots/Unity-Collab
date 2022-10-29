@@ -67,7 +67,7 @@ public class bulletSystem : MonoBehaviour
 
     void FixedUpdate() {
         // move the bullet
-        rb.velocity = transform.right * bulletSpeed * Time.fixedDeltaTime * 100f;
+        rb.velocity = transform.right * Mathf.Clamp(bulletSpeed,0,25f) * Time.fixedDeltaTime * 100f;
 
         // first frame collision doesnt work so skip it
         if (firstFrame){

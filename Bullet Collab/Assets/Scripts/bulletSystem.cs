@@ -33,7 +33,6 @@ public class bulletSystem : MonoBehaviour
 
     private void Awake() {
         createTime = Time.time;
-
     }
 
     private void removeBullet(Collider2D hit) {
@@ -51,18 +50,17 @@ public class bulletSystem : MonoBehaviour
         }
     }
 
-    public void bounceBullet(Collider2D otherCollider) {
-        if (otherCollider != null){
-            // get a list of contact points from collider
-            List<ContactPoint2D> contactPoints = new List<ContactPoint2D>();
-            otherCollider.GetContacts(contactPoints);
+    public void bounceBullet(){
+        Vector2 origin = transform.position - transform.right.normalized;
+        RaycastHit2D contact = Physics2D.Raycast(origin,transform.right.normalized,2f,LayerMask.GetMask("Default"));
 
-            Vector2 origin = transform.position - transform.right.normalized;
-            RaycastHit2D contact = Physics2D.Raycast(origin,transform.right.normalized,2f,LayerMask.GetMask("Default"));
-
-            if (contact){
+        if (contact){
+            if (bulletBounces > 0){
+                bulletBounces -= 1;
                 damageOwner = true;
                 transform.right = Vector2.Reflect(transform.right,contact.normal);
+            }else{
+                removeBullet(null);
             }
         }
     }
@@ -94,8 +92,21 @@ public class bulletSystem : MonoBehaviour
         }
     }
 
+    private Collider2D stuckCollider;
+    private float stuckTime = 0;
+    // Check if bullet is inside of something it shouldnt be
+    private void OnTriggerStay2D(Collider2D otherCollider) {
+        if (otherCollider != stuckCollider){
+            stuckCollider = otherCollider;
+            stuckTime = Time.time;
+        }
+
+        if (Time.time - stuckTime > .05f){
+            removeBullet(null); 
+        }
+    }
+
     // When the Bullet overlaps an object with a Collider2D
-    //private void OnCollisionEnter2D(Collision2D otherCollider) {
     private void OnTriggerEnter2D(Collider2D otherCollider) {
         bool entityHit = true;
 
@@ -121,8 +132,7 @@ public class bulletSystem : MonoBehaviour
         if (bulletBounces <= 0 || entityHit){
             removeBullet(otherCollider);
         }else if (otherCollider != null){
-            bulletBounces -= 1;
-            bounceBullet(otherCollider);
+            bounceBullet();
         }
     }
 }

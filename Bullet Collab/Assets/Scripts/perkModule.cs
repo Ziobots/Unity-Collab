@@ -24,15 +24,24 @@ public class perkModule : MonoBehaviour
             return;
         }
 
+        // Dictionaries to keep track of perks we sorted through
         Dictionary<string, int> perkCounts = new Dictionary<string, int>();
+        Dictionary<string, bool> initialize = new Dictionary<string, bool>();
+
+        // count all perks first
+        foreach (string perkID in perkIDList){
+            // Check if key exists then create/add one
+            perkCounts[perkID] = (perkCounts.ContainsKey(perkID) ? perkCounts[perkID] : 0) + 1;
+        }
 
         // go through each perk id in the list
         foreach (string perkID in perkIDList){
             // get the perk obj
             perkData perk = getPerk(perkID);
+
             // keep track if we already setup the perk
-            bool initializePerk = !perkCounts.ContainsKey(perkID);
-            perkCounts[perkID] = (!initializePerk ? perkCounts[perkID] : 0) + 1;
+            bool initializePerk = !initialize.ContainsKey(perkID);
+            initialize[perkID] = true;
 
             if (perk != null){
                 // check for each type of perk and run code

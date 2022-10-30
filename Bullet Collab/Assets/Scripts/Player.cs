@@ -74,6 +74,7 @@ public class Player : Entity
         perkIDList = new List<string>();
         perkIDList.Add("bounceDmg");
         perkIDList.Add("remoteBullet");
+        perkIDList.Add("remoteBullet");
 
         // Entity Setup
         base.Start();

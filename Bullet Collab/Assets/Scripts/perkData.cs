@@ -12,6 +12,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Perk Base Info - do not edit, all perks inherit these fields
+// INITIALIZE bool is used if a perk has code you only want executed once
+// ex: with homing it has to calculate stuff but if it did it twice it would cause problems
+
+
 public class perkData : ScriptableObject
 {
     public string perkName;

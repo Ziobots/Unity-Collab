@@ -22,9 +22,12 @@ public class remoteBullet : perkData
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject bulletObj = objDictionary["Bullet"];
 
+            // Get the direction
             Vector2 cursorDirection = (mousePosition - (Vector2)bulletObj.transform.position).normalized;
-            float alphaSpeed = ((float)Count) * 5f;
 
+            // turn speed is based on how many of this perk you have
+            float alphaSpeed = ((float)Count) * 5f;
+            
             bulletObj.transform.right = Vector2.Lerp(bulletObj.transform.right,cursorDirection,Time.fixedDeltaTime * alphaSpeed);
         }
     }

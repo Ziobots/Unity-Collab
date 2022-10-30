@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69319654a315ef244aaf3cd5de523553, type: 3}
   m_Name: remoteBullet
   m_EditorClassIdentifier: 
-  perkName: 
+  perkName: Aiming Bullets
   perkCost: 0
-  perkDescription: 
+  perkDescription: Bullets will turn toward the cursor.
   perkRarity: 0
   stackablePerk: 1
-  addBounce: 3
-  addDamage: 1

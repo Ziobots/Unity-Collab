@@ -132,6 +132,7 @@ public class bulletSystem : MonoBehaviour
 
         // scale the bullet
         transform.localScale = Vector3.Lerp(transform.localScale,new Vector3(bulletSize,bulletSize,1),Time.fixedDeltaTime * 20f);
+        gameObject.GetComponent<TrailRenderer>().startWidth = bulletSize * 2.3f;
 
         // remove the bullet after certain amount of time
         if (Time.time - createTime >= lifeTime){

@@ -31,6 +31,9 @@ public class bounceDmg : perkData
             // Increase the Damage
             GameObject bulletObj = objDictionary["Bullet"];
             bulletObj.GetComponent<bulletSystem>().bulletDamage += (addDamage * Count);
+            bulletObj.GetComponent<bulletSystem>().bulletSize += (0.025f * Count);
+            Debug.Log("Bounce");
+            Debug.Log(bulletObj.GetComponent<bulletSystem>().bulletBounces);
         }
     }
 }

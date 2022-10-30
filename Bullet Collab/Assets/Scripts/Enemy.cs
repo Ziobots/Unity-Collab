@@ -18,7 +18,7 @@ public class Enemy : Entity
     void Update() {
         if(Time.time - attackTime >= 1f){
             attackTime = Time.time;
-            fireBullets();
+            //fireBullets();
         }
     }
 

@@ -22,7 +22,7 @@ public class bulletSystem : MonoBehaviour
     // Editable Variables
     public GameObject bulletOwner;
     public float bulletSpeed = 1f;
-    public float bulletSize = 0.5f;
+    public float bulletSize = 0.1f;
     public int bulletDamage = 1;
     public int bulletBounces = 0;
     public List<string> perkIDList;
@@ -36,15 +36,23 @@ public class bulletSystem : MonoBehaviour
     private float lifeTime = 20f;
     private bool damageOwner = false;
     private bool firstFrame = true;
+    private bool bulletSetup = false;
+
+    private Vector2 lastPosition;
 
     public void setupBullet() {
         createTime = Time.time;
+
+        transform.localScale = new Vector3(bulletSize,bulletSize,1);
                 
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
             perkCommands = dataManager.GetComponent<perkModule>();
         }
+
+        lastPosition = transform.position;
+        bulletSetup = true;
     }
 
     private void removeBullet(Collider2D hit) {
@@ -73,40 +81,57 @@ public class bulletSystem : MonoBehaviour
         }
     }
 
-    public void bounceBullet(Collider2D otherCollider){
-        // Find the surface normal of the hit object
-        Vector2 origin = transform.position - transform.right.normalized;
-        RaycastHit2D contact = Physics2D.Raycast(origin,transform.right.normalized,2f,LayerMask.GetMask("Default"));
+    public void bounceBullet(Collider2D otherCollider,Vector2 hitNormal){
+        if (bulletBounces > 0){
+            // Get the new direction of the bullet
+            bulletBounces -= 1;
+            damageOwner = true;
+            transform.right = Vector2.Reflect(transform.right,hitNormal);//contact.normal);
 
-        if (contact){
-            if (bulletBounces > 0){
-                // Get the new direction of the bullet
-                bulletBounces -= 1;
-                damageOwner = true;
-                transform.right = Vector2.Reflect(transform.right,contact.normal);
+            // Check for any bounce modifiers
+            if (perkCommands != null && gameObject != null){
+                Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+                editList.Add("Owner", bulletOwner);
+                editList.Add("Bullet", gameObject);
+                perkCommands.applyPerk(perkIDList,"Bounce",editList);
+            }
+        }else{
+            removeBullet(otherCollider);
+        }
+    }
 
-                // Check for any bounce modifiers
-                if (perkCommands != null && gameObject != null){
-                    Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
-                    editList.Add("Owner", bulletOwner);
-                    editList.Add("Bullet", gameObject);
-                    perkCommands.applyPerk(perkIDList,"Bounce",editList);
+    void moveCheck(){
+        if (lastPosition != null){
+            Vector2 direction = ((Vector2)transform.position - (Vector2)lastPosition).normalized;
+            float distance = Vector2.Distance(transform.position, lastPosition);
+            if (distance > 0){
+                float radius = transform.localScale.x * 1.5f;
+                RaycastHit2D contact = Physics2D.CircleCast(lastPosition,radius,direction,distance,LayerMask.GetMask("Default"));
+                if (contact.collider){
+                    // Move bullet to safest point
+                    transform.position = lastPosition + (direction * contact.distance);
+                    checkCollider(contact.collider,contact.normal);
                 }
-            }else{
-                removeBullet(otherCollider);
             }
         }
     }
 
     void FixedUpdate() {
-        // move the bullet
-        rb.velocity = transform.right * Mathf.Clamp(bulletSpeed,0,25f) * Time.fixedDeltaTime * 100f;
+        if (!bulletSetup){
+            return;
+        }
 
         // first frame collision doesnt work so skip it
         if (firstFrame){
             firstFrame = false;
             return;
         }
+
+        // move the bullet
+        rb.velocity = transform.right * Mathf.Clamp(bulletSpeed,0,25f) * Time.fixedDeltaTime * 100f;
+
+        // scale the bullet
+        transform.localScale = Vector3.Lerp(transform.localScale,new Vector3(bulletSize,bulletSize,1),Time.fixedDeltaTime * 20f);
 
         // remove the bullet after certain amount of time
         if (Time.time - createTime >= lifeTime){
@@ -125,30 +150,24 @@ public class bulletSystem : MonoBehaviour
         }
 
         if (perkCommands != null){
-            // Check for any bullet lifetime modifiers
+            // Check for any bullet lifetime modifiers  
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", bulletOwner);
             editList.Add("Bullet", gameObject);
             perkCommands.applyPerk(perkIDList,"Update_Bullet",editList);
         }
-    }
 
-    private Collider2D stuckCollider;
-    private float stuckTime = 0;
-    // Check if bullet is inside of something it shouldnt be
-    private void OnTriggerStay2D(Collider2D otherCollider) {
-        if (otherCollider != stuckCollider){
-            stuckCollider = otherCollider;
-            stuckTime = Time.time;
-        }
 
-        if (Time.time - stuckTime > .05f){
-            removeBullet(null); 
-        }
+        moveCheck();
+        lastPosition = transform.position;
     }
 
     // When the Bullet overlaps an object with a Collider2D
     private void OnTriggerEnter2D(Collider2D otherCollider) {
+        checkCollider(otherCollider,new Vector2(0,0));
+    }
+
+    private void checkCollider(Collider2D otherCollider,Vector2 hitNormal) {
         bool entityHit = true;
 
         // Check to ignore bullet owner
@@ -169,11 +188,10 @@ public class bulletSystem : MonoBehaviour
 
         // do on hit effect
 
-
         if (bulletBounces <= 0 || entityHit){
             removeBullet(otherCollider);
-        }else if (otherCollider != null){
-            bounceBullet(otherCollider);
+        }else if (otherCollider != null && hitNormal.magnitude > 0f){
+            bounceBullet(otherCollider,hitNormal);
         }
     }
 }

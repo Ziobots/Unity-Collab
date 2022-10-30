@@ -51,6 +51,7 @@ public class Entity : MonoBehaviour
                 newBullet.dataManager = dataManager;
                 newBullet.bulletOwner = gameObject;
                 newBullet.bulletSpeed = 5f;
+                newBullet.bulletSize = 0.1f;
                 newBullet.bulletBounces = 5;
                 newBullet.perkIDList = perkIDList;
                 newBullet.setupBullet();

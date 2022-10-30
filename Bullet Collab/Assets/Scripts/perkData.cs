@@ -21,27 +21,27 @@ public class perkData : ScriptableObject
     public float perkRarity;
     public bool stackablePerk = true;
 
-    public virtual void loadPerk(Dictionary<string, dynamic> objDictionary,int Count,bool initialize) {
+    public virtual void loadPerk(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
 
     }
 
-    public virtual void shootEvent(Dictionary<string, dynamic> objDictionary,int Count,bool initialize) {
+    public virtual void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
 
     }
 
-    public virtual void hitEvent(Dictionary<string, dynamic> objDictionary,int Count,bool initialize) {
+    public virtual void hitEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
 
     }
 
-    public virtual void bounceEvent(Dictionary<string, dynamic> objDictionary,int Count,bool initialize) {
+    public virtual void bounceEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
 
     }
 
-    public virtual void damagedEvent(Dictionary<string, dynamic> objDictionary,int Count,bool initialize) {
+    public virtual void damagedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
 
     }
 
-    public virtual void killedEvent(Dictionary<string, dynamic> objDictionary,int Count,bool initialize) {
+    public virtual void killedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
 
     }
 }

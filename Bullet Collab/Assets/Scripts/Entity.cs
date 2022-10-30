@@ -19,7 +19,10 @@ public class Entity : MonoBehaviour
     public GameObject dataManager;
     [HideInInspector] public sharedData dataInfo;
     [HideInInspector] public perkModule perkCommands;
+
+    // Local Variables
     public float health = 5;
+    [HideInInspector] public int damageAmount = 0;
 
     // UI Stuff
     public GameObject uiManager;
@@ -45,12 +48,15 @@ public class Entity : MonoBehaviour
         foreach(Transform point in launchPoints){
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
             if (newBullet != null){
+                newBullet.dataManager = dataManager;
                 newBullet.bulletOwner = gameObject;
                 newBullet.bulletSpeed = 5f;
                 newBullet.bulletBounces = 5;
+                newBullet.perkIDList = perkIDList;
+                newBullet.setupBullet();
 
                 // Check for any onFire modifiers
-                Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+                Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                 editList.Add("Owner", gameObject);
                 editList.Add("Bullet", newBullet.gameObject);
                 perkCommands.applyPerk(perkIDList,"Shoot",editList);
@@ -80,7 +86,7 @@ public class Entity : MonoBehaviour
     void FixedUpdate() {
         if (perkCommands != null){
             // Check for any entity lifetime modifiers
-            Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
             //perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
         }
@@ -92,9 +98,9 @@ public class Entity : MonoBehaviour
             health -= amount;
 
             // Check for any bounce modifiers
-            Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
-            editList.Add("Damage", amount);
+            damageAmount = amount;
             perkCommands.applyPerk(perkIDList,"Damaged",editList);
 
             // check if the entity has died

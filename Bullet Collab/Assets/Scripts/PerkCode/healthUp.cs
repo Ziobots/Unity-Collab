@@ -16,7 +16,7 @@ public class healthUp : perkData
 {
     public int healthInc = 1;
 
-    public override void loadPerk(Dictionary<string, dynamic> objDictionary,int Count,bool initialize) {
+    public override void loadPerk(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
 
     }
 }

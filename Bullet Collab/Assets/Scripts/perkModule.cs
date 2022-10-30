@@ -19,7 +19,11 @@ public class perkModule : MonoBehaviour
         return null;
     }
 
-    public void applyPerk(List<string> perkIDList,string perkType,Dictionary<string, dynamic> objDictionary){
+    public void applyPerk(List<string> perkIDList,string perkType,Dictionary<string, GameObject> objDictionary){
+        if (perkIDList == null){
+            return;
+        }
+
         Dictionary<string, int> perkCounts = new Dictionary<string, int>();
 
         // go through each perk id in the list
@@ -40,6 +44,7 @@ public class perkModule : MonoBehaviour
                         perk.hitEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                     case "Bounce":// when a bullet bounces of a surface
+                        print("BOUNCE EVENT");
                         perk.bounceEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                     case "Damaged":// when an entity receives damage

@@ -25,7 +25,7 @@ public class bulletSystem : MonoBehaviour
     public float bulletSize = 0.5f;
     public int bulletDamage = 1;
     public int bulletBounces = 0;
-    List<string> perkIDList;
+    public List<string> perkIDList;
 
     // Base Variables
     public Rigidbody2D rb;
@@ -37,7 +37,7 @@ public class bulletSystem : MonoBehaviour
     private bool damageOwner = false;
     private bool firstFrame = true;
 
-    private void Awake() {
+    public void setupBullet() {
         createTime = Time.time;
                 
         // Get data management script
@@ -54,7 +54,7 @@ public class bulletSystem : MonoBehaviour
             if (hit != null && hit.gameObject != null){
                 // Check if hit obj can take damage
                 Entity hitObj = hit.gameObject.GetComponent<Entity>();
-                Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+                Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                 editList.Add("Owner", bulletOwner);
                 editList.Add("Bullet", gameObject);
 
@@ -86,10 +86,18 @@ public class bulletSystem : MonoBehaviour
                 transform.right = Vector2.Reflect(transform.right,contact.normal);
 
                 // Check for any bounce modifiers
-                Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
-                editList.Add("Owner", bulletOwner);
-                editList.Add("Bullet", gameObject);
-                perkCommands.applyPerk(perkIDList,"Bounce",editList);
+                print("BOUNCE");
+                print(gameObject);
+                print(bulletOwner);
+                print(perkCommands);
+
+
+                if (perkCommands != null && gameObject != null){
+                    Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+                    editList.Add("Owner", bulletOwner);
+                    editList.Add("Bullet", gameObject);
+                    perkCommands.applyPerk(perkIDList,"Bounce",editList);
+                }
             }else{
                 removeBullet(otherCollider);
             }
@@ -124,7 +132,7 @@ public class bulletSystem : MonoBehaviour
 
         if (perkCommands != null){
             // Check for any bullet lifetime modifiers
-            Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", bulletOwner);
             editList.Add("Bullet", gameObject);
             //perkCommands.applyPerk(perkIDList,"Update_Bullet",editList);

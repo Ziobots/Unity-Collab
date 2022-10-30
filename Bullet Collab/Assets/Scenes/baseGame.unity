@@ -19042,6 +19042,7 @@ MonoBehaviour:
   dataInfo: {fileID: 0}
   perkCommands: {fileID: 0}
   health: 5
+  damageAmount: 0
   uiManager: {fileID: 213225831}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
@@ -19480,6 +19481,10 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 213225831}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: walkSpeed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: dataManager
       value: 

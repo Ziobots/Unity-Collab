@@ -27,6 +27,10 @@ public class Player : Entity
     public Transform playerRig;
     public float armDistance = 0;
 
+    // Local Variables
+    public float hitTime = 0f;
+    public float iFrames = 0.5f;
+
     private void moveGun() {
         if (arrow != null) {
             arrowDirection = (mousePosition - (Vector2)arrow.position).normalized;
@@ -58,12 +62,20 @@ public class Player : Entity
     }
 
     public override void takeDamage(int amount){
-        // Run Damage Visual
-        base.takeDamage(amount);
+        // Player can only take damage every so often
+        if (Time.time - hitTime >= iFrames){
+            hitTime = Time.time;
 
-        // Update Data
-        dataInfo.currenthealth -= amount;
-        uiUpdate.updateHealth(); 
+            // Players should only take 1 damage when hit
+            amount = 1;
+
+            // Run Damage Visual
+            base.takeDamage(amount);
+
+            // Update Data
+            dataInfo.currenthealth -= amount;
+            uiUpdate.updateHealth(); 
+        }
     }
 
     // Carry Player between scenes
@@ -73,7 +85,6 @@ public class Player : Entity
 
         perkIDList = new List<string>();
         perkIDList.Add("bounceDmg");
-        perkIDList.Add("remoteBullet");
         perkIDList.Add("remoteBullet");
 
         // Entity Setup

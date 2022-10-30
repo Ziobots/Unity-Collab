@@ -17,7 +17,6 @@ public class remoteBullet : perkData
 {
     public override void updateBullet(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
         if (objDictionary.ContainsKey("Bullet") && initialize){
-            Debug.Log("homing");
             // Get Mouse Position
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject bulletObj = objDictionary["Bullet"];

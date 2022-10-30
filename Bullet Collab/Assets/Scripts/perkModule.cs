@@ -37,6 +37,14 @@ public class perkModule : MonoBehaviour
             if (perk != null){
                 // check for each type of perk and run code
                 switch(perkType){
+                    // Unique Cases
+                    case "Update_Bullet":
+                        perk.updateBullet(objDictionary,perkCounts[perkID],initializePerk);
+                        break;
+                    case "Update_Entity":
+                        perk.updateEntity(objDictionary,perkCounts[perkID],initializePerk);
+                        break;
+                    // Normal Cases
                     case "Shoot":// when an entity fires a bullet
                         perk.shootEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
@@ -44,7 +52,6 @@ public class perkModule : MonoBehaviour
                         perk.hitEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                     case "Bounce":// when a bullet bounces of a surface
-                        print("BOUNCE EVENT");
                         perk.bounceEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                     case "Damaged":// when an entity receives damage

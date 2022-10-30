@@ -86,12 +86,6 @@ public class bulletSystem : MonoBehaviour
                 transform.right = Vector2.Reflect(transform.right,contact.normal);
 
                 // Check for any bounce modifiers
-                print("BOUNCE");
-                print(gameObject);
-                print(bulletOwner);
-                print(perkCommands);
-
-
                 if (perkCommands != null && gameObject != null){
                     Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                     editList.Add("Owner", bulletOwner);
@@ -135,7 +129,7 @@ public class bulletSystem : MonoBehaviour
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", bulletOwner);
             editList.Add("Bullet", gameObject);
-            //perkCommands.applyPerk(perkIDList,"Update_Bullet",editList);
+            perkCommands.applyPerk(perkIDList,"Update_Bullet",editList);
         }
     }
 

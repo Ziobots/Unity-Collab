@@ -5,7 +5,7 @@
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 10/23/22  0.10                 DS              Made the thing
+* 10/30/22  0.10                 DS              Made the thing
 *******************************************************************************/
 
 using System.Collections;
@@ -20,6 +20,7 @@ public class bounceDmg : perkData
 
     public override void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
         if (objDictionary.ContainsKey("Bullet")){
+            // Add the Bounces
             GameObject bulletObj = objDictionary["Bullet"];
             bulletObj.GetComponent<bulletSystem>().bulletBounces += addBounce;
         }
@@ -27,6 +28,7 @@ public class bounceDmg : perkData
 
     public override void bounceEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
         if (objDictionary.ContainsKey("Bullet") && initialize){
+            // Increase the Damage
             GameObject bulletObj = objDictionary["Bullet"];
             bulletObj.GetComponent<bulletSystem>().bulletDamage += (addDamage * Count);
         }

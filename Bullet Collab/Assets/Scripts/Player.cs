@@ -71,6 +71,10 @@ public class Player : Entity
         // Keep Player between Scenes
         DontDestroyOnLoad(gameObject);
 
+        perkIDList = new List<string>();
+        perkIDList.Add("bounceDmg");
+        perkIDList.Add("remoteBullet");
+
         // Entity Setup
         base.Start();
     }

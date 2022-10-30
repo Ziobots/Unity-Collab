@@ -88,7 +88,7 @@ public class Entity : MonoBehaviour
             // Check for any entity lifetime modifiers
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
-            //perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
+            perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
         }
     }
 

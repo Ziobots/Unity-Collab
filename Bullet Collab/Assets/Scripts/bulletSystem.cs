@@ -37,7 +37,7 @@ public class bulletSystem : MonoBehaviour
     private bool damageOwner = false;
     private bool firstFrame = true;
 
-    private void Start() {
+    private void Awake() {
         createTime = Time.time;
                 
         // Get data management script
@@ -64,7 +64,9 @@ public class bulletSystem : MonoBehaviour
                 }
 
                 // Apply an on hit modifiers
-                perkCommands.applyPerk(perkIDList,"Hit",editList);
+                if (perkCommands != null){
+                    perkCommands.applyPerk(perkIDList,"Hit",editList);
+                }
             }
 
             Destroy(gameObject);
@@ -120,11 +122,13 @@ public class bulletSystem : MonoBehaviour
             }
         }
 
-        // Check for any bullet lifetime modifiers
-        Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
-        editList.Add("Owner", bulletOwner);
-        editList.Add("Bullet", gameObject);
-        perkCommands.applyPerk(perkIDList,"Update_Bullet",editList);
+        if (perkCommands != null){
+            // Check for any bullet lifetime modifiers
+            Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+            editList.Add("Owner", bulletOwner);
+            editList.Add("Bullet", gameObject);
+            //perkCommands.applyPerk(perkIDList,"Update_Bullet",editList);
+        }
     }
 
     private Collider2D stuckCollider;

@@ -17343,6 +17343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1356760224}
   - component: {fileID: 1356760223}
+  - component: {fileID: 1356760225}
   m_Layer: 0
   m_Name: dataManager
   m_TagString: Untagged
@@ -17389,6 +17390,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1356760225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356760222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1dd4f18063ff5448e48b0ddebf7de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1866048461
 GameObject:
   m_ObjectHideFlags: 0
@@ -19027,6 +19040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataManager: {fileID: 1356760222}
   dataInfo: {fileID: 0}
+  perkCommands: {fileID: 0}
   health: 5
   uiManager: {fileID: 213225831}
   uiUpdate: {fileID: 0}
@@ -19039,6 +19053,7 @@ MonoBehaviour:
   launchPoints:
   - {fileID: 369944522}
   bulletFolder: {fileID: 700863669}
+  perkIDList: []
 --- !u!60 &1982509092
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -19485,5 +19500,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4272842455004652303, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}

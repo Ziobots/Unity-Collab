@@ -78,10 +78,12 @@ public class Entity : MonoBehaviour
 
     // Fixed Update is called every physics step
     void FixedUpdate() {
-        // Check for any bullet lifetime modifiers
-        Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
-        editList.Add("Owner", gameObject);
-        perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
+        if (perkCommands != null){
+            // Check for any entity lifetime modifiers
+            Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+            editList.Add("Owner", gameObject);
+            //perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
+        }
     }
 
     // bullets will call this when they hit

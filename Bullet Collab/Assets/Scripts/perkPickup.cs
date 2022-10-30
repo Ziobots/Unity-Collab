@@ -17,7 +17,7 @@ public class perkPickup : MonoBehaviour
 
     public void onPickup(GameObject player) {
         if (perk != null) {
-            perk.loadPerk(player,1);
+            //perk.loadPerk(player,1);
         }
     }
 }

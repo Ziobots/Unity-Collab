@@ -18,6 +18,7 @@ public class Entity : MonoBehaviour
     // Base Data Stuff
     public GameObject dataManager;
     [HideInInspector] public sharedData dataInfo;
+    [HideInInspector] public perkModule perkCommands;
     public float health = 5;
 
     // UI Stuff
@@ -36,6 +37,9 @@ public class Entity : MonoBehaviour
     public List<Transform> launchPoints = new List<Transform>();
     public Transform bulletFolder;
 
+    // Upgrade Variables
+    public List<string> perkIDList;
+
     // Entity will fire Bullets
     public virtual void fireBullets(){
         foreach(Transform point in launchPoints){
@@ -44,6 +48,12 @@ public class Entity : MonoBehaviour
                 newBullet.bulletOwner = gameObject;
                 newBullet.bulletSpeed = 5f;
                 newBullet.bulletBounces = 5;
+
+                // Check for any onFire modifiers
+                Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+                editList.Add("Owner", gameObject);
+                editList.Add("Bullet", newBullet.gameObject);
+                perkCommands.applyPerk(perkIDList,"Shoot",editList);
             }
         }
     }
@@ -52,6 +62,7 @@ public class Entity : MonoBehaviour
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
+            perkCommands = dataManager.GetComponent<perkModule>();
         }
 
         // Get UI management script
@@ -67,7 +78,10 @@ public class Entity : MonoBehaviour
 
     // Fixed Update is called every physics step
     void FixedUpdate() {
-
+        // Check for any bullet lifetime modifiers
+        Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+        editList.Add("Owner", gameObject);
+        perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
     }
 
     // bullets will call this when they hit
@@ -75,8 +89,15 @@ public class Entity : MonoBehaviour
         if (amount > 0){
             health -= amount;
 
-            if (rb != null){
-                //rb.velocity = new Vector3(0,0,0);
+            // Check for any bounce modifiers
+            Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+            editList.Add("Owner", gameObject);
+            editList.Add("Damage", amount);
+            perkCommands.applyPerk(perkIDList,"Damaged",editList);
+
+            // check if the entity has died
+            if (health <= 0){
+                perkCommands.applyPerk(perkIDList,"Killed",editList);
             }
         }
     }

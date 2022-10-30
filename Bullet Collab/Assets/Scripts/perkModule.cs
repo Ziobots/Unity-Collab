@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class perkModule : MonoBehaviour
 {
-    void applyPerk(List<string> perkIDList,string perkType,Dictionary<string, int> objDictionary){
+    
+
+    public void applyPerk(List<string> perkIDList,string perkType,Dictionary<string, dynamic> objDictionary){
 
 
         

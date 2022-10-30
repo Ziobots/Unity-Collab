@@ -14,12 +14,18 @@ using UnityEngine;
 
 public class bulletSystem : MonoBehaviour
 {   
+    // Base Data Stuff
+    public GameObject dataManager;
+    [HideInInspector] public sharedData dataInfo;
+    [HideInInspector] public perkModule perkCommands;
+
     // Editable Variables
     public GameObject bulletOwner;
     public float bulletSpeed = 1f;
     public float bulletSize = 0.5f;
     public int bulletDamage = 1;
     public int bulletBounces = 0;
+    List<string> perkIDList;
 
     // Base Variables
     public Rigidbody2D rb;
@@ -31,8 +37,14 @@ public class bulletSystem : MonoBehaviour
     private bool damageOwner = false;
     private bool firstFrame = true;
 
-    private void Awake() {
+    private void Start() {
         createTime = Time.time;
+                
+        // Get data management script
+        if (dataManager != null){
+            dataInfo = dataManager.GetComponent<sharedData>();
+            perkCommands = dataManager.GetComponent<perkModule>();
+        }
     }
 
     private void removeBullet(Collider2D hit) {
@@ -40,27 +52,44 @@ public class bulletSystem : MonoBehaviour
             myCollider.enabled = false;
 
             if (hit != null && hit.gameObject != null){
+                // Check if hit obj can take damage
                 Entity hitObj = hit.gameObject.GetComponent<Entity>();
+                Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+                editList.Add("Owner", bulletOwner);
+                editList.Add("Bullet", gameObject);
+
                 if (hitObj != null){
+                    editList.Add("Target", hit.gameObject);
                     hitObj.takeDamage((int)bulletDamage);
                 }
+
+                // Apply an on hit modifiers
+                perkCommands.applyPerk(perkIDList,"Hit",editList);
             }
 
             Destroy(gameObject);
         }
     }
 
-    public void bounceBullet(){
+    public void bounceBullet(Collider2D otherCollider){
+        // Find the surface normal of the hit object
         Vector2 origin = transform.position - transform.right.normalized;
         RaycastHit2D contact = Physics2D.Raycast(origin,transform.right.normalized,2f,LayerMask.GetMask("Default"));
 
         if (contact){
             if (bulletBounces > 0){
+                // Get the new direction of the bullet
                 bulletBounces -= 1;
                 damageOwner = true;
                 transform.right = Vector2.Reflect(transform.right,contact.normal);
+
+                // Check for any bounce modifiers
+                Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+                editList.Add("Owner", bulletOwner);
+                editList.Add("Bullet", gameObject);
+                perkCommands.applyPerk(perkIDList,"Bounce",editList);
             }else{
-                removeBullet(null);
+                removeBullet(otherCollider);
             }
         }
     }
@@ -90,6 +119,12 @@ public class bulletSystem : MonoBehaviour
                 }
             }
         }
+
+        // Check for any bullet lifetime modifiers
+        Dictionary<string, dynamic> editList = new Dictionary<string, dynamic>();
+        editList.Add("Owner", bulletOwner);
+        editList.Add("Bullet", gameObject);
+        perkCommands.applyPerk(perkIDList,"Update_Bullet",editList);
     }
 
     private Collider2D stuckCollider;
@@ -132,7 +167,7 @@ public class bulletSystem : MonoBehaviour
         if (bulletBounces <= 0 || entityHit){
             removeBullet(otherCollider);
         }else if (otherCollider != null){
-            bounceBullet();
+            bounceBullet(otherCollider);
         }
     }
 }

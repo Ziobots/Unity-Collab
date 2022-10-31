@@ -54,6 +54,7 @@ public class Entity : MonoBehaviour
                 newBullet.bulletSize = 0.11f;
                 newBullet.bulletBounces = 5;
                 newBullet.perkIDList = perkIDList;
+                newBullet.bulletFolder = bulletFolder;
                 newBullet.setupBullet();
 
                 // Check for any onFire modifiers

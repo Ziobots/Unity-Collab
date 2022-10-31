@@ -148,6 +148,8 @@ MonoBehaviour:
   perkIDList: []
   rb: {fileID: 1245196261793414158}
   myCollider: {fileID: 1245196261793414159}
+  hitPrefab: {fileID: -7383498891874203177, guid: 46354f8b06ce8e440852794cae6383ae, type: 3}
+  bulletFolder: {fileID: 0}
 --- !u!96 &6166754280176791178
 TrailRenderer:
   serializedVersion: 2

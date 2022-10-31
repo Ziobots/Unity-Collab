@@ -30,6 +30,8 @@ public class bulletSystem : MonoBehaviour
     // Base Variables
     public Rigidbody2D rb;
     public Collider2D myCollider;
+    public visualFx hitPrefab;
+    public Transform bulletFolder;
 
     // Bullet Local Variabls
     private float createTime;
@@ -55,6 +57,19 @@ public class bulletSystem : MonoBehaviour
         bulletSetup = true;
     }
 
+    public void hitEffect(){
+        visualFx newHitVFX = Instantiate(hitPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),transform.rotation,bulletFolder);
+        if (newHitVFX != null){
+            newHitVFX.lifeTime = 0f;
+            newHitVFX.killAnimation = true;
+            newHitVFX.animSpeed = 2f;
+
+            float hitScale = Mathf.Clamp(transform.localScale.x * 10f,2f,1000f);
+            newHitVFX.transform.localScale = new Vector3(hitScale,hitScale,1);
+            newHitVFX.setupVFX();
+        }
+    }
+
     private void removeBullet(Collider2D hit) {
         if (myCollider.enabled){
             myCollider.enabled = false;
@@ -77,6 +92,7 @@ public class bulletSystem : MonoBehaviour
                 }
             }
 
+            hitEffect();
             Destroy(gameObject);
         }
     }
@@ -87,6 +103,7 @@ public class bulletSystem : MonoBehaviour
             bulletBounces -= 1;
             damageOwner = true;
             transform.right = Vector2.Reflect(transform.right,hitNormal);//contact.normal);
+            hitEffect();
 
             // Check for any bounce modifiers
             if (perkCommands != null && gameObject != null){

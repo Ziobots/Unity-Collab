@@ -38,7 +38,7 @@ public class pauseButton : MonoBehaviour
 
         gamePaused = true;
         pausePanel.SetActive(true);
-        Time.timeScale = 0f;
+        Time.timeScale = 0.1f;
     }
 
     // un-Pause the game

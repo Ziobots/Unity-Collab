@@ -120,13 +120,14 @@ public class bulletSystem : MonoBehaviour
     void moveCheck(){
         if (lastPosition != null){
             Vector2 direction = ((Vector2)transform.position - (Vector2)lastPosition).normalized;
-            float distance = Vector2.Distance(transform.position, lastPosition);
+            Vector2 origin = lastPosition;
+            float distance = Vector2.Distance(transform.position, origin);
             if (distance > 0){
-                float radius = transform.localScale.x * 1.5f;
-                RaycastHit2D contact = Physics2D.CircleCast(lastPosition,radius,direction,distance,LayerMask.GetMask("Default"));
+                float radius = transform.localScale.x * 1.45f;
+                RaycastHit2D contact = Physics2D.CircleCast(origin,radius,direction,distance,LayerMask.GetMask("Default"),0f);
                 if (contact.collider){
                     // Move bullet to safest point
-                    transform.position = lastPosition + (direction * contact.distance);
+                    transform.position = origin + (direction * (contact.distance));
                     checkCollider(contact.collider,contact.normal);
                 }
             }
@@ -195,6 +196,11 @@ public class bulletSystem : MonoBehaviour
                 return;
             }else if (otherCollider.gameObject.tag == "Level"){
                 entityHit = false;
+
+                // Skip collsion vs raycast
+                if (hitNormal.magnitude <= 0f){
+                    return;
+                }
             }else{
                 if (bulletOwner != null && otherCollider.gameObject){
                     if (otherCollider.gameObject == bulletOwner && !damageOwner){
@@ -204,8 +210,7 @@ public class bulletSystem : MonoBehaviour
             }
         }
 
-        // do on hit effect
-
+        // check for bounces or hit entity
         if (bulletBounces <= 0 || entityHit){
             removeBullet(otherCollider);
         }else if (otherCollider != null && hitNormal.magnitude > 0f){

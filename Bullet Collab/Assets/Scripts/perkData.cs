@@ -10,6 +10,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Perk Base Info - do not edit, all perks inherit these fields
 // INITIALIZE bool is used if a perk has code you only want executed once
@@ -18,6 +19,7 @@ using UnityEngine;
 
 public class perkData : ScriptableObject
 {
+    public Sprite perkIcon;
     public string perkName;
     public int perkCost;
     [TextArea]

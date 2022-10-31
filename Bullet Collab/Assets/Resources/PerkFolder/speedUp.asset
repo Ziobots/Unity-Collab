@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5be4e4845def541bddbf6e4d7e8d78, type: 3}
   m_Name: speedUp
   m_EditorClassIdentifier: 
+  perkIcon: {fileID: 21300000, guid: 767edfb1f6103134e8563296fde18b0d, type: 3}
   perkName: Speed Increase
   perkCost: 0
   perkDescription: 

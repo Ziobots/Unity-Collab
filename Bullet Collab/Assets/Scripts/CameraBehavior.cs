@@ -20,6 +20,7 @@ public class CameraBehavior : MonoBehaviour
     public float cameraZoom = 5;
     public float extraZoom = 0;
     public Vector2 cameraPosition = new Vector2(0,0);
+    public GameObject cursorObj;
 
     // Mouse Variables
     [HideInInspector] public Vector2 mousePosition;
@@ -41,6 +42,9 @@ public class CameraBehavior : MonoBehaviour
     private void FixedUpdate() {
         // Move the reticle
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (cursorObj != null){
+            mousePosition = Camera.main.ScreenToWorldPoint(cursorObj.GetComponent<RectTransform>().position);
+        }
 
         // Check if the Camera is following an object
         if (followObject != null){

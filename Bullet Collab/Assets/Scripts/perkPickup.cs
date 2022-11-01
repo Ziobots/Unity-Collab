@@ -64,6 +64,9 @@ public class perkPickup : MonoBehaviour
         setupPickup();
 
         if (perkCommands != null && dataInfo != null){
+            // Disabled Collider
+            gameObject.GetComponent<Collider2D>().enabled = false;
+
             // add perk to ID list
             dataInfo.perkIDList.Add(perkID);
 

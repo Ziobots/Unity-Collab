@@ -21,6 +21,12 @@ public class mouseCursor : MonoBehaviour
     // cursor Variables
     public bool isHovering = false;
     public bool reticleActive = true;
+    public bool smoothMovement = false;
+    public bool overwriteMovement = false;
+
+    public float cursorRotation = 0;
+
+    public Vector2 movementPosition = new Vector2();
     [HideInInspector] public Vector2 mousePosition;
 
     public void cursorHover(){
@@ -54,6 +60,11 @@ public class mouseCursor : MonoBehaviour
         // Check for mouse cursor
         if (gameObject != null){
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (overwriteMovement){
+                mousePosition = movementPosition;
+            }else{
+                cursorRotation = 0;
+            }
 
             Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(mousePosition);
             Vector2 screenPosition = new Vector2(
@@ -61,7 +72,24 @@ public class mouseCursor : MonoBehaviour
             ((ViewportPosition.y*screenObj.sizeDelta.y)-(screenObj.sizeDelta.y*0.5f)));
             
             //set the position of cursor from the world point
-            gameObject.GetComponent<RectTransform>().anchoredPosition = screenPosition;
+            RectTransform cursorRect = gameObject.GetComponent<RectTransform>();
+            if (cursorRect){
+                Vector2 currentPosition = cursorRect.anchoredPosition;
+                float cursorDistance = Vector2.Distance(currentPosition,screenPosition);
+                float alpha = Mathf.Clamp(Time.fixedDeltaTime * 10f * (cursorDistance/15f),0,1);
+
+                // end smooth mouse
+                if (!smoothMovement || cursorDistance <= 5f){
+                    smoothMovement = false;
+                    alpha = 1;
+                }
+
+                print("move cursor");
+
+                Quaternion setRotationEuler = Quaternion.Euler(0, 0, cursorRotation);
+                cursorRect.rotation = Quaternion.Lerp(cursorRect.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
+                cursorRect.anchoredPosition = screenPosition;//Vector2.Lerp(currentPosition,screenPosition,alpha);
+            }
         }
     }
 }

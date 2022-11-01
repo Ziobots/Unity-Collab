@@ -44,7 +44,7 @@ public class Entity : MonoBehaviour
     public List<string> perkIDList;
 
     // Entity will fire Bullets
-    public virtual void fireBullets(){
+    public virtual void fireBullets(List<string> setIDList){
         foreach(Transform point in launchPoints){
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
             if (newBullet != null){
@@ -53,7 +53,7 @@ public class Entity : MonoBehaviour
                 newBullet.bulletSpeed = 5f;
                 newBullet.bulletSize = 0.11f;
                 newBullet.bulletBounces = 5;
-                newBullet.perkIDList = perkIDList;
+                newBullet.perkIDList = setIDList;
                 newBullet.bulletFolder = bulletFolder;
                 newBullet.setupBullet();
 
@@ -61,7 +61,7 @@ public class Entity : MonoBehaviour
                 Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                 editList.Add("Owner", gameObject);
                 editList.Add("Bullet", newBullet.gameObject);
-                perkCommands.applyPerk(perkIDList,"Shoot",editList);
+                perkCommands.applyPerk(setIDList,"Shoot",editList);
             }
         }
     }

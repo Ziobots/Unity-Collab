@@ -57,7 +57,7 @@ public class bulletSystem : MonoBehaviour
         bulletSetup = true;
     }
 
-    public void hitEffect(){
+    private void hitEffect(){
         visualFx newHitVFX = Instantiate(hitPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),transform.rotation,bulletFolder);
         if (newHitVFX != null){
             newHitVFX.lifeTime = 0f;
@@ -193,6 +193,8 @@ public class bulletSystem : MonoBehaviour
         if (otherCollider != null){
             // Check for collision type
             if (otherCollider.gameObject.tag == "Bullet"){
+                return;
+            }else if (otherCollider.gameObject.tag == "Interactable"){
                 return;
             }else if (otherCollider.gameObject.tag == "Level"){
                 entityHit = false;

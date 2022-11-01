@@ -78,17 +78,25 @@ public class Player : Entity
         }
     }
 
+    public override void fireBullets(List<string> setIDList){
+        if (dataInfo != null){
+            setIDList = dataInfo.perkIDList;
+        }
+        
+        base.fireBullets(setIDList);
+    }
+
     // Carry Player between scenes
     public override void Start() {
+        // Entity Setup
+        base.Start();
+
         // Keep Player between Scenes
         DontDestroyOnLoad(gameObject);
 
         perkIDList = dataInfo.perkIDList;
         perkIDList.Add("bounceDmg");
-        perkIDList.Add("remoteBullet");
-
-        // Entity Setup
-        base.Start();
+        //perkIDList.Add("remoteBullet");
     }
 
     // Update is called once per frame
@@ -112,7 +120,7 @@ public class Player : Entity
                 RaycastHit2D contact = Physics2D.Raycast(origin,arrowDirection.normalized,armDistance * 1.1f,LayerMask.GetMask("Default"));
                 if (!contact){
                     attackTime = Time.time;
-                    fireBullets();
+                    fireBullets(perkIDList);
                 }
             }
         }

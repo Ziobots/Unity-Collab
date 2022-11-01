@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4819104967065076147}
   - component: {fileID: 8491705745714727260}
   - component: {fileID: 4282372811394036773}
-  - component: {fileID: 4272842455004652303}
   m_Layer: 0
   m_Name: PlayerObj
   m_TagString: Player
@@ -98,7 +97,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataManager: {fileID: 0}
   dataInfo: {fileID: 0}
+  perkCommands: {fileID: 0}
   health: 5
+  damageAmount: 0
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
@@ -110,24 +111,15 @@ MonoBehaviour:
   launchPoints:
   - {fileID: 5449737378806835617}
   bulletFolder: {fileID: 0}
+  perkIDList: []
   mousePosition: {x: 0, y: 0}
   arrowDirection: {x: 0, y: 0}
   arrow: {fileID: 6753354125289417811}
+  cursorObj: {fileID: 0}
   playerRig: {fileID: 5493421289513961392}
---- !u!114 &4272842455004652303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104915333028050416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e1dd4f18063ff5448e48b0ddebf7de1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  perk: {fileID: 0}
-  perkList: []
+  armDistance: 0
+  hitTime: 0
+  iFrames: 0.5
 --- !u!1 &2225870785090764756
 GameObject:
   m_ObjectHideFlags: 0

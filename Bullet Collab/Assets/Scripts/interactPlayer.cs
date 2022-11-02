@@ -22,6 +22,9 @@ public class interactPlayer : MonoBehaviour
     // Cursor Variables
     public GameObject cursorObj;
 
+    // Popup UI
+    public GameObject popupUI;
+
     // Update is called once per frame
     void Update() {
         if (Time.timeScale <= 0){
@@ -55,38 +58,28 @@ public class interactPlayer : MonoBehaviour
     }
 
     private void applyNearbyVFX(Collider2D newObj){
-        //bool moveCursor = false;
+        bool showPopup = false;
         if (currentObj != null && newObj != currentObj){
-            //moveCursor = false;
             if (currentObj.gameObject.GetComponent<perkPickup>()){
                 currentObj.gameObject.GetComponent<perkPickup>().playerNearby = false;
             }
         }
 
         if (newObj != null){
-            //moveCursor = true;
+            showPopup = true;
             if (newObj.gameObject.GetComponent<perkPickup>()){
                 newObj.gameObject.GetComponent<perkPickup>().playerNearby = true;
             }
         }
 
-        /*
-        if (cursorObj != null){
-            mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
-            if (moveCursor){
-                cursorData.movementPosition = (Vector2)newObj.transform.position + new Vector2(0f,-1f + (Mathf.Sin(Time.time * 10) * 0.25f));
-                cursorData.smoothMovement = true;
-                cursorData.cursorRotation = 0;
-                cursorData.smoothMovement = true;
-                cursorData.overwriteMovement = true;
-                cursorData.updateHover(true);
+        if (popupUI != null){
+            infoPopup popupData = popupUI.GetComponent<infoPopup>();
+            if (showPopup){
+
             }else{
-                cursorData.smoothMovement = true;
-                cursorData.overwriteMovement = false;
-                cursorData.updateHover(false);
+
             }
         }
-        */
     }
 
     public Collider2D findObject(){

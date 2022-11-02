@@ -32,7 +32,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7924832519742925681}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -729,8 +729,8 @@ RectTransform:
   - {fileID: 7924832518854042889}
   - {fileID: 7924832519508211101}
   - {fileID: 7924832520000705510}
-  - {fileID: 4821340908508482248}
   - {fileID: 7924832519206309155}
+  - {fileID: 4821340908508482248}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1198,7 +1198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996868689553872446, guid: e2ad71d23ed78974892225cd9af6aecd, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6996868689553872446, guid: e2ad71d23ed78974892225cd9af6aecd, type: 3}
       propertyPath: m_AnchorMax.x

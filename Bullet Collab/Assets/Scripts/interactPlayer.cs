@@ -88,7 +88,7 @@ public class interactPlayer : MonoBehaviour
                     perkData perk = perkMod.getPerk(isPerkObj.perkID);
                     // get the perk data
                     if (perk != null){
-                        showData.Add("Title", perk.name);
+                        showData.Add("Title", perk.perkName);
                         showData.Add("Description", perk.perkDescription);
                         showData.Add("Cost", "" + isPerkObj.cost);
                         showData.Add("Context", "Pickup");

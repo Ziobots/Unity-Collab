@@ -22,11 +22,14 @@ public class pauseButton : MonoBehaviour
 {
     // Pause Menu Object
     public GameObject pausePanel;
+    public GameObject gamePanel;
     public RectTransform screenObj;
+    public GameObject popupUI;
 
     // Pause Variables
     private bool gamePaused = false;
     public GameObject cursorObj;
+    public GameObject playerObj;
 
     public GameObject uiManager;
     [HideInInspector] public UIManager uiUpdate;
@@ -42,9 +45,24 @@ public class pauseButton : MonoBehaviour
     // Pause Menu Functions
     public void pauseGame(){
         gamePaused = true;
-
         pausePanel.SetActive(true);
+
+        // hide the main game ui
+        if (gamePanel != null){
+            gamePanel.GetComponent<CanvasGroup>().alpha = 0f;
+        }
+
         Time.timeScale = 0f;
+
+        // remove info popup for interacting
+        if (popupUI != null){
+            popupUI.GetComponent<infoPopup>().hidePopup(true);
+        }
+
+        if (playerObj != null){
+            playerObj.GetComponent<interactPlayer>().currentObj = null;
+        }
+
 
         // Update Mouse
         mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
@@ -63,6 +81,10 @@ public class pauseButton : MonoBehaviour
 
         gamePaused = false;
         pausePanel.SetActive(false);
+        if (gamePanel != null){
+            gamePanel.GetComponent<CanvasGroup>().alpha = 1f;
+        }
+
         Time.timeScale = 1f;
     }
 

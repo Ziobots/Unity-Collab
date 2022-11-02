@@ -71,10 +71,10 @@ public class perkPickup : MonoBehaviour
             gameObject.GetComponent<Collider2D>().enabled = false;
 
             // add perk to ID list
-            perkModule perkMod = gameObject.GetComponent<perkModule>();
-            perkData perk = perkMod.getPerk(perkID);
+            perkData perk = perkCommands.getPerk(perkID);
             if (perk != null){
-                for (int i = 1; i < count; i++){
+                for (int i = 1; i <= count; i++){
+                    print("added perk " + perkID);
                     dataInfo.perkIDList.Add(perkID);
                 }
             }

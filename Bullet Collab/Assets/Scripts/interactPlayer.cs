@@ -118,6 +118,14 @@ public class interactPlayer : MonoBehaviour
             }
         }
 
+        // to prevent spam from objects getting in range and out of range too quickly
+        if (closestObj == null && currentObj != null && currentObj.gameObject != null){
+            float myDistance = Vector2.Distance(currentObj.gameObject.transform.position,transform.position);
+            if (myDistance <= detectRadius + 2f){
+                closestObj = currentObj;
+            }
+        }
+
         // return the closest interactable object
         return closestObj;
     }

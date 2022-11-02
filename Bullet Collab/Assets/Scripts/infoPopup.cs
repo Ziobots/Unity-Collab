@@ -61,7 +61,7 @@ public class infoPopup : MonoBehaviour
 
         if (showData.ContainsKey("Context")){
             showContext = true;
-            if (showData.ContainsKey("Cost")){
+            if (showData.ContainsKey("Cost") && (int.Parse(showData["Cost"]) > 0)){
                 showCost = true;
                 showData["Context"] = "Buy " + showData["Cost"];
             }
@@ -69,9 +69,9 @@ public class infoPopup : MonoBehaviour
             showData.Add("Context","Interact");
         }
 
-        transform.Find("Info").gameObject.transform.Find("perkName").gameObject.GetComponent<TextMesh>().text = showData["Title"];
-        transform.Find("Info").gameObject.transform.Find("perkDesc").gameObject.GetComponent<TextMesh>().text = showData["Description"];
-        transform.Find("Purchase").gameObject.transform.Find("context").gameObject.GetComponent<TextMesh>().text = showData["Context"].ToUpper();
+        transform.Find("Info").gameObject.transform.Find("perkName").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = showData["Title"];
+        transform.Find("Info").gameObject.transform.Find("perkDesc").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = showData["Description"];
+        transform.Find("Purchase").gameObject.transform.Find("context").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = showData["Context"].ToUpper();
 
         showUI.Add("Box", showBox);
         showUI.Add("Context", showContext);
@@ -89,7 +89,7 @@ public class infoPopup : MonoBehaviour
 
     private IEnumerator fadeUI(bool visible,float duration){
         float progress = 0f;
-        float endVisible = visible ? 1f : 0f;
+        float endVisible = visible ? 1f : 0.5f;
 
         // get initial values for the lerp
         float startInfo = transform.Find("Info").gameObject.GetComponent<CanvasGroup>().alpha;
@@ -106,6 +106,7 @@ public class infoPopup : MonoBehaviour
 
             transform.Find("Info").gameObject.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(startInfo,endVisible,alpha);
             transform.Find("Purchase").gameObject.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(startPurchase,endVisible,alpha);
+            transform.gameObject.GetComponent<CanvasGroup>().alpha = endVisible;
             gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,startHeight + yOffset,0);
 
             yield return null;
@@ -145,10 +146,13 @@ public class infoPopup : MonoBehaviour
 
             if (!instantHide){
                 StartCoroutine(fadeUI(false,0.3f));
+                print("hid");
             }
 
-            transform.Find("Info").gameObject.GetComponent<CanvasGroup>().alpha = 0;
-            transform.Find("Purchase").gameObject.GetComponent<CanvasGroup>().alpha = 0;
+            //transform.Find("Info").gameObject.GetComponent<CanvasGroup>().alpha = 0;
+            //transform.Find("Purchase").gameObject.GetComponent<CanvasGroup>().alpha = 0;
+            //transform.gameObject.GetComponent<CanvasGroup>().alpha = 0;
+
             gameObject.SetActive(false);
         }
     }

@@ -17296,6 +17296,7 @@ GameObject:
   - component: {fileID: 701841007}
   - component: {fileID: 701841009}
   - component: {fileID: 701841006}
+  - component: {fileID: 701841010}
   m_Layer: 6
   m_Name: perkPrefab
   m_TagString: Interactable
@@ -17408,6 +17409,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2
+--- !u!114 &701841010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701841005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1dd4f18063ff5448e48b0ddebf7de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1137527685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3568330078130665452, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
@@ -19595,6 +19608,18 @@ CanvasGroup:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7924832519663925792}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &7924832519663925799
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924832519663925790}
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1

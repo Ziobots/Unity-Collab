@@ -35,8 +35,10 @@ public class interactPlayer : MonoBehaviour
         Collider2D interactObj = findObject();
         if (interactObj != null && interactObj.gameObject != null){
             // apply highlight effect to obj
-            applyNearbyVFX(interactObj);
-            currentObj = interactObj;
+            if (currentObj != interactObj){
+                applyNearbyVFX(interactObj);
+                currentObj = interactObj;
+            }
 
             // check for player input
             if (interactPressed()){

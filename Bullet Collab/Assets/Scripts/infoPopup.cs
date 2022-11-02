@@ -17,6 +17,7 @@ public class infoPopup : MonoBehaviour
     // popup variables
     public bool popupVisible = false;
     private Dictionary<string, string> currentData;
+    private float startHeight = 120f;
 
     // function for checking if there are any differences in the new and current data
     private bool compare(Dictionary<string, string> A, Dictionary<string, string> B){
@@ -80,22 +81,23 @@ public class infoPopup : MonoBehaviour
         return showUI;
     }
 
+    // equation for the bounce effect when shown
     private float easeOutBack(float alpha){
-        float c1 = 1.70158f;
+        float c1 = 3f;
         float c3 = c1 + 1f;
 
         return 1 + c3 * Mathf.Pow(alpha - 1f, 3f) + c1 * Mathf.Pow(alpha - 1f,2);
     }
 
+    // handles all the visibility stuff
     private IEnumerator fadeUI(bool visible,float duration){
         float progress = 0f;
-        float endVisible = visible ? 1f : 0.5f;
+        float endVisible = visible ? 1f : 0f;
 
         // get initial values for the lerp
-        float startInfo = transform.Find("Info").gameObject.GetComponent<CanvasGroup>().alpha;
-        float startPurchase = transform.Find("Purchase").gameObject.GetComponent<CanvasGroup>().alpha;
-        float startHeight = 120f;
+        float startOpacity = transform.gameObject.GetComponent<CanvasGroup>().alpha;
 
+        // gotta use StartCoroutine so use while loop
         while (progress < duration && visible == popupVisible){
             progress += Time.deltaTime;
             float alpha = progress / duration;
@@ -104,39 +106,36 @@ public class infoPopup : MonoBehaviour
                 yOffset = easeOutBack(1f - alpha);
             }
 
-            transform.Find("Info").gameObject.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(startInfo,endVisible,alpha);
-            transform.Find("Purchase").gameObject.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(startPurchase,endVisible,alpha);
-            transform.gameObject.GetComponent<CanvasGroup>().alpha = endVisible;
-            gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,startHeight + yOffset,0);
+            transform.gameObject.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(startOpacity,endVisible,alpha);
+            gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,(startHeight - 30f) + (yOffset * 30f),0);
 
+            // wait until next frame to run
             yield return null;
+        }
+
+        if (!visible && !popupVisible){
+            hidePopup(true);
         }
     }
 
     // show the popup
     public void showPopup(Dictionary<string, string> showData) {
         if (!popupVisible || !sameDictionary(showData)){
-            popupVisible = true;
             currentData = showData;
 
             // hide the ui before showing so we can change the values
-            hidePopup(true);
+            //hidePopup(true);
+            popupVisible = true;
 
             // show the new info
             Dictionary<string, bool> showUI = setBoxInfo(showData);
+            transform.Find("Info").gameObject.SetActive(showUI["Box"]);
+            transform.Find("Purchase").gameObject.SetActive(showUI["Context"]);
 
             //show the ui
             gameObject.SetActive(true);
-            StartCoroutine(fadeUI(true,0.4f));
-            print("Finished showing");
+            StartCoroutine(fadeUI(true,0.2f));
         }
-        /*
-        Dictionary<string, string> showData = new Dictionary<string, string>();
-        editList.Add("Title", perk.Name);
-        editList.Add("Description", perk.Desc);
-        editList.Add("Cost", perkObj.Cost);
-        editList.Add("Context", pickup / buy /etc);
-        */
     }
 
     // hide the popup
@@ -145,15 +144,16 @@ public class infoPopup : MonoBehaviour
             popupVisible = false;
 
             if (!instantHide){
-                StartCoroutine(fadeUI(false,0.3f));
-                print("hid");
+                StartCoroutine(fadeUI(false,0.15f));
+            }else{
+                // hide and reset values
+                gameObject.SetActive(false);
+                transform.Find("Info").gameObject.SetActive(false);
+                transform.Find("Purchase").gameObject.SetActive(false);
+                transform.gameObject.GetComponent<CanvasGroup>().alpha = 0f;
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,startHeight,0);
             }
 
-            //transform.Find("Info").gameObject.GetComponent<CanvasGroup>().alpha = 0;
-            //transform.Find("Purchase").gameObject.GetComponent<CanvasGroup>().alpha = 0;
-            //transform.gameObject.GetComponent<CanvasGroup>().alpha = 0;
-
-            gameObject.SetActive(false);
         }
     }
 }

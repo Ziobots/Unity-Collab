@@ -54,7 +54,6 @@ public class interactPlayer : MonoBehaviour
                 }
             }
         }else if (currentObj){
-            print("no nearby obj");
             applyNearbyVFX(null);
             currentObj = null;
         }
@@ -108,8 +107,19 @@ public class interactPlayer : MonoBehaviour
     }
 
     public Collider2D findObject(){
-        Collider2D interactObj = Physics2D.OverlapCircle(transform.position,detectRadius,interactLayer);
-        return interactObj;
+        Collider2D[] overlapResults = Physics2D.OverlapCircleAll(transform.position,detectRadius,interactLayer);
+        Collider2D closestObj = null;
+
+        foreach (Collider2D interactObj in overlapResults){
+            float myDistance = Vector2.Distance(interactObj.gameObject.transform.position,transform.position);
+            // compare distance between current obj and closest, if no closest then skip
+            if (!closestObj || myDistance < Vector2.Distance(closestObj.gameObject.transform.position,transform.position)){
+                closestObj = interactObj;
+            }
+        }
+
+        // return the closest interactable object
+        return closestObj;
     }
 
     private bool interactPressed(){

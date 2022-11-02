@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Name : bulletSystem.cs
-* Section Description : This handles bullet generation, movement, and collision.
+* Section Description : This handles bullet generation, movement, and collision. 
 * -------------------------------
 * - HISTORY OF CHANGES -
 * -------------------------------

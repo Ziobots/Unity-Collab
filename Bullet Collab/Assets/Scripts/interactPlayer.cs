@@ -1,3 +1,13 @@
+/*******************************************************************************
+* Name : interactPlayer.cs
+* Section Description : interaction system that finds nearby objects
+* -------------------------------
+* - HISTORY OF CHANGES -
+* -------------------------------
+* Date		Software Version	Initials		Description
+* 10/31/22  0.10                 DS              made the thing
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,15 +55,22 @@ public class interactPlayer : MonoBehaviour
     }
 
     private void applyNearbyVFX(Collider2D newObj){
-        bool moveCursor = false;
+        //bool moveCursor = false;
         if (currentObj != null && newObj != currentObj){
-            moveCursor = false;
+            //moveCursor = false;
+            if (currentObj.gameObject.GetComponent<perkPickup>()){
+                currentObj.gameObject.GetComponent<perkPickup>().playerNearby = false;
+            }
         }
 
         if (newObj != null){
-            moveCursor = true;
+            //moveCursor = true;
+            if (newObj.gameObject.GetComponent<perkPickup>()){
+                newObj.gameObject.GetComponent<perkPickup>().playerNearby = true;
+            }
         }
 
+        /*
         if (cursorObj != null){
             mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
             if (moveCursor){
@@ -69,6 +86,7 @@ public class interactPlayer : MonoBehaviour
                 cursorData.updateHover(false);
             }
         }
+        */
     }
 
     public Collider2D findObject(){
@@ -77,6 +95,6 @@ public class interactPlayer : MonoBehaviour
     }
 
     private bool interactPressed(){
-        return Input.GetButtonDown("Fire1");
+        return Input.GetKeyDown(KeyCode.E);
     }
 }

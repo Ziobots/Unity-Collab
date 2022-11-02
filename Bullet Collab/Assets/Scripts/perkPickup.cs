@@ -5,8 +5,7 @@
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 10/23/22  0.10                 DS              Made the thing
-* 10/31/22  0.10                 DS              made perks you can pickup
+* 10/31/22  0.10                 DS              Made the thing
 *******************************************************************************/
 
 using System.Collections;
@@ -23,9 +22,15 @@ public class perkPickup : MonoBehaviour
     // perk obj variables
     public string perkID;
     public int cost = 0;
+    public int count = 1;
+
     public List<GameObject> perkObjList; // List of perk objs to be destroyed when this perk is picked up
     public visualFx collectPrefab;
     public Transform addFolder;
+    private Vector3 basePosition;
+
+    // Interaction
+    public bool playerNearby = false;
 
     private void collectEffect(){
         visualFx collectVFX = Instantiate(collectPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),transform.rotation,addFolder);
@@ -53,10 +58,8 @@ public class perkPickup : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().sprite = perk.perkIcon;
             }
         }
-    }
 
-    private void Start() {
-        setupPickup();
+        basePosition = transform.position;
     }
 
     public void onPickup(){
@@ -68,7 +71,9 @@ public class perkPickup : MonoBehaviour
             gameObject.GetComponent<Collider2D>().enabled = false;
 
             // add perk to ID list
-            dataInfo.perkIDList.Add(perkID);
+            for (int i = 1; i < count; i++){
+                dataInfo.perkIDList.Add(perkID);
+            }
 
             // do collect effect
             collectEffect();
@@ -83,6 +88,33 @@ public class perkPickup : MonoBehaviour
             if (gameObject != null){
                 Destroy(gameObject);
             }
+        }
+    }
+
+    private void Start() {
+        setupPickup();
+    }
+
+    private void FixedUpdate() {
+        if (gameObject){
+            Vector3 setPosition = basePosition;
+            float rotation = 0;
+            
+            // check if player nearby
+            if (playerNearby){
+                float offset = Mathf.Sin(Time.time * 5f) * 0.25f;
+                if (offset < 0f){
+                    offset *= 0.35f;
+                }
+
+                setPosition = basePosition + new Vector3(0f, offset, 0f);
+                rotation = Mathf.Sin(Time.time * 2.5f) * 15f;
+            }
+
+            // set sticker hover position and rotation
+            Quaternion setRotationEuler = Quaternion.Euler(0, 0, rotation);
+            transform.rotation = Quaternion.Lerp(transform.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
+            transform.position = Vector3.Lerp(transform.position,setPosition,Time.fixedDeltaTime * 10f);
         }
     }
 }

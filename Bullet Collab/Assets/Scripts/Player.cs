@@ -95,8 +95,7 @@ public class Player : Entity
 
         dataInfo.perkIDList.Add("bounceDmg");
         dataInfo.perkIDList.Add("perkLottery");
-        dataInfo.perkIDList.Add("perkLottery");
-
+        //dataInfo.perkIDList.Add("perkLottery");
         //perkIDList.Add("remoteBullet");
     }
 

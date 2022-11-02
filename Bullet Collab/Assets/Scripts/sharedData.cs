@@ -45,7 +45,7 @@ public class sharedData : MonoBehaviour
     }
 
     private void Start() {
-        resetTempData();
+        //resetTempData();
         DontDestroyOnLoad(gameObject);
     }
 

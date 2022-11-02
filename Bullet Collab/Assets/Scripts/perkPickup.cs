@@ -62,7 +62,7 @@ public class perkPickup : MonoBehaviour
         basePosition = transform.position;
     }
 
-    public void onPickup(){
+    public void onPickup(GameObject entityObj){
         // probably remove this later
         setupPickup();
 
@@ -74,18 +74,36 @@ public class perkPickup : MonoBehaviour
             perkData perk = perkCommands.getPerk(perkID);
             if (perk != null){
                 for (int i = 1; i <= count; i++){
+                    // add the perk to the data
                     print("added perk " + perkID);
                     dataInfo.perkIDList.Add(perkID);
+
+                    // create the dictionary for on add
+                    Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+                    editList.Add("Owner", entityObj);
+                    editList.Add("PerkObj", gameObject);
+
+                    // This event should only run here i think, 3 parameter should always be true here?
+                    perk.addedEvent(editList,perkCommands.countPerks(dataInfo.perkIDList)[perkID],true);
                 }
             }
 
             // do collect effect
             collectEffect();
 
+            if (perkCommands != null){
+                Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+                editList.Add("Owner", entityObj);
+                editList.Add("PerkObj", gameObject);
+                perkCommands.applyPerk(dataInfo.perkIDList,"Perk_Collect",editList);
+            }
+
             // if perk was connected to other perks remove those since this was chosen
             foreach (GameObject perkObj in perkObjList){
-                // do destroy effect
-                Destroy(perkObj);
+                if (perkObj != gameObject){
+                    // do destroy effect
+                    Destroy(perkObj);
+                }
             }
 
             // remove this perk obj

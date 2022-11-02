@@ -27,7 +27,7 @@ public class perkData : ScriptableObject
     public float perkRarity;
     public bool stackablePerk = true;
 
-    public virtual void loadPerk(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
+    public virtual void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
     public virtual void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
@@ -43,4 +43,5 @@ public class perkData : ScriptableObject
 
     public virtual void updateEntity(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    public virtual void perkCollect(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 }

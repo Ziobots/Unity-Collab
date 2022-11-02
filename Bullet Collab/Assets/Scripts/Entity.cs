@@ -43,8 +43,12 @@ public class Entity : MonoBehaviour
     // Upgrade Variables
     public List<string> perkIDList;
 
+    public virtual ref List<string> getIDList(){
+        return ref perkIDList;
+    }
+
     // Entity will fire Bullets
-    public virtual void fireBullets(List<string> setIDList){
+    public virtual void fireBullets(){
         foreach(Transform point in launchPoints){
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
             if (newBullet != null){
@@ -53,7 +57,7 @@ public class Entity : MonoBehaviour
                 newBullet.bulletSpeed = 5f;
                 newBullet.bulletSize = 0.11f;
                 newBullet.bulletBounces = 5;
-                newBullet.perkIDList = setIDList;
+                newBullet.perkIDList = getIDList();
                 newBullet.bulletFolder = bulletFolder;
                 newBullet.setupBullet();
 
@@ -61,7 +65,7 @@ public class Entity : MonoBehaviour
                 Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                 editList.Add("Owner", gameObject);
                 editList.Add("Bullet", newBullet.gameObject);
-                perkCommands.applyPerk(setIDList,"Shoot",editList);
+                perkCommands.applyPerk(getIDList(),"Shoot",editList);
             }
         }
     }
@@ -90,7 +94,7 @@ public class Entity : MonoBehaviour
             // Check for any entity lifetime modifiers
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
-            perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
+            perkCommands.applyPerk(getIDList(),"Update_Entity",editList);
         }
     }
 
@@ -103,11 +107,11 @@ public class Entity : MonoBehaviour
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
             damageAmount = amount;
-            perkCommands.applyPerk(perkIDList,"Damaged",editList);
+            perkCommands.applyPerk(getIDList(),"Damaged",editList);
 
             // check if the entity has died
             if (health <= 0){
-                perkCommands.applyPerk(perkIDList,"Killed",editList);
+                perkCommands.applyPerk(getIDList(),"Killed",editList);
             }
         }
     }

@@ -15,7 +15,7 @@ using UnityEngine;
 public class infoPopup : MonoBehaviour
 {
     // popup variables
-    public bool popupVisible = false;
+    public bool popupVisible = true;
     private Dictionary<string, string> currentData;
     private float startHeight = 120f;
 
@@ -155,5 +155,11 @@ public class infoPopup : MonoBehaviour
             }
 
         }
+    }
+
+    // gotta do this because it will look weird the first time it shows up
+    private void Start() {
+        popupVisible = true;
+        hidePopup(true);
     }
 }

@@ -46,7 +46,7 @@ public class interactPlayer : MonoBehaviour
 
                 // check if obj has pickup
                 if (interactObj.gameObject.GetComponent<perkPickup>()){
-                    interactObj.gameObject.GetComponent<perkPickup>().onPickup();
+                    interactObj.gameObject.GetComponent<perkPickup>().onPickup(gameObject);
                     currentObj = null;
                     applyNearbyVFX(null);
                 }else{
@@ -119,9 +119,15 @@ public class interactPlayer : MonoBehaviour
         }
 
         // to prevent spam from objects getting in range and out of range too quickly
-        if (closestObj == null && currentObj != null && currentObj.gameObject != null){
+        if (currentObj != null && currentObj.gameObject != null){
             float myDistance = Vector2.Distance(currentObj.gameObject.transform.position,transform.position);
-            if (myDistance <= detectRadius + 2f){
+            if (closestObj != null && closestObj != currentObj){
+                float otherDistance = Vector2.Distance(closestObj.gameObject.transform.position,transform.position);
+                // if too close dont switch
+                if (Mathf.Abs(myDistance - otherDistance) <= 1f){
+                    closestObj = currentObj;
+                }
+            }else if (myDistance <= detectRadius + 2f){
                 closestObj = currentObj;
             }
         }

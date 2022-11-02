@@ -29,20 +29,26 @@ public class perkModule : MonoBehaviour
         return null;
     }
 
+    public Dictionary<string, int> countPerks(List<string> perkIDList){
+        Dictionary<string, int> perkCounts = new Dictionary<string, int>();
+
+        // count all perks
+        foreach (string perkID in perkIDList){
+            // Check if key exists then create/add one
+            perkCounts[perkID] = (perkCounts.ContainsKey(perkID) ? perkCounts[perkID] : 0) + 1;
+        }
+
+        return perkCounts;
+    }
+
     public void applyPerk(List<string> perkIDList,string perkType,Dictionary<string, GameObject> objDictionary){
         if (perkIDList == null){
             return;
         }
 
         // Dictionaries to keep track of perks we sorted through
-        Dictionary<string, int> perkCounts = new Dictionary<string, int>();
+        Dictionary<string, int> perkCounts = countPerks(perkIDList);
         Dictionary<string, bool> initialize = new Dictionary<string, bool>();
-
-        // count all perks first
-        foreach (string perkID in perkIDList){
-            // Check if key exists then create/add one
-            perkCounts[perkID] = (perkCounts.ContainsKey(perkID) ? perkCounts[perkID] : 0) + 1;
-        }
 
         // go through each perk id in the list
         foreach (string perkID in perkIDList){
@@ -62,6 +68,9 @@ public class perkModule : MonoBehaviour
                         break;
                     case "Update_Entity":
                         perk.updateEntity(objDictionary,perkCounts[perkID],initializePerk);
+                        break;
+                    case "Perk_Collect":// when an entity collects a perk
+                        perk.perkCollect(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                     // Normal Cases
                     case "Shoot":// when an entity fires a bullet

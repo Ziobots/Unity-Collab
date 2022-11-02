@@ -16,7 +16,7 @@ public class speedUp : perkData
 {
     public int speedInc = 1;
 
-    public override void loadPerk(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
+    public override void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
 
     }
 }

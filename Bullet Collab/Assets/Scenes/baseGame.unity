@@ -17322,7 +17322,8 @@ MonoBehaviour:
   perkID: remoteBullet
   cost: 0
   count: 1
-  perkObjList: []
+  perkObjList:
+  - {fileID: 1150252830}
   collectPrefab: {fileID: 7980481142589596770, guid: 73b7fbc20c719e3489468710c59b7d12, type: 3}
   addFolder: {fileID: 700863669}
   playerNearby: 0
@@ -17476,7 +17477,8 @@ MonoBehaviour:
   perkID: bounceDmg
   cost: 0
   count: 1
-  perkObjList: []
+  perkObjList:
+  - {fileID: 701841005}
   collectPrefab: {fileID: 7980481142589596770, guid: 73b7fbc20c719e3489468710c59b7d12, type: 3}
   addFolder: {fileID: 700863669}
   playerNearby: 0
@@ -19611,7 +19613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7924832519206309152, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7924832519206309213, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_CullTransparentMesh
@@ -19762,7 +19764,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7924832519663925790}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

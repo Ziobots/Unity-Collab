@@ -9,6 +9,7 @@
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
 * 10/25/22  0.11                 KJ              Moved gun and flip to Fixed, changed Lerp alpha values to 10
+* 11/02/22  0.15                 KJ              used ref for perkidlist
 *******************************************************************************/
 
 using System.Collections;
@@ -61,6 +62,7 @@ public class Player : Entity
         }
     }
 
+    // overwrite the take damage function so its only 1 damage - also check for gameover here
     public override void takeDamage(int amount){
         // Player can only take damage every so often
         if (Time.time - hitTime >= iFrames){
@@ -78,12 +80,9 @@ public class Player : Entity
         }
     }
 
-    public override void fireBullets(List<string> setIDList){
-        if (dataInfo != null){
-            setIDList = dataInfo.perkIDList;
-        }
-        
-        base.fireBullets(setIDList);
+    // Overwrite the entity perkIdlist with the shareddata version
+    public override ref List<string> getIDList(){
+        return ref dataInfo.perkIDList;
     }
 
     // Carry Player between scenes
@@ -94,8 +93,10 @@ public class Player : Entity
         // Keep Player between Scenes
         DontDestroyOnLoad(gameObject);
 
-        perkIDList = dataInfo.perkIDList;
-        perkIDList.Add("bounceDmg");
+        dataInfo.perkIDList.Add("bounceDmg");
+        dataInfo.perkIDList.Add("perkLottery");
+        dataInfo.perkIDList.Add("perkLottery");
+
         //perkIDList.Add("remoteBullet");
     }
 
@@ -120,7 +121,7 @@ public class Player : Entity
                 RaycastHit2D contact = Physics2D.Raycast(origin,arrowDirection.normalized,armDistance * 1.1f,LayerMask.GetMask("Default"));
                 if (!contact){
                     attackTime = Time.time;
-                    fireBullets(perkIDList);
+                    fireBullets();
                 }
             }
         }

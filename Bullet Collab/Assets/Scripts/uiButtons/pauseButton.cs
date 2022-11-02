@@ -6,6 +6,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/27/22  0.10                 DS              Made the thing
+* 11/02/22  0.10                 DS              added blur + changed ui visual
 *******************************************************************************/
 
 using System.Collections;
@@ -14,6 +15,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class pauseButton : MonoBehaviour
 {
@@ -33,6 +36,8 @@ public class pauseButton : MonoBehaviour
 
     // Blur Obj
     public GameObject blurObj;
+    private PostProcessVolume postVolume;
+    private DepthOfField blurField;
 
     // Pause Menu Functions
     public void pauseGame(){
@@ -79,6 +84,12 @@ public class pauseButton : MonoBehaviour
         if (levelManager != null){
             levelUpdate = levelManager.GetComponent<levelLoader>();
         }
+
+            postVolume = blurObj.GetComponent<PostProcessVolume>();
+            if (postVolume){
+                postVolume.profile.TryGetSettings(out blurField);
+            }
+
     }
 
     private void Update() {
@@ -88,6 +99,29 @@ public class pauseButton : MonoBehaviour
                 resumeGame();
             }else{
                 pauseGame();
+            }
+        }
+
+        // blur effect
+        if (blurObj != null){
+            float setBlur = 10;
+            if (gamePaused){
+                setBlur = 0f;
+                if (!blurObj.activeSelf){
+                    blurField.focusDistance.value = 10f;
+                    blurObj.SetActive(true);
+                }
+            }else{
+                setBlur = 10f;
+                if (blurObj.activeSelf){
+                    if (blurField.focusDistance.value >= 9f){
+                        blurObj.SetActive(false);
+                    }
+                }
+            }
+
+            if (blurObj.activeSelf){
+                blurField.focusDistance.value = Mathf.Lerp(blurField.focusDistance.value,setBlur,Time.fixedDeltaTime * 5f);
             }
         }
     }

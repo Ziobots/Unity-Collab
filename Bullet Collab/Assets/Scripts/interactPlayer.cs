@@ -6,6 +6,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/31/22  0.10                 DS              made the thing
+* 11/02/22  0.10                 DS              added popup functionality
 *******************************************************************************/
 
 using System.Collections;
@@ -59,12 +60,15 @@ public class interactPlayer : MonoBehaviour
 
     private void applyNearbyVFX(Collider2D newObj){
         bool showPopup = false;
+
+        // remove nearby from last interactable obj
         if (currentObj != null && newObj != currentObj){
             if (currentObj.gameObject.GetComponent<perkPickup>()){
                 currentObj.gameObject.GetComponent<perkPickup>().playerNearby = false;
             }
         }
 
+        // add nearby to interactable obj
         if (newObj != null){
             showPopup = true;
             if (newObj.gameObject.GetComponent<perkPickup>()){
@@ -75,9 +79,28 @@ public class interactPlayer : MonoBehaviour
         if (popupUI != null){
             infoPopup popupData = popupUI.GetComponent<infoPopup>();
             if (showPopup){
+                Dictionary<string, string> showData = new Dictionary<string, string>();
+                perkPickup isPerkObj = newObj.gameObject.GetComponent<perkPickup>();
 
+                if (isPerkObj){ // check if the object is a perk
+                    perkModule perkMod = newObj.gameObject.GetComponent<perkModule>();
+                    perkData perk = perkMod.getPerk(isPerkObj.perkID);
+                    // get the perk data
+                    if (perk != null){
+                        showData.Add("Title", perk.name);
+                        showData.Add("Description", perk.perkDescription);
+                        showData.Add("Cost", "" + isPerkObj.cost);
+                        showData.Add("Context", "Pickup");
+                    }
+                }else{
+                    print("some other type of interactable object");
+                }
+
+                // show the popup
+                popupData.showPopup(showData);
             }else{
-
+                // hide the popup
+                popupData.hidePopup(false);
             }
         }
     }

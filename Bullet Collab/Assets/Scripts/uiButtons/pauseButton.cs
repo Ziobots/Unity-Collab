@@ -31,6 +31,9 @@ public class pauseButton : MonoBehaviour
     public GameObject levelManager;
     [HideInInspector] public levelLoader levelUpdate;
 
+    // Blur Obj
+    public GameObject blurObj;
+
     // Pause Menu Functions
     public void pauseGame(){
         gamePaused = true;

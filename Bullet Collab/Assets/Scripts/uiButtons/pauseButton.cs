@@ -46,6 +46,8 @@ public class pauseButton : MonoBehaviour
     public void pauseGame(){
         gamePaused = true;
         pausePanel.SetActive(true);
+        blurField.focusDistance.value = 0f;
+        blurObj.SetActive(true);
 
         // hide the main game ui
         if (gamePanel != null){
@@ -81,6 +83,9 @@ public class pauseButton : MonoBehaviour
 
         gamePaused = false;
         pausePanel.SetActive(false);
+        blurField.focusDistance.value = 10f;
+        blurObj.SetActive(true);
+
         if (gamePanel != null){
             gamePanel.GetComponent<CanvasGroup>().alpha = 1f;
         }
@@ -121,29 +126,6 @@ public class pauseButton : MonoBehaviour
                 resumeGame();
             }else{
                 pauseGame();
-            }
-        }
-
-        // blur effect
-        if (blurObj != null){
-            float setBlur = 10;
-            if (gamePaused){
-                setBlur = 0f;
-                if (!blurObj.activeSelf){
-                    blurField.focusDistance.value = 10f;
-                    blurObj.SetActive(true);
-                }
-            }else{
-                setBlur = 10f;
-                if (blurObj.activeSelf){
-                    if (blurField.focusDistance.value >= 9f){
-                        blurObj.SetActive(false);
-                    }
-                }
-            }
-
-            if (blurObj.activeSelf){
-                blurField.focusDistance.value = Mathf.Lerp(blurField.focusDistance.value,setBlur,Time.fixedDeltaTime * 5f);
             }
         }
     }

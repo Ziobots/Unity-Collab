@@ -6,6 +6,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/26/22  0.10                 DS              Made the thing
+* 11/02/22  0.10                 DS              short list function
 *******************************************************************************/
 
 using System.Collections;
@@ -39,6 +40,20 @@ public class perkModule : MonoBehaviour
         }
 
         return perkCounts;
+    }
+
+    public List<string> shortenList(List<string> perkIDList){
+        List<string> shortPerkList = new List<string>();
+
+        // go through all perks
+        foreach (string perkID in perkIDList){
+            // Check if key exists then create if none
+            if (!shortPerkList.Contains(perkID)){
+                shortPerkList.Add(perkID);
+            }
+        }
+
+        return shortPerkList;
     }
 
     public void applyPerk(List<string> perkIDList,string perkType,Dictionary<string, GameObject> objDictionary){

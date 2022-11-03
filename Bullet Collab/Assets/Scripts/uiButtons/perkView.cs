@@ -69,16 +69,28 @@ public class perkView : MonoBehaviour
     }
 
     public void loadPerkViewer(int perkIndex){
+        // get dataInfo just in case
+        if (dataManager != null){
+            dataInfo = dataManager.GetComponent<sharedData>();
+        }
+
         // fix the current index just in case;
         currentPerkIndex = perkIndex;
         switchPage(0);
 
         // get the short list
         List<string> shortPerkList = viewerShortList();
+        Dictionary<string, int> perkCounts = gameObject.GetComponent<perkModule>().countPerks(dataInfo.perkIDList);
 
         //get the perk to display
         string indexPerkID = shortPerkList[perkIndex - 1];
         perkData perk = gameObject.GetComponent<perkModule>().getPerk(indexPerkID);
+
+        // get number collected
+        int perkStack = 0;
+        if (perkCounts.ContainsKey(indexPerkID)){
+            perkStack = perkCounts[indexPerkID];
+        }
 
         // update the dots
         loadCountPanel(perkIndex);
@@ -88,14 +100,66 @@ public class perkView : MonoBehaviour
         transform.Find("perkDesc").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = perk.perkDescription;
         transform.Find("perkIcon").gameObject.GetComponent<Image>().sprite = perk.perkIcon;
 
-        viewerAnimation();
+        // get the count string
+        string countString = "" + perkStack;
+        if (perkStack < 10){
+            countString = " " + perkStack;
+        }
+
+        // set count tag
+        if (perkStack > 1){
+            transform.Find("countTag").gameObject.transform.Find("count").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = countString;
+        }
+
+        // hide arrows if no next
+        transform.Find("forward").gameObject.SetActive(shortPerkList.Count > 1);
+        transform.Find("backward").gameObject.SetActive(shortPerkList.Count > 1);
+
+        viewerAnimation(perkStack > 1);
     }
 
-    private void viewerAnimation(){
-        print("DO ANIM");
+    // scale functions for tweening
+    private void scaleCount(Vector3 value){
+        transform.Find("countTag").gameObject.GetComponent<RectTransform>().localScale = value;
+    }
+
+    private void scaleIcon(Vector3 value){
+        transform.Find("perkIcon").gameObject.GetComponent<RectTransform>().localScale = value;
+    }
+
+    // hide count on tween complete
+    private void countHide(){
+        transform.Find("countTag").gameObject.SetActive(false);
+    }
+
+    private void viewerAnimation(bool showCount){
         LeanTween.cancel(gameObject);
         LeanTween.moveLocal(gameObject,new Vector3(-210f,10f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad();
         LeanTween.moveLocal(gameObject,new Vector3(-210f,0f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setDelay(0.1f);
+
+        GameObject iconTag = transform.Find("perkIcon").gameObject;
+        Vector3 growScale = new Vector3(1.1f,1.1f,1f);
+        LeanTween.cancel(iconTag);
+        LeanTween.value(iconTag,new Vector3(1f,1f,1f),growScale,0.05f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdateVector3(scaleIcon);
+        LeanTween.value(iconTag,growScale,new Vector3(1f,1f,1f),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdateVector3(scaleIcon).setDelay(0.05f);
+
+        GameObject countTagObj = transform.Find("countTag").gameObject;
+        if (showCount){
+            // Get the Values
+            Vector3 currentScale = new Vector3(0.5f,0.5f,1f);
+            growScale = new Vector3(1.4f,1.4f,1f);
+            countTagObj.GetComponent<RectTransform>().localScale = currentScale;
+            countTagObj.SetActive(true);
+
+            // Tween Values
+            LeanTween.cancel(countTagObj);
+            LeanTween.value(countTagObj,currentScale,growScale,0.05f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdateVector3(scaleCount);
+            LeanTween.value(countTagObj,growScale,new Vector3(1f,1f,1f),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdateVector3(scaleCount).setDelay(0.05f);
+        }else if (countTagObj.activeSelf){
+            LeanTween.cancel(countTagObj);
+            LeanTween.value(countTagObj,countTagObj.GetComponent<RectTransform>().localScale,new Vector3(0.5f,0.5f,1f),0.05f).setIgnoreTimeScale(true).setEaseInBack()
+                .setOnUpdateVector3(scaleCount).setOnComplete(countHide);
+        }
     }
 
     public List<string> viewerShortList(){

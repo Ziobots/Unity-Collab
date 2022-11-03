@@ -94,6 +94,9 @@ public class Player : Entity
         DontDestroyOnLoad(gameObject);
 
         dataInfo.perkIDList.Add("bounceDmg");
+        dataInfo.perkIDList.Add("bounceDmg");
+        dataInfo.perkIDList.Add("perkLottery");
+        dataInfo.perkIDList.Add("perkLottery");
         dataInfo.perkIDList.Add("perkLottery");
         //dataInfo.perkIDList.Add("perkLottery");
         //perkIDList.Add("remoteBullet");

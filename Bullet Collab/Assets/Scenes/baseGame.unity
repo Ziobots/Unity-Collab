@@ -19689,6 +19689,10 @@ PrefabInstance:
       propertyPath: levelManager
       value: 
       objectReference: {fileID: 1866048461}
+    - target: {fileID: 4892277661008077090, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: m_IgnoreLayout
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7924832518087327143, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_Name
       value: keyImg
@@ -19721,6 +19725,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 7924832519742925677, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7924832519742925680, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: dataManager
       value: 
@@ -19759,6 +19767,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7924832519742925681, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924832519742925681, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924832519742925681, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924832519742925681, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7924832519742925681, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
@@ -19807,6 +19827,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7924832519742925681, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924832519742925682, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7924832519742925690, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}

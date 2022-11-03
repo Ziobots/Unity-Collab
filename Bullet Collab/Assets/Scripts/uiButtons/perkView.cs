@@ -32,6 +32,7 @@ public class perkView : MonoBehaviour
 
     // perk view variables
     public int currentPerkIndex = 1;
+    public GameObject cursorObj;
 
     public void loadCountPanel(int perkIndex){
         Transform countPanel = transform.Find("perkCount");
@@ -49,10 +50,14 @@ public class perkView : MonoBehaviour
             // make dot for each perk
             for (int i = 1; i <= shortPerkList.Count; i++){
                 GameObject newDot = Instantiate(dotPrefab,new Vector2(),new Quaternion(),countPanel);
+                int myIndex = i;
+
                 if (newDot != null){
+                    newDot.GetComponent<buttonHover>().cursorObj = cursorObj;
+
                     // create button code
                     newDot.GetComponent<Button>().onClick.AddListener(delegate{
-                        loadPerkViewer(i);
+                        loadPerkViewer(myIndex);
                     });
 
                     // set color for current index
@@ -81,6 +86,18 @@ public class perkView : MonoBehaviour
         transform.Find("perkName").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = perk.perkName;
         transform.Find("perkDesc").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = perk.perkDescription;
         transform.Find("perkIcon").gameObject.GetComponent<Image>().sprite = perk.perkIcon;
+
+        viewerAnimation();
+    }
+
+    private void setPivot(float value){
+        gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f,value);
+    }
+
+    private void viewerAnimation(){
+        LeanTween.cancelAll(gameObject);
+        LeanTween.moveLocal(gameObject,new Vector3(-210f,15f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad();
+        LeanTween.moveLocal(gameObject,new Vector3(-210f,0f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setDelay(0.1f);
     }
 
     public List<string> viewerShortList(){

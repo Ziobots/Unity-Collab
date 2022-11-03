@@ -90,12 +90,9 @@ public class perkView : MonoBehaviour
         viewerAnimation();
     }
 
-    private void setPivot(float value){
-        gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f,value);
-    }
-
     private void viewerAnimation(){
-        LeanTween.cancelAll(gameObject);
+        print("DO ANIM");
+        LeanTween.cancel(gameObject);
         LeanTween.moveLocal(gameObject,new Vector3(-210f,15f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad();
         LeanTween.moveLocal(gameObject,new Vector3(-210f,0f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setDelay(0.1f);
     }
@@ -129,6 +126,14 @@ public class perkView : MonoBehaviour
     public void arrowPress(int direction){
         switchPage(direction);
         loadPerkViewer(currentPerkIndex);
+
+        Transform arrow = direction > 0 ? transform.Find("forward") : transform.Find("backward");
+        if (arrow != null & direction != 0){
+            LeanTween.cancel(arrow.gameObject);
+            RectTransform rect = arrow.gameObject.GetComponent<RectTransform>();
+            rect.LeanMove(new Vector3(-10f * direction,0f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad();
+            rect.LeanMove(new Vector3(-20f * direction,0f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setDelay(0.1f);
+        }
     }
 
     private void Start() {

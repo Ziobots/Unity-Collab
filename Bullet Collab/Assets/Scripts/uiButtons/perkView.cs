@@ -88,7 +88,7 @@ public class perkView : MonoBehaviour
         transform.Find("perkDesc").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = perk.perkDescription;
         transform.Find("perkIcon").gameObject.GetComponent<Image>().sprite = perk.perkIcon;
 
-       // viewerAnimation();
+        viewerAnimation();
     }
 
     private void viewerAnimation(){

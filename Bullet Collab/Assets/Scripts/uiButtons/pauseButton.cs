@@ -46,6 +46,11 @@ public class pauseButton : MonoBehaviour
     public void pauseGame(){
         gamePaused = true;
         pausePanel.SetActive(true);
+        
+        // load the perk viewer
+        pausePanel.transform.Find("perkPanel").GetComponent<perkView>().loadPerkViewer(1);
+
+        // set the blur
         blurField.focusDistance.value = 0f;
         blurObj.SetActive(true);
 

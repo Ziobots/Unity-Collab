@@ -31,6 +31,14 @@ public class buttonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
+    private void setRotation(float value){
+        holderUI = gameObject.transform.Find("Holder");
+        if (holderUI){
+            Quaternion setRotationEuler = Quaternion.Euler(0, 0, value);
+            holderUI.gameObject.GetComponent<RectTransform>().rotation = setRotationEuler;
+        }
+    }
+
     // cursor hovers over button
     public void OnPointerEnter(PointerEventData pointerEventData){
         if (cursorObj != null){
@@ -38,9 +46,17 @@ public class buttonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
             // tween animations
             if (!hovering){
-                Vector2 currentPivot = gameObject.GetComponent<RectTransform>().pivot;
+                Vector2 currentPivot = pivotHover;
+                float currentRotation = rotationHover;
+                holderUI = gameObject.transform.Find("Holder");
+                if (holderUI){
+                    currentPivot = holderUI.gameObject.GetComponent<RectTransform>().pivot;
+                    currentRotation = holderUI.gameObject.GetComponent<RectTransform>().rotation.z;
+                }
+
                 LeanTween.cancel(gameObject);
                 LeanTween.value(gameObject,currentPivot,pivotHover,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdateVector2(setPivot);
+                LeanTween.value(gameObject,currentRotation,rotationHover,0.25f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setRotation);
             }
 
         }
@@ -52,13 +68,29 @@ public class buttonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerExit(PointerEventData pointerEventData){
         cursorObj.GetComponent<mouseCursor>().updateHover(false);
 
-        // tween animations
         if (hovering){
-            Vector2 currentPivot = gameObject.GetComponent<RectTransform>().pivot;
+            // get current pivot
+            Vector2 currentPivot = pivotHover;
+            float currentRotation = rotationHover;
+            holderUI = gameObject.transform.Find("Holder");
+            if (holderUI){
+                currentPivot = holderUI.gameObject.GetComponent<RectTransform>().pivot;
+                currentRotation = holderUI.gameObject.GetComponent<RectTransform>().rotation.z;
+            }
+
+            // tween animations
             LeanTween.cancel(gameObject);
             LeanTween.value(gameObject,currentPivot,new Vector2(0.5f,0.5f),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdateVector2(setPivot);
+            LeanTween.value(gameObject,currentRotation,0,0.25f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setRotation);
         }
 
         hovering = false;
+    }
+
+    private void OnDisable() {
+        // check if button is no longer visible
+        if (!gameObject.activeInHierarchy || !gameObject.activeSelf){
+            OnPointerExit(null);
+        }
     }
 }

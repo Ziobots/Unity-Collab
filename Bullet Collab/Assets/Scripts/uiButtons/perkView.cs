@@ -61,7 +61,8 @@ public class perkView : MonoBehaviour
                     });
 
                     // set color for current index
-                    newDot.GetComponent<Image>().color = (i == perkIndex) ? new Color32(253,255,255,255) : new Color32(123,123,123,255);
+                    newDot.transform.Find("Holder").GetComponent<RectTransform>().sizeDelta = new Vector2(40f,40f);
+                    newDot.transform.Find("Holder").GetComponent<Image>().color = (i == perkIndex) ? new Color32(253,255,255,255) : new Color32(123,123,123,255);
                 }
             }
         }
@@ -87,13 +88,13 @@ public class perkView : MonoBehaviour
         transform.Find("perkDesc").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = perk.perkDescription;
         transform.Find("perkIcon").gameObject.GetComponent<Image>().sprite = perk.perkIcon;
 
-        viewerAnimation();
+       // viewerAnimation();
     }
 
     private void viewerAnimation(){
         print("DO ANIM");
         LeanTween.cancel(gameObject);
-        LeanTween.moveLocal(gameObject,new Vector3(-210f,15f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad();
+        LeanTween.moveLocal(gameObject,new Vector3(-210f,10f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad();
         LeanTween.moveLocal(gameObject,new Vector3(-210f,0f,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setDelay(0.1f);
     }
 

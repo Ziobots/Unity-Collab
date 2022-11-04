@@ -1384,11 +1384,15 @@ MonoBehaviour:
   dataManager: {fileID: 0}
   dataInfo: {fileID: 0}
   perkCommands: {fileID: 0}
+  uiManager: {fileID: 0}
+  uiUpdate: {fileID: 0}
   perkID: 
   cost: 0
+  count: 1
   perkObjList: []
   collectPrefab: {fileID: 0}
   addFolder: {fileID: 0}
+  playerNearby: 0
 --- !u!212 &570470511
 SpriteRenderer:
   m_ObjectHideFlags: 0

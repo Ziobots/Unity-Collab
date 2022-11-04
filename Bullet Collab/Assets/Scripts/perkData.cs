@@ -27,23 +27,47 @@ public class perkData : ScriptableObject
     public float perkRarity;
     public bool stackablePerk = true;
 
+    // This event fires when the player picks up a perk, use it to adjust player stats
     public virtual void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event fires when the player shoots a bullet, use it to modify bullets when they are created
     public virtual void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event fires when the player reloads their gun
     public virtual void reloadGunEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event fires when an entity is hit
     public virtual void hitEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event is fired when the bullet bounces off of a surface
     public virtual void bounceEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event is fired when the player takes direct damage, you can check the entity.damageAmount to see how much damage they took
     public virtual void damagedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event is fired when an entity is killed
     public virtual void killedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event is fired every frame that a bullet exists, use it to modify the behavior of a bullet 
     public virtual void updateBullet(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event is fired every frame that the player exists
     public virtual void updateEntity(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event is fired when a perk is collected by the player, it also lets you know which perk was picked up
+    // This event fires after the added event
     public virtual void perkCollect(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
+
+    /********************************************************************************************************/
+
+    // functions for use in perks
+    public Entity getEntityStats(Dictionary<string, GameObject> objDictionary){
+        if (objDictionary.ContainsKey("Owner")){
+            GameObject entityObj = objDictionary["Owner"];
+            Entity entityStats = entityObj.GetComponent<Entity>();
+            return entityStats;
+        }
+
+        return null;
+    }
 }

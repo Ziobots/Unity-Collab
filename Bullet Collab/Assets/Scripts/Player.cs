@@ -75,14 +75,9 @@ public class Player : Entity
             base.takeDamage(amount);
 
             // Update Data
-            dataInfo.currenthealth -= amount;
+            dataInfo.updateEntityData(gameObject);
             uiUpdate.updateHealth(); 
         }
-    }
-
-    // Overwrite the entity perkIdlist with the shareddata version
-    public override ref List<string> getIDList(){
-        return ref dataInfo.perkIDList;
     }
 
     // Carry Player between scenes
@@ -93,13 +88,16 @@ public class Player : Entity
         // Keep Player between Scenes
         DontDestroyOnLoad(gameObject);
 
-        dataInfo.perkIDList.Add("bounceDmg");
-        dataInfo.perkIDList.Add("bounceDmg");
-        dataInfo.perkIDList.Add("perkLottery");
-        dataInfo.perkIDList.Add("perkLottery");
-        dataInfo.perkIDList.Add("perkLottery");
+        perkIDList.Add("bounceDmg");
+        perkIDList.Add("bounceDmg");
+        perkIDList.Add("perkLottery");
+        perkIDList.Add("perkLottery");
+        perkIDList.Add("perkLottery");
         //dataInfo.perkIDList.Add("perkLottery");
         //perkIDList.Add("remoteBullet");
+
+        // apply any changes to the data
+        dataInfo.updateEntityData(gameObject);
     }
 
     // Update is called once per frame
@@ -122,7 +120,6 @@ public class Player : Entity
                 Vector2 origin = playerRig.position;
                 RaycastHit2D contact = Physics2D.Raycast(origin,arrowDirection.normalized,armDistance * 1.1f,LayerMask.GetMask("Default"));
                 if (!contact){
-                    attackTime = Time.time;
                     fireBullets();
                 }
             }

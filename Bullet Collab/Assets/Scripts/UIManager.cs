@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     // Update the health bar visual
     public void updateHealth(){
         // Shield Check?
-        int heartMax = dataInfo.maxHealth;
+        float heartMax = dataInfo.maxHealth;
         if (dataInfo.currenthealth > heartMax){
             heartMax = dataInfo.currenthealth;
         }

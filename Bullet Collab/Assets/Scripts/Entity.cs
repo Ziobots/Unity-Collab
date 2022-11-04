@@ -21,8 +21,10 @@ public class Entity : MonoBehaviour
     [HideInInspector] public perkModule perkCommands;
 
     // Local Variables
-    public float health = 5;
+    public float currentHealth = 5;
+    public float maxHealth = 5;
     [HideInInspector] public int damageAmount = 0;
+    public int currency = 0;
 
     // UI Stuff
     public GameObject uiManager;
@@ -35,20 +37,26 @@ public class Entity : MonoBehaviour
     [HideInInspector] public bool facingRight = true;
 
     // Bullet Variables
-    [HideInInspector] public float attackTime = 0;
     public bulletSystem bulletPrefab;
     public List<Transform> launchPoints = new List<Transform>();
     public Transform bulletFolder;
+    // Temporary Bullet
+    public int maxAmmo;
+    public float reloadTime;
+    public float bulletTime;
+    // time vars
+    [HideInInspector] public float reloadStartTime = 0;
+    [HideInInspector] public float delayStartTime = 0;
 
     // Upgrade Variables
     public List<string> perkIDList;
 
-    public virtual ref List<string> getIDList(){
-        return ref perkIDList;
-    }
-
     // Entity will fire Bullets
     public virtual void fireBullets(){
+        if (Time.timeScale <= 0){
+            return;
+        }
+
         foreach(Transform point in launchPoints){
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
             if (newBullet != null){
@@ -57,7 +65,7 @@ public class Entity : MonoBehaviour
                 newBullet.bulletSpeed = 5f;
                 newBullet.bulletSize = 0.11f;
                 newBullet.bulletBounces = 5;
-                newBullet.perkIDList = getIDList();
+                newBullet.perkIDList = perkIDList;
                 newBullet.bulletFolder = bulletFolder;
                 newBullet.setupBullet();
 
@@ -65,7 +73,7 @@ public class Entity : MonoBehaviour
                 Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                 editList.Add("Owner", gameObject);
                 editList.Add("Bullet", newBullet.gameObject);
-                perkCommands.applyPerk(getIDList(),"Shoot",editList);
+                perkCommands.applyPerk(perkIDList,"Shoot",editList);
             }
         }
     }
@@ -94,24 +102,24 @@ public class Entity : MonoBehaviour
             // Check for any entity lifetime modifiers
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
-            perkCommands.applyPerk(getIDList(),"Update_Entity",editList);
+            perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
         }
     }
 
     // bullets will call this when they hit
     public virtual void takeDamage(int amount){
         if (amount > 0){
-            health -= amount;
+            currentHealth -= amount;
 
             // Check for any bounce modifiers
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
             damageAmount = amount;
-            perkCommands.applyPerk(getIDList(),"Damaged",editList);
+            perkCommands.applyPerk(perkIDList,"Damaged",editList);
 
             // check if the entity has died
-            if (health <= 0){
-                perkCommands.applyPerk(getIDList(),"Killed",editList);
+            if (currentHealth <= 0){
+                perkCommands.applyPerk(perkIDList,"Killed",editList);
             }
         }
     }

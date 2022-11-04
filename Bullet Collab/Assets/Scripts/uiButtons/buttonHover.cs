@@ -40,6 +40,7 @@ public class buttonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     // cursor hovers over button
+
     public void OnPointerEnter(PointerEventData pointerEventData){
         if (cursorObj != null){
             cursorObj.GetComponent<mouseCursor>().updateHover(true);

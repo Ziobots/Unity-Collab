@@ -76,7 +76,7 @@ public class perkPickup : MonoBehaviour
                 for (int i = 1; i <= count; i++){
                     // add the perk to the data
                     print("added perk " + perkID);
-                    dataInfo.perkIDList.Add(perkID);
+                    entityObj.GetComponent<Entity>().perkIDList.Add(perkID);
 
                     // create the dictionary for on add
                     Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
@@ -85,6 +85,9 @@ public class perkPickup : MonoBehaviour
 
                     // This event should only run here i think, 3 parameter should always be true here?
                     perk.addedEvent(editList,perkCommands.countPerks(dataInfo.perkIDList)[perkID],true);
+
+                    // apply any changes to the data
+                    dataInfo.updateEntityData(entityObj);
                 }
             }
 

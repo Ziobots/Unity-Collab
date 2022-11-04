@@ -31,10 +31,14 @@ public class sharedData : MonoBehaviour
 
     // Temporary Data
     public string currentSceneID;
-    public int currenthealth;
-    public int maxHealth;
+    public float currenthealth;
+    public float maxHealth;
     public float currency;
     public List<string> perkIDList = new List<string>();
+    // Temporary Bullet
+    public int maxAmmo;
+    public float reloadTime;
+    public float bulletTime;
 
     // Reset the Run Data
     public void resetTempData() {
@@ -42,6 +46,25 @@ public class sharedData : MonoBehaviour
         currenthealth = maxHealth;
         currency = 0;
         perkIDList = new List<string>();
+    }
+
+    public void updateEntityData(GameObject playerObj){
+        if (true){
+            return;
+        }
+
+        if (playerObj != null && playerObj.tag == "Player"){
+            Entity entityInfo = playerObj.GetComponent<Entity>();
+            if (entityInfo){
+                perkIDList = entityInfo.perkIDList;
+                currenthealth = entityInfo.currentHealth;
+                maxHealth = entityInfo.maxHealth;
+                currency = entityInfo.currency;
+                maxAmmo = entityInfo.maxAmmo;
+                reloadTime = entityInfo.reloadTime;
+                bulletTime = entityInfo.bulletTime;
+            }
+        }
     }
 
     private void Start() {

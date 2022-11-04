@@ -28,10 +28,10 @@ public class bulletUI : MonoBehaviour
         }
     }
 
-    private void setColor(Color value){
+    private void setTransparency(float alpha){
         Transform bullet =  gameObject.transform.Find("bullet");
         if (bullet){
-            bullet.gameObject.GetComponent<Image>().color = value;
+            bullet.gameObject.GetComponent<CanvasGroup>().alpha = alpha;
         }
     }
 
@@ -40,6 +40,7 @@ public class bulletUI : MonoBehaviour
             Transform bullet =  gameObject.transform.Find("bullet");
             bullet.gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f,hidePivot);
             bullet.gameObject.GetComponent<Image>().color = new Color32(247,192,74,255);
+            bullet.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
 
             // tween stuff
             LeanTween.cancel(gameObject);
@@ -55,8 +56,7 @@ public class bulletUI : MonoBehaviour
             bullet.gameObject.GetComponent<Image>().color = new Color32(255,255,255,255);
 
             LeanTween.cancel(gameObject);
-            LeanTween.value(gameObject,new Color(255,255,255,255),new Color(255,255,255,0),0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdateColor(setColor).setDelay(0.05f);
-
+            LeanTween.value(gameObject,1f,0f,0.1f).setIgnoreTimeScale(true).setEaseLinear().setOnUpdate(setTransparency).setDelay(0.02f);
         }
         
         bulletVisible = false;

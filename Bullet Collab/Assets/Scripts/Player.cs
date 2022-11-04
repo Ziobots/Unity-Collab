@@ -132,7 +132,8 @@ public class Player : Entity
         }
 
         if (Input.GetKeyDown("r")){
-            if (Time.time - delayStartTime >= 0.25f && currentAmmo < maxAmmo){
+            // check to see if they, just fired bullet, have max ammo, are currently reloading
+            if (Time.time - delayStartTime >= 0.25f && currentAmmo < maxAmmo && Time.time - reloadStartTime >= reloadTime){
                 reloadGun();
             }
         }

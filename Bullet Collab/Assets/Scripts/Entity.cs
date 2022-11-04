@@ -53,6 +53,7 @@ public class Entity : MonoBehaviour
 
     // Sound Stuff
     public AudioSource gunNoise;
+    public AudioSource reloadNoise;
 
     // Upgrade Variables
     public List<string> perkIDList;
@@ -79,6 +80,10 @@ public class Entity : MonoBehaviour
         editList.Add("Owner", gameObject);
         perkCommands.applyPerk(perkIDList,"Reload",editList);
 
+        if (reloadNoise != null){
+            reloadNoise.PlayOneShot(reloadNoise.clip,0.2f);
+        }
+
         // add to the ammo one by one over time
         LeanTween.value(gameObject,(float)currentAmmo,(float)maxAmmo,reloadTime).setEaseLinear().setOnUpdate(setCurrentAmmo);
         if (dataInfo != null){
@@ -98,6 +103,11 @@ public class Entity : MonoBehaviour
             return;
         }
 
+        // check if entity is  in bullet cooldown
+        if (Time.time - delayStartTime < bulletTime){
+            return;
+        }
+
         // check if entity is reloading
         if (Time.time - reloadStartTime < reloadTime){
             return;
@@ -109,17 +119,17 @@ public class Entity : MonoBehaviour
             return;
         }
 
-        // check if entity is  in bullet cooldown
-        if (Time.time - delayStartTime < bulletTime){
-            return;
-        }
-
         // entity passed all checks, can fire
         delayStartTime = Time.time;
         currentAmmo -= 1;
 
+        // the delay after firing the last bullet shouldnt be as long
+        if (currentAmmo <= 0){
+            delayStartTime = Time.time - bulletTime + 0.25f;
+        }
+
         if (gunNoise != null){
-            gunNoise.PlayOneShot(gunNoise.clip,1f);
+            gunNoise.PlayOneShot(gunNoise.clip,0.3f);
         }
 
         foreach(Transform point in launchPoints){

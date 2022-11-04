@@ -18,6 +18,10 @@ public class mouseCursor : MonoBehaviour
     // Menu Objs
     public RectTransform screenObj;
 
+    // Base Data Stuff
+    public GameObject dataManager;
+    [HideInInspector] public sharedData dataInfo;
+
     // cursor Variables
     public bool isHovering = false;
     public bool reticleActive = true;
@@ -33,6 +37,7 @@ public class mouseCursor : MonoBehaviour
         isHovering = true;
         gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("hoverCursor");
         gameObject.GetComponent<Image>().color = new Color32(255,255,255,255);
+        gameObject.transform.Find("recharge").gameObject.SetActive(false);
     }
 
     public void cursorStopHover(){
@@ -40,11 +45,12 @@ public class mouseCursor : MonoBehaviour
 
         if (reticleActive){
             gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("reticle2");
-            //gameObject.GetComponent<Image>().color = new Color32(253,106,106,175);
-            gameObject.GetComponent<Image>().color = new Color32(253,106,106,255);
+            gameObject.GetComponent<Image>().color = new Color32(0,0,0,118);
+            gameObject.transform.Find("recharge").gameObject.SetActive(true);
         }else{
             gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("cursor");
             gameObject.GetComponent<Image>().color = new Color32(255,255,255,255);
+            gameObject.transform.Find("recharge").gameObject.SetActive(false);
         }
     }
 
@@ -56,9 +62,43 @@ public class mouseCursor : MonoBehaviour
         }
     }
 
+    private void reloadRadial(){
+        // check if can do radial
+        if (dataInfo && Time.timeScale > 0){
+            float radialAlpha = 0;
+            bool reloading = false;
+
+            // check for which timer to display
+            if (Time.time - dataInfo.reloadStartTime < dataInfo.reloadTime){
+                reloading = true;
+                radialAlpha = (Time.time - dataInfo.reloadStartTime) / dataInfo.reloadTime;
+            }else if (Time.time - dataInfo.delayStartTime < dataInfo.bulletTime){
+                radialAlpha = (Time.time - dataInfo.delayStartTime) / dataInfo.bulletTime;
+            }else{
+                radialAlpha = 1;
+            }
+
+            // radial image stuff
+            Image radialImage = gameObject.transform.Find("recharge").gameObject.GetComponent<Image>();
+            if ((radialAlpha >= 1 && dataInfo.currentAmmo > 0) || reloading){
+                radialImage.color = new Color32(253,106,106,230);
+            }else{
+                radialImage.color = new Color32(255,255,255,230);
+            }
+            
+            radialImage.fillAmount = Mathf.Lerp(radialImage.fillAmount,radialAlpha,0.8f);
+        }
+    }
+
     // start is called when loaded
     private void Start() {
         isHovering = true;
+
+        // Get data management script
+        if (dataManager != null){
+            dataInfo = dataManager.GetComponent<sharedData>();
+        }
+        
         updateHover(false);
     }
 
@@ -95,6 +135,9 @@ public class mouseCursor : MonoBehaviour
                 cursorRect.rotation = Quaternion.Lerp(cursorRect.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
                 cursorRect.anchoredPosition = screenPosition;//Vector2.Lerp(currentPosition,screenPosition,alpha);
             }
+
+            // display radial
+            reloadRadial();
         }
     }
 }

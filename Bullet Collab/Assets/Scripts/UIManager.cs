@@ -130,6 +130,7 @@ public class UIManager : MonoBehaviour
         updateBullet();
     }
 
+    /* // OLD RADIAL DIAL STUFF
     private void Update() {
         if (bulletBar != null){
             float radialAlpha = 0;
@@ -141,11 +142,12 @@ public class UIManager : MonoBehaviour
                 radialAlpha = 1;
             }
 
-            Image radialImage = bulletBar.transform.Find("reSize").Find("reload").Find("radial").gameObject.GetComponent<Image>();
-            radialImage.fillAmount = Mathf.Lerp(radialImage.fillAmount,radialAlpha,0.8f);
+            //Image radialImage = bulletBar.transform.Find("reSize").Find("reload").Find("radial").gameObject.GetComponent<Image>();
+            //radialImage.fillAmount = Mathf.Lerp(radialImage.fillAmount,radialAlpha,0.8f);
         }
     }
-
+    */
+    
     // Start of Game update UI
     private void Start() {
         // Keep UI between Scenes

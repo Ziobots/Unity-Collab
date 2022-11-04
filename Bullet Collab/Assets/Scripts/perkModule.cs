@@ -35,7 +35,7 @@ public class perkModule : MonoBehaviour
 
         // count all perks
         foreach (string perkID in perkIDList){
-            // Check if key exists then create/add one
+            // Check if key exists then create/add one 
             perkCounts[perkID] = (perkCounts.ContainsKey(perkID) ? perkCounts[perkID] : 0) + 1;
         }
 
@@ -90,6 +90,9 @@ public class perkModule : MonoBehaviour
                     // Normal Cases
                     case "Shoot":// when an entity fires a bullet
                         perk.shootEvent(objDictionary,perkCounts[perkID],initializePerk);
+                        break;
+                    case "Reload":// when an entity fires a bullet
+                        perk.reloadGunEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                     case "Hit":// when a bullet hits an entity
                         perk.hitEvent(objDictionary,perkCounts[perkID],initializePerk);

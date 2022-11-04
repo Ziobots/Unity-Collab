@@ -17686,8 +17686,11 @@ MonoBehaviour:
   currency: 0
   perkIDList: []
   maxAmmo: 0
+  currentAmmo: 0
   reloadTime: 0
   bulletTime: 0
+  reloadStartTime: 0
+  delayStartTime: 0
 --- !u!4 &1356760224
 Transform:
   m_ObjectHideFlags: 0
@@ -19369,6 +19372,7 @@ MonoBehaviour:
   - {fileID: 369944522}
   bulletFolder: {fileID: 700863669}
   maxAmmo: 0
+  currentAmmo: 0
   reloadTime: 0
   bulletTime: 0
   reloadStartTime: 0
@@ -19623,6 +19627,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: maxAmmo
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: cursorObj
       value: 
       objectReference: {fileID: 3391897934961127638}
@@ -19637,6 +19645,18 @@ PrefabInstance:
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: walkSpeed
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: bulletTime
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: reloadTime
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: currentAmmo
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: dataManager

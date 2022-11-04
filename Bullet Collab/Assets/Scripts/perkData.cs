@@ -31,6 +31,8 @@ public class perkData : ScriptableObject
 
     public virtual void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    public virtual void reloadGunEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
+
     public virtual void hitEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
     public virtual void bounceEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}

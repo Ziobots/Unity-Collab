@@ -9,7 +9,8 @@
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
 * 10/25/22  0.11                 KJ              Moved gun and flip to Fixed, changed Lerp alpha values to 10
-* 11/02/22  0.15                 KJ              used ref for perkidlist
+* 11/02/22  0.15                 DS              used ref for perkidlist
+* 11/03/22  0.20                 DS              updated health stuff, removed ref for perk list
 *******************************************************************************/
 
 using System.Collections;
@@ -47,6 +48,7 @@ public class Player : Entity
 
             // Set Gun Position
             arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 30f);
+
             // Rotate Gun
             arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 10f);
             
@@ -73,7 +75,7 @@ public class Player : Entity
 
             // Update Data
             dataInfo.updateEntityData(gameObject);
-            uiUpdate.updateHealth(); 
+            uiUpdate.updateGameUI(); 
         }
     }
 
@@ -110,7 +112,7 @@ public class Player : Entity
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // Bullet Fire
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetMouseButton(0)) {
             // Check if mouse is hovering button
             if (cursorObj == null || !cursorObj.GetComponent<mouseCursor>().isHovering){
                 // check if player is too close to wall

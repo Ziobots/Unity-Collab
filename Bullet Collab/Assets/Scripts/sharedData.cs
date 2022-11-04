@@ -37,8 +37,13 @@ public class sharedData : MonoBehaviour
     public List<string> perkIDList = new List<string>();
     // Temporary Bullet
     public int maxAmmo;
+    public int currentAmmo;
     public float reloadTime;
     public float bulletTime;
+    // time vars
+    [HideInInspector] public float reloadStartTime = 0;
+    [HideInInspector] public float delayStartTime = 0;
+
 
     // Reset the Run Data
     public void resetTempData() {
@@ -57,8 +62,11 @@ public class sharedData : MonoBehaviour
                 maxHealth = entityInfo.maxHealth;
                 currency = entityInfo.currency;
                 maxAmmo = entityInfo.maxAmmo;
+                currentAmmo = entityInfo.currentAmmo;
                 reloadTime = entityInfo.reloadTime;
                 bulletTime = entityInfo.bulletTime;
+                reloadStartTime = entityInfo.reloadStartTime;
+                delayStartTime = entityInfo.delayStartTime;
             }
         }
     }

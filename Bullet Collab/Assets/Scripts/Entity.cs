@@ -7,6 +7,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
+* 11/03/22  0.20                 DS              updated health stuff
 *******************************************************************************/
 
 using System.Collections;
@@ -42,6 +43,7 @@ public class Entity : MonoBehaviour
     public Transform bulletFolder;
     // Temporary Bullet
     public int maxAmmo;
+    public int currentAmmo;
     public float reloadTime;
     public float bulletTime;
     // time vars
@@ -51,11 +53,66 @@ public class Entity : MonoBehaviour
     // Upgrade Variables
     public List<string> perkIDList;
 
+    private void setCurrentAmmo(float value){
+        currentAmmo = (int) value;
+
+        if (dataInfo != null){
+            dataInfo.updateEntityData(gameObject);
+        }
+
+        if (uiUpdate != null && gameObject.tag == "Player"){
+            uiUpdate.updateBullet();
+        }
+    }
+
+    // reload gun function
+    public virtual void reloadGun(){
+        reloadStartTime = Time.time;
+        delayStartTime = 0;
+
+        // Check for any reload modifiers
+        Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+        editList.Add("Owner", gameObject);
+        perkCommands.applyPerk(perkIDList,"Reload",editList);
+
+        // add to the ammo one by one over time
+        LeanTween.value(gameObject,(float)currentAmmo,(float)maxAmmo,reloadTime).setEaseLinear().setOnUpdate(setCurrentAmmo);
+        if (dataInfo != null){
+            dataInfo.updateEntityData(gameObject);
+        }
+
+        // update the ui
+        if (uiUpdate != null && gameObject.tag == "Player"){
+            uiUpdate.updateBullet();
+        }
+    }
+
     // Entity will fire Bullets
     public virtual void fireBullets(){
+        // make sure game is running
         if (Time.timeScale <= 0){
             return;
         }
+
+        // check if entity is reloading
+        if (Time.time - reloadStartTime < reloadTime){
+            return;
+        }
+
+        // check if entity has ammo
+        if (currentAmmo <= 0){
+            reloadGun();
+            return;
+        }
+
+        // check if entity is  in bullet cooldown
+        if (Time.time - delayStartTime < bulletTime){
+            return;
+        }
+
+        // entity passed all checks, can fire
+        delayStartTime = Time.time;
+        currentAmmo -= 1;
 
         foreach(Transform point in launchPoints){
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
@@ -75,6 +132,18 @@ public class Entity : MonoBehaviour
                 editList.Add("Bullet", newBullet.gameObject);
                 perkCommands.applyPerk(perkIDList,"Shoot",editList);
             }
+        }
+
+        if (currentAmmo <= 0){
+            reloadGun();
+        }
+
+        if (dataInfo != null){
+            dataInfo.updateEntityData(gameObject);
+        }
+
+        if (uiUpdate != null && gameObject.tag == "Player"){
+            uiUpdate.updateBullet();
         }
     }
 

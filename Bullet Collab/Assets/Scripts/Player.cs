@@ -130,6 +130,12 @@ public class Player : Entity
                 }
             }
         }
+
+        if (Input.GetKeyDown("r")){
+            if (Time.time - delayStartTime >= 0.25f && currentAmmo < maxAmmo){
+                reloadGun();
+            }
+        }
     }
 
     // Fixed Update is called every physics step

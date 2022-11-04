@@ -29,11 +29,15 @@ public class loginSetup : MonoBehaviour
     public TMPro.TMP_InputField createPasswordField;
 
     // main stuff
+    public GameObject mainMenu;
+    public GameObject gameMenu;
     public GameObject createMenu;
     public GameObject loginMenu;
 
     public Button submitButton;
     private EventSystem system;
+    public GameObject cursorObj;
+
 
     // button functions
     public void loginButton(){
@@ -79,10 +83,10 @@ public class loginSetup : MonoBehaviour
 
 
     public void guestButton(){
-        print("SKIP LOGIN");
-
         loginMenu.SetActive(false);
         createMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        gameMenu.SetActive(true);
 
     }
 
@@ -101,6 +105,7 @@ public class loginSetup : MonoBehaviour
 
     private void onLoginSuccess(LoginResult result){
         print("login success");
+        guestButton();
     }
 
     private void onRegisterSuccess(RegisterPlayFabUserResult result){
@@ -115,6 +120,10 @@ public class loginSetup : MonoBehaviour
     // Start is called before the first frame update
     void Start(){
         system = EventSystem.current;
+
+        mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
+        cursorData.reticleActive = false;
+        cursorData.updateHover(false);
     }
 
     // Update is called once per frame

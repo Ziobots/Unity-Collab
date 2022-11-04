@@ -126,6 +126,7 @@ public class loginSetup : MonoBehaviour
         cursorData.updateHover(false);
     }
 
+    
     // Update is called once per frame
     void Update(){
         if (system.currentSelectedGameObject){
@@ -150,4 +151,5 @@ public class loginSetup : MonoBehaviour
             }
         }
     }
+    
 }

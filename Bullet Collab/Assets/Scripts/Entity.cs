@@ -46,6 +46,7 @@ public class Entity : MonoBehaviour
     public int currentAmmo;
     public float reloadTime;
     public float bulletTime;
+    public float bulletSpread;
     public bool automaticGun = false;
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
@@ -133,7 +134,15 @@ public class Entity : MonoBehaviour
         }
 
         foreach(Transform point in launchPoints){
-            bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
+            // calculate bullet spread
+            Quaternion spreadQuaternion = Quaternion.Euler(0, 0, 0);
+            if (bulletSpread > 0){
+                bulletSpread = Mathf.Clamp(bulletSpread,0,50);
+                float angle = Random.Range(-bulletSpread * 1000,bulletSpread * 1000) / 1000;
+                spreadQuaternion = Quaternion.Euler(0, 0, angle);
+            }
+
+            bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation * spreadQuaternion,bulletFolder);
             if (newBullet != null){
                 newBullet.dataManager = dataManager;
                 newBullet.bulletOwner = gameObject;

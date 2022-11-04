@@ -40,6 +40,7 @@ public class sharedData : MonoBehaviour
     public int currentAmmo;
     public float reloadTime;
     public float bulletTime;
+    public float bulletSpread;
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
@@ -65,6 +66,7 @@ public class sharedData : MonoBehaviour
                 currentAmmo = entityInfo.currentAmmo;
                 reloadTime = entityInfo.reloadTime;
                 bulletTime = entityInfo.bulletTime;
+                bulletSpread = entityInfo.bulletSpread;
                 reloadStartTime = entityInfo.reloadStartTime;
                 delayStartTime = entityInfo.delayStartTime;
             }

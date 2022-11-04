@@ -17979,6 +17979,7 @@ MonoBehaviour:
   currentAmmo: 0
   reloadTime: 0
   bulletTime: 0
+  bulletSpread: 0
   reloadStartTime: 0
   delayStartTime: 0
 --- !u!4 &1356760224
@@ -19665,6 +19666,7 @@ MonoBehaviour:
   currentAmmo: 0
   reloadTime: 0
   bulletTime: 0
+  bulletSpread: 0
   automaticGun: 0
   reloadStartTime: 0
   delayStartTime: 0
@@ -19967,6 +19969,10 @@ PrefabInstance:
       propertyPath: bulletFolder
       value: 
       objectReference: {fileID: 700863669}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: bulletSpread
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: currentHealth
       value: 6

@@ -115,7 +115,7 @@ public class Player : Entity
         // Check for mouse down
         bool isMouseDown = Input.GetButtonDown("Fire1");
         if (automaticGun){
-            isMouseDown = Input.GetMouseButtonDown(0);
+            isMouseDown = Input.GetMouseButton(0);
         }
 
         // fire bullet

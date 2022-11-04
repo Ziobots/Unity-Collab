@@ -19,6 +19,10 @@ public class perkPickup : MonoBehaviour
     [HideInInspector] public sharedData dataInfo;
     [HideInInspector] public perkModule perkCommands;
 
+    // UI Stuff
+    public GameObject uiManager;
+    [HideInInspector] public UIManager uiUpdate;
+
     // perk obj variables
     public string perkID;
     public int cost = 0;
@@ -50,6 +54,11 @@ public class perkPickup : MonoBehaviour
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
             perkCommands = dataManager.GetComponent<perkModule>();
+        }
+
+        // Get UI management script
+        if (uiManager != null){
+            uiUpdate = uiManager.GetComponent<UIManager>();
         }
 
         if (perkCommands != null){
@@ -88,6 +97,7 @@ public class perkPickup : MonoBehaviour
 
                     // apply any changes to the data
                     dataInfo.updateEntityData(entityObj);
+                    uiUpdate.updateGameUI();
                 }
             }
 
@@ -99,6 +109,10 @@ public class perkPickup : MonoBehaviour
                 editList.Add("Owner", entityObj);
                 editList.Add("PerkObj", gameObject);
                 perkCommands.applyPerk(dataInfo.perkIDList,"Perk_Collect",editList);
+
+                // apply any changes to the data
+                dataInfo.updateEntityData(entityObj);
+                uiUpdate.updateGameUI();
             }
 
             // if perk was connected to other perks remove those since this was chosen

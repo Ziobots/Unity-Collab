@@ -81,12 +81,12 @@ public class mouseCursor : MonoBehaviour
             // radial image stuff
             Image radialImage = gameObject.transform.Find("recharge").gameObject.GetComponent<Image>();
             if ((radialAlpha >= 1 && dataInfo.currentAmmo > 0) || reloading){
-                radialImage.color = new Color32(253,106,106,230);
+                radialImage.color = Color32.Lerp(radialImage.color,new Color32(253,106,106,230),0.4f);
             }else{
-                radialImage.color = new Color32(255,255,255,230);
+                radialImage.color = Color32.Lerp(radialImage.color,new Color32(255,255,255,230),0.4f);
             }
             
-            radialImage.fillAmount = Mathf.Lerp(radialImage.fillAmount,radialAlpha,0.8f);
+            radialImage.fillAmount = radialAlpha;//Mathf.Lerp(radialImage.fillAmount,radialAlpha,radialAlpha <= 0.05f ? 1f : 0.9f);
         }
     }
 

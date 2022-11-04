@@ -68,7 +68,7 @@ public class Entity : MonoBehaviour
         }
 
         if (uiUpdate != null && gameObject.tag == "Player"){
-            uiUpdate.updateBullet();
+            uiUpdate.updateGameUI();
         }
     }
 
@@ -94,7 +94,7 @@ public class Entity : MonoBehaviour
 
         // update the ui
         if (uiUpdate != null && gameObject.tag == "Player"){
-            uiUpdate.updateBullet();
+            uiUpdate.updateGameUI();
         }
     }
 
@@ -168,7 +168,7 @@ public class Entity : MonoBehaviour
         }
 
         if (uiUpdate != null && gameObject.tag == "Player"){
-            uiUpdate.updateBullet();
+            uiUpdate.updateGameUI();
         }
     }
 

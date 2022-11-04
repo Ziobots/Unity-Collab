@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoIndex: 0
-  bulletVisible: 0
+  bulletVisible: 1
 --- !u!1 &4542052760352952704
 GameObject:
   m_ObjectHideFlags: 0

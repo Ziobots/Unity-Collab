@@ -17,7 +17,7 @@ public class bulletUI : MonoBehaviour
 {
     // ui variables
     public int ammoIndex;
-    public bool bulletVisible = false;
+    public bool bulletVisible = true;
     private float hidePivot = 1.5f;
 
     // tween functions

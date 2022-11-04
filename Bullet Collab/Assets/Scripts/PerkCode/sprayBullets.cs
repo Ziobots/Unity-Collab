@@ -16,8 +16,8 @@ public class sprayBullets : perkData
 {
     public int addBullets = 10;
     public float damageMultiple = 0.7f;
-    public float delayMultiple = 3f;
-    public float reloadMultiple = 1.25f;
+    public float delayMultiple = 1f / 3f;
+    public float reloadMultiple = 1f / 1.25f;
 
     public override void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
         Entity entityStats = getEntityStats(objDictionary);

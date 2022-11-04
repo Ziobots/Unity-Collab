@@ -72,8 +72,16 @@ public class mouseCursor : MonoBehaviour
             if (Time.time - dataInfo.reloadStartTime < dataInfo.reloadTime){
                 reloading = true;
                 radialAlpha = (Time.time - dataInfo.reloadStartTime) / dataInfo.reloadTime;
+                // prevent spam flashing
+                if (dataInfo.reloadTime <= 0.08f){
+                    radialAlpha = 1;
+                }
             }else if (Time.time - dataInfo.delayStartTime < dataInfo.bulletTime){
                 radialAlpha = (Time.time - dataInfo.delayStartTime) / dataInfo.bulletTime;
+                // prevent spam flashing
+                if (dataInfo.bulletTime <= 0.08f){
+                    radialAlpha = 1;
+                }
             }else{
                 radialAlpha = 1;
             }

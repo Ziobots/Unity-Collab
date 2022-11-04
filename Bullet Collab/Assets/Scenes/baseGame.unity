@@ -20350,7 +20350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: maxAmmo
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: gunNoise
@@ -20382,7 +20382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: currentAmmo
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: dataManager

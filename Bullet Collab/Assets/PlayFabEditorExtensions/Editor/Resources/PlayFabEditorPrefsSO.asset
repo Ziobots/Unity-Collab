@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DevAccountEmail: zionsanchez@knights.ucf.edu
   DevAccountToken: qrk8dqr5pi1xmj5ihatforbkpm6cqdeeafgioyhpr6j4jtxgsxjgx17i9ey9mh67od459paec1gm15t5kfokg84xpo59a8ouytt73mhtes4e4io8wt34impbwk9fwokw9nddsoc7jyd1pqfaijtwcw5mofbqq5inz3a6e4gbmg5enqshfud4xbw41y14f48jck71cscb
-  SelectedStudio: 
+  SelectedStudio: My Game Studio
   SdkPath: Assets/PlayFabSDK
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 0
+  curMainMenuIdx: 1
   curSubMenuIdx: 0

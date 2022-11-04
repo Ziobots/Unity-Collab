@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 35
+  controlID: 28
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 36
+  controlID: 29
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 25
+  controlID: 30
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 26
+  controlID: 31
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -294,8 +294,8 @@ MonoBehaviour:
     y: 0
     width: 390
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -342,22 +342,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/uiButtons
+    - Assets/Resources/PerkFolder
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/uiButtons
+  - Assets/Resources/PerkFolder
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\zions\Documents\GitHub\Unity-Collab\Bullet Collab
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 94}
-    m_SelectedIDs: 8e670000
-    m_LastClickedID: 26510
-    m_ExpandedIDs: 0000000050670000526700005467000056670000586700005a6700005c6700008867000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 7a670000
+    m_LastClickedID: 26490
+    m_ExpandedIDs: 0000000050670000526700005467000056670000586700005a6700005c67000088670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000ac610000c45f0000de5f000060610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -429,7 +429,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 10}
+      m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -472,23 +472,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 4cefffff94efffffaeefffffc6efffffcef1ffff1ef3ffff66f3ffff62f5ffff7cf5ffff84f7ffff00fbffff
+      m_SelectedIDs: 50f30200
+      m_LastClickedID: 193360
+      m_ExpandedIDs: ba1bf5ff021cf5ff021ef5ff1c1ef5ff5a20f5ff925af5ffda5af5ffde5cf5fffc5cf5ff3e5ff5ff5c6ef8ffa46ef8ffa270f8ffbc70f8fffa72f8ffd2b7f8ff1ab8f8ff18baf8ff32baf8ff70bcf8ffcc9efbff12b8fbff48e9fbff426bfcff2a99fcff8099fcff7e9bfcff989bfcffc69dfcff74cdfcffc2cdfcffe2cffcff1ed0fcff6ed2fcff545cfdff68dcffffb8dcffffb4deffffcedeffffd6e0ffff00fbfffff4ffffff12620000388b00005a8b00008c8b0000248c00000a8d00002c8d0000aca10100e0a10100f4a1010020a2010026a4010052a00200dcf2020050f30200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: perkPrefab (2)
+        m_OriginalName: perkPrefab (2)
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -515034
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -632,7 +632,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 25}
+      snapOffset: {x: 0, y: 26}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -664,7 +664,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       floating: 0
       collapsed: 0
-      displayed: 0
+      displayed: 1
       snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -780,9 +780,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.4754551, y: -0.9500806, z: 3.3455029}
+    m_Target: {x: 8.02783, y: 1.2397236, z: 0.15906143}
     speed: 2
-    m_Value: {x: 713.9991, y: 111.73273, z: 69.34326}
+    m_Value: {x: 8.02783, y: 1.2397236, z: 0.15906143}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -833,9 +833,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 8.158038
+    m_Target: 7.7123632
     speed: 2
-    m_Value: 293.35275
+    m_Value: 7.7123632
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1015,7 +1015,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 238
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

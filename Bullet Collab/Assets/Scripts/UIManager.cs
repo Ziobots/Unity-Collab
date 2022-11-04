@@ -61,8 +61,15 @@ public class UIManager : MonoBehaviour
     }
 
     // bullet ui stuff
-    private int lastMax = -1;
+    //private int lastMax = -1;
     private int lastCurrent = -1;
+
+    private void setTextSize(float value){
+        GameObject textLabel = bulletBar.transform.Find("reSize").Find("ammoCount").gameObject;
+        if (textLabel){
+            textLabel.GetComponent<TMPro.TextMeshProUGUI>().fontSize = value;
+        }
+    }
 
     public void updateBullet(){
         // create the bullets UI
@@ -78,6 +85,8 @@ public class UIManager : MonoBehaviour
                 bulletUI bulletUIInfo = newBulletUI.gameObject.GetComponent<bulletUI>();
                 bulletUIInfo.ammoIndex = i;
                 newBulletUI.gameObject.name = "bulletUI_" + i;
+                newBulletUI.transform.Find("bullet").GetComponent<RectTransform>().sizeDelta = new Vector2(22f,22f);
+
                 if (i > dataInfo.currentAmmo){
                     bulletUIInfo.hideBullet();
                 }else if(!bulletUIInfo.bulletVisible){
@@ -88,18 +97,31 @@ public class UIManager : MonoBehaviour
 
         // remove bullets that dont exist
         foreach (Transform child in bulletBar.transform.Find("bulletObj")){
-            print(child);
-            if (child != null && child.gameObject && child.gameObject.GetComponent<bulletUI>().ammoIndex > dataInfo.maxAmmo){
-                Destroy(child.gameObject);
+            if (child != null && child.gameObject){
+                bulletUI uiInfo = child.gameObject.GetComponent<bulletUI>();
+                if (uiInfo && (uiInfo.ammoIndex > dataInfo.maxAmmo || uiInfo.ammoIndex <= 0)){
+                    Destroy(child.gameObject);
+                }
             }
         }
 
-        float width = 22f * Mathf.Clamp(dataInfo.maxAmmo,0f,10f);
-        bulletBar.GetComponent<RectTransform>().sizeDelta = new Vector2(width,60f);
+        // old ver
+        //float width = 22f * Mathf.Clamp(dataInfo.maxAmmo,0f,10f);
+        //bulletBar.GetComponent<RectTransform>().sizeDelta = new Vector2(width,60f);
 
         // set the text
-        string ammoString = "" + dataInfo.currentAmmo + "<size=20><color=#828282D7>  " + dataInfo.maxAmmo + "</color></size>";
-        bulletBar.transform.Find("reSize").Find("ammoCount").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = ammoString;
+        string ammoString = "" + dataInfo.currentAmmo + "<size=35><color=#828282D7>/" + dataInfo.maxAmmo + "</color></size>";
+        GameObject textLabel = bulletBar.transform.Find("reSize").Find("ammoCount").gameObject;
+        textLabel.GetComponent<TMPro.TextMeshProUGUI>().text = ammoString;
+
+        // bump tween for text
+        if (lastCurrent != dataInfo.currentAmmo){
+            lastCurrent = dataInfo.currentAmmo;
+            
+            LeanTween.cancel(textLabel);
+            LeanTween.value(textLabel,60f,65f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setTextSize);
+            LeanTween.value(textLabel,65f,60f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setTextSize).setDelay(0.1f);
+        }
     }
 
     // function for updating ui
@@ -120,7 +142,7 @@ public class UIManager : MonoBehaviour
             }
 
             Image radialImage = bulletBar.transform.Find("reSize").Find("reload").Find("radial").gameObject.GetComponent<Image>();
-            radialImage.fillAmount = Mathf.Lerp(radialImage.fillAmount,radialAlpha,Time.fixedDeltaTime * 20f);
+            radialImage.fillAmount = Mathf.Lerp(radialImage.fillAmount,radialAlpha,0.8f);
         }
     }
 

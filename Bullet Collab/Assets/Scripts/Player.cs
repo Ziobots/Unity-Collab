@@ -97,6 +97,7 @@ public class Player : Entity
 
         // apply any changes to the data
         dataInfo.updateEntityData(gameObject);
+        uiUpdate.updateGameUI();
     }
 
     // Update is called once per frame
@@ -111,8 +112,14 @@ public class Player : Entity
         // Mouse Direction Here
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Bullet Fire
-        if (Input.GetMouseButton(0)) {
+        // Check for mouse down
+        bool isMouseDown = Input.GetButtonDown("Fire1");
+        if (automaticGun){
+            isMouseDown = Input.GetMouseButtonDown(0);
+        }
+
+        // fire bullet
+        if (isMouseDown) {
             // Check if mouse is hovering button
             if (cursorObj == null || !cursorObj.GetComponent<mouseCursor>().isHovering){
                 // check if player is too close to wall

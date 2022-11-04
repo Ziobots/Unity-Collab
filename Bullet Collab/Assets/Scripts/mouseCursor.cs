@@ -39,8 +39,9 @@ public class mouseCursor : MonoBehaviour
         isHovering = false;
 
         if (reticleActive){
-            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Reticle");
-            gameObject.GetComponent<Image>().color = new Color32(253,106,106,175);
+            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("reticle2");
+            //gameObject.GetComponent<Image>().color = new Color32(253,106,106,175);
+            gameObject.GetComponent<Image>().color = new Color32(253,106,106,255);
         }else{
             gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("cursor");
             gameObject.GetComponent<Image>().color = new Color32(255,255,255,255);
@@ -53,6 +54,12 @@ public class mouseCursor : MonoBehaviour
         }else{
             cursorStopHover();
         }
+    }
+
+    // start is called when loaded
+    private void Start() {
+        isHovering = true;
+        updateHover(false);
     }
 
     // Update is called once per frame

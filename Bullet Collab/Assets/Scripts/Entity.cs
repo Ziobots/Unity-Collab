@@ -46,9 +46,13 @@ public class Entity : MonoBehaviour
     public int currentAmmo;
     public float reloadTime;
     public float bulletTime;
+    public bool automaticGun = false;
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
+
+    // Sound Stuff
+    public AudioSource gunNoise;
 
     // Upgrade Variables
     public List<string> perkIDList;
@@ -114,6 +118,10 @@ public class Entity : MonoBehaviour
         delayStartTime = Time.time;
         currentAmmo -= 1;
 
+        if (gunNoise != null){
+            gunNoise.PlayOneShot(gunNoise.clip,1f);
+        }
+
         foreach(Transform point in launchPoints){
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation,bulletFolder);
             if (newBullet != null){
@@ -132,10 +140,6 @@ public class Entity : MonoBehaviour
                 editList.Add("Bullet", newBullet.gameObject);
                 perkCommands.applyPerk(perkIDList,"Shoot",editList);
             }
-        }
-
-        if (currentAmmo <= 0){
-            reloadGun();
         }
 
         if (dataInfo != null){

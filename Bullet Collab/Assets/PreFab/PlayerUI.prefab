@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2789911069428414088}
   - component: {fileID: 3701578416421697981}
   - component: {fileID: 2572878067581223344}
+  - component: {fileID: 238678729940514285}
   m_Layer: 5
   m_Name: inputField
   m_TagString: Untagged
@@ -114,10 +115,34 @@ MonoBehaviour:
       m_Calls: []
   m_OnSelect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 238678729940514285}
+        m_TargetAssemblyTypeName: inputSetup, Assembly-CSharp
+        m_MethodName: onSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnDeselect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 238678729940514285}
+        m_TargetAssemblyTypeName: inputSetup, Assembly-CSharp
+        m_MethodName: onDeSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTextSelection:
     m_PersistentCalls:
       m_Calls: []
@@ -145,6 +170,26 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &238678729940514285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110139153415306542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb00b7dccd635f74c8991a85cd7189ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabSelect: {fileID: 6009275396373638187}
+  Holder: {fileID: 7240828972829763223}
+  defaultColor:
+    serializedVersion: 2
+    rgba: 4293717228
+  selectColor:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!1 &307771629159007207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,6 +2027,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 329319693127612052}
+  - component: {fileID: 1787398247766123915}
   m_Layer: 5
   m_Name: loginScreen
   m_TagString: Untagged
@@ -2012,6 +2058,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1787398247766123915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2229122858928894127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3177732a593166b46869a1046b30e85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emailField: {fileID: 6009275396373638187}
+  passwordField: {fileID: 2572878067581223344}
+  submitButton: {fileID: 7790957717545978438}
 --- !u!1 &2322543535293898780
 GameObject:
   m_ObjectHideFlags: 0
@@ -3150,6 +3211,7 @@ GameObject:
   - component: {fileID: 3924059456800141999}
   - component: {fileID: 2921312178364771714}
   - component: {fileID: 6009275396373638187}
+  - component: {fileID: 2471983970880792067}
   m_Layer: 5
   m_Name: inputField
   m_TagString: Untagged
@@ -3234,14 +3296,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 6
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 7
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 7
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -3253,10 +3315,34 @@ MonoBehaviour:
       m_Calls: []
   m_OnSelect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2471983970880792067}
+        m_TargetAssemblyTypeName: inputSetup, Assembly-CSharp
+        m_MethodName: onSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnDeselect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2471983970880792067}
+        m_TargetAssemblyTypeName: inputSetup, Assembly-CSharp
+        m_MethodName: onDeSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTextSelection:
     m_PersistentCalls:
       m_Calls: []
@@ -3284,6 +3370,26 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &2471983970880792067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3742890265358098055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb00b7dccd635f74c8991a85cd7189ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabSelect: {fileID: 2572878067581223344}
+  Holder: {fileID: 603114744571681180}
+  defaultColor:
+    serializedVersion: 2
+    rgba: 4293717228
+  selectColor:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!1 &3760614474726277407
 GameObject:
   m_ObjectHideFlags: 0
@@ -4285,7 +4391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+  m_Color: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5503,7 +5609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
+  m_Color: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5748,10 +5854,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7924832519508211046}
-        m_TargetAssemblyTypeName: pauseButton, Assembly-CSharp
-        m_MethodName: returnHome
-        m_Mode: 5
+      - m_Target: {fileID: 1787398247766123915}
+        m_TargetAssemblyTypeName: loginSetup, Assembly-CSharp
+        m_MethodName: forgotPasswordButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7340,7 +7446,7 @@ GameObject:
   - component: {fileID: 3931790134604074913}
   - component: {fileID: 6065069148093410360}
   m_Layer: 5
-  m_Name: exit
+  m_Name: login
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7419,10 +7525,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7924832519508211046}
-        m_TargetAssemblyTypeName: pauseButton, Assembly-CSharp
-        m_MethodName: returnHome
-        m_Mode: 5
+      - m_Target: {fileID: 1787398247766123915}
+        m_TargetAssemblyTypeName: loginSetup, Assembly-CSharp
+        m_MethodName: loginButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8224,10 +8330,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7924832519508211046}
-        m_TargetAssemblyTypeName: pauseButton, Assembly-CSharp
-        m_MethodName: returnHome
-        m_Mode: 5
+      - m_Target: {fileID: 1787398247766123915}
+        m_TargetAssemblyTypeName: loginSetup, Assembly-CSharp
+        m_MethodName: guestButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8585,10 +8691,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7924832519508211046}
-        m_TargetAssemblyTypeName: pauseButton, Assembly-CSharp
-        m_MethodName: returnHome
-        m_Mode: 5
+      - m_Target: {fileID: 1787398247766123915}
+        m_TargetAssemblyTypeName: loginSetup, Assembly-CSharp
+        m_MethodName: createAccountButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

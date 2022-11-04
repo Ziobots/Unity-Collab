@@ -49,10 +49,6 @@ public class sharedData : MonoBehaviour
     }
 
     public void updateEntityData(GameObject playerObj){
-        if (true){
-            return;
-        }
-
         if (playerObj != null && playerObj.tag == "Player"){
             Entity entityInfo = playerObj.GetComponent<Entity>();
             if (entityInfo){

@@ -68,11 +68,8 @@ public class Player : Entity
         if (Time.time - hitTime >= iFrames){
             hitTime = Time.time;
 
-            // Players should only take 1 damage when hit
-            amount = 1;
-
-            // Run Damage Visual
-            base.takeDamage(amount);
+            // Run Damage Visual - only 1 damage for players
+            base.takeDamage(1);
 
             // Update Data
             dataInfo.updateEntityData(gameObject);

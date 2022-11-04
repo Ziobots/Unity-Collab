@@ -27,12 +27,12 @@ public class UIManager : MonoBehaviour
     // Update the health bar visual
     public void updateHealth(){
         // Shield Check?
-        float heartMax = dataInfo.maxHealth;
-        if (dataInfo.currenthealth > heartMax){
-            heartMax = dataInfo.currenthealth;
+        int heartMax = (int) dataInfo.maxHealth;
+        if ((int) dataInfo.currenthealth > (int) heartMax){
+            heartMax = (int) dataInfo.currenthealth;
         }
 
-        for (int i = 2; i <= heartMax; i += 2){
+        for (int i = 2; i <= (int) heartMax; i += 2){
             // Health is split into wholes and halves, maybe temporary hearts
             GameObject newHeart = GameObject.Find(healthBar.name + "/heart_" + i);
 

@@ -18248,8 +18248,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataInstance: {fileID: 0}
+  playerObj: {fileID: 3568330077112155242}
+  uiManager: {fileID: 0}
+  uiUpdate: {fileID: 0}
+  sessionTicket: 
   userName: 
   userID: 0
+  loggedIn: 0
   runCount: 0
   winCount: 0
   maxScore: 0
@@ -20393,6 +20398,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1097027928}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: bulletDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: bulletFolder
       value: 
       objectReference: {fileID: 700863669}
@@ -21408,6 +21417,10 @@ PrefabInstance:
       propertyPath: playerObj
       value: 
       objectReference: {fileID: 3568330077112155242}
+    - target: {fileID: 7924832519508211046, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: dataManager
+      value: 
+      objectReference: {fileID: 1356760222}
     - target: {fileID: 7924832519508211046, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: levelManager
       value: 

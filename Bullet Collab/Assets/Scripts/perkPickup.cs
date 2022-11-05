@@ -92,8 +92,8 @@ public class perkPickup : MonoBehaviour
                     editList.Add("Owner", entityObj);
                     editList.Add("PerkObj", gameObject);
 
-                    // This event should only run here i think, 3 parameter should always be true here?
-                    perk.addedEvent(editList,perkCommands.countPerks(dataInfo.perkIDList)[perkID],true);
+                    // This event should only run here and data load, 3 parameter should always be true here?
+                    perk.addedEvent(editList,perkCommands.countPerks(entityObj.GetComponent<Entity>().perkIDList)[perkID],true);
 
                     // apply any changes to the data
                     dataInfo.updateEntityData(entityObj);

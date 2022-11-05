@@ -150,6 +150,9 @@ public class loginSetup : MonoBehaviour
         createMenu.SetActive(false);
         mainMenu.SetActive(false);
         gameMenu.SetActive(true);
+
+        // continue the last run --------- MOVE THIS LATER TO THE CONTINUE GAME BUTTON
+        dataInfo.getTemporaryData();
     }
 
     public void loadMenu(){

@@ -37,6 +37,10 @@ public class pauseButton : MonoBehaviour
     public GameObject levelManager;
     [HideInInspector] public levelLoader levelUpdate;
 
+    // Base Data Stuff
+    public GameObject dataManager;
+    [HideInInspector] public sharedData dataInfo;
+
     // Blur Obj
     public GameObject blurObj;
     private PostProcessVolume postVolume;
@@ -44,6 +48,11 @@ public class pauseButton : MonoBehaviour
 
     // Pause Menu Functions
     public void pauseGame(){
+        // Get data management script
+        if (dataManager != null){
+            dataInfo = dataManager.GetComponent<sharedData>();
+        }
+
         gamePaused = true;
         pausePanel.SetActive(true);
         
@@ -100,6 +109,11 @@ public class pauseButton : MonoBehaviour
 
     // return to the main menu
     public void returnHome(string sceneID){
+        // save and quit
+        if (dataInfo != null){
+            dataInfo.saveTemporaryData();
+        }
+
         resumeGame();
         if (levelUpdate != null){
             levelUpdate.LoadScene(sceneID);

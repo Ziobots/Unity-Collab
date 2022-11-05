@@ -14,14 +14,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using PlayFab;
+using PlayFab.ClientModels;
+
 public class sharedData : MonoBehaviour
 {
     // reference for use in other scripts
     public sharedData dataInstance;
 
     // User Information
+    public string sessionTicket;
     public string userName;
-    public int userID; 
+    public string userID; 
+    public bool loggedIn = false;
 
     // Persistant Data
     public int runCount;
@@ -33,9 +38,9 @@ public class sharedData : MonoBehaviour
     public string currentSceneID;
     public float currenthealth;
     public float maxHealth;
-    public float currency;
+    public int currency;
     public List<string> perkIDList = new List<string>();
-    // Temporary Bullet
+    // Temporary Bullet - mainly for ui
     public int maxAmmo;
     public int currentAmmo;
     public float reloadTime;
@@ -53,6 +58,19 @@ public class sharedData : MonoBehaviour
         currenthealth = maxHealth;
         currency = 0;
         perkIDList = new List<string>();
+    }
+
+    public void overwriteEntity(GameObject playerObj){
+        if (playerObj != null && playerObj.tag == "Player"){
+            Entity entityInfo = playerObj.GetComponent<Entity>();
+            if (entityInfo){
+                entityInfo.perkIDList = perkIDList;
+                entityInfo.currentHealth = currenthealth;
+                entityInfo.maxHealth = maxHealth;
+                entityInfo.currency = currency;
+                // do perk added events
+            }
+        }
     }
 
     public void updateEntityData(GameObject playerObj){
@@ -74,6 +92,29 @@ public class sharedData : MonoBehaviour
             }
         }
     }
+
+    public Dictionary<string,string> getTemporaryData(){
+        Dictionary<string,string> tempData = new Dictionary<string,string>();
+
+        return tempData;
+    }
+
+    public void loadTemporaryData(){
+
+    }
+
+    public void saveTemporaryData(){
+        var request = new UpdateUserDataRequest{
+            
+            
+        };
+    }
+
+    // Playfab Events
+
+
+
+    // Setup data module
 
     private void Start() {
         //resetTempData();

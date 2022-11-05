@@ -44,6 +44,7 @@ public class loginSetup : MonoBehaviour
 
     // Player Variables
     public GameObject playerObj;
+    private string userName;
 
     // button functions
     public void loginButton(){
@@ -107,6 +108,12 @@ public class loginSetup : MonoBehaviour
 
     private void onLoginSuccess(LoginResult result){
         print("login success");
+
+        // update the shared data
+        dataInfo.sessionTicket = result.SessionTicket;
+        dataInfo.userID = result.PlayFabId;
+        dataInfo.loggedIn = true;
+
         closeMenu();
     }
 
@@ -124,6 +131,14 @@ public class loginSetup : MonoBehaviour
         if (playerObj != null){
             playerObj.SetActive(true);
         }
+
+        // remove input data
+        createEmailField.text = "";
+        createPasswordField.text = "";
+        createNameField.text = "";
+
+        emailField.text = "";
+        passwordField.text = "";
 
         // enable reticle
         mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();

@@ -58,7 +58,7 @@ public class fadeTransition : MonoBehaviour
 
         // tween the fade
         LeanTween.cancel(gameObject);
-        LeanTween.value(gameObject,new Vector2(0f,0.5f),new Vector2(1f,0.5f),fadeTime).setIgnoreTimeScale(true).setEaseLinear().setOnUpdateVector2(setPivot).setOnComplete(hideFade);
+        LeanTween.value(gameObject,startPivot,endPivot,fadeTime).setIgnoreTimeScale(true).setEaseLinear().setOnUpdateVector2(setPivot).setOnComplete(hideFade);
         
         // activate it
         Transform fade = gameObject.transform.Find("fade");

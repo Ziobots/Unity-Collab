@@ -38,6 +38,9 @@ public class loginSetup : MonoBehaviour
     public GameObject createMenu;
     public GameObject loginMenu;
 
+    // transition obj
+    public GameObject transitioner;   
+
     public Button submitButton;
     private EventSystem system;
     public GameObject cursorObj;
@@ -68,6 +71,7 @@ public class loginSetup : MonoBehaviour
     // to access the account creation menu
     public void createAccountButton(){
         if (createMenu != null && loginMenu != null){
+            transitioner.GetComponent<fadeTransition>().startFade();
             loginMenu.SetActive(false);
             createMenu.SetActive(true);
         }
@@ -95,6 +99,7 @@ public class loginSetup : MonoBehaviour
 
     public void backButton(){
         if (createMenu != null && loginMenu != null){
+            transitioner.GetComponent<fadeTransition>().startFade();
             loginMenu.SetActive(true);
             createMenu.SetActive(false);
         }
@@ -127,6 +132,8 @@ public class loginSetup : MonoBehaviour
     }
 
     public void closeMenu(){
+        transitioner.GetComponent<fadeTransition>().startFade();
+
         // enable the player controller
         if (playerObj != null){
             playerObj.SetActive(true);

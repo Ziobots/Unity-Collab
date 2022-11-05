@@ -23,7 +23,7 @@ public class bulletSystem : MonoBehaviour
     public GameObject bulletOwner;
     public float bulletSpeed = 1f;
     public float bulletSize = 0.1f;
-    public float bulletDamage = 1;
+    public float bulletDamage = 1f;
     public int bulletBounces = 0;
     public List<string> perkIDList;
 

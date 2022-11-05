@@ -23,11 +23,20 @@ public class sprayBullets : perkData
         Entity entityStats = getEntityStats(objDictionary);
 
         if (entityStats){
+            // Add the player stats
             entityStats.maxAmmo += addBullets;
-            entityStats.bulletDamage *= damageMultiple;
             entityStats.bulletTime *= delayMultiple;
             entityStats.reloadTime *= reloadMultiple;
             entityStats.automaticGun = true;
+        }
+    }
+
+    public override void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
+        bulletSystem bulletStats = getBulletStats(objDictionary);
+
+        if (bulletStats){
+            // Add the Damage
+            bulletStats.bulletDamage *= damageMultiple;
         }
     }
 }

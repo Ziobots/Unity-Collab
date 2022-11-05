@@ -92,7 +92,6 @@ public class sharedData : MonoBehaviour
                 entityInfo.reloadTime = 0.7f;
                 entityInfo.bulletTime = 0.25f;
                 entityInfo.bulletSpread = 2;
-                entityInfo.bulletDamage = 1;
                 entityInfo.automaticGun = false;
             }
         }
@@ -152,7 +151,6 @@ public class sharedData : MonoBehaviour
                 reloadTime = entityInfo.reloadTime;
                 bulletTime = entityInfo.bulletTime;
                 bulletSpread = entityInfo.bulletSpread;
-                bulletDamage = entityInfo.bulletDamage;
                 reloadStartTime = entityInfo.reloadStartTime;
                 delayStartTime = entityInfo.delayStartTime;
             }

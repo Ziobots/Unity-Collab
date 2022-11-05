@@ -47,7 +47,6 @@ public class Entity : MonoBehaviour
     public float reloadTime;
     public float bulletTime;
     public float bulletSpread;
-    public float bulletDamage;
     public bool automaticGun = false;
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
@@ -149,8 +148,7 @@ public class Entity : MonoBehaviour
                 newBullet.bulletOwner = gameObject;
                 newBullet.bulletSpeed = 5f;
                 newBullet.bulletSize = 0.11f;
-                newBullet.bulletBounces = 5;
-                newBullet.bulletDamage = bulletDamage;
+                newBullet.bulletBounces = 0;
                 newBullet.perkIDList = perkIDList;
                 newBullet.bulletFolder = bulletFolder;
                 newBullet.setupBullet();

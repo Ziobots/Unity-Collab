@@ -47,7 +47,7 @@ public class perkView : MonoBehaviour
 
         // make new dots if more than one
         if (dotPrefab != null && shortPerkList.Count > 1){
-            // make dot for each perk
+            // make dot for each perk 
             for (int i = 1; i <= shortPerkList.Count; i++){
                 GameObject newDot = Instantiate(dotPrefab,new Vector2(),new Quaternion(),countPanel);
                 int myIndex = i;

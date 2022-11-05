@@ -128,12 +128,14 @@ public class sharedData : MonoBehaviour
                 }
 
                 // overwrite the health with their old health
-                entityInfo.currentHealth = Mathf.Clamp(currenthealth,1,entityInfo.maxHealth);
+                entityInfo.currentHealth = Mathf.Clamp(overwriteData.currenthealth,1,entityInfo.maxHealth);
             }
                 
             // apply any changes to the data
             updateEntityData(playerObj);
-            //uiUpdate.updateGameUI();
+            if (uiUpdate != null){
+                uiUpdate.updateGameUI();
+            }
         }
     }
 

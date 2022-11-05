@@ -18249,7 +18249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataInstance: {fileID: 0}
   playerObj: {fileID: 3568330077112155242}
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 213225831}
   uiUpdate: {fileID: 0}
   sessionTicket: 
   userName: 

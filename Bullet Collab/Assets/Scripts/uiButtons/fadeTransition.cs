@@ -16,7 +16,7 @@ using UnityEngine.UI;
 
 public class fadeTransition : MonoBehaviour
 {
-    private float fadeTime = 0.25f;
+    private float fadeTime = 0.4f;
     public bool transitioning = false;
 
     // for tweening

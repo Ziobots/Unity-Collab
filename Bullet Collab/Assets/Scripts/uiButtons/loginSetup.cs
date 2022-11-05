@@ -69,11 +69,14 @@ public class loginSetup : MonoBehaviour
     }
 
     // to access the account creation menu
+    public void c_A_B(){
+        loginMenu.SetActive(false);
+        createMenu.SetActive(true);
+    }
+
     public void createAccountButton(){
         if (createMenu != null && loginMenu != null){
-            transitioner.GetComponent<fadeTransition>().startFade();
-            loginMenu.SetActive(false);
-            createMenu.SetActive(true);
+            transitioner.GetComponent<fadeTransition>().startFade(c_A_B,true);
         }
     }
 
@@ -97,11 +100,14 @@ public class loginSetup : MonoBehaviour
         closeMenu();
     }
 
+    public void b_B(){
+        loginMenu.SetActive(true);
+        createMenu.SetActive(false);
+    }
+
     public void backButton(){
         if (createMenu != null && loginMenu != null){
-            transitioner.GetComponent<fadeTransition>().startFade();
-            loginMenu.SetActive(true);
-            createMenu.SetActive(false);
+            transitioner.GetComponent<fadeTransition>().startFade(b_B,false);
         }
     }
 
@@ -131,9 +137,7 @@ public class loginSetup : MonoBehaviour
         print("Sent email");
     }
 
-    public void closeMenu(){
-        transitioner.GetComponent<fadeTransition>().startFade();
-
+    public void c_M(){
         // enable the player controller
         if (playerObj != null){
             playerObj.SetActive(true);
@@ -160,6 +164,10 @@ public class loginSetup : MonoBehaviour
 
         // continue the last run --------- MOVE THIS LATER TO THE CONTINUE GAME BUTTON
         dataInfo.getTemporaryData();
+    }
+
+    public void closeMenu(){
+        transitioner.GetComponent<fadeTransition>().startFade(c_M,true);
     }
 
     public void loadMenu(){

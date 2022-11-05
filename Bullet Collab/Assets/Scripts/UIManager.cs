@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
             heartMax = (int) dataInfo.currenthealth;
         }
 
+        Dictionary<GameObject,bool> safeList = new Dictionary<GameObject, bool>();
         for (int i = 2; i <= (int) heartMax; i += 2){
             // Health is split into wholes and halves, maybe temporary hearts
             GameObject newHeart = GameObject.Find(healthBar.name + "/heart_" + i);
@@ -56,6 +57,16 @@ public class UIManager : MonoBehaviour
                 }else{
                     newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("Hearts")[2];
                 }
+
+                // add heart to safelist 
+                safeList.Add(newHeart,true);
+            }
+        }
+
+        // remove hearts that dont exist
+        foreach (Transform child in healthBar.transform){
+            if (!safeList.ContainsKey(child.gameObject)){
+                Destroy(child.gameObject);
             }
         }
     }

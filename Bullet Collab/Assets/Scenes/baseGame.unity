@@ -20688,6 +20688,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1787398247766123915, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 3568330077112155242}
+    - target: {fileID: 1787398247766123915, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: dataManager
+      value: 
+      objectReference: {fileID: 1356760222}
     - target: {fileID: 1893998793117938634, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

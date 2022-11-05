@@ -16,7 +16,7 @@ using UnityEngine.UI;
 
 public class inputSetup : MonoBehaviour
 {
-    public Selectable tabSelect;
+    public GameObject tabSelect;
 
     // Holder Variables
     public GameObject Holder;

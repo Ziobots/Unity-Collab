@@ -19,6 +19,10 @@ using PlayFab.ClientModels;
 
 public class loginSetup : MonoBehaviour
 {
+    // Base Data Stuff
+    public GameObject dataManager;
+    [HideInInspector] public sharedData dataInfo;
+
     // login variables
     public TMPro.TMP_InputField emailField;
     public TMPro.TMP_InputField passwordField;
@@ -38,6 +42,8 @@ public class loginSetup : MonoBehaviour
     private EventSystem system;
     public GameObject cursorObj;
 
+    // Player Variables
+    public GameObject playerObj;
 
     // button functions
     public void loginButton(){
@@ -83,11 +89,7 @@ public class loginSetup : MonoBehaviour
 
 
     public void guestButton(){
-        loginMenu.SetActive(false);
-        createMenu.SetActive(false);
-        mainMenu.SetActive(false);
-        gameMenu.SetActive(true);
-
+        closeMenu();
     }
 
     public void backButton(){
@@ -105,7 +107,7 @@ public class loginSetup : MonoBehaviour
 
     private void onLoginSuccess(LoginResult result){
         print("login success");
-        guestButton();
+        closeMenu();
     }
 
     private void onRegisterSuccess(RegisterPlayFabUserResult result){
@@ -117,25 +119,64 @@ public class loginSetup : MonoBehaviour
         print("Sent email");
     }
 
-    // Start is called before the first frame update
-    void Start(){
+    public void closeMenu(){
+        // enable the player controller
+        if (playerObj != null){
+            playerObj.SetActive(true);
+        }
+
+        // enable reticle
+        mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
+        cursorData.reticleActive = true;
+        cursorData.updateHover(false);
+
+        // show game menu
+        loginMenu.SetActive(false);
+        createMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        gameMenu.SetActive(true);
+    }
+
+    public void loadMenu(){
+        // get event sytem
         system = EventSystem.current;
 
+        // Get data management script
+        if (dataManager != null){
+            dataInfo = dataManager.GetComponent<sharedData>();
+        }
+
+        // disable the player controller
+        if (playerObj != null){
+            playerObj.SetActive(false);
+        }
+
+        // disable reticle
         mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
         cursorData.reticleActive = false;
         cursorData.updateHover(false);
+
+        // show login menu
+        loginMenu.SetActive(true);
+        createMenu.SetActive(false);
+        mainMenu.SetActive(true);
+        gameMenu.SetActive(false);
     }
 
+    // Start is called before the first frame update
+    void Start(){
+        loadMenu();
+    }
     
     // Update is called once per frame
     void Update(){
         if (system.currentSelectedGameObject){
             inputSetup buttonSetup = system.currentSelectedGameObject.GetComponent<inputSetup>();
             if (buttonSetup){
-                if (Input.GetKeyDown(KeyCode.Tab) && buttonSetup.tabSelect != null){
+                if (Input.GetKeyDown(KeyCode.Tab) && buttonSetup.tabSelect != null && buttonSetup.tabSelect.GetComponent<Selectable>()){
                     buttonSetup.onDeSelected();
 
-                    buttonSetup.tabSelect.Select();
+                    buttonSetup.tabSelect.GetComponent<Selectable>().Select();
 
                     buttonSetup = system.currentSelectedGameObject.GetComponent<inputSetup>();
                     buttonSetup.onSelected();

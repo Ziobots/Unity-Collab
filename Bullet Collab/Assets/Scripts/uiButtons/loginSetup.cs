@@ -38,6 +38,13 @@ public class loginSetup : MonoBehaviour
     public GameObject createMenu;
     public GameObject loginMenu;
 
+    // start game variables
+    public GameObject enterMenu;
+    private bool startVisible = true;
+    private float startTime = 0;
+    private float gameLoadTime = 0;
+    private bool anyKeyPressed = false;
+
     // error variables
     public GameObject errorMenu;
     private Color32 errorColor = new Color32(253,106,106,255);
@@ -208,6 +215,7 @@ public class loginSetup : MonoBehaviour
         createMenu.SetActive(false);
         mainMenu.SetActive(false);
         gameMenu.SetActive(true);
+        enterMenu.SetActive(false);
 
         // continue the last run --------- MOVE THIS LATER TO THE CONTINUE GAME BUTTON
         dataInfo.getTemporaryData();
@@ -242,17 +250,50 @@ public class loginSetup : MonoBehaviour
         createMenu.SetActive(false);
         mainMenu.SetActive(true);
         gameMenu.SetActive(false);
+        enterMenu.SetActive(false);
 
         errorColor = new Color32(247,192,74,255);
     }
 
+    public void loadEnter(){
+        // get event sytem
+        system = EventSystem.current;
+
+        // hide other menus
+        createMenu.SetActive(false);
+        gameMenu.SetActive(false);
+        enterMenu.SetActive(true);
+        loginMenu.SetActive(true);
+        mainMenu.SetActive(true);
+
+        // disable reticle
+        mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
+        cursorData.reticleActive = false;
+        cursorData.updateHover(false);
+
+        // disable the player controller
+        if (playerObj != null){
+            playerObj.SetActive(false);
+        }
+    }
+
     // Start is called before the first frame update
-    void Start(){
-        loadMenu();
+    private bool gameStarted = false;
+    private void Start(){
+        // get event sytem
+        system = EventSystem.current;
+        gameLoadTime = Time.fixedTime;
+
+        loadEnter();
+        gameStarted = true;
     }
     
     // Update is called once per frame
-    void Update(){
+    private void Update(){
+        if (!gameStarted){
+            return;
+        }
+
         if (system.currentSelectedGameObject){
             inputSetup buttonSetup = system.currentSelectedGameObject.GetComponent<inputSetup>();
             if (buttonSetup){
@@ -267,10 +308,32 @@ public class loginSetup : MonoBehaviour
             }
         }
 
-        if (emailField && passwordField && submitButton){
-            if (Input.GetKeyDown(KeyCode.Return)){
-                if (emailField.text != "" && passwordField.text != ""){
-                    submitButton.onClick.Invoke();
+        // check if enter pressed
+        if (loginMenu.activeSelf){
+            if (emailField && passwordField && submitButton){
+                if (Input.GetKeyDown(KeyCode.Return)){
+                    if (emailField.text != "" && passwordField.text != ""){
+                        submitButton.onClick.Invoke();
+                    }
+                }
+            }
+        }
+
+        // do main menu stuff
+        if (enterMenu && enterMenu.activeSelf){
+            // animate start game text
+            float blipTime = startVisible ? 1f : 0.1f;
+            if (Time.fixedTime - startTime >= blipTime){
+                startVisible = !startVisible;
+                startTime = Time.fixedTime;
+                enterMenu.transform.Find("title").gameObject.SetActive(startVisible);
+            }
+
+            // check for any key press
+            if (Time.fixedTime - gameLoadTime >= 0.5f){
+                if (Input.anyKey && !anyKeyPressed){
+                    anyKeyPressed = true;
+                    transitioner.GetComponent<fadeTransition>().startFade(loadMenu,true);
                 }
             }
         }

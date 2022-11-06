@@ -42,11 +42,14 @@ public class errorPopup : MonoBehaviour
 
     // hide the error popup
     public void hideError(){
-        currentMessage = "";
-        LeanTween.cancel(gameObject);
-        LeanTween.value(gameObject,startPosition,spawnPosition,tweenTime).setIgnoreTimeScale(true).setEaseInBack().setOnUpdateVector3(setAnchoredPosition);
-        LeanTween.value(gameObject,1f,0f,tweenTime).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setPanelAlpha);
-        errorVisible = false;
+        if (errorVisible){
+            currentMessage = "";
+            displayTime = 0f;
+            LeanTween.cancel(gameObject);
+            LeanTween.value(gameObject,startPosition,spawnPosition,tweenTime).setIgnoreTimeScale(true).setEaseInBack().setOnUpdateVector3(setAnchoredPosition);
+            LeanTween.value(gameObject,1f,0f,tweenTime).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setPanelAlpha);
+            errorVisible = false;
+        }
     }
 
     // make background same size as text width

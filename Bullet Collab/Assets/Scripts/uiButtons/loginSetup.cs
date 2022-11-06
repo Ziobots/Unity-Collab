@@ -55,6 +55,19 @@ public class loginSetup : MonoBehaviour
 
     // button functions
     public void loginButton(){
+        if (emailField.text == ""){
+            errorMenu.GetComponent<errorPopup>().displayError("Please enter a valid email address.",errorColor);
+            return;
+        }
+
+        if (passwordField.text == ""){
+            errorMenu.GetComponent<errorPopup>().displayError("Please enter a password.",errorColor);
+            return;
+        }else if (passwordField.text.Length < 6){
+            errorMenu.GetComponent<errorPopup>().displayError("Passwords must have a minimum 6 characters.",errorColor);
+            return;
+        }
+
         var request = new LoginWithEmailAddressRequest {
             Email = emailField.text,
             Password = passwordField.text
@@ -64,6 +77,11 @@ public class loginSetup : MonoBehaviour
     }
 
     public void forgotPasswordButton(){
+        if (emailField.text == ""){
+            errorMenu.GetComponent<errorPopup>().displayError("Please enter a valid email address.",errorColor);
+            return;
+        }
+
         var request = new SendAccountRecoveryEmailRequest {
             Email = emailField.text,
             TitleId = "1853B"
@@ -74,6 +92,7 @@ public class loginSetup : MonoBehaviour
 
     // to access the account creation menu
     public void c_A_B(){
+        errorMenu.GetComponent<errorPopup>().hideError();
         loginMenu.SetActive(false);
         createMenu.SetActive(true);
     }
@@ -87,6 +106,24 @@ public class loginSetup : MonoBehaviour
 
     // to make the account
     public void newAccountButton(){
+        if (createEmailField.text == ""){
+            errorMenu.GetComponent<errorPopup>().displayError("Please enter a valid email address.",errorColor);
+            return;
+        }
+
+        if (createNameField.text == ""){
+            errorMenu.GetComponent<errorPopup>().displayError("Please enter a valid user name.",errorColor);
+            return;
+        }
+
+        if (createPasswordField.text == ""){
+            errorMenu.GetComponent<errorPopup>().displayError("Please enter a password.",errorColor);
+            return;
+        }else if (createPasswordField.text.Length < 6){
+            errorMenu.GetComponent<errorPopup>().displayError("Passwords must have a minimum 6 characters.",errorColor);
+            return;
+        }
+
         var request = new RegisterPlayFabUserRequest {
             Email = createEmailField.text,
             Password = createPasswordField.text,
@@ -106,6 +143,7 @@ public class loginSetup : MonoBehaviour
     }
 
     public void b_B(){
+        errorMenu.GetComponent<errorPopup>().hideError();
         loginMenu.SetActive(true);
         createMenu.SetActive(false);
     }
@@ -121,13 +159,7 @@ public class loginSetup : MonoBehaviour
 
     private void onPlayfabError(PlayFabError error){
         print(error.ErrorMessage);
-
-        if (errorMenu != null){
-            errorPopup errorModule = errorMenu.GetComponent<errorPopup>();
-            if (errorModule){
-                errorModule.displayError(error.ErrorMessage,errorColor);
-            }
-        }
+        errorMenu.GetComponent<errorPopup>().displayError(error.ErrorMessage,errorColor);
     }
 
     private void onLoginSuccess(LoginResult result){
@@ -151,6 +183,8 @@ public class loginSetup : MonoBehaviour
     }
 
     public void c_M(){
+        errorMenu.GetComponent<errorPopup>().hideError();
+
         // enable the player controller
         if (playerObj != null){
             playerObj.SetActive(true);

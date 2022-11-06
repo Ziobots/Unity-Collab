@@ -21,6 +21,7 @@ public class Player : Entity
     [HideInInspector] public Vector2 mousePosition;
     [HideInInspector] public Vector2 arrowDirection = new Vector2(0,0);
     public Transform arrow;
+    public Animator animator;
 
     private void moveGun() {
         if (arrow != null) {
@@ -66,6 +67,7 @@ public class Player : Entity
         // Movement Input Here
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+        animator.SetFloat("Speed", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
 
         // Mouse Direction Here
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

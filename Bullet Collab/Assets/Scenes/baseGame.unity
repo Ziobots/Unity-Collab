@@ -20098,7 +20098,6 @@ MonoBehaviour:
   reloadTime: 0
   bulletTime: 0
   bulletSpread: 0
-  bulletDamage: 0
   automaticGun: 0
   reloadStartTime: 0
   delayStartTime: 0
@@ -20653,6 +20652,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1449021610535877662, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1736846387859605794, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -21196,6 +21199,10 @@ PrefabInstance:
     - target: {fileID: 6365881956096536092, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679465184796528902, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 6685853370423100768, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchorMax.y

@@ -38,6 +38,10 @@ public class loginSetup : MonoBehaviour
     public GameObject createMenu;
     public GameObject loginMenu;
 
+    // error variables
+    public GameObject errorMenu;
+    private Color32 errorColor = new Color32(253,106,106,255);
+
     // transition obj
     public GameObject transitioner;   
 
@@ -76,6 +80,7 @@ public class loginSetup : MonoBehaviour
 
     public void createAccountButton(){
         if (createMenu != null && loginMenu != null){
+            errorColor = new Color32(253,106,106,255);
             transitioner.GetComponent<fadeTransition>().startFade(c_A_B,true);
         }
     }
@@ -107,6 +112,7 @@ public class loginSetup : MonoBehaviour
 
     public void backButton(){
         if (createMenu != null && loginMenu != null){
+            errorColor = new Color32(247,192,74,255);
             transitioner.GetComponent<fadeTransition>().startFade(b_B,false);
         }
     }
@@ -115,6 +121,13 @@ public class loginSetup : MonoBehaviour
 
     private void onPlayfabError(PlayFabError error){
         print(error.ErrorMessage);
+
+        if (errorMenu != null){
+            errorPopup errorModule = errorMenu.GetComponent<errorPopup>();
+            if (errorModule){
+                errorModule.displayError(error.ErrorMessage,errorColor);
+            }
+        }
     }
 
     private void onLoginSuccess(LoginResult result){
@@ -167,6 +180,7 @@ public class loginSetup : MonoBehaviour
     }
 
     public void closeMenu(){
+        errorColor = new Color32(253,106,106,255);
         transitioner.GetComponent<fadeTransition>().startFade(c_M,true);
     }
 
@@ -194,6 +208,8 @@ public class loginSetup : MonoBehaviour
         createMenu.SetActive(false);
         mainMenu.SetActive(true);
         gameMenu.SetActive(false);
+
+        errorColor = new Color32(247,192,74,255);
     }
 
     // Start is called before the first frame update

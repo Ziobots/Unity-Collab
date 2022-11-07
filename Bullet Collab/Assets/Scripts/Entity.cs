@@ -27,7 +27,10 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int damageAmount = 0;
     public int currency = 0;
 
-    // UI Stuff
+    // Stat Variables
+    [HideInInspector] public GameObject damagedBy;
+
+    // UI Stuff 
     public GameObject uiManager;
     [HideInInspector] public UIManager uiUpdate;
 
@@ -87,6 +90,7 @@ public class Entity : MonoBehaviour
 
         // add to the ammo one by one over time
         LeanTween.value(gameObject,(float)currentAmmo,(float)maxAmmo,reloadTime).setEaseLinear().setOnUpdate(setCurrentAmmo);
+
         if (dataInfo != null){
             dataInfo.updateEntityData(gameObject);
         }

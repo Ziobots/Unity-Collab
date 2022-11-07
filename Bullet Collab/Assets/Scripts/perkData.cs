@@ -60,6 +60,11 @@ public class perkData : ScriptableObject
     // This event fires after the added event
     public virtual void perkCollect(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // enemy based perk events
+
+    // This event is fired when an enemy changes targets, get target or no target
+    public virtual void enemy_targetChange(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
+
     /********************************************************************************************************/
 
     // functions for use in perks

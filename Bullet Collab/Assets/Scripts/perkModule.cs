@@ -106,6 +106,11 @@ public class perkModule : MonoBehaviour
                     case "Killed":// when an entitys health becomes zero
                         perk.killedEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
+
+                    // Enemy based perk events
+                    case "Target_Change":// when an entitys health becomes zero
+                        perk.enemy_targetChange(objDictionary,perkCounts[perkID],initializePerk);
+                        break;
                 }
             }
         }

@@ -20183,7 +20183,7 @@ GameObject:
   - component: {fileID: 1982509091}
   m_Layer: 7
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20275,6 +20275,7 @@ MonoBehaviour:
   maxHealth: 5
   damageAmount: 0
   currency: 0
+  damagedBy: {fileID: 0}
   uiManager: {fileID: 213225831}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
@@ -20285,17 +20286,19 @@ MonoBehaviour:
   launchPoints:
   - {fileID: 369944522}
   bulletFolder: {fileID: 700863669}
-  maxAmmo: 0
-  currentAmmo: 0
-  reloadTime: 0
+  maxAmmo: 1
+  currentAmmo: 1
+  reloadTime: 1
   bulletTime: 0
-  bulletSpread: 0
+  bulletSpread: 1
   automaticGun: 0
   reloadStartTime: 0
   delayStartTime: 0
   gunNoise: {fileID: 0}
   reloadNoise: {fileID: 0}
   perkIDList: []
+  currentTarget: {fileID: 0}
+  shootDistance: 11
 --- !u!60 &1982509092
 PolygonCollider2D:
   m_ObjectHideFlags: 0

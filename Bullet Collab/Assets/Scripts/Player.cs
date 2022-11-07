@@ -9,7 +9,7 @@
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
 * 10/25/22  0.11                 KJ              Moved gun and flip to Fixed, changed Lerp alpha values to 10
-* 11/02/22  0.15                 DS              used ref for perkidlist
+* 11/02/22  0.15                 DS              used ref for perkidlist 
 * 11/03/22  0.20                 DS              updated health stuff, removed ref for perk list
 *******************************************************************************/
 

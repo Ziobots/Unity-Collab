@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: panel8
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 6c00e13b0402fe84d8698359fe1ab9b5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0

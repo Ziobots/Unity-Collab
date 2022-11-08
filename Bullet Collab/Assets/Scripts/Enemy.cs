@@ -26,10 +26,11 @@ public class Enemy : Entity
 
     // Pathfinding Variables
     public Vector2 lastTargetPosition;
-    private float updatePathDistance = 8f; // if target moves more than x units from last position, update path
-    public float wayPointDistance = 1f;
-    private Path currentPath;
-    private int currentWaypoint = 0;
+    private float updatePathDistance = 4f; // if target moves more than x units from last position, update path
+    [HideInInspector] public float wayPointDistance = 1f;
+    [HideInInspector] private Path currentPath;
+    [HideInInspector] private int currentWaypoint = 0;
+    [HideInInspector] private int visibleWaypoint = -1;
     private Seeker seekObj;
 
     public bool checkVisibility(GameObject target, bool circle){
@@ -44,7 +45,7 @@ public class Enemy : Entity
                 RaycastHit2D[] contacts = Physics2D.RaycastAll(origin,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
                 if (circle){
                     float radius = gameObject.GetComponent<CircleCollider2D>().radius * 1.5f;
-                    contacts = Physics2D.CircleCastAll(origin,radius,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
+                    //contacts = Physics2D.CircleCastAll(origin,radius,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
                 }
 
                 RaycastHit2D closestHit = new RaycastHit2D();
@@ -152,8 +153,10 @@ public class Enemy : Entity
 
     private void pathGenerated(Path pathGen){
         if (!pathGen.error){
+            print("FOUND PATH");
             currentPath = pathGen;
             currentWaypoint = 0;
+            visibleWaypoint = -1;
 
             if (currentTarget != null){
                 lastTargetPosition = currentTarget.transform.position;
@@ -165,9 +168,25 @@ public class Enemy : Entity
         if (currentTarget != null){
             float distance = Vector2.Distance((Vector2)transform.position, (Vector2)currentTarget.transform.position);
 
-            // check if enemy can see target
+            bool goStraight = false;
             if (checkVisibility(currentTarget,true)){
+                if (visibleWaypoint <= -1 && currentWaypoint > 0){
+                    visibleWaypoint = currentWaypoint;
+                }
+
+                if (currentPath == null){
+                    goStraight = true;
+                }else if (visibleWaypoint > 0){
+                    if (currentWaypoint >= currentPath.vectorPath.Count || currentWaypoint >= visibleWaypoint + 5){
+                        goStraight = true;
+                    }
+                }
+            }
+
+            // check if enemy can see target
+            if (goStraight){
                 lastTargetPosition = currentTarget.transform.position;
+                currentPath = null;
 
                 // check if enemy is in shooting range
                 if (distance <= shootDistance){
@@ -181,6 +200,7 @@ public class Enemy : Entity
                 if (seekObj.IsDone()){
                     float updateDistance = Vector2.Distance(lastTargetPosition,currentTarget.transform.position);
                     if (currentPath == null || updateDistance > updatePathDistance){
+                        print("START PATHFINDING");
                         seekObj.StartPath(transform.position,currentTarget.transform.position,pathGenerated);
                     }
                 }
@@ -199,6 +219,7 @@ public class Enemy : Entity
                 }
             }
         }else{
+            currentPath = null;
             movement = new Vector2(0,0);
         }
 
@@ -241,7 +262,7 @@ public class Enemy : Entity
         if (currentTarget != null){
             if (checkVisibility(currentTarget,false)){
                 if (fireBullets()){
-                    rb.velocity = rb.velocity * 0.5f;
+                    rb.velocity = rb.velocity * 0.8f;
                 }
             }
         }

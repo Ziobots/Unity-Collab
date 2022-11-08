@@ -22,18 +22,24 @@ public class Enemy : Entity
     public bool checkVisibility(GameObject target){
         bool canSee = false;
 
-        print("CHECK VIS" + target.name);
         if (target != null && gameObject){
-            Vector2 direction = ((Vector2)transform.position - (Vector2)target.transform.position).normalized;
-            Vector2 origin = transform.position;
+            Vector2 direction = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
+            Vector3 origin = transform.position;
             float distance = Vector2.Distance(origin, target.transform.position) + 2f;
             if (distance > 0){
-                RaycastHit2D[] contacts = Physics2D.RaycastAll(origin,direction,distance,LayerMask.GetMask("EntityCollide","Default"),0f);
+                RaycastHit2D[] contacts = Physics2D.RaycastAll(origin,direction,distance,LayerMask.GetMask("EntityCollide","Default"));
+                RaycastHit2D closestHit = new RaycastHit2D();
+
                 foreach(RaycastHit2D contact in contacts){
-                    if (contact.collider && contact.collider.gameObject != gameObject){
-                        print(contact.collider);
-                        canSee = canSee || contact.collider.gameObject == target;
+                    if (!closestHit.collider || Vector3.Distance(contact.point,origin) < Vector3.Distance(closestHit.point,origin)){
+                        if (contact.collider.gameObject != gameObject){
+                            closestHit = contact;
+                        }
                     }
+                }
+
+                if (closestHit && closestHit.collider && closestHit.collider.gameObject == target){
+                    canSee = true;
                 }
             }
         }

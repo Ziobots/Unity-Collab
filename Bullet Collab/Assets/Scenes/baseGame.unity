@@ -20279,7 +20279,7 @@ MonoBehaviour:
   uiManager: {fileID: 213225831}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
-  walkSpeed: 6
+  walkSpeed: 3
   rb: {fileID: 1982509093}
   facingRight: 1
   bulletPrefab: {fileID: 1245196261793414157, guid: 57aa78eb88978ed4da98a25baf265501, type: 3}
@@ -20298,7 +20298,7 @@ MonoBehaviour:
   reloadNoise: {fileID: 0}
   perkIDList: []
   currentTarget: {fileID: 0}
-  shootDistance: 11
+  shootDistance: 6
 --- !u!60 &1982509092
 PolygonCollider2D:
   m_ObjectHideFlags: 0

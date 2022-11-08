@@ -16,7 +16,7 @@ using UnityEngine;
 public class Enemy : Entity
 {
     // Targeting Variables
-    [HideInInspector] public GameObject currentTarget;
+    public GameObject currentTarget;
     public float shootDistance = 5f;
     public Vector2 lookDirection = new Vector2(1f,0f);
     public float turnSpeed = 10f;
@@ -118,11 +118,13 @@ public class Enemy : Entity
         // Gun Flip Direction
         if (transform.rotation.eulerAngles.y == 180){// this part is to fix some weird rotation rounding error
             transform.Find("body").gameObject.GetComponent<SpriteRenderer>().flipY = facingRight;
-            transform.Find("eyes").gameObject.GetComponent<SpriteRenderer>().flipX = facingRight;
         }else{
             transform.Find("body").gameObject.GetComponent<SpriteRenderer>().flipY = !facingRight;
-            transform.Find("eyes").gameObject.GetComponent<SpriteRenderer>().flipX = !facingRight;
         }
+
+        // Flip Effect
+        Quaternion setRotationEuler = Quaternion.Euler(0, facingRight ? 0f : 180f, 0);
+        transform.Find("eyes").rotation = Quaternion.Lerp(transform.Find("eyes").rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
     }
 
     public virtual void movePattern(){

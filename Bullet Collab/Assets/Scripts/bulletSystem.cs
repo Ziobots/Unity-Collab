@@ -82,7 +82,10 @@ public class bulletSystem : MonoBehaviour
                 editList.Add("Bullet", gameObject);
 
                 if (hitObj != null){
-                    hitObj.damagedBy = bulletOwner;
+                    if (bulletOwner != hit.gameObject){
+                        hitObj.damagedBy = bulletOwner;
+                    }
+
                     editList.Add("Target", hit.gameObject);
                     hitObj.takeDamage((int)bulletDamage);
 

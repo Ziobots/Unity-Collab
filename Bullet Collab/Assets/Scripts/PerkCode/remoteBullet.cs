@@ -6,6 +6,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/30/22  0.10                 DS              Made the thing
+* 11/07/22  0.20                 DS              enemy support
 *******************************************************************************/
 
 using System.Collections;
@@ -19,6 +20,17 @@ public class remoteBullet : perkData
         if (objDictionary.ContainsKey("Bullet") && initialize){
             // Get Mouse Position
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (objDictionary.ContainsKey("Owner")){
+                Enemy enemyData = objDictionary["Owner"].GetComponent<Enemy>();
+                if (enemyData != null){
+                    if (enemyData.currentTarget){
+                        mousePosition = (Vector2)enemyData.currentTarget.transform.position;
+                    }else{
+                        return;
+                    }
+                }
+            }
+
             GameObject bulletObj = objDictionary["Bullet"];
 
             // Get the direction

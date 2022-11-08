@@ -27,8 +27,8 @@ public class Enemy : Entity
     // Pathfinding Variables
     public Vector2 lastTargetPosition;
     private float updatePathDistance = 4f; // if target moves more than x units from last position, update path
-    [HideInInspector] public float wayPointDistance = 1f;
-    [HideInInspector] private Path currentPath;
+    public float wayPointDistance = 1f;
+    [HideInInspector] private List<Vector2> currentPath = null;
     [HideInInspector] private int currentWaypoint = 0;
     [HideInInspector] private int visibleWaypoint = -1;
     private Seeker seekObj;
@@ -42,15 +42,23 @@ public class Enemy : Entity
             float distance = Vector2.Distance(origin, target.transform.position) + 5f;
 
             if (distance > 0){
+                List<RaycastHit2D> contactList = new List<RaycastHit2D>();
                 RaycastHit2D[] contacts = Physics2D.RaycastAll(origin,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
+                    foreach(RaycastHit2D contact in contacts){
+                        contactList.Add(contact);
+                    } 
+                
                 if (circle){
-                    float radius = gameObject.GetComponent<CircleCollider2D>().radius * 1.5f;
-                    //contacts = Physics2D.CircleCastAll(origin,radius,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
+                    float radius = gameObject.GetComponent<CircleCollider2D>().radius * 1.1f;
+                    RaycastHit2D[] addList = Physics2D.CircleCastAll(origin,radius,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
+                    foreach(RaycastHit2D contact in addList){
+                        contactList.Add(contact);
+                    } 
                 }
 
                 RaycastHit2D closestHit = new RaycastHit2D();
 
-                foreach(RaycastHit2D contact in contacts){
+                foreach(RaycastHit2D contact in contactList){
                     if (!closestHit.collider || Vector3.Distance(contact.point,origin) < Vector3.Distance(closestHit.point,origin)){
                         if (contact.collider.gameObject != gameObject){
                             closestHit = contact;
@@ -127,10 +135,10 @@ public class Enemy : Entity
 
     public virtual void rotateEnemy(){
         if (currentTarget != null && currentTarget.transform){
-            if (checkVisibility(currentTarget,true)){
+            if (checkVisibility(currentTarget,false)){
                 lookDirection = ((Vector2)transform.position - (Vector2)currentTarget.transform.position).normalized;
             }else if (movement.magnitude > 0){
-                lookDirection = -movement;
+                lookDirection = -rb.velocity;
             }
         }
 
@@ -153,10 +161,43 @@ public class Enemy : Entity
 
     private void pathGenerated(Path pathGen){
         if (!pathGen.error){
-            print("FOUND PATH");
-            currentPath = pathGen;
-            currentWaypoint = 0;
+
+            currentWaypoint = 1;
             visibleWaypoint = -1;
+
+            // optimize the path so its not snapped to grid
+            float radius = gameObject.GetComponent<CircleCollider2D>().radius * 0.5f;
+            List<Vector2> newPath = new List<Vector2>();
+            Vector2 lastPoint = new Vector2(0,0);
+
+            for (int i = 0; i < pathGen.vectorPath.Count; i++){
+                Vector2 fixPoint = pathGen.vectorPath[i];
+
+                if (i > 0 && i < pathGen.vectorPath.Count - 1){
+                    Vector2 direction = ((Vector2)pathGen.vectorPath[i + 1] - (Vector2)lastPoint).normalized;
+                    Vector2 origin = lastPoint - direction * 1.5f;
+                    float distance = Vector2.Distance(origin, pathGen.vectorPath[i + 1]) + 1f;
+
+                    RaycastHit2D[] addList = Physics2D.RaycastAll(origin,direction,distance,LayerMask.GetMask("Obstacle"));
+                    bool turnPoint = false;
+                    
+                    foreach(RaycastHit2D contact in addList){
+                        if (contact && contact.collider){
+                            turnPoint = true;
+                            break;
+                        }
+                    } 
+
+                    if (!turnPoint){
+                        continue;
+                    }
+                }
+
+                lastPoint = fixPoint;
+                newPath.Add(fixPoint);
+            }
+
+            currentPath = newPath;
 
             if (currentTarget != null){
                 lastTargetPosition = currentTarget.transform.position;
@@ -170,6 +211,7 @@ public class Enemy : Entity
 
             bool goStraight = false;
             if (checkVisibility(currentTarget,true)){
+                goStraight = true;
                 if (visibleWaypoint <= -1 && currentWaypoint > 0){
                     visibleWaypoint = currentWaypoint;
                 }
@@ -177,7 +219,7 @@ public class Enemy : Entity
                 if (currentPath == null){
                     goStraight = true;
                 }else if (visibleWaypoint > 0){
-                    if (currentWaypoint >= currentPath.vectorPath.Count || currentWaypoint >= visibleWaypoint + 5){
+                    if (currentWaypoint >= currentPath.Count || currentWaypoint >= visibleWaypoint + 5){
                         goStraight = true;
                     }
                 }
@@ -200,19 +242,18 @@ public class Enemy : Entity
                 if (seekObj.IsDone()){
                     float updateDistance = Vector2.Distance(lastTargetPosition,currentTarget.transform.position);
                     if (currentPath == null || updateDistance > updatePathDistance){
-                        print("START PATHFINDING");
                         seekObj.StartPath(transform.position,currentTarget.transform.position,pathGenerated);
                     }
                 }
 
                 // check if reached end of path
-                if (currentPath == null || currentWaypoint >= currentPath.vectorPath.Count){
+                if (currentPath == null || currentWaypoint >= currentPath.Count){
                     movement = new Vector2(0,0);
                 }else if (currentPath != null){
-                    movement = (((Vector2) currentPath.vectorPath[currentWaypoint]) - ((Vector2) transform.position)).normalized;
+                    movement = (((Vector2) currentPath[currentWaypoint]) - ((Vector2) transform.position)).normalized;
 
                     // check if enemy should move to next point
-                    float pointDistance = Vector2.Distance(transform.position,currentPath.vectorPath[currentWaypoint]);
+                    float pointDistance = Vector2.Distance(transform.position,currentPath[currentWaypoint]);
                     if (pointDistance < wayPointDistance){
                         currentWaypoint++;
                     }
@@ -224,7 +265,7 @@ public class Enemy : Entity
         }
 
         Vector3 moveDirection = (movement.normalized * walkSpeed);
-        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 5f);
+        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 2f);
     }
 
     // base enemy bullet stats

@@ -18395,7 +18395,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   shootDistance: 4
   lookDirection: {x: 1, y: 0}
-  turnSpeed: 10
+  turnSpeed: 15
   lastTargetPosition: {x: 0, y: 0}
   wayPointDistance: 1
 --- !u!58 &980514360
@@ -20889,7 +20889,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   shootDistance: 4
   lookDirection: {x: 1, y: 0}
-  turnSpeed: 10
+  turnSpeed: 15
   lastTargetPosition: {x: 0, y: 0}
   wayPointDistance: 1
 --- !u!50 &1982509093

@@ -6,6 +6,7 @@
 * ------------------------------- 
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
+* 11/08/22  0.80                 DS              fixed bullet bouncing
 *******************************************************************************/
 
 using System.Collections;
@@ -93,7 +94,7 @@ public class bulletSystem : MonoBehaviour
                     if (hitObj.weight != 0f){
                         Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
                         if (rb != null){
-                            rb.velocity = gameObject.transform.right.normalized * ((bulletSpeed * 5f) / hitObj.weight);
+                            rb.velocity = gameObject.transform.right.normalized * ((Mathf.Sqrt(bulletSpeed) * 10f ) / hitObj.weight);
                         }
                     }
                 }
@@ -115,6 +116,10 @@ public class bulletSystem : MonoBehaviour
             bulletBounces -= 1;
             damageOwner = true;
             transform.right = Vector2.Reflect(transform.right,hitNormal);//contact.normal);
+
+            // fix the velocity
+            rb.velocity = transform.right * Mathf.Clamp(bulletSpeed,0,25f) * Time.fixedDeltaTime * 100f;
+
             hitEffect();
 
             // Check for any bounce modifiers

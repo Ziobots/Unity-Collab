@@ -136,7 +136,7 @@ public class bulletSystem : MonoBehaviour
             float distance = Vector2.Distance(transform.position, origin);
             if (distance > 0){
                 float radius = transform.localScale.x * 1.45f;
-                RaycastHit2D contact = Physics2D.CircleCast(origin,radius,direction,distance,LayerMask.GetMask("Default"),0f);
+                RaycastHit2D contact = Physics2D.CircleCast(origin,radius,direction,distance,LayerMask.GetMask("Obstacle"),0f);
                 if (contact.collider){
                     // Move bullet to safest point
                     transform.position = origin + (direction * (contact.distance));

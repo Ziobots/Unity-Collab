@@ -237,7 +237,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2096637917}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &311250855
 TilemapRenderer:
@@ -350,6 +350,93 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &386263583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 386263584}
+  - component: {fileID: 386263585}
+  m_Layer: 0
+  m_Name: pathGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &386263584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386263583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2096637917}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &386263585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386263583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAACYn+tIutneewIAADgFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzoWxHQKht9YhpIckTEgnF1+EtMYaZMkjyQGS4b93JdvYpVNfLL/9fG9X/iJC2QqY02ZlBH/SHMj3EfFn8m3UGx/hSHdabcQndD7vgrvCO9Hg80qd0IjHPszqEpwR7IfaSe8cIVgrkWtTLvkOUm2dRTin0gKajHY+WiH0NSJHfI0XPuSEp2TuT594WkSjMx4ZKAdm4BpHk8g/N3dtyDhOJtMFPvG0DR0nk+TmNp7f3C7H0SykqRWTtKyAe059tnnSJpnFwU0h29bDM2NaSmHbVok7VUGKlFa2RqLowAVF6qG/aLJAoACxK5wnMgx/yXMLrlXG0NO9MKhhk5f81I2wJbX7prMPKmtfKYmmi9BWk/XpH4dx03VudPnYFY4jX8QVgu1f6YlR6wbSD+H7vvc4KHSgck+3Et4LUM96ZXStOBqdqX1obSG57z8v3NIC2L7Hm1avwLrqJe8m3c3ZczgH+sdUinIbpJw2wEbqIHlYDzA4nF/YcFge26ZA1Hfx28Ib3Q23rDU8CGMdmlqWyre31bXxrmQZNPNsapdqo8AMM1SgqHSnNeZx10O8sv0/6oH6C9VWb23dPbkKCXDvH0VXprU+XKZlC314Alu81E4KBb3U3vCMQqVaqWbHhpS6sE1tcsoGYbta8L93i8wTziBi7HY7pxG9S8Z5PpveLWZ4tTjL5ywhYfmEQp5UrptGW3lwbKpPrnDRuv/MaGVoFfadG3pYic9SDxsUKtcbZgDUS5Pi0jkYrIJXky+5QIU24JxQYeLkKyNSsz3w7FIzC1SXR2do1mfJSCU+tPNIRtLwZ8mIhy/bvDbwIeDgi3fJzuT8B1BLAwQUAAAICAAAmJ/rg/A5e20AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0krlRSnKqQXKyaZJ5okGihZFuWpqZiYWlmZGxaUpymnmykVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAmJ/rSLrZ3nsCAAA4BQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAmJ/rg/A5e20AAAB4AAAACQAkAAAAAAAAAAAAAADIAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAIADAAAAAA==
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 10
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +635,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2096637917}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &534553453
 TilemapRenderer:
@@ -18943,7 +19030,7 @@ GameObject:
   - component: {fileID: 1878525079}
   - component: {fileID: 1878525078}
   - component: {fileID: 1878525080}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Obstacle
   m_TagString: Level
   m_Icon: {fileID: 0}
@@ -18963,7 +19050,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2096637917}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1878525078
 TilemapRenderer:
@@ -20349,6 +20436,7 @@ GameObject:
   - component: {fileID: 1982509093}
   - component: {fileID: 1982509094}
   - component: {fileID: 1982509091}
+  - component: {fileID: 1982509095}
   m_Layer: 7
   m_Name: enemy
   m_TagString: Enemy
@@ -20419,6 +20507,8 @@ MonoBehaviour:
   shootDistance: 4
   lookDirection: {x: 1, y: 0}
   turnSpeed: 10
+  lastTargetPosition: {x: 0, y: 0}
+  wayPointDistance: 3
 --- !u!50 &1982509093
 Rigidbody2D:
   serializedVersion: 4
@@ -20456,6 +20546,34 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
+--- !u!114 &1982509095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982509088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &2096637915
 GameObject:
   m_ObjectHideFlags: 0
@@ -20497,6 +20615,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 386263584}
   - {fileID: 534553452}
   - {fileID: 311250854}
   - {fileID: 1878525077}

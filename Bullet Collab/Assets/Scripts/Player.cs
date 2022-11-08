@@ -124,7 +124,7 @@ public class Player : Entity
             if (cursorObj == null || !cursorObj.GetComponent<mouseCursor>().isHovering){
                 // check if player is too close to wall
                 Vector2 origin = playerRig.position;
-                RaycastHit2D contact = Physics2D.Raycast(origin,arrowDirection.normalized,armDistance * 1.1f,LayerMask.GetMask("Default"));
+                RaycastHit2D contact = Physics2D.Raycast(origin,arrowDirection.normalized,armDistance * 1.1f,LayerMask.GetMask("Obstacle"));
                 if (!contact){
                     fireBullets();
                 }

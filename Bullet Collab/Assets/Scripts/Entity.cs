@@ -8,6 +8,7 @@
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
 * 11/03/22  0.20                 DS              updated health stuff
+* 11/07/22  0.20                 DS              added enemy stuff and knockback
 *******************************************************************************/
 
 using System.Collections;
@@ -26,6 +27,7 @@ public class Entity : MonoBehaviour
     public float maxHealth = 5;
     [HideInInspector] public int damageAmount = 0;
     public int currency = 0;
+    public float weight = 5f;
 
     // Stat Variables
     [HideInInspector] public GameObject damagedBy;
@@ -101,27 +103,30 @@ public class Entity : MonoBehaviour
         }
     }
 
+    // This function exists for enemies with unique bullets, that cant be achieved with upgrades
+    public virtual void localEditBullet(bulletSystem bulletObj){}
+
     // Entity will fire Bullets
-    public virtual void fireBullets(){
+    public virtual bool fireBullets(){
         // make sure game is running
         if (Time.timeScale <= 0){
-            return;
+            return false;
         }
 
         // check if entity is  in bullet cooldown
         if (Time.time - delayStartTime < bulletTime){
-            return;
+            return false;
         }
 
         // check if entity is reloading
         if (Time.time - reloadStartTime < reloadTime){
-            return;
+            return false;
         }
 
         // check if entity has ammo
         if (currentAmmo <= 0){
             reloadGun();
-            return;
+            return false;
         }
 
         // entity passed all checks, can fire
@@ -148,6 +153,7 @@ public class Entity : MonoBehaviour
 
             bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation * spreadQuaternion,bulletFolder);
             if (newBullet != null){
+                // set the default bullet stats
                 newBullet.dataManager = dataManager;
                 newBullet.bulletOwner = gameObject;
                 newBullet.bulletSpeed = 5f;
@@ -155,6 +161,9 @@ public class Entity : MonoBehaviour
                 newBullet.bulletBounces = 0;
                 newBullet.perkIDList = perkIDList;
                 newBullet.bulletFolder = bulletFolder;
+
+                // finish setting up the bullet
+                localEditBullet(newBullet);
                 newBullet.setupBullet();
 
                 // Check for any onFire modifiers
@@ -172,6 +181,8 @@ public class Entity : MonoBehaviour
         if (uiUpdate != null && gameObject.tag == "Player"){
             uiUpdate.updateGameUI();
         }
+
+        return true;
     }
 
     public virtual void Start() {
@@ -184,21 +195,6 @@ public class Entity : MonoBehaviour
         // Get UI management script
         if (uiManager != null){
             uiUpdate = uiManager.GetComponent<UIManager>();
-        }
-    }
-
-    // Update is called once per frame
-    void Update() {
-
-    }
-
-    // Fixed Update is called every physics step
-    void FixedUpdate() {
-        if (perkCommands != null){
-            // Check for any entity lifetime modifiers
-            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
-            editList.Add("Owner", gameObject);
-            perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
         }
     }
 
@@ -217,6 +213,21 @@ public class Entity : MonoBehaviour
             if (currentHealth <= 0){
                 perkCommands.applyPerk(perkIDList,"Killed",editList);
             }
+        }
+    }
+
+    // Update is called once per frame
+    void Update() {
+
+    }
+
+    // Fixed Update is called every physics step
+    void FixedUpdate() {
+        if (perkCommands != null){
+            // Check for any entity lifetime modifiers
+            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+            editList.Add("Owner", gameObject);
+            perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
         }
     }
 }

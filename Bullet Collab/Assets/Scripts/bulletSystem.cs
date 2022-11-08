@@ -85,6 +85,14 @@ public class bulletSystem : MonoBehaviour
                     hitObj.damagedBy = bulletOwner;
                     editList.Add("Target", hit.gameObject);
                     hitObj.takeDamage((int)bulletDamage);
+
+                    // Do knockback based on force
+                    if (hitObj.weight != 0f){
+                        Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
+                        if (rb != null){
+                            rb.velocity = gameObject.transform.right.normalized * ((bulletSpeed * 5f) / hitObj.weight);
+                        }
+                    }
                 }
 
                 // Apply an on hit modifiers

@@ -18,6 +18,8 @@ public class Enemy : Entity
     // Targeting Variables
     [HideInInspector] public GameObject currentTarget;
     public float shootDistance = 5f;
+    public Vector2 lookDirection = new Vector2(1f,0f);
+    public float turnSpeed = 10f;
 
     public bool checkVisibility(GameObject target){
         bool canSee = false;
@@ -103,6 +105,26 @@ public class Enemy : Entity
         return returnTarget;
     }
 
+    public virtual void rotateEnemy(){
+        if (currentTarget != null && currentTarget.transform){
+            lookDirection = ((Vector2)transform.position - (Vector2)currentTarget.transform.position).normalized;
+        }
+
+        // Rotate Base
+        float turnAlpha = Mathf.Clamp(Time.fixedDeltaTime * turnSpeed,0f,1f);
+        transform.Find("body").right = Vector2.Lerp(transform.Find("body").right,lookDirection,turnAlpha);
+        facingRight = (bool)(lookDirection.x > 0);
+
+        // Gun Flip Direction
+        if (transform.rotation.eulerAngles.y == 180){// this part is to fix some weird rotation rounding error
+            transform.Find("body").gameObject.GetComponent<SpriteRenderer>().flipY = facingRight;
+            transform.Find("eyes").gameObject.GetComponent<SpriteRenderer>().flipX = facingRight;
+        }else{
+            transform.Find("body").gameObject.GetComponent<SpriteRenderer>().flipY = !facingRight;
+            transform.Find("eyes").gameObject.GetComponent<SpriteRenderer>().flipX = !facingRight;
+        }
+    }
+
     public virtual void movePattern(){
         if (currentTarget != null){
             float distance = Vector2.Distance((Vector2)transform.position, (Vector2)currentTarget.transform.position);
@@ -121,7 +143,22 @@ public class Enemy : Entity
         }
 
         Vector3 moveDirection = (movement.normalized * walkSpeed);
-        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 10f);
+        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 5f);
+    }
+
+    // base enemy bullet stats
+    public override void localEditBullet(bulletSystem bulletObj){
+        base.localEditBullet(bulletObj);
+        bulletObj.bulletSpeed = 3f;
+        bulletObj.bulletSize = 0.14f;
+        bulletObj.bulletBounces = 0;
+    }
+
+    public override void takeDamage(int amount){
+        base.takeDamage(amount);
+        if (amount > 0){
+
+        }
     }
 
     // Update is called once per frame
@@ -138,10 +175,13 @@ public class Enemy : Entity
 
         if (currentTarget != null){
             if (checkVisibility(currentTarget)){
-                fireBullets();
+                if (fireBullets()){
+                    rb.velocity = rb.velocity * 0.5f;
+                }
             }
         }
 
         movePattern();
+        rotateEnemy();
     }
 }

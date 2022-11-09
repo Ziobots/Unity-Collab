@@ -359,7 +359,7 @@ public class Enemy : Entity
     }
 
     private bool killed = false;
-    public override void takeDamage(int amount){
+    public override void takeDamage(float amount){
         base.takeDamage(amount);
         if (currentHealth <= 0 && !killed){
             killed = true;
@@ -389,7 +389,7 @@ public class Enemy : Entity
 
     public virtual void shootGun(){
         if (currentTarget != null && currentHealth > 0){
-            if (checkVisibility(currentTarget,1.5f)){
+            if (checkVisibility(currentTarget,1.2f)){
                 // check angle between target and the way the enemy is facing
                 Vector2 targetDirection = ((Vector2)currentTarget.transform.position - (Vector2)transform.position).normalized;
                 Vector2 myDirection = -transform.Find("body").right.normalized;

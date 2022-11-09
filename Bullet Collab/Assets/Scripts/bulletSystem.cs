@@ -7,6 +7,7 @@
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
 * 11/08/22  0.80                 DS              fixed bullet bouncing
+* 11/09/22  0.90                 DS              fixed bullet damage 
 *******************************************************************************/
 
 using System.Collections;
@@ -88,7 +89,7 @@ public class bulletSystem : MonoBehaviour
                     }
 
                     editList.Add("Target", hit.gameObject);
-                    hitObj.takeDamage((int)bulletDamage);
+                    hitObj.takeDamage(bulletDamage);
 
                     // Do knockback based on force
                     if (hitObj.weight != 0f){

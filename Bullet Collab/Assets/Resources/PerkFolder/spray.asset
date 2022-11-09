@@ -20,6 +20,6 @@ MonoBehaviour:
   perkRarity: 0
   stackablePerk: 1
   addBullets: 5
-  damageMultiple: 0.72
+  damageMultiple: 0.85
   delayMultiple: 0.85
   reloadMultiple: 0.85

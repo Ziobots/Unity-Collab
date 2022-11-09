@@ -8,7 +8,7 @@
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
 * 11/03/22  0.20                 DS              updated health stuff
-* 11/07/22  0.20                 DS              added enemy stuff and knockback
+* 11/07/22  0.70                 DS              added enemy stuff and knockback
 *******************************************************************************/
 
 using System.Collections;
@@ -25,7 +25,7 @@ public class Entity : MonoBehaviour
     // Local Variables
     public float currentHealth = 5;
     public float maxHealth = 5;
-    [HideInInspector] public int damageAmount = 0;
+    [HideInInspector] public float damageAmount = 0;
     public int currency = 0;
     public float weight = 5f;
 
@@ -199,7 +199,7 @@ public class Entity : MonoBehaviour
     }
 
     // bullets will call this when they hit
-    public virtual void takeDamage(int amount){
+    public virtual void takeDamage(float amount){
         if (amount > 0 && currentHealth > 0){
             currentHealth -= amount;
 

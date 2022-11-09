@@ -65,7 +65,7 @@ public class Player : Entity
     }
 
     // overwrite the take damage function so its only 1 damage - also check for gameover here
-    public override void takeDamage(int amount){
+    public override void takeDamage(float amount){
         // Player can only take damage every so often
         if (Time.time - hitTime >= iFrames){
             hitTime = Time.time;

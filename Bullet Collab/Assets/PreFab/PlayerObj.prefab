@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3568330078130665452}
   - component: {fileID: 4819104967065076147}
-  - component: {fileID: 8491705745714727260}
+  - component: {fileID: 6864354039662467967}
   - component: {fileID: 4282372811394036773}
   m_Layer: 0
   m_Name: PlayerObj
@@ -57,8 +57,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &8491705745714727260
-BoxCollider2D:
+--- !u!70 &6864354039662467967
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -71,18 +71,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.5}
-  m_EdgeRadius: 0
+  m_Size: {x: 1.2, y: 1.6}
+  m_Direction: 0
 --- !u!114 &4282372811394036773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,19 +88,32 @@ MonoBehaviour:
   dataManager: {fileID: 0}
   dataInfo: {fileID: 0}
   perkCommands: {fileID: 0}
-  health: 5
+  currentHealth: 5
+  maxHealth: 5
   damageAmount: 0
+  currency: 0
+  weight: 5
+  damagedBy: {fileID: 0}
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
   walkSpeed: 6
   rb: {fileID: 4819104967065076147}
   facingRight: 1
-  attackTime: 0
   bulletPrefab: {fileID: 1245196261793414157, guid: 57aa78eb88978ed4da98a25baf265501, type: 3}
   launchPoints:
   - {fileID: 5449737378806835617}
   bulletFolder: {fileID: 0}
+  maxAmmo: 0
+  currentAmmo: 0
+  reloadTime: 0
+  bulletTime: 0
+  bulletSpread: 0
+  automaticGun: 0
+  reloadStartTime: 0
+  delayStartTime: 0
+  gunNoise: {fileID: 0}
+  reloadNoise: {fileID: 0}
   perkIDList: []
   mousePosition: {x: 0, y: 0}
   arrowDirection: {x: 0, y: 0}

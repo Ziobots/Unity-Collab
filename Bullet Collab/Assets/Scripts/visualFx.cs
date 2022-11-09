@@ -24,6 +24,9 @@ public class visualFx : MonoBehaviour
     public float lifeTime;
     private bool didSetup = false;
 
+    // Kill Variables
+    public GameObject destroyObj = null; // object that gets destroyed along with the animation, for when enemies die
+
     // Start is called before the first frame update
     public void setupVFX(){
         createTime = Time.time;
@@ -42,6 +45,9 @@ public class visualFx : MonoBehaviour
         if (didSetup && gameObject != null){
             if (Time.time - createTime >= lifeTime && lifeTime > 0){
                 Destroy(gameObject);
+                if (destroyObj != null){
+                    Destroy(destroyObj);
+                }
             }
         }
     }
@@ -49,6 +55,9 @@ public class visualFx : MonoBehaviour
     public void endAnimationFrame(){
         if (killAnimation){
             Destroy(gameObject);
+            if (destroyObj != null){
+                Destroy(destroyObj);
+            }
         }
     }
 }

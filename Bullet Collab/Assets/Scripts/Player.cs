@@ -73,6 +73,11 @@ public class Player : Entity
             // Run Damage Visual - only 1 damage for players
             base.takeDamage(1);
 
+            if (currentHealth <= 0){
+                // end game
+                print("end game");
+            }
+
             // Update Data
             dataInfo.updateEntityData(gameObject);
             uiUpdate.updateGameUI(); 

@@ -221,10 +221,15 @@ public class bulletSystem : MonoBehaviour
                     return;
                 }
             }else{
-                if (bulletOwner != null && otherCollider.gameObject){
-                    if (otherCollider.gameObject == bulletOwner && !damageOwner){
-                        return;
+                Entity entityData = otherCollider.gameObject.GetComponent<Entity>();
+                if (entityData != null && entityData.currentHealth > 0){
+                    if (bulletOwner != null && otherCollider.gameObject){
+                        if (otherCollider.gameObject == bulletOwner && !damageOwner){
+                            return;
+                        }
                     }
+                }else{
+                    return;
                 }
             }
         }

@@ -200,10 +200,10 @@ public class Entity : MonoBehaviour
 
     // bullets will call this when they hit
     public virtual void takeDamage(int amount){
-        if (amount > 0){
+        if (amount > 0 && currentHealth > 0){
             currentHealth -= amount;
 
-            // Check for any bounce modifiers
+            // Check for any bounce modifiers 
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
             damageAmount = amount;

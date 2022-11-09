@@ -8,13 +8,15 @@
 * 10/26/22  0.10                 DS              Made the thing
 * 11/07/22  0.20                 DS              started AI
 * 11/08/22  0.30                 DS              pathfinding
+* 11/09/22  0.40                 DS              bumping
 *******************************************************************************/
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Pathfinding;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Enemy : Entity
 {
@@ -33,7 +35,13 @@ public class Enemy : Entity
     [HideInInspector] private int visibleWaypoint = -1;
     private Seeker seekObj;
 
-    public bool checkVisibility(GameObject target, bool circle){
+    // Visuals
+    public visualFx killPrefab;
+    public string defaultFace = "eyes_Normal";
+    public string currentFace = "eyes_Normal";
+    public float faceSwapTime = 0;
+
+    public bool checkVisibility(GameObject target, float circleRadius){
         bool canSee = false;
 
         if (target != null && gameObject){
@@ -48,8 +56,12 @@ public class Enemy : Entity
                         contactList.Add(contact);
                     } 
                 
-                if (circle){
+                if (circleRadius != 0f){
                     float radius = gameObject.GetComponent<CircleCollider2D>().radius * 1.1f;
+                    if (circleRadius > 0){
+                        radius = circleRadius;
+                    }
+
                     RaycastHit2D[] addList = Physics2D.CircleCastAll(origin,radius,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
                     foreach(RaycastHit2D contact in addList){
                         contactList.Add(contact);
@@ -77,6 +89,11 @@ public class Enemy : Entity
 
     // update the Target, is usually the player
     public virtual GameObject updateTarget(){
+        if (currentHealth <= 0){
+            currentTarget = null;
+            return null;
+        }
+
         GameObject[] targetChoices = GameObject.FindGameObjectsWithTag("Player");
         GameObject returnTarget = null;
 
@@ -93,7 +110,9 @@ public class Enemy : Entity
 
         // prioritize entities that have dealt damage to this
         if (damagedBy != null && damagedBy.GetComponent<Entity>().currentHealth > 0){
-            returnTarget = damagedBy;
+            if (damagedBy.tag != gameObject.tag){
+                returnTarget = damagedBy;
+            }
         }else{
             damagedBy = null;
         }
@@ -104,7 +123,7 @@ public class Enemy : Entity
                 if (choice != null && choice.transform){
                     Entity entityData = choice.GetComponent<Entity>();
                     if (entityData && entityData.currentHealth > 0){
-                        if (checkVisibility(choice,false)){
+                        if (checkVisibility(choice,0)){
                             if (!returnTarget || Vector3.Distance(returnTarget.transform.position,transform.position) <= Vector3.Distance(choice.transform.position,transform.position)){
                                 returnTarget = choice;
                             }
@@ -134,8 +153,12 @@ public class Enemy : Entity
     }
 
     public virtual void rotateEnemy(){
+        if (currentHealth <= 0){
+            return;
+        }
+
         if (currentTarget != null && currentTarget.transform){
-            if (checkVisibility(currentTarget,false)){
+            if (checkVisibility(currentTarget,0)){
                 lookDirection = ((Vector2)transform.position - (Vector2)currentTarget.transform.position).normalized;
             }else if (movement.magnitude > 0){
                 lookDirection = -rb.velocity;
@@ -206,11 +229,15 @@ public class Enemy : Entity
     }
 
     public virtual void movePattern(){
+        if (currentHealth <= 0){
+            return;
+        }
+        
         if (currentTarget != null){
             float distance = Vector2.Distance((Vector2)transform.position, (Vector2)currentTarget.transform.position);
 
             bool goStraight = false;
-            if (checkVisibility(currentTarget,true)){
+            if (checkVisibility(currentTarget,-1)){
                 goStraight = true;
                 if (visibleWaypoint <= -1 && currentWaypoint > 0){
                     visibleWaypoint = currentWaypoint;
@@ -268,6 +295,57 @@ public class Enemy : Entity
         rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 2f);
     }
 
+    public virtual void pushNearby(){
+        if (currentHealth <= 0){
+            return;
+        }
+
+        CircleCollider2D myCollider = gameObject.GetComponent<CircleCollider2D>();
+        List<Collider2D> entityList = new List<Collider2D>();
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(LayerMask.GetMask("EntityCollide"));
+        filter.useLayerMask = true;
+
+        // get any entities that are overlapping
+        Physics2D.OverlapCollider(myCollider,filter,entityList);
+
+        // go through each object and push if too close
+        foreach(Collider2D collider in entityList){
+            GameObject entityObj = collider.gameObject;
+            if (entityObj){
+                Entity entityData = entityObj.GetComponent<Entity>();
+                Collider2D otherCollider = gameObject.GetComponent<Collider2D>();
+                if (entityData && entityData.currentHealth > 0 && otherCollider){
+                    Vector2 direction = ((Vector2)entityObj.transform.position - (Vector2)transform.position).normalized;
+
+                    // this only happens if they are right on top of eachother
+                    if (direction.magnitude <= 0){
+                        direction = new Vector2(Random.Range(100,100)/200,Random.Range(100,100)/200);
+                    }
+
+                    // calculate push based on weights of two objects
+                    Vector2 pushForce = (direction * -entityData.weight) + (direction * (gameObject.GetComponent<Entity>().weight * 0.7f));
+                    if (gameObject.GetComponent<Entity>().weight * 0.7f > entityData.weight){
+                        pushForce = direction * -entityData.weight * 0.1f;
+                    }
+
+                    if (entityData.weight <= 0){
+                        pushForce = -direction * 2;
+                    }
+
+                    // Player should take damage when bumped
+                    if (entityObj.tag == "Player"){
+                        entityData.takeDamage(1);
+                    }
+
+                    // Apply the force
+                    rb.velocity = rb.velocity + (pushForce * 0.9f);
+                }
+            }
+        } 
+    }
+
     // base enemy bullet stats
     public override void localEditBullet(bulletSystem bulletObj){
         base.localEditBullet(bulletObj);
@@ -276,10 +354,79 @@ public class Enemy : Entity
         bulletObj.bulletBounces = 0;
     }
 
+    // for on death
+    private void fadeEyesAlpha(float value){
+        if (transform.Find("eyes")){
+            transform.Find("eyes").gameObject.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,value);
+        }
+    }
+
+    private bool killed = false;
     public override void takeDamage(int amount){
         base.takeDamage(amount);
-        if (amount > 0){
+        if (currentHealth <= 0 && !killed){
+            killed = true;
 
+            visualFx killVFX = Instantiate(killPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),new Quaternion(),gameObject.transform);
+            if (killVFX != null){
+                currentFace = "eyes_Shock";
+                faceSwapTime = Time.time;
+
+                killVFX.lifeTime = 0f;
+                killVFX.killAnimation = true;
+                killVFX.animSpeed = 1.3f;
+                killVFX.destroyObj = gameObject;
+                killVFX.gameObject.GetComponent<SpriteRenderer>().color = transform.Find("body").gameObject.GetComponent<SpriteRenderer>().color;
+                transform.Find("body").gameObject.SetActive(false);
+                LeanTween.value(transform.Find("eyes").gameObject,1f,0f,.35f).setEaseLinear().setOnUpdate(fadeEyesAlpha).setDelay(0.2f);
+
+                float radius = gameObject.GetComponent<CircleCollider2D>().radius * 3f;
+                killVFX.transform.localScale = new Vector3(radius,radius,1);
+                killVFX.setupVFX();
+            }
+        }else{
+            currentFace = "eyes_Hurt";
+            faceSwapTime = Time.time;
+        }
+    }
+
+    public virtual void shootGun(){
+        if (currentTarget != null && currentHealth > 0){
+            if (checkVisibility(currentTarget,1.5f)){
+                // check angle between target and the way the enemy is facing
+                Vector2 targetDirection = ((Vector2)currentTarget.transform.position - (Vector2)transform.position).normalized;
+                Vector2 myDirection = -transform.Find("body").right.normalized;
+
+                if (Vector2.Dot(targetDirection,myDirection) <= 0.5){
+                    return;
+                }
+
+                if (fireBullets()){
+                    currentFace = defaultFace;
+                    faceSwapTime = 0;
+                    
+                    rb.velocity = rb.velocity * 0.8f;
+                }
+            }
+        }
+    }
+
+    // for facial animations
+    private string setFace = "";
+    public virtual void faceCheck(){
+        // should the face return to the default
+        if (currentFace != defaultFace && Time.time - faceSwapTime >= .25){
+            if (currentHealth <= 0){
+                currentFace = "eyes_Hurt";
+            }else{
+                currentFace = defaultFace;
+            }
+        }
+
+        // just so we dont load the sprite every frame
+        if (transform.Find("eyes") && setFace != currentFace){
+            setFace = currentFace;
+            transform.Find("eyes").gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(currentFace);
         }
     }
 
@@ -288,27 +435,14 @@ public class Enemy : Entity
         seekObj = gameObject.GetComponent<Seeker>();
     }
 
-    // Update is called once per frame
-    private void Update() {
-        //if(Time.time - attackTime >= 1f){
-        //    attackTime = Time.time;
-            //fireBullets();
-        //}
-    }
-
     // Fixed Update is called every physics step
     void FixedUpdate() {
         currentTarget = updateTarget();
 
-        if (currentTarget != null){
-            if (checkVisibility(currentTarget,false)){
-                if (fireBullets()){
-                    rb.velocity = rb.velocity * 0.8f;
-                }
-            }
-        }
-
+        shootGun();
         movePattern();
         rotateEnemy();
+        pushNearby();
+        faceCheck();
     }
 }

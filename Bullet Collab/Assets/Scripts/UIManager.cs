@@ -121,7 +121,8 @@ public class UIManager : MonoBehaviour
         //bulletBar.GetComponent<RectTransform>().sizeDelta = new Vector2(width,60f);
 
         // set the text
-        string ammoString = "" + dataInfo.currentAmmo + "<size=35><color=#828282>/" + dataInfo.maxAmmo + "</color></size>";
+        string ammoColor = dataInfo.currentAmmo <= 0 ? "828282" : "F7C04A";
+        string ammoString = "<color=#" + ammoColor + ">" + dataInfo.currentAmmo + "</color><size=35><color=#828282>/" + dataInfo.maxAmmo + "</color></size>";
         GameObject textLabel = bulletBar.transform.Find("reSize").Find("ammoCount").gameObject;
         textLabel.GetComponent<TMPro.TextMeshProUGUI>().text = ammoString;
 

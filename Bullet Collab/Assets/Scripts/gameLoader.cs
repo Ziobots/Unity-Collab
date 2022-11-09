@@ -46,8 +46,6 @@ public class gameLoader : MonoBehaviour
             }
         }
 
-        print("NUM OF ENEMY:" + enemyList.Count);
-
         return enemyList;
     }
 

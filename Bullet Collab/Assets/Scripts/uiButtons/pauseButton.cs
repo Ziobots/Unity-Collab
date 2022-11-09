@@ -116,7 +116,7 @@ public class pauseButton : MonoBehaviour
 
         resumeGame();
         if (levelUpdate != null){
-            levelUpdate.LoadScene(sceneID);
+            levelUpdate.LoadScene(sceneID,null);
         }
     }
 

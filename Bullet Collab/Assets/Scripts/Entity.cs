@@ -185,6 +185,10 @@ public class Entity : MonoBehaviour
         return true;
     }
 
+    public virtual void setupEntity(){
+        Start();
+    }
+
     public virtual void Start() {
         // Get data management script
         if (dataManager != null){

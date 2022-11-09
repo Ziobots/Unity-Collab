@@ -6,6 +6,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/27/22  0.10                 DS              Made the thing
+* 10/27/22  0.20                 DS              started integrating game manager
 *******************************************************************************/ 
 
 using System.Collections;
@@ -26,9 +27,6 @@ public class levelLoader : MonoBehaviour
     // Player
     public Transform playerObj;
 
-    // Collision Stuff
-    public string sceneIDCollider;
-
     // Clear Folders
     public void clearFolder(Transform folder){
         if (folder != null){
@@ -38,7 +36,7 @@ public class levelLoader : MonoBehaviour
         }
     }
 
-    public void LoadScene(string sceneID) {
+    public void LoadScene(string sceneID,System.Action onComplete) {
         // Update Player Data
         dataInfo.currentSceneID = sceneID;
 
@@ -53,20 +51,17 @@ public class levelLoader : MonoBehaviour
         // Remove Bullets and Enemies
         clearFolder(bulletFolder);
         clearFolder(enemyFolder);
+
+        // maybe do wait stuff
+        if (onComplete != null){
+            onComplete();
+        }
     }
 
     private void Start() {
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D otherCollider) {
-        // Check if object is the player
-        if (otherCollider.gameObject != null && otherCollider.gameObject.tag == "Player"){
-            LoadScene(sceneIDCollider);
-            return;
         }
     }
 }

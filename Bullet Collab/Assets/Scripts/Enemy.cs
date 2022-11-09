@@ -153,11 +153,7 @@ public class Enemy : Entity
     }
 
     public virtual void rotateEnemy(){
-        if (currentHealth <= 0){
-            return;
-        }
-
-        if (currentTarget != null && currentTarget.transform){
+        if (currentTarget != null && currentTarget.transform && currentHealth > 0){
             if (checkVisibility(currentTarget,0)){
                 lookDirection = ((Vector2)transform.position - (Vector2)currentTarget.transform.position).normalized;
             }else if (movement.magnitude > 0){
@@ -230,6 +226,7 @@ public class Enemy : Entity
 
     public virtual void movePattern(){
         if (currentHealth <= 0){
+            rb.velocity = rb.velocity * 0.95f;
             return;
         }
         
@@ -378,7 +375,7 @@ public class Enemy : Entity
                 killVFX.destroyObj = gameObject;
                 killVFX.gameObject.GetComponent<SpriteRenderer>().color = transform.Find("body").gameObject.GetComponent<SpriteRenderer>().color;
                 transform.Find("body").gameObject.SetActive(false);
-                LeanTween.value(transform.Find("eyes").gameObject,1f,0f,.35f).setEaseLinear().setOnUpdate(fadeEyesAlpha).setDelay(0.2f);
+                LeanTween.value(transform.Find("eyes").gameObject,1f,0f,.3f).setEaseLinear().setOnUpdate(fadeEyesAlpha).setDelay(0.2f);
 
                 float radius = gameObject.GetComponent<CircleCollider2D>().radius * 3f;
                 killVFX.transform.localScale = new Vector3(radius,radius,1);

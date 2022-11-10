@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d237fafe9ee6c164cb9cb0161b5e048f, type: 3}
   m_Name: perkLottery
   m_EditorClassIdentifier: 
-  perkIcon: {fileID: 21300000, guid: 767edfb1f6103134e8563296fde18b0d, type: 3}
+  perkIcon: {fileID: 21300000, guid: ec6085bf8b83c1f46b24ee84fd693a06, type: 3}
   perkName: Perk Lottery
   perkCost: 0
   perkDescription: When you pick a perk, there's a 50% chance the others won't disappear.

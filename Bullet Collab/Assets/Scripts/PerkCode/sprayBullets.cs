@@ -18,6 +18,7 @@ public class sprayBullets : perkData
     public float damageMultiple = 0.7f;
     public float delayMultiple = 1f / 3f;
     public float reloadMultiple = 1f / 1.25f;
+    public float spreadMultiple = 1.3f;
 
     public override void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
         Entity entityStats = getEntityStats(objDictionary);
@@ -27,6 +28,7 @@ public class sprayBullets : perkData
             entityStats.maxAmmo += addBullets;
             entityStats.bulletTime *= delayMultiple;
             entityStats.reloadTime *= reloadMultiple;
+            entityStats.bulletSpread *= spreadMultiple;
             entityStats.automaticGun = true;
         }
     }

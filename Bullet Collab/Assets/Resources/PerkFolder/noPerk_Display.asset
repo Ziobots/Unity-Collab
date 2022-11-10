@@ -16,5 +16,5 @@ MonoBehaviour:
   perkName: No Perks
   perkCost: 0
   perkDescription: You do not have any perks.
-  perkRarity: -1
+  perkRarity: 0
   stackablePerk: 0

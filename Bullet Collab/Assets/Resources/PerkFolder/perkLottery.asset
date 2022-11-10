@@ -16,5 +16,5 @@ MonoBehaviour:
   perkName: Perk Lottery
   perkCost: 0
   perkDescription: When you pick a perk, there's a 50% chance the others won't disappear.
-  perkRarity: 0
+  perkRarity: 3
   stackablePerk: 1

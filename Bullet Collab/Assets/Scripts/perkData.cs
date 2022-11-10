@@ -18,6 +18,8 @@ using UnityEngine.UI;
 // INITIALIZE bool is used if a perk has code you only want executed once
 // ex: with homing it has to calculate stuff but if it did it twice it would cause problems
 
+public enum Rarity {Unobtainable,Common,Uncommon,Rare,Legendary};
+
  [CreateAssetMenu(menuName = "ScriptableObjects/Perk/noPerk_Display")]
 public class perkData : ScriptableObject
 {
@@ -26,7 +28,7 @@ public class perkData : ScriptableObject
     public int perkCost;
     [TextArea]
     public string perkDescription;
-    public float perkRarity;
+    public Rarity perkRarity;
     public bool stackablePerk = true;
 
     // This event fires when the player picks up a perk, use it to adjust player stats

@@ -30,6 +30,50 @@ public class perkModule : MonoBehaviour
         return null;
     }
 
+    public Rarity GetRarity(int value){
+        if (value <= 40){ // 40%
+            return Rarity.Common;
+        }else if (value <= 70){ // 30%
+            return Rarity.Uncommon;
+        }else if (value <= 95){ // 25 %
+            return Rarity.Rare;
+        }else if (value <= 100){ // 5%
+            return Rarity.Legendary;
+        }
+
+        return Rarity.Common;
+    }
+
+    public perkData getRandomPerk(int perkSeed,List<string> blackList){
+        // load all the perks to sort through
+        Object[] perkLoad = Resources.LoadAll("PerkFolder");
+        perkData[] perkObjects = new perkData[perkLoad.Length];
+        perkLoad.CopyTo(perkObjects, 0);
+
+        // get perks and put them into each rarity list
+        Dictionary<Rarity, List<perkData>> rarityChoices = new Dictionary<Rarity, List<perkData>>();
+        foreach (Rarity tierEnum in System.Enum.GetValues(typeof(Rarity))){
+            rarityChoices.Add(tierEnum,new List<perkData>());
+        }
+
+        foreach (perkData perk in perkObjects){
+            if (perk && !blackList.Contains(perk.name)){
+                rarityChoices[perk.perkRarity].Add(perk);
+                print("added "+perk.name+" to "+perk.perkRarity+" :c= " + rarityChoices[perk.perkRarity].Count);
+            }
+        }
+
+        // get random perk
+        Random.InitState(perkSeed);
+        Rarity chosenTier = GetRarity(Random.Range(0,100));
+        if (rarityChoices[chosenTier].Count <= 0){
+            chosenTier = Rarity.Common;
+        }
+
+        // return the chosen perk
+        return rarityChoices[chosenTier].Count > 0 ? rarityChoices[chosenTier][Random.Range(0,rarityChoices[chosenTier].Count - 1)] : null;
+    }
+
     public Dictionary<string, int> countPerks(List<string> perkIDList){
         Dictionary<string, int> perkCounts = new Dictionary<string, int>();
 

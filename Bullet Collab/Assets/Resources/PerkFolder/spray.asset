@@ -17,7 +17,7 @@ MonoBehaviour:
   perkCost: 0
   perkDescription: Add 5 bullets, decrease damage, faster reload and faster fire
     rate.
-  perkRarity: 0
+  perkRarity: 3
   stackablePerk: 1
   addBullets: 5
   damageMultiple: 0.85

@@ -16,5 +16,5 @@ MonoBehaviour:
   perkName: Aiming Bullets
   perkCost: 0
   perkDescription: Bullets will turn toward the cursor.
-  perkRarity: 0
+  perkRarity: 4
   stackablePerk: 1

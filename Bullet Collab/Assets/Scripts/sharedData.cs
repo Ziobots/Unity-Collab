@@ -25,15 +25,12 @@ public class tempDataClass{
     public List<string> perkIDList = new List<string>();
     public float currenthealth = 6;
     public int currency = 0;
+    public int wave = 0;
+    public int seed = 0;
+    public string sceneID = "baseGame";
 
     public tempDataClass(){
 
-    }
-
-    public tempDataClass(List<string> perkIDS,float setHealth, int setMoney){
-        this.perkIDList = perkIDS;
-        this.currenthealth = setHealth;
-        this.currency = setMoney;
     }
 }
 
@@ -60,6 +57,8 @@ public class sharedData : MonoBehaviour
     public float minTime; // in seconds
 
     // Temporary Data
+    public int seed;
+    public int wave;
     public string currentSceneID;
     public float currenthealth;
     public float maxHealth;
@@ -158,7 +157,14 @@ public class sharedData : MonoBehaviour
     }
 
     public tempDataClass getTemporaryJSON(){
-        tempDataClass tempData = new tempDataClass(perkIDList,currenthealth,currency);
+        tempDataClass tempData = new tempDataClass();
+        tempData.perkIDList = perkIDList;
+        tempData.currenthealth = currenthealth;
+        tempData.currency = currency;
+        tempData.wave = wave;
+        tempData.sceneID = currentSceneID;
+        tempData.seed = seed;
+
         return tempData;
     }
 

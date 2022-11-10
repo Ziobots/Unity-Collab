@@ -166,6 +166,8 @@ public class Entity : MonoBehaviour
                 newBullet.perkIDList = perkIDList;
                 newBullet.bulletFolder = bulletFolder;
 
+                newBullet.bulletDamage = 5000f;
+
                 // finish setting up the bullet
                 localEditBullet(newBullet);
                 newBullet.setupBullet();

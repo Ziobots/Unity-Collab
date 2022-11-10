@@ -28,7 +28,7 @@ public class perkPickup : MonoBehaviour
     public int cost = 0;
     public int count = 1;
 
-    public List<GameObject> perkObjList; // List of perk objs to be destroyed when this perk is picked up
+    public List<GameObject> perkObjList; // List of perk objs to be destroyed when this perk is picked up 
     public visualFx collectPrefab;
     public Transform addFolder;
     private Vector3 basePosition;

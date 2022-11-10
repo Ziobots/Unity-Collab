@@ -22,16 +22,23 @@ public class gameLoader : MonoBehaviour
     public GameObject uiManager;
     [HideInInspector] public UIManager uiUpdate;
 
-    // Game Folders
+    // Game Objects
     public Transform enemyFolder;
     public Transform bulletFolder;
+    public GameObject levelObj;
+    public GameObject playerObj;
 
     // Game Data
     public int gameSeed;
+    public string currentArea = "baseGame";
 
     [HideInInspector] public bool waveStarted = false;
     [HideInInspector] public bool spawningEnemies = false;
     public int currentWave = 0;
+    public int sceneStartWave = 0;
+
+    // prefabs
+    public perkPickup perkPrefab;
 
     // game checks
     public List<GameObject> getEnemies(){
@@ -108,8 +115,70 @@ public class gameLoader : MonoBehaviour
         }
     }
 
+    public void spawnPerks(){
+        if (playerObj){
+            Player playerData = playerObj.GetComponent<Player>();
+            if (playerData){
+                int maxColumn = 10;
+                int columnCount = Mathf.Clamp(playerData.perkCount,1,maxColumn);
+                int rowCount = (int) Mathf.Ceil(playerData.perkCount/columnCount);
+                List<GameObject> perkObjList = new List<GameObject>();
+
+                // should not spawn perks that cant stack that the player has
+                List<string> blackList = new List<string>();
+                foreach (string perkID in playerObj.GetComponent<Entity>().perkIDList){
+                    perkData perk = gameObject.GetComponent<perkModule>().getPerk(perkID);
+                    if (perk && !perk.stackablePerk){
+                        blackList.Add(perkID);
+                    }
+                }
+
+
+                for (int i = 1; i <= playerData.perkCount; i++){
+                    Vector3 perkPosition = new Vector3(0,0,0);
+                    perkPosition.x = -((float)columnCount / (float)2f) + i;
+                    perkPosition.y = -((float)rowCount / (float)2f) + Mathf.Ceil((float)i/(float)columnCount);
+
+                    perkPickup newPerk = Instantiate(perkPrefab,perkPosition * 2.5f,new Quaternion(),bulletFolder);
+                    if (newPerk != null){
+                        // set the default perk stats
+                        newPerk.dataManager = dataManager;
+                        newPerk.uiManager = uiManager;
+
+                        newPerk.cost = 0;
+                        newPerk.count = 1;
+                        newPerk.addFolder = bulletFolder;
+                        newPerk.perkObjList = perkObjList;
+
+                        // get the perk
+                        int perkSeed = gameSeed + (currentWave * 10) + (i * 100);
+                        perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList);
+                        if (chosenPerk){
+                            newPerk.perkID = chosenPerk.name;
+
+                            // check if should add to blacklist
+                            if (chosenPerk && !chosenPerk.stackablePerk){
+                                blackList.Add(chosenPerk.name);
+                            }
+                        }
+
+                        // finish setting up the perk
+                        newPerk.setupPickup();
+                        perkObjList.Add(newPerk.gameObject);
+                    }
+                }
+
+                foreach (GameObject perkObj in perkObjList){
+                    perkObj.GetComponent<perkPickup>().perkObjList = perkObjList;
+                }
+            }
+        }
+    }
+
     // Start is called before the first frame update
     private void Start(){
+        gameSeed = (int)System.DateTime.Now.Ticks;
+        
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
@@ -125,6 +194,7 @@ public class gameLoader : MonoBehaviour
     }
 
     // Update is called once per frame
+    private bool spawnedPerks = false;
     private void FixedUpdate() {
         if (waveStarted){
             if (getEnemies().Count <= 0){
@@ -133,12 +203,22 @@ public class gameLoader : MonoBehaviour
                 spawningEnemies = false;
             }
         }else{
-            if (!spawningEnemies){
-                print("SPAWN ENEMIES");
-                currentWave++;
-                spawningEnemies = true;
-                spawnEnemies();
-                waveStarted = true;
+            levelData levelInfo = levelObj.GetComponent<levelData>();
+            if (levelInfo){
+                if (currentWave - sceneStartWave > levelInfo.waveCount){
+                    if (!spawnedPerks){
+                        spawnedPerks = true;
+                        currentWave++;
+                        print("Spawn perks");
+                        spawnPerks();
+                    }
+                }else if(!spawningEnemies){
+                    print("SPAWN ENEMIES");
+                    currentWave++;
+                    spawningEnemies = true;
+                    spawnEnemies();
+                    waveStarted = true;
+                }
             }
         }
     }

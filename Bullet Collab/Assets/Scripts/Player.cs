@@ -32,6 +32,7 @@ public class Player : Entity
     // Local Variables
     public float hitTime = 0f;
     public float iFrames = 0.5f;
+    public int perkCount = 3;
 
     private void moveGun() {
         if (arrow != null) {

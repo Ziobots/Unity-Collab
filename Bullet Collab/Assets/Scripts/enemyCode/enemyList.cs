@@ -15,4 +15,6 @@ using UnityEngine;
 public class enemyList : MonoBehaviour
 {
     public List<string> enemySpawns = new List<string>();
+    public int minWave = -1;
+    public int maxWave = -1;
 }

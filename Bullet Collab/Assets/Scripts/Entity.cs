@@ -60,6 +60,10 @@ public class Entity : MonoBehaviour
     // Sound Stuff
     public AudioSource gunNoise;
     public AudioSource reloadNoise;
+    public AudioSource hurtNoise;
+
+    // Visual Variables
+    public Color spriteColor = new Color(255,255,255,255);
 
     // Upgrade Variables
     public List<string> perkIDList;
@@ -87,7 +91,7 @@ public class Entity : MonoBehaviour
         perkCommands.applyPerk(perkIDList,"Reload",editList);
 
         if (reloadNoise != null){
-            reloadNoise.PlayOneShot(reloadNoise.clip,0.2f);
+            reloadNoise.PlayOneShot(reloadNoise.clip,reloadNoise.volume);
         }
 
         // add to the ammo one by one over time
@@ -139,7 +143,7 @@ public class Entity : MonoBehaviour
         }
 
         if (gunNoise != null){
-            gunNoise.PlayOneShot(gunNoise.clip,0.3f);
+            gunNoise.PlayOneShot(gunNoise.clip,gunNoise.volume);
         }
 
         foreach(Transform point in launchPoints){
@@ -185,6 +189,51 @@ public class Entity : MonoBehaviour
         return true;
     }
 
+    // bullets will call this when they hit
+    public virtual void takeDamage(float amount){
+        if (amount > 0 && currentHealth > 0){
+            currentHealth -= amount;
+
+            // Check for any bounce modifiers 
+            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+            editList.Add("Owner", gameObject);
+            damageAmount = amount;
+            perkCommands.applyPerk(perkIDList,"Damaged",editList);
+
+            // check if the entity has died
+            if (currentHealth <= 0){
+                perkCommands.applyPerk(perkIDList,"Killed",editList);
+                if (hurtNoise != null){
+                    hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume);
+                }
+            }
+
+            damageEffect();
+        }
+    }
+
+    private IEnumerator doWait(float waitTime, System.Action onComplete){
+        yield return new WaitForSeconds(waitTime);
+        // run on complete
+        onComplete();
+    }
+
+    public virtual void damageEffect(){
+        if (gameObject){
+            Transform bodyObj = gameObject.transform.Find("body");
+            if (bodyObj && bodyObj.gameObject){
+                bodyObj.gameObject.GetComponent<SpriteRenderer>().material = Resources.Load("Materials/damaged") as Material;
+                bodyObj.gameObject.GetComponent<SpriteRenderer>().color = new Color32(253,106,106,255);
+                StartCoroutine(doWait(0.05f,delegate{
+                    if (bodyObj && bodyObj.gameObject){
+                        bodyObj.gameObject.GetComponent<SpriteRenderer>().material = Resources.Load("Materials/default") as Material;
+                        bodyObj.gameObject.GetComponent<SpriteRenderer>().color = spriteColor;
+                    }
+                }));
+            }
+        }
+    }
+
     public virtual void setupEntity(){
         Start();
     }
@@ -200,29 +249,6 @@ public class Entity : MonoBehaviour
         if (uiManager != null){
             uiUpdate = uiManager.GetComponent<UIManager>();
         }
-    }
-
-    // bullets will call this when they hit
-    public virtual void takeDamage(float amount){
-        if (amount > 0 && currentHealth > 0){
-            currentHealth -= amount;
-
-            // Check for any bounce modifiers 
-            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
-            editList.Add("Owner", gameObject);
-            damageAmount = amount;
-            perkCommands.applyPerk(perkIDList,"Damaged",editList);
-
-            // check if the entity has died
-            if (currentHealth <= 0){
-                perkCommands.applyPerk(perkIDList,"Killed",editList);
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void Update() {
-
     }
 
     // Fixed Update is called every physics step

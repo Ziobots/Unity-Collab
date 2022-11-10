@@ -78,6 +78,8 @@ public class gameLoader : MonoBehaviour
                         perk.addedEvent(editList,gameObject.GetComponent<perkModule>().countPerks(entityInfo.perkIDList)[perkID],true);
                     }
                 }
+
+                return newEnemy;
             }
         }
 

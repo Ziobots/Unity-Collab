@@ -114,6 +114,7 @@ MonoBehaviour:
   delayStartTime: 0
   gunNoise: {fileID: 0}
   reloadNoise: {fileID: 0}
+  spriteColor: {r: 255, g: 255, b: 255, a: 255}
   perkIDList: []
   mousePosition: {x: 0, y: 0}
   arrowDirection: {x: 0, y: 0}
@@ -165,7 +166,7 @@ GameObject:
   - component: {fileID: 5493421289513961392}
   - component: {fileID: 7631022968447883805}
   m_Layer: 0
-  m_Name: Player
+  m_Name: body
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

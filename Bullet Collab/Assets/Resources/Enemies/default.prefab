@@ -107,14 +107,16 @@ MonoBehaviour:
   bulletFolder: {fileID: 0}
   maxAmmo: 1
   currentAmmo: 1
-  reloadTime: 0.7
-  bulletTime: 0
+  reloadTime: 0.85
+  bulletTime: 0.4
   bulletSpread: 3
   automaticGun: 0
   reloadStartTime: 0
   delayStartTime: 0
   gunNoise: {fileID: 0}
   reloadNoise: {fileID: 0}
+  hurtNoise: {fileID: 0}
+  spriteColor: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 255}
   perkIDList: []
   currentTarget: {fileID: 0}
   shootDistance: 4

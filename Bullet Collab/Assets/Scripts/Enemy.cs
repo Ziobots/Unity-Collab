@@ -373,7 +373,7 @@ public class Enemy : Entity
                 killVFX.killAnimation = true;
                 killVFX.animSpeed = 1.3f;
                 killVFX.destroyObj = gameObject;
-                killVFX.gameObject.GetComponent<SpriteRenderer>().color = transform.Find("body").gameObject.GetComponent<SpriteRenderer>().color;
+                killVFX.gameObject.GetComponent<SpriteRenderer>().color = spriteColor;
                 transform.Find("body").gameObject.SetActive(false);
                 LeanTween.value(transform.Find("eyes").gameObject,1f,0f,.3f).setEaseLinear().setOnUpdate(fadeEyesAlpha).setDelay(0.2f);
 
@@ -424,6 +424,15 @@ public class Enemy : Entity
         if (transform.Find("eyes") && setFace != currentFace){
             setFace = currentFace;
             transform.Find("eyes").gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(currentFace);
+        }
+    }
+
+    public override void setupEntity(){
+        base.setupEntity();
+
+        if (Camera.current){
+            hurtNoise = Camera.current.transform.Find("SoundAssets").Find("hurt").gameObject.GetComponent<AudioSource>();
+            gunNoise = Camera.current.transform.Find("SoundAssets").Find("enemyFire").gameObject.GetComponent<AudioSource>();
         }
     }
 

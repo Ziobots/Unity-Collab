@@ -8,7 +8,8 @@
 * 10/26/22  0.10                 DS              Made the thing
 * 11/07/22  0.20                 DS              started AI
 * 11/08/22  0.30                 DS              pathfinding
-* 11/09/22  0.40                 DS              bumping
+* 11/09/22  0.40                 DS              bumping + damage effects
+* 11/10/22  0.40                 DS              spawn in animation
 *******************************************************************************/
 
 using System.Collections;
@@ -40,6 +41,9 @@ public class Enemy : Entity
     public string defaultFace = "eyes_Normal";
     public string currentFace = "eyes_Normal";
     public float faceSwapTime = 0;
+
+    // Spawn Visuals
+    public bool Loaded = false;
 
     public bool checkVisibility(GameObject target, float circleRadius){
         bool canSee = false;
@@ -427,13 +431,33 @@ public class Enemy : Entity
         }
     }
 
+    // tween functions
+    private void spawnRotation(float value){
+        Quaternion setRotationEuler = Quaternion.Euler(0f, value, 0f);
+        transform.rotation = setRotationEuler;
+    }
+
+    private void spawnFinished(){
+        spawnRotation(0f);
+        Loaded = true;
+    }
+
+    private void spawnAnimation(){
+        spawnRotation(90);
+        LeanTween.value(gameObject,270f,720f,.7f).setEaseOutBack().setOnUpdate(spawnRotation).setOnComplete(spawnFinished);
+    }
+
     public override void setupEntity(){
+        Loaded = false;
+
         base.setupEntity();
 
         if (Camera.current){
             hurtNoise = Camera.current.transform.Find("SoundAssets").Find("hurt").gameObject.GetComponent<AudioSource>();
             gunNoise = Camera.current.transform.Find("SoundAssets").Find("enemyFire").gameObject.GetComponent<AudioSource>();
         }
+
+        spawnAnimation();
     }
 
     public override void Start() {
@@ -443,6 +467,10 @@ public class Enemy : Entity
 
     // Fixed Update is called every physics step
     void FixedUpdate() {
+        if (!Loaded){
+            return;
+        }
+
         currentTarget = updateTarget();
 
         shootGun();

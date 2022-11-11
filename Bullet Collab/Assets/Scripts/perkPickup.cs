@@ -33,11 +33,13 @@ public class perkPickup : MonoBehaviour
     public Transform addFolder;
     private Vector3 basePosition;
 
+    public bool interactActive = false;
+
     // Interaction
     public bool playerNearby = false;
 
     private void collectEffect(){
-        visualFx collectVFX = Instantiate(collectPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),transform.rotation,addFolder);
+        visualFx collectVFX = Instantiate(collectPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),new Quaternion(),addFolder);
         if (collectVFX != null){
             collectVFX.lifeTime = 0f;
             collectVFX.killAnimation = true;
@@ -49,8 +51,35 @@ public class perkPickup : MonoBehaviour
         }
     }
 
+    // tween functions
+    private void spawnRotation(float value){
+        Quaternion setRotationEuler = Quaternion.Euler(0f, value, 0f);
+        transform.rotation = setRotationEuler;
+    }
+
+    private void spawnFinished(){
+        spawnRotation(0f);
+        interactActive = true;
+    }
+
+    private void spawnAnimation(){
+        spawnRotation(90);
+        LeanTween.value(gameObject,270f,720f,.7f).setEaseOutBack().setOnUpdate(spawnRotation).setOnComplete(spawnFinished);
+    }
+
+    private void deletePerk(){
+        spawnRotation(90);
+        Destroy(gameObject);
+    }
+
+    public void removePerk(){
+        interactActive = false;
+        spawnRotation(0);
+        LeanTween.value(gameObject,0f,90f,.3f).setEaseInBack().setOnUpdate(spawnRotation).setOnComplete(deletePerk);
+    }
+
     public void setupPickup(){
-        // Get data management script
+        // Get data management script 
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
             perkCommands = dataManager.GetComponent<perkModule>();
@@ -69,6 +98,9 @@ public class perkPickup : MonoBehaviour
         }
 
         basePosition = transform.position;
+        
+        // do spawn animation
+        spawnAnimation();
     }
 
     public void onPickup(GameObject entityObj){
@@ -88,12 +120,12 @@ public class perkPickup : MonoBehaviour
                     entityObj.GetComponent<Entity>().perkIDList.Add(perkID);
 
                     // create the dictionary for on add
-                    Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
-                    editList.Add("Owner", entityObj);
-                    editList.Add("PerkObj", gameObject);
+                    Dictionary<string, GameObject> addList = new Dictionary<string, GameObject>();
+                    addList.Add("Owner", entityObj);
+                    addList.Add("PerkObj", gameObject);
 
                     // This event should only run here and data load, 3 parameter should always be true here?
-                    perk.addedEvent(editList,perkCommands.countPerks(entityObj.GetComponent<Entity>().perkIDList)[perkID],true);
+                    perk.addedEvent(addList,perkCommands.countPerks(entityObj.GetComponent<Entity>().perkIDList)[perkID],true);
 
                     // apply any changes to the data
                     dataInfo.updateEntityData(entityObj);
@@ -104,8 +136,8 @@ public class perkPickup : MonoBehaviour
             // do collect effect
             collectEffect();
 
+            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             if (perkCommands != null){
-                Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                 editList.Add("Owner", entityObj);
                 editList.Add("PerkObj", gameObject);
                 perkCommands.applyPerk(dataInfo.perkIDList,"Perk_Collect",editList);
@@ -116,10 +148,12 @@ public class perkPickup : MonoBehaviour
             }
 
             // if perk was connected to other perks remove those since this was chosen
-            foreach (GameObject perkObj in perkObjList){
-                if (perkObj != gameObject){
-                    // do destroy effect
-                    Destroy(perkObj);
+            if (!editList.ContainsKey("SKIP_DESTROY")){
+                foreach (GameObject perkObj in perkObjList){
+                    if (perkObj != gameObject){
+                        // do destroy effect
+                        perkObj.GetComponent<perkPickup>().removePerk();
+                    }
                 }
             }
 
@@ -135,7 +169,7 @@ public class perkPickup : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (gameObject){
+        if (gameObject && interactActive){
             Vector3 setPosition = basePosition;
             float rotation = 0;
             

@@ -40,6 +40,7 @@ public class gameLoader : MonoBehaviour
 
     [HideInInspector] public bool waveStarted = false;
     [HideInInspector] public bool spawningEnemies = false;
+    [HideInInspector] public bool spawnedPerks = false;
 
     public int currentRoom = 1;
     public int currentWave = 0;
@@ -153,6 +154,15 @@ public class gameLoader : MonoBehaviour
         return roomList;
     }
 
+    // Clear Folders
+    public void clearFolder(Transform folder){
+        if (folder != null){
+            foreach (Transform chlid in folder){
+                GameObject.Destroy(chlid.gameObject);
+            }
+        }
+    }
+
     public GameObject createRoom(GameObject roomBase){
         // remove the old room
         if (levelObj != null){
@@ -163,6 +173,15 @@ public class gameLoader : MonoBehaviour
 
             Destroy(levelObj);
             levelObj = null;
+        }
+
+        // Remove Bullets and Enemies
+        clearFolder(bulletFolder);
+        clearFolder(enemyFolder);
+
+        // Reset Position of Player to 0,0,0
+        if (playerObj != null){
+            playerObj.transform.position = new Vector2(0,0);
         }
 
         if (roomBase != null){
@@ -202,6 +221,11 @@ public class gameLoader : MonoBehaviour
                 createRoom(chosenRoom);
             }
         }
+
+        sceneStartWave = currentWave;
+        spawningEnemies = false;
+        waveStarted = false;
+        spawnedPerks = false;
     }
 
     public void showContinue(){
@@ -240,7 +264,6 @@ public class gameLoader : MonoBehaviour
                         blackList.Add(perkID);
                     }
                 }
-
 
                 for (int i = 0; i < playerData.perkCount; i++){
                     // get the position of the perk
@@ -304,7 +327,6 @@ public class gameLoader : MonoBehaviour
     }
 
     // Update is called once per frame
-    private bool spawnedPerks = false;
     private void FixedUpdate() {
         if (waveStarted){
             if (getEnemies().Count <= 0){

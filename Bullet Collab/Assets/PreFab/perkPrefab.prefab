@@ -123,11 +123,10 @@ MonoBehaviour:
   perkID: remoteBullet
   cost: 0
   count: 1
-  perkObjList:
-  - {fileID: 0}
-  - {fileID: 0}
+  perkObjList: []
   collectPrefab: {fileID: 7980481142589596770, guid: 73b7fbc20c719e3489468710c59b7d12, type: 3}
   addFolder: {fileID: 0}
+  interactActive: 0
   playerNearby: 0
 --- !u!114 &6002106386034358276
 MonoBehaviour:

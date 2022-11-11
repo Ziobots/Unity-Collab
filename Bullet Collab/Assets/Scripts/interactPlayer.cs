@@ -45,8 +45,9 @@ public class interactPlayer : MonoBehaviour
                 print("Interact with Obj");
 
                 // check if obj has pickup
-                if (interactObj.gameObject.GetComponent<perkPickup>()){
-                    interactObj.gameObject.GetComponent<perkPickup>().onPickup(gameObject);
+                perkPickup pickupdData = interactObj.gameObject.GetComponent<perkPickup>();
+                if (pickupdData && pickupdData.interactActive){
+                    pickupdData.onPickup(gameObject);
                     currentObj = null;
                     applyNearbyVFX(null);
                 }else{
@@ -81,16 +82,16 @@ public class interactPlayer : MonoBehaviour
             infoPopup popupData = popupUI.GetComponent<infoPopup>();
             if (showPopup){
                 Dictionary<string, string> showData = new Dictionary<string, string>();
-                perkPickup isPerkObj = newObj.gameObject.GetComponent<perkPickup>();
+                perkPickup pickupData = newObj.gameObject.GetComponent<perkPickup>();
 
-                if (isPerkObj){ // check if the object is a perk
+                if (pickupData){ // check if the object is a perk
                     perkModule perkMod = newObj.gameObject.GetComponent<perkModule>();
-                    perkData perk = perkMod.getPerk(isPerkObj.perkID);
+                    perkData perk = perkMod.getPerk(pickupData.perkID);
                     // get the perk data
                     if (perk != null){
                         showData.Add("Title", perk.perkName);
                         showData.Add("Description", perk.perkDescription);
-                        showData.Add("Cost", "" + isPerkObj.cost);
+                        showData.Add("Cost", "" + pickupData.cost);
                         showData.Add("Context", "Pickup");
                     }
                 }else{
@@ -114,21 +115,39 @@ public class interactPlayer : MonoBehaviour
             float myDistance = Vector2.Distance(interactObj.gameObject.transform.position,transform.position);
             // compare distance between current obj and closest, if no closest then skip
             if (!closestObj || myDistance < Vector2.Distance(closestObj.gameObject.transform.position,transform.position)){
-                closestObj = interactObj;
+                perkPickup pickupData = interactObj.gameObject.GetComponent<perkPickup>();
+                bool isActive = true;
+
+                if (pickupData){
+                    isActive = pickupData.interactActive;
+                }
+
+                if (isActive){
+                    closestObj = interactObj;
+                }
             }
         }
 
         // to prevent spam from objects getting in range and out of range too quickly
         if (currentObj != null && currentObj.gameObject != null){
-            float myDistance = Vector2.Distance(currentObj.gameObject.transform.position,transform.position);
-            if (closestObj != null && closestObj != currentObj){
-                float otherDistance = Vector2.Distance(closestObj.gameObject.transform.position,transform.position);
-                // if too close dont switch
-                if (Mathf.Abs(myDistance - otherDistance) <= 1f){
+            // check current active
+            perkPickup pickupData = currentObj.gameObject.GetComponent<perkPickup>();
+            bool currentActive = true;
+            if (pickupData){
+                currentActive = pickupData.interactActive;
+            }
+            
+            if (currentActive){
+                float myDistance = Vector2.Distance(currentObj.gameObject.transform.position,transform.position);
+                if (closestObj != null && closestObj != currentObj){
+                    float otherDistance = Vector2.Distance(closestObj.gameObject.transform.position,transform.position);
+                    // if too close dont switch
+                    if (Mathf.Abs(myDistance - otherDistance) <= 1f){
+                        closestObj = currentObj;
+                    }
+                }else if (myDistance <= detectRadius + 2f){
                     closestObj = currentObj;
                 }
-            }else if (myDistance <= detectRadius + 2f){
-                closestObj = currentObj;
             }
         }
 

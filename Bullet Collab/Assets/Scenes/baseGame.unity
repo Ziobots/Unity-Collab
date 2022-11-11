@@ -367,7 +367,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2096637917}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &311250855
 TilemapRenderer:
@@ -490,6 +490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 386263584}
   - component: {fileID: 386263585}
+  - component: {fileID: 386263586}
   m_Layer: 0
   m_Name: pathGrid
   m_TagString: Untagged
@@ -504,13 +505,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 386263583}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2096637917}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &386263585
 MonoBehaviour:
@@ -526,7 +527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACYn+ubHjihagIAACgFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMziUjuyGE3lonIT0kYUI7ufgipDXWIEseSQ6QDP+9K9nGLp2eWHbf2337IX8SqV0N3Bu7tFI8GQHk24QEm3yZDMFHOLCt0Wv5AT3mTQpfBhCLmFfmpUF/EmjOVOCt5N/1VgUwRWejZWFsdS+2kBnnHboLphxgyBof2BpdnxNywJ/pIlCOaKXzYH2gtaCTE5octAc7QJOrdEYpTeaLjtHjW3ijuWJVDSJoH7GS9GrWEaIdwRp763AhbahmlJKu00b8sY69Z6x2DXaGACEZ9hoF0asgoQS5LX1QPqa/FIUD36mz7HgnLQ6tzUt+mHaSFXO7VuI7U02olNLrRVTWZn36BzBNYriwpnrsCyc0FPGl5LtXduTM+dGsx+67QXsSR7Vnasc2Ct5K0M9maU2jBQa9bQK1cZDeDX/PvWUl8N3gb6VeOJt6mD29WFTo4RTbP2RKVps4yuvWsVYmjjzeA1jcz08UHK/FdSnQG1T8dvCLbcdn1QUepHUeQ12XOsjbmMYGKHlAI4yeNz4zVoMdJ6hBM+WPK0zjL3d4Efs/64GFB9QV72L9u7igRPeAp/QitDL787JcafZP4MqXxiupYZh0CDzjnDKjdXti45Z62rqxBeMj2raR4u/TIvNUcKCczzZzRtltOi2Km+vbxU36dSZ4MecpibcnNfbJ1KoV2o0Ht6aH5BrvrP+uTJaW1fHchWX7pfyozFig1IVZcwugX9oUZ+VgsQo+TnEvJE5oDd5LHRdOPnOiDN+ByM8189jq/cFblg9ZclLLd+ODJydZ/JLkJLjPx7yy8C5hH4r3yU7k9AdQSwMEFAAACAgAAJif64PwOXttAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJK5UUpyqkFysmmSeaJBooWRblqamYmFpZmRsWlKcpp5spFSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAJif65seOKFqAgAAKAUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAJif64PwOXttAAAAeAAAAAkAJAAAAAAAAAAAAAAAtwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABvAwAAAAA=
+    dataString: UEsDBBQAAAgIAACYn+vQy1VtZwIAACIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3GuBDi3lonIT0kYUI7ufgipDXWIEsefQRIhv/elWxjl05PiLdv375drfxJhLINMKfN0gj+pDmQbxMSzuTLZAg+woFutVqLD+g5b4K7KpBo5LxSJzTi05BmdQ3OCPZdbWUgJwh6JUpt6nu+hVxbZxEuqbSAIaNdyFYIfU7IAX+uspByxFO6CKcPPGXJ5IRHBsqBGajT63SWZdm84/fsluwVk7RugAfnQ046P8vPW6LCrjoOCgYxpqUUtnNF3LGJXee0sR57QgIXFLuMVpLrDIEKxLZyQXSc/lKWFlznzNDjnTA4rlaX/NDtDGtqd629dyp9qJQmsyw6a1Wf/iFcTWO4NLp+7AtPk1DEVYLtXumRUetGUx7Dd4P3aRzTnsod3Uh4q0A966XRXnEMOuNDqreQ3g1/z73lFbDdgLdWL0DfDHNPLi4p9HCK7R9yKepNHOWsBdZSx5HHTQCD9/MTDcc9sZ0EosHFbwu/6Ha8UF3gQRjrMNR1qYK9jfYmUMkDHsLomXe5NgrMWKABRaU7rlDGXd7hRez/WQ80PJ2ueBfrX8RFSoQHfpJchFZ6f74sW+n9E9jqxTspFAyTDoFnnFOulWpXbNxSn7b2pqRslLb1gv+9WmSRcgYJY/PNgib0Nr0qy5vZbXaTfp1zVi5YSuLuCYV9UrlqjXbjwVtTg7jCPeu/KJOloU1cd27ofik+aj02KFSp18wAqJdW4uwcDFbBx8nvucAJrcE5oeKFk8+CSM12wItzzSK2en9whhaDSkEa8a5dQAqSx29IQQJ8XuaVgXcB+1C8FzuR0x9QSwMEFAAACAgAAJif64PwOXttAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJK5UUpyqkFysmmSeaJBooWRblqamYmFpZmRsWlKcpp5spFSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAJif69DLVW1nAgAAIgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAJif64PwOXttAAAAeAAAAAkAJAAAAAAAAAAAAAAAtAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABsAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -599,6 +600,18 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
+--- !u!114 &386263586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386263583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb48d80963c2c7468c05a531823c23d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,7 +810,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2096637917}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &534553453
 TilemapRenderer:
@@ -17837,7 +17850,7 @@ Transform:
   - {fileID: 1705003769}
   - {fileID: 1703038423}
   m_Father: {fileID: 2096637917}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &970930458
 GameObject:
@@ -18439,7 +18452,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1356760222
 GameObject:
@@ -18590,7 +18603,6 @@ MonoBehaviour:
   spriteColor: {r: 255, g: 255, b: 255, a: 255}
   perkIDList: []
   spinHit: 1
-  teleportChoice: 3
   spawnPosition: {x: 0, y: 0}
   moveToSpawn: 1
 --- !u!50 &1408201128
@@ -18628,7 +18640,7 @@ Transform:
   m_Children:
   - {fileID: 1028868510}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1408201131
 CircleCollider2D:
@@ -18900,7 +18912,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2096637917}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1878525078
 TilemapRenderer:
@@ -20260,7 +20272,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1924483584
 MonoBehaviour:
@@ -20316,13 +20328,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 386263584}
   - {fileID: 534553452}
   - {fileID: 311250854}
   - {fileID: 1878525077}
   - {fileID: 819243957}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2096637918
 MonoBehaviour:
@@ -20336,6 +20347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe8c05c8517e724bb52c1f2db9ec571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   waveCount: 2
   spawnPoints: {fileID: 0}
 --- !u!1 &2119487041 stripped
@@ -21545,7 +21557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7924832519742925681, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7924832519742925681, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchorMax.x

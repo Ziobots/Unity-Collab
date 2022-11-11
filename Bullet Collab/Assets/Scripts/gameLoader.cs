@@ -28,6 +28,10 @@ public class gameLoader : MonoBehaviour
     public GameObject levelObj;
     public GameObject playerObj;
 
+    // ui obj
+    public GameObject transitioner;   
+    public GameObject continueButton;   
+
     // Game Data
     public int gameSeed;
     public string currentArea = "baseGame";
@@ -65,6 +69,7 @@ public class gameLoader : MonoBehaviour
                 entityInfo.dataManager = dataManager;
                 entityInfo.uiManager = uiManager;
                 entityInfo.bulletFolder = bulletFolder;
+                entityInfo.gameManager = gameObject;
 
                 // finish setting up the enemy
                 entityInfo.setupEntity();
@@ -115,11 +120,27 @@ public class gameLoader : MonoBehaviour
         }
     }
 
+    public void showContinue(){
+        if (continueButton != null){
+            nextWave continueData = continueButton.GetComponent<nextWave>();
+            if (continueData){
+                continueData.showButton(delegate{
+                    // next wave room
+                    print("continue to next wave");
+                    
+                    transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                        continueData.hideButton();
+                    },false);
+                });
+            }
+        }
+    }
+
     public void spawnPerks(){
         if (playerObj){
             Player playerData = playerObj.GetComponent<Player>();
             if (playerData){
-                int maxColumn = 10;
+                int maxColumn = 7;
                 int columnCount = Mathf.Clamp(playerData.perkCount,1,maxColumn);
                 int rowCount = (int) Mathf.Ceil(playerData.perkCount/columnCount);
                 List<GameObject> perkObjList = new List<GameObject>();
@@ -134,10 +155,12 @@ public class gameLoader : MonoBehaviour
                 }
 
 
-                for (int i = 1; i <= playerData.perkCount; i++){
+                for (int i = 0; i < playerData.perkCount; i++){
+                    // get the position of the perk
                     Vector3 perkPosition = new Vector3(0,0,0);
-                    perkPosition.x = -((float)columnCount / (float)2f) + i;
-                    perkPosition.y = -((float)rowCount / (float)2f) + Mathf.Ceil((float)i/(float)columnCount);
+                    perkPosition.x = -Mathf.Ceil((float)columnCount / (float)2f) + ((i % columnCount) + 1);
+                    //perkPosition.y = -Mathf.Floor((float)rowCount / (float)2f) + Mathf.Floor((float)i/(float)columnCount);
+                    perkPosition.y = Mathf.Floor((float)i/(float)columnCount);
 
                     perkPickup newPerk = Instantiate(perkPrefab,perkPosition * 2.5f,new Quaternion(),bulletFolder);
                     if (newPerk != null){
@@ -175,6 +198,15 @@ public class gameLoader : MonoBehaviour
         }
     }
 
+    public void breakableTeleport(RoomType teleportChoice){
+        if (teleportChoice != RoomType.None){
+            print("DO FADE");
+            transitioner.GetComponent<fadeTransition>().startFade(delegate{
+
+            },true);
+        }
+    }
+
     // Start is called before the first frame update
     private void Start(){
         gameSeed = (int)System.DateTime.Now.Ticks;
@@ -209,8 +241,8 @@ public class gameLoader : MonoBehaviour
                     if (!spawnedPerks){
                         spawnedPerks = true;
                         currentWave++;
-                        print("Spawn perks");
                         spawnPerks();
+                        showContinue();
                     }
                 }else if(!spawningEnemies){
                     print("SPAWN ENEMIES");

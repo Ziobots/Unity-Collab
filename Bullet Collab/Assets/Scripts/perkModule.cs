@@ -59,7 +59,6 @@ public class perkModule : MonoBehaviour
         foreach (perkData perk in perkObjects){
             if (perk && !blackList.Contains(perk.name)){
                 rarityChoices[perk.perkRarity].Add(perk);
-                print("added "+perk.name+" to "+perk.perkRarity+" :c= " + rarityChoices[perk.perkRarity].Count);
             }
         }
 

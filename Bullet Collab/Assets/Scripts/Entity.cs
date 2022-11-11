@@ -22,6 +22,10 @@ public class Entity : MonoBehaviour
     [HideInInspector] public sharedData dataInfo;
     [HideInInspector] public perkModule perkCommands;
 
+    // Game Data Stuff
+    public GameObject gameManager;
+    [HideInInspector] public gameLoader gameInfo;
+
     // Local Variables
     public float currentHealth = 5;
     public float maxHealth = 5;
@@ -166,7 +170,7 @@ public class Entity : MonoBehaviour
                 newBullet.perkIDList = perkIDList;
                 newBullet.bulletFolder = bulletFolder;
 
-                newBullet.bulletDamage = 5000f;
+                newBullet.bulletDamage = 500f;
 
                 // finish setting up the bullet
                 localEditBullet(newBullet);
@@ -247,6 +251,11 @@ public class Entity : MonoBehaviour
             perkCommands = dataManager.GetComponent<perkModule>();
         }
 
+        // get game management script
+        if (gameManager != null){
+            gameInfo = gameManager.GetComponent<gameLoader>();
+        }
+
         // Get UI management script
         if (uiManager != null){
             uiUpdate = uiManager.GetComponent<UIManager>();
@@ -254,7 +263,7 @@ public class Entity : MonoBehaviour
     }
 
     // Fixed Update is called every physics step
-    void FixedUpdate() {
+    public virtual void FixedUpdate() {
         if (perkCommands != null){
             // Check for any entity lifetime modifiers
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();

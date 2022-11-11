@@ -364,7 +364,12 @@ public class Enemy : Entity
 
     private bool killed = false;
     public override void takeDamage(float amount){
+        if (!Loaded){
+            return;
+        }
+
         base.takeDamage(amount);
+        
         if (currentHealth <= 0 && !killed){
             killed = true;
 
@@ -466,10 +471,12 @@ public class Enemy : Entity
     }
 
     // Fixed Update is called every physics step
-    void FixedUpdate() {
+    public override void FixedUpdate() {
         if (!Loaded){
             return;
         }
+
+        base.FixedUpdate();
 
         currentTarget = updateTarget();
 

@@ -34,12 +34,13 @@ public class pauseButton : MonoBehaviour
     public GameObject uiManager;
     [HideInInspector] public UIManager uiUpdate;
 
-    public GameObject levelManager;
-    [HideInInspector] public levelLoader levelUpdate;
-
     // Base Data Stuff
     public GameObject dataManager;
     [HideInInspector] public sharedData dataInfo;
+
+    // Game Data Stuff
+    public GameObject gameManager;
+    [HideInInspector] public gameLoader gameInfo;
 
     // Blur Obj
     public GameObject blurObj;
@@ -115,8 +116,8 @@ public class pauseButton : MonoBehaviour
         }
 
         resumeGame();
-        if (levelUpdate != null){
-            levelUpdate.LoadScene(sceneID,null);
+        if (gameInfo != null){
+            //gameInfo.LoadScene(sceneID,null);
         }
     }
 
@@ -127,15 +128,14 @@ public class pauseButton : MonoBehaviour
         }
 
         // Get Level management script
-        if (levelManager != null){
-            levelUpdate = levelManager.GetComponent<levelLoader>();
+        if (gameManager != null){
+            gameInfo = gameManager.GetComponent<gameLoader>();
         }
 
-            postVolume = blurObj.GetComponent<PostProcessVolume>();
-            if (postVolume){
-                postVolume.profile.TryGetSettings(out blurField);
-            }
-
+        postVolume = blurObj.GetComponent<PostProcessVolume>();
+        if (postVolume){
+            postVolume.profile.TryGetSettings(out blurField);
+        }
     }
 
     private void Update() {

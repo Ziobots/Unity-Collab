@@ -146,7 +146,9 @@ public class Player : Entity
     }
 
     // Fixed Update is called every physics step
-    void FixedUpdate() {
+    public override void FixedUpdate() {
+        base.FixedUpdate();
+
         // Arrow Movement
         moveGun();
         // Flip Effect

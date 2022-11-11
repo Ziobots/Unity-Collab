@@ -93,7 +93,7 @@ public class Player : Entity
         // Keep Player between Scenes
         DontDestroyOnLoad(gameObject);
 
-        perkIDList.Add("bounceDmg");
+        //perkIDList.Add("bounceDmg");
         //perkIDList.Add("bounceDmg");
         //perkIDList.Add("perkLottery");
         //perkIDList.Add("perkLottery");

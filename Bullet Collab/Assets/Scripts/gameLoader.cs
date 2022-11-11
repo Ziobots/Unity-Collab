@@ -177,9 +177,10 @@ public class gameLoader : MonoBehaviour
             levelObj = null;
         }
 
-        // Remove Bullets and Enemies
+        // Remove Bullets and Enemies and other stuff
         clearFolder(bulletFolder);
         clearFolder(enemyFolder);
+        clearFolder(debriFolder);
 
         // Reset Position of Player to 0,0,0
         if (playerObj != null){

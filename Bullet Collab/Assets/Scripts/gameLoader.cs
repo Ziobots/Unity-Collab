@@ -6,6 +6,8 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 11/09/22  0.10                 DS              Made the thing
+* 11/10/22  0.10                 DS              Added enemy spawning + perks
+* 11/11/22  0.10                 DS              added level loading + next button
 *******************************************************************************/
 
 using System.Collections;
@@ -38,6 +40,8 @@ public class gameLoader : MonoBehaviour
 
     [HideInInspector] public bool waveStarted = false;
     [HideInInspector] public bool spawningEnemies = false;
+
+    public int currentRoom = 1;
     public int currentWave = 0;
     public int sceneStartWave = 0;
 
@@ -120,16 +124,99 @@ public class gameLoader : MonoBehaviour
         }
     }
 
+    // get all rooms of room type
+    public List<GameObject> getRooms(RoomType getType){
+        List<GameObject> roomList = new List<GameObject>();
+
+        Object[] roomLoad = Resources.LoadAll("Levels");
+        GameObject[] levelObj = new GameObject[roomLoad.Length];
+        roomLoad.CopyTo(levelObj, 0);
+
+        // go through each room and check if it is avaliable
+        foreach (GameObject level in roomLoad){
+            if (level){
+                levelData levelInfo = level.GetComponent<levelData>();
+                if (levelInfo){
+                    // check if the room can appear
+                    if (levelInfo.type == getType || levelInfo.allowLevel()){
+                        roomList.Add(level);
+                    }
+                }
+            }
+        }
+
+        // add a room to empty lists just in case
+        if (roomList.Count <= 0 && levelObj.Length > 0){
+            roomList.Add(levelObj[0]);
+        }
+
+        return roomList;
+    }
+
+    public GameObject createRoom(GameObject roomBase){
+        // remove the old room
+        if (levelObj != null){
+            levelData oldData = levelObj.GetComponent<levelData>();
+            if (oldData){
+                oldData.unLoadLevel();
+            }
+
+            Destroy(levelObj);
+            levelObj = null;
+        }
+
+        if (roomBase != null){
+            levelObj = Instantiate(Resources.Load("Levels/"+roomBase.name),new Vector3(0,0,0),new Quaternion()) as GameObject;
+            if (levelObj != null){
+                levelData levelInfo = levelObj.GetComponent<levelData>();
+                if (levelInfo){
+                    // set the level info
+                    // no info yet
+
+                    // finish setting up the level
+                    levelInfo.loadLevel();
+
+                    return levelObj;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    // find the next room for the player, based on seed
+    public void nextRoom(){
+        currentRoom++;
+        RoomType nextType = RoomType.Enemy;
+        if (currentRoom % 10 == 0){
+            nextType = RoomType.Boss;
+        }else if (currentRoom % 10 == 5){
+            nextType = RoomType.Shop;
+        }
+
+        List<GameObject> roomList = getRooms(nextType);
+        if (roomList != null && roomList.Count > 0){
+            Random.InitState(gameSeed + (currentRoom * 1000) + 111); // gotta offset from the original seed a bit for uniqueness
+            GameObject chosenRoom = roomList[Random.Range(0,roomList.Count - 1)];
+            if (chosenRoom){
+                createRoom(chosenRoom);
+            }
+        }
+    }
+
     public void showContinue(){
         if (continueButton != null){
             nextWave continueData = continueButton.GetComponent<nextWave>();
             if (continueData){
+                // set the function to be done on press
                 continueData.showButton(delegate{
                     // next wave room
                     print("continue to next wave");
                     
+                    // start room transition
                     transitioner.GetComponent<fadeTransition>().startFade(delegate{
                         continueData.hideButton();
+                        nextRoom();
                     },false);
                 });
             }
@@ -195,15 +282,6 @@ public class gameLoader : MonoBehaviour
                     perkObj.GetComponent<perkPickup>().perkObjList = perkObjList;
                 }
             }
-        }
-    }
-
-    public void breakableTeleport(RoomType teleportChoice){
-        if (teleportChoice != RoomType.None){
-            print("DO FADE");
-            transitioner.GetComponent<fadeTransition>().startFade(delegate{
-
-            },true);
         }
     }
 

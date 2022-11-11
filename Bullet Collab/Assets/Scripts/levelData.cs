@@ -12,14 +12,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum RoomType {None,Shop,Boss,Enemy,Other};
+
 public class levelData : MonoBehaviour
 {
+    // Room Data
+    public RoomType type = RoomType.None;
     public int waveCount = 1;
 
     // Level Folders
     public Transform spawnPoints;
 
-    public void loadLevel(){
+    // load in the level, include scan for pathfinding here?
+    public virtual void loadLevel(){
         if (spawnPoints){
             // hide all spawn point images
             foreach (Transform point in spawnPoints){
@@ -31,5 +36,15 @@ public class levelData : MonoBehaviour
                 }
             }
         }
+    }
+
+    // undo any changes made to the scene
+    public virtual void unLoadLevel(){
+
+    }
+
+    // this is for unique levels or something for subclass levels
+    public virtual bool allowLevel(){
+        return false;// do not change this
     }
 }

@@ -31,13 +31,15 @@ public class perkModule : MonoBehaviour
     }
 
     public Rarity GetRarity(int value){
-        if (value <= 40){ // 40%
+        int[] valueList = {40,70,90,100};
+
+        if (value <= valueList[0]){ // 40%
             return Rarity.Common;
-        }else if (value <= 70){ // 30%
+        }else if (value <= valueList[1]){ // 30%
             return Rarity.Uncommon;
-        }else if (value <= 95){ // 25 %
+        }else if (value <= valueList[2]){ // 25 %
             return Rarity.Rare;
-        }else if (value <= 100){ // 5%
+        }else if (value <= valueList[3]){ // 5%
             return Rarity.Legendary;
         }
 

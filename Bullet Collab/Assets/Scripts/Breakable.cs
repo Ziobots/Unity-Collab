@@ -12,15 +12,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum RoomType {None,Shop,Boss,Enemy};
-
 public class Breakable : Entity
 {
     // hit variables
     public bool spinHit = false;
     private bool canHit = true;
-
-    public RoomType teleportChoice = RoomType.None;
 
     [HideInInspector] public Vector2 spawnPosition;
     public bool moveToSpawn = false;
@@ -78,14 +74,6 @@ public class Breakable : Entity
     }
 
     public virtual void destroyObj(){
-        print("DESTROY OBJ");
-        if (teleportChoice != RoomType.None){
-            print("tele");
-            if (gameInfo){
-                print("lets go");
-                gameInfo.breakableTeleport(teleportChoice);
-            }
-        }
         
         Destroy(gameObject);
     }

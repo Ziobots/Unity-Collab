@@ -24,9 +24,6 @@ public class perkView : MonoBehaviour
     public GameObject uiManager;
     [HideInInspector] public UIManager uiUpdate;
 
-    public GameObject levelManager;
-    [HideInInspector] public levelLoader levelUpdate;
-
     // Prefabs
     public GameObject dotPrefab;
 
@@ -205,11 +202,6 @@ public class perkView : MonoBehaviour
         // Get UI management script
         if (uiManager != null){
             uiUpdate = uiManager.GetComponent<UIManager>();
-        }
-
-        // Get Level management script
-        if (levelManager != null){
-            levelUpdate = levelManager.GetComponent<levelLoader>();
         }
 
         // Get data management script

@@ -6,8 +6,16 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/27/22  0.10                 DS              Made the thing
-* 10/27/22  0.20                 DS              started integrating game manager
+* 11/11/22  0.20                 DS              DEPRERECATED THIS CODE
 *******************************************************************************/ 
+
+// Probably dont use this any more, refer to gameLoader.cs for newer version
+/* Reason:
+    Scenes werent really the best option for loading in *Random* levels since you couldnt write any information
+    to the actual scene, you wouldnt be able to tell rooms apart (like if it was a boss or shop). Also the 
+    only info I could find about loading random scenes was to use a random number (1,4) to load a random scene
+    which isnt very good since it doesnt scale well.
+*/
 
 using System.Collections;
 using System.Collections.Generic;

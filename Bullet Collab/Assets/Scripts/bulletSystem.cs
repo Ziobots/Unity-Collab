@@ -34,6 +34,7 @@ public class bulletSystem : MonoBehaviour
     public Collider2D myCollider;
     public visualFx hitPrefab;
     public Transform bulletFolder;
+    public Transform debriFolder;
 
     // Bullet Local Variabls
     private float createTime;
@@ -60,7 +61,7 @@ public class bulletSystem : MonoBehaviour
     }
 
     private void hitEffect(){
-        visualFx newHitVFX = Instantiate(hitPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),transform.rotation,bulletFolder);
+        visualFx newHitVFX = Instantiate(hitPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),transform.rotation,debriFolder);
         if (newHitVFX != null){
             newHitVFX.lifeTime = 0f;
             newHitVFX.killAnimation = true;
@@ -72,7 +73,7 @@ public class bulletSystem : MonoBehaviour
         }
     }
 
-    private void removeBullet(Collider2D hit) {
+    public void removeBullet(Collider2D hit) {
         if (myCollider.enabled){
             myCollider.enabled = false;
 

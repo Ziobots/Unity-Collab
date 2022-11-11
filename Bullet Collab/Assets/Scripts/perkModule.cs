@@ -58,8 +58,12 @@ public class perkModule : MonoBehaviour
             rarityChoices.Add(tierEnum,new List<perkData>());
         }
 
+        print("");
+        print("GET PERKS");
+
         foreach (perkData perk in perkObjects){
             if (perk && !blackList.Contains(perk.name)){
+                print(perk.name + " was added to " + perk.perkRarity);
                 rarityChoices[perk.perkRarity].Add(perk);
             }
         }
@@ -72,7 +76,7 @@ public class perkModule : MonoBehaviour
         }
 
         // return the chosen perk
-        return rarityChoices[chosenTier].Count > 0 ? rarityChoices[chosenTier][Random.Range(0,rarityChoices[chosenTier].Count - 1)] : null;
+        return rarityChoices[chosenTier].Count > 0 ? rarityChoices[chosenTier][Random.Range(0,rarityChoices[chosenTier].Count)] : null;
     }
 
     public Dictionary<string, int> countPerks(List<string> perkIDList){

@@ -50,6 +50,8 @@ public class Entity : MonoBehaviour
     public bulletSystem bulletPrefab;
     public List<Transform> launchPoints = new List<Transform>();
     public Transform bulletFolder;
+    public Transform debriFolder;
+
     // Temporary Bullet
     public int maxAmmo;
     public int currentAmmo;
@@ -169,8 +171,7 @@ public class Entity : MonoBehaviour
                 newBullet.bulletBounces = 0;
                 newBullet.perkIDList = perkIDList;
                 newBullet.bulletFolder = bulletFolder;
-
-                newBullet.bulletDamage = 500f;
+                newBullet.debriFolder = debriFolder;
 
                 // finish setting up the bullet
                 localEditBullet(newBullet);

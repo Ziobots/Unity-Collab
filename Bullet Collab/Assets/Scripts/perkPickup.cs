@@ -75,7 +75,7 @@ public class perkPickup : MonoBehaviour
     public void removePerk(){
         interactActive = false;
         spawnRotation(0);
-        LeanTween.value(gameObject,0f,90f,.3f).setEaseInBack().setOnUpdate(spawnRotation).setOnComplete(deletePerk);
+        LeanTween.value(gameObject,0f,90f,.3f).setEaseOutBack().setOnUpdate(spawnRotation).setOnComplete(deletePerk);
     }
 
     public void setupPickup(){
@@ -104,9 +104,6 @@ public class perkPickup : MonoBehaviour
     }
 
     public void onPickup(GameObject entityObj){
-        // probably remove this later
-        setupPickup();
-
         if (perkCommands != null && dataInfo != null){
             // Disabled Collider
             gameObject.GetComponent<Collider2D>().enabled = false;
@@ -150,7 +147,7 @@ public class perkPickup : MonoBehaviour
             // if perk was connected to other perks remove those since this was chosen
             if (!editList.ContainsKey("SKIP_DESTROY")){
                 foreach (GameObject perkObj in perkObjList){
-                    if (perkObj != gameObject){
+                    if (perkObj != gameObject && perkObj != null){
                         // do destroy effect
                         perkObj.GetComponent<perkPickup>().removePerk();
                     }

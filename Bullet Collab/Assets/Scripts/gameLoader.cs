@@ -27,6 +27,7 @@ public class gameLoader : MonoBehaviour
     // Game Objects
     public Transform enemyFolder;
     public Transform bulletFolder;
+    public Transform debriFolder;
     public GameObject levelObj;
     public GameObject playerObj;
 
@@ -74,6 +75,7 @@ public class gameLoader : MonoBehaviour
                 entityInfo.dataManager = dataManager;
                 entityInfo.uiManager = uiManager;
                 entityInfo.bulletFolder = bulletFolder;
+                entityInfo.debriFolder = debriFolder;
                 entityInfo.gameManager = gameObject;
 
                 // finish setting up the enemy
@@ -105,7 +107,7 @@ public class gameLoader : MonoBehaviour
 
     public void spawnEnemies(){
         // same enemies each wave for same seed
-        Random.InitState(gameSeed + currentWave);
+        Random.InitState(gameSeed + currentWave + (currentRoom * 1000) + 444);
 
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
@@ -116,7 +118,7 @@ public class gameLoader : MonoBehaviour
                 if (pointData){
                     string chosenID = pointData.enemySpawns.Count > 0 ? pointData.enemySpawns[0] : "default";
                     if (pointData.enemySpawns.Count > 1){
-                        chosenID = pointData.enemySpawns[Random.Range(0,pointData.enemySpawns.Count - 1)];
+                        chosenID = pointData.enemySpawns[Random.Range(0,pointData.enemySpawns.Count)];
                     }
 
                     createEnemy(chosenID,point);
@@ -216,7 +218,7 @@ public class gameLoader : MonoBehaviour
         List<GameObject> roomList = getRooms(nextType);
         if (roomList != null && roomList.Count > 0){
             Random.InitState(gameSeed + (currentRoom * 1000) + 111); // gotta offset from the original seed a bit for uniqueness
-            GameObject chosenRoom = roomList[Random.Range(0,roomList.Count - 1)];
+            GameObject chosenRoom = roomList[Random.Range(0,roomList.Count)];
             if (chosenRoom){
                 createRoom(chosenRoom);
             }
@@ -272,7 +274,7 @@ public class gameLoader : MonoBehaviour
                     //perkPosition.y = -Mathf.Floor((float)rowCount / (float)2f) + Mathf.Floor((float)i/(float)columnCount);
                     perkPosition.y = Mathf.Floor((float)i/(float)columnCount);
 
-                    perkPickup newPerk = Instantiate(perkPrefab,perkPosition * 2.5f,new Quaternion(),bulletFolder);
+                    perkPickup newPerk = Instantiate(perkPrefab,perkPosition * 2.5f,new Quaternion(),debriFolder);
                     if (newPerk != null){
                         // set the default perk stats
                         newPerk.dataManager = dataManager;
@@ -280,11 +282,11 @@ public class gameLoader : MonoBehaviour
 
                         newPerk.cost = 0;
                         newPerk.count = 1;
-                        newPerk.addFolder = bulletFolder;
+                        newPerk.addFolder = debriFolder;
                         newPerk.perkObjList = perkObjList;
 
                         // get the perk
-                        int perkSeed = gameSeed + (currentWave * 10) + (i * 100);
+                        int perkSeed = gameSeed + (currentWave * 10) + (i * 100) + (currentRoom * 1000);
                         perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList);
                         if (chosenPerk){
                             newPerk.perkID = chosenPerk.name;
@@ -310,7 +312,7 @@ public class gameLoader : MonoBehaviour
 
     // Start is called before the first frame update
     private void Start(){
-        gameSeed = (int)System.DateTime.Now.Ticks;
+        gameSeed = Mathf.Abs((int)System.DateTime.Now.Ticks);
         
         // Get data management script
         if (dataManager != null){
@@ -343,6 +345,18 @@ public class gameLoader : MonoBehaviour
                         currentWave++;
                         spawnPerks();
                         showContinue();
+
+                        // pop all bullets, aka: player shouldnt be in danger once all the enemies are gone (unless they hurt themself)
+                        foreach (Transform child in bulletFolder){
+                            if (child.gameObject){
+                                bulletSystem bulletData = child.gameObject.GetComponent<bulletSystem>();
+                                if (bulletData){
+                                    bulletData.removeBullet(null);
+                                }else{
+                                    GameObject.Destroy(child.gameObject);
+                                }
+                            }
+                        }
                     }
                 }else if(!spawningEnemies){
                     print("SPAWN ENEMIES");

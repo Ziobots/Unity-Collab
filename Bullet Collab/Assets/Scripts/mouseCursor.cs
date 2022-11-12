@@ -33,24 +33,36 @@ public class mouseCursor : MonoBehaviour
     public Vector2 movementPosition = new Vector2();
     [HideInInspector] public Vector2 mousePosition;
 
+    private string currentCursorImg = "";
+
     public void cursorHover(){
         isHovering = true;
-        gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("hoverCursor");
+        if (currentCursorImg != "hoverCursor"){
+            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("hoverCursor");
+        }
         gameObject.GetComponent<Image>().color = new Color32(255,255,255,255);
         gameObject.transform.Find("recharge").gameObject.SetActive(false);
+        currentCursorImg = "hoverCursor";
     }
 
     public void cursorStopHover(){
         isHovering = false;
 
         if (reticleActive){
-            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("reticle2");
+            if (currentCursorImg != "reticle2"){
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("reticle2");
+            }
             gameObject.GetComponent<Image>().color = new Color32(0,0,0,118);
             gameObject.transform.Find("recharge").gameObject.SetActive(true);
-        }else{
-            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("cursor");
+            currentCursorImg = "reticle2";
+       }else{
+            if (currentCursorImg != "cursor"){
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("cursor");
+            }
+
             gameObject.GetComponent<Image>().color = new Color32(255,255,255,255);
             gameObject.transform.Find("recharge").gameObject.SetActive(false);
+            currentCursorImg = "cursor";
         }
     }
 

@@ -8,6 +8,7 @@
 * 10/24/22  0.10                 DS              Made the thing
 * 11/08/22  0.80                 DS              fixed bullet bouncing
 * 11/09/22  0.90                 DS              fixed bullet damage 
+* 11/12/22  0.90                 DS              optimizations? 
 *******************************************************************************/
 
 using System.Collections;
@@ -148,10 +149,13 @@ public class bulletSystem : MonoBehaviour
             float distance = Vector2.Distance(transform.position, origin);
             if (distance > 0){
                 float radius = transform.localScale.x * 1.45f;
-                RaycastHit2D contact = Physics2D.CircleCast(origin,radius,direction,distance,LayerMask.GetMask("Obstacle"),0f);
+                RaycastHit2D contact = Physics2D.CircleCast(origin,radius,direction,distance,LayerMask.GetMask("Obstacle","EntityCollide"),0f);
                 if (contact.collider){
-                    // Move bullet to safest point
-                    transform.position = origin + (direction * (contact.distance));
+                    // Move bullet to safest point if it hit a wall
+                    if (contact.collider.gameObject.layer != LayerMask.NameToLayer("EntityCollide")){
+                        transform.position = origin + (direction * (contact.distance));
+                    }
+
                     checkCollider(contact.collider,contact.normal);
                 }
             }
@@ -207,9 +211,9 @@ public class bulletSystem : MonoBehaviour
     }
 
     // When the Bullet overlaps an object with a Collider2D
-    private void OnTriggerEnter2D(Collider2D otherCollider) {
-        checkCollider(otherCollider,new Vector2(0,0));
-    }
+    //private void OnTriggerEnter2D(Collider2D otherCollider) {
+    //    checkCollider(otherCollider,new Vector2(0,0));
+    //}
 
     private void checkCollider(Collider2D otherCollider,Vector2 hitNormal) {
         bool entityHit = true;

@@ -109,13 +109,20 @@ public class gameLoader : MonoBehaviour
         return null;
     }
 
+    private bool resourceLoadedEnemies = false;
+    GameObject[] enemyObjLoad;
+
     public List<string> getSpawnEnemies(EnemyType type,int roomNumber){
         List<string> returnList = new List<string>();
-        Object[] enemyLoad = Resources.LoadAll("Enemies");
-        GameObject[] enemyObjLoad = new GameObject[enemyLoad.Length];
-        enemyLoad.CopyTo(enemyObjLoad, 0);
 
-        foreach (GameObject enemyObj in enemyLoad){
+        if (!resourceLoadedEnemies){
+            resourceLoadedEnemies = true;
+            Object[] enemyLoad = Resources.LoadAll("Enemies");
+            enemyObjLoad = new GameObject[enemyLoad.Length];
+            enemyLoad.CopyTo(enemyObjLoad, 0);
+        }
+
+        foreach (GameObject enemyObj in enemyObjLoad){
             if (enemyObj){
                 Enemy enemyData = enemyObj.GetComponent<Enemy>();
                 if (enemyData && enemyData.myType == type && enemyData.roomSpawnMinimum <= roomNumber){
@@ -158,15 +165,21 @@ public class gameLoader : MonoBehaviour
     }
 
     // get all rooms of room type
+    private bool resourceLevelLoaded = false;
+    private GameObject[] levelResourceObj;
+
     public List<GameObject> getRooms(RoomType getType){
         List<GameObject> roomList = new List<GameObject>();
 
-        Object[] roomLoad = Resources.LoadAll("Levels");
-        GameObject[] levelObj = new GameObject[roomLoad.Length];
-        roomLoad.CopyTo(levelObj, 0);
+        if (!resourceLevelLoaded){
+            resourceLevelLoaded = true;
+            Object[] roomLoad = Resources.LoadAll("Levels");
+            levelResourceObj = new GameObject[roomLoad.Length];
+            roomLoad.CopyTo(levelResourceObj, 0);
+        }
 
         // go through each room and check if it is avaliable
-        foreach (GameObject level in roomLoad){
+        foreach (GameObject level in levelResourceObj){
             if (level){
                 levelData levelInfo = level.GetComponent<levelData>();
                 if (levelInfo){
@@ -179,8 +192,8 @@ public class gameLoader : MonoBehaviour
         }
 
         // add a room to empty lists just in case
-        if (roomList.Count <= 0 && levelObj.Length > 0){
-            roomList.Add(levelObj[0]);
+        if (roomList.Count <= 0 && levelResourceObj.Length > 0){
+            roomList.Add(levelResourceObj[0]);
         }
 
         return roomList;

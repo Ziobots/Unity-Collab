@@ -15,19 +15,34 @@ using UnityEngine;
 
 public class perkModule : MonoBehaviour
 {
-    public perkData getPerk(string perkID){
-        // get all of the perks to go through
-        Object[] perkLoad = Resources.LoadAll("PerkFolder");
-        perkData[] perkObjects = new perkData[perkLoad.Length];
-        perkLoad.CopyTo(perkObjects, 0);
+    private bool loadedPerks = false;
+    private perkData[] perkObjects;
+    private Dictionary<string,perkData> perkIDDictionary;
 
-        foreach (perkData perk in perkObjects){
-            if (perk.name == perkID){
-                return perk;
+    private void loadPerkFolder(){
+        if (!loadedPerks){
+            loadedPerks = true;
+            Object[] perkLoad = Resources.LoadAll("PerkFolder");
+            perkObjects = new perkData[perkLoad.Length];
+            perkLoad.CopyTo(perkObjects, 0);
+
+            perkIDDictionary = new Dictionary<string,perkData>();
+            foreach (perkData perk in perkObjects){
+                if (!perkIDDictionary.ContainsKey(perk.name)){
+                    perkIDDictionary.Add(perk.name,perk);
+                }
             }
         }
+    }
 
-        return null;
+    public perkData getPerk(string perkID){
+        // get all of the perks to go through
+
+        // Only load perks onces, optimization, before it loaded them everytime lagging the game when called too often
+        loadPerkFolder();
+
+        // dont loop if not needed
+            return perkIDDictionary[perkID];
     }
 
     public Rarity GetRarity(int value,levelData level){
@@ -51,9 +66,7 @@ public class perkModule : MonoBehaviour
 
     public perkData getRandomPerk(int perkSeed,List<string> blackList,levelData level){
         // load all the perks to sort through
-        Object[] perkLoad = Resources.LoadAll("PerkFolder");
-        perkData[] perkObjects = new perkData[perkLoad.Length];
-        perkLoad.CopyTo(perkObjects, 0);
+        loadPerkFolder();
 
         // get perks and put them into each rarity list
         Dictionary<Rarity, List<perkData>> rarityChoices = new Dictionary<Rarity, List<perkData>>();
@@ -162,8 +175,9 @@ public class perkModule : MonoBehaviour
             // keep track if we already setup the perk
             bool initializePerk = !initialize.ContainsKey(perkID);
             initialize[perkID] = true;
-
+            
             if (perk != null){
+                var getType = typeof(perkData);
                 // check for each type of perk and run code
                 switch(perkType){
                     // Unique Cases
@@ -202,7 +216,8 @@ public class perkModule : MonoBehaviour
                         break;
                 }
             }
-
+            
+            
             // fix any stats that are really bad to prevent game from breaking
             if (objDictionary.ContainsKey("Owner")){
                 fixEntity(objDictionary["Owner"].GetComponent<Entity>());

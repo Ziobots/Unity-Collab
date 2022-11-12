@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6770360506613481949}
   - component: {fileID: 6770360506613481945}
   - component: {fileID: 6770360506613481946}
-  - component: {fileID: 6770360506613481951}
   - component: {fileID: 6770360506613481947}
+  - component: {fileID: -510663049582423604}
   m_Layer: 7
-  m_Name: default
+  m_Name: spiral
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6770360506613481948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.31, y: 0.31, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6770360507105887829}
@@ -74,70 +74,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &6770360506613481951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6770360506613481948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 764efc96f98385b4cb45bd7460ba2088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dataManager: {fileID: 0}
-  dataInfo: {fileID: 0}
-  perkCommands: {fileID: 0}
-  gameManager: {fileID: 0}
-  gameInfo: {fileID: 0}
-  currentHealth: 5
-  maxHealth: 5
-  damageAmount: 0
-  currency: 0
-  weight: 5
-  damagedBy: {fileID: 0}
-  uiManager: {fileID: 0}
-  uiUpdate: {fileID: 0}
-  movement: {x: 0, y: 0}
-  walkSpeed: 3
-  rb: {fileID: 6770360506613481945}
-  facingRight: 1
-  bulletPrefab: {fileID: 1245196261793414157, guid: 57aa78eb88978ed4da98a25baf265501, type: 3}
-  launchPoints:
-  - {fileID: 6770360507337970323}
-  bulletFolder: {fileID: 0}
-  debriFolder: {fileID: 0}
-  maxAmmo: 1
-  fireCount: 1
-  currentAmmo: 1
-  reloadTime: 0.85
-  bulletTime: 0.4
-  bulletSpread: 3
-  automaticGun: 0
-  reloadingGun: 0
-  reloadStartTime: 0
-  delayStartTime: 0
-  gunNoise: {fileID: 0}
-  reloadNoise: {fileID: 0}
-  hurtNoise: {fileID: 0}
-  spriteColor: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 255}
-  perkIDList: []
-  currentTarget: {fileID: 0}
-  shootDistance: 4
-  lookDirection: {x: 1, y: 0}
-  turnSpeed: 15
-  lastTargetPosition: {x: 0, y: 0}
-  wayPointDistance: 1
-  levelObj: {fileID: 0}
-  pathTarget: {fileID: 0}
-  killPrefab: {fileID: 2817201403534161433, guid: 1b4161adb8eefd2459a0b8965b39ee9a, type: 3}
-  defaultFace: eyes_Normal
-  currentFace: eyes_Normal
-  faceSwapTime: 0
-  checkAngle: 1
-  flipSprite: 1
-  Loaded: 0
 --- !u!114 &6770360506613481947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +102,70 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &-510663049582423604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6770360506613481948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2fb7af711ac7f419c161f6b6793d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataManager: {fileID: 0}
+  dataInfo: {fileID: 0}
+  perkCommands: {fileID: 0}
+  gameManager: {fileID: 0}
+  gameInfo: {fileID: 0}
+  currentHealth: 8
+  maxHealth: 8
+  damageAmount: 0
+  currency: 0
+  weight: 6
+  damagedBy: {fileID: 0}
+  uiManager: {fileID: 0}
+  uiUpdate: {fileID: 0}
+  movement: {x: 0, y: 0}
+  walkSpeed: 3
+  rb: {fileID: 0}
+  facingRight: 1
+  bulletPrefab: {fileID: 1245196261793414157, guid: 57aa78eb88978ed4da98a25baf265501, type: 3}
+  launchPoints:
+  - {fileID: 6770360507337970323}
+  bulletFolder: {fileID: 0}
+  debriFolder: {fileID: 0}
+  maxAmmo: 10
+  fireCount: 1
+  currentAmmo: 10
+  reloadTime: 2.5
+  bulletTime: 0.15
+  bulletSpread: 2
+  automaticGun: 0
+  reloadingGun: 0
+  reloadStartTime: 0
+  delayStartTime: 0
+  gunNoise: {fileID: 0}
+  reloadNoise: {fileID: 0}
+  hurtNoise: {fileID: 0}
+  spriteColor: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 255}
+  perkIDList: []
+  currentTarget: {fileID: 0}
+  shootDistance: 8
+  lookDirection: {x: 1, y: 0}
+  turnSpeed: 20
+  lastTargetPosition: {x: 0, y: 0}
+  wayPointDistance: 1
+  levelObj: {fileID: 0}
+  pathTarget: {fileID: 0}
+  killPrefab: {fileID: 2817201403534161433, guid: 1b4161adb8eefd2459a0b8965b39ee9a, type: 3}
+  defaultFace: eyes_Normal
+  currentFace: eyes_Normal
+  faceSwapTime: 0
+  checkAngle: 0
+  flipSprite: 0
+  Loaded: 0
 --- !u!1 &6770360507100599415
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +240,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d58ef24ef9e67764881423bbd217d0e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cc2d114dafe0f534e897f50f4a2709f1, type: 3}
   m_Color: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -276,8 +276,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6770360507105887828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 1}
+  m_LocalPosition: {x: -0.33, y: 2.55, z: 0}
+  m_LocalScale: {x: 2.8, y: 2.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6770360506613481949}
@@ -359,7 +359,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6770360507337970322}
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: -3.5, y: 0, z: 1.1711692}
+  m_LocalPosition: {x: -2.67, y: -2.58, z: 1.1711692}
   m_LocalScale: {x: 0.43785, y: 0.43785, z: 0.17492999}
   m_ConstrainProportionsScale: 0
   m_Children: []

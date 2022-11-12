@@ -45,6 +45,10 @@ public class Enemy : Entity
     public string currentFace = "eyes_Normal";
     public float faceSwapTime = 0;
 
+    // Enemy Variables
+    public bool checkAngle = true;
+    public bool flipSprite = true;
+
     // Spawn Visuals
     public bool Loaded = false;
 
@@ -159,27 +163,40 @@ public class Enemy : Entity
         return returnTarget;
     }
 
-    public virtual void rotateEnemy(){
+    // figure out which way the enemy is supposed to be facing
+    public virtual Vector2 getLookDirection(){
         if (currentTarget != null && currentTarget.transform && currentHealth > 0){
             if (checkVisibility(currentTarget,0)){
                 lookDirection = ((Vector2)transform.position - (Vector2)currentTarget.transform.position).normalized;
             }else if (movement.magnitude > 0){
-                lookDirection = -movement.normalized;// -rb.velocity;
+                lookDirection = -rb.velocity;//-movement.normalized;// -rb.velocity;
             }
         }else if (movement.magnitude > 0){
-            lookDirection = -movement.normalized;
+            lookDirection = -rb.velocity;// -movement.normalized;
         }
 
+        return lookDirection;
+    }
+
+    public virtual void rotateEnemy(){
+        // get the look direction
+        lookDirection = getLookDirection();
+
         // Rotate Base
-        float turnAlpha = Mathf.Clamp(Time.fixedDeltaTime * turnSpeed,0f,1f);
+        float turnAlpha = Mathf.Clamp(Time.fixedDeltaTime * turnSpeed * 0.5f,0f,1f);
         transform.Find("body").right = Vector2.Lerp(transform.Find("body").right,lookDirection,turnAlpha);
         facingRight = (bool)(lookDirection.x > 0);
 
+        bool facingDirection = facingRight;
+        if (!flipSprite){
+            facingDirection = true;
+        }
+
         // Gun Flip Direction
-        if (transform.rotation.eulerAngles.y == 180){// this part is to fix some weird rotation rounding error
-            transform.Find("body").gameObject.GetComponent<SpriteRenderer>().flipY = facingRight;
+        if (transform.Find("body").rotation.eulerAngles.y == 180){// this part is to fix some weird rotation rounding error
+            transform.Find("body").gameObject.GetComponent<SpriteRenderer>().flipY = facingDirection;
         }else{
-            transform.Find("body").gameObject.GetComponent<SpriteRenderer>().flipY = !facingRight;
+            transform.Find("body").gameObject.GetComponent<SpriteRenderer>().flipY = !facingDirection;
         }
 
         // Flip Effect
@@ -320,7 +337,7 @@ public class Enemy : Entity
         rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 2f);
     }
 
-    private Vector2 rotateVector2(Vector2 baseVector, float angle){
+    public Vector2 rotateVector2(Vector2 baseVector, float angle){
         float newAngle = Mathf.Atan2(baseVector.y, baseVector.x) + angle * Mathf.Deg2Rad;
         return new Vector2(Mathf.Cos(newAngle), Mathf.Sin(newAngle));
     }
@@ -428,14 +445,19 @@ public class Enemy : Entity
         }
     }
 
+    // for enemies with unique fire patterns
+    public virtual bool fireGunCheck(){
+        return false;
+    }
+
     public virtual void shootGun(){
         if (currentTarget != null && currentHealth > 0){
-            if (checkVisibility(currentTarget,1.2f)){
+            if (checkVisibility(currentTarget,1.2f) || fireGunCheck()){
                 // check angle between target and the way the enemy is facing
                 Vector2 targetDirection = ((Vector2)currentTarget.transform.position - (Vector2)transform.position).normalized;
                 Vector2 myDirection = -transform.Find("body").right.normalized;
 
-                if (Vector2.Dot(targetDirection,myDirection) <= 0.5){
+                if (Vector2.Dot(targetDirection,myDirection) <= 0.5 && checkAngle){
                     return;
                 }
 

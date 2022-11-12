@@ -60,6 +60,7 @@ public class Entity : MonoBehaviour
     public float bulletTime;
     public float bulletSpread;
     public bool automaticGun = false;
+    public bool reloadingGun = false;
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
@@ -91,6 +92,7 @@ public class Entity : MonoBehaviour
     public virtual void reloadGun(){
         reloadStartTime = Time.time;
         delayStartTime = 0;
+        reloadingGun = true;
 
         // Check for any reload modifiers
         Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
@@ -102,7 +104,7 @@ public class Entity : MonoBehaviour
         }
 
         // add to the ammo one by one over time
-        LeanTween.value(gameObject,(float)currentAmmo,(float)maxAmmo,reloadTime).setEaseLinear().setOnUpdate(setCurrentAmmo);
+        LeanTween.value(gameObject,(float)currentAmmo,(float)maxAmmo,reloadTime).setEaseLinear().setOnUpdate(setCurrentAmmo).setOnComplete(finishedReload);
 
         if (dataInfo != null){
             dataInfo.updateEntityData(gameObject);
@@ -113,6 +115,14 @@ public class Entity : MonoBehaviour
             uiUpdate.updateGameUI();
         }
     }
+
+    // This function exits for enemies with unique bullet phases
+    public virtual void finishedReload(){
+        reloadingGun = false;
+    }
+
+    // This function exits for enemies with unique bullet phases
+    public virtual void bulletFired(){}
 
     // This function exists for enemies with unique bullets, that cant be achieved with upgrades
     public virtual void localEditBullet(bulletSystem bulletObj){}
@@ -187,6 +197,8 @@ public class Entity : MonoBehaviour
                 }
             }
         }
+
+        bulletFired();
 
         if (dataInfo != null){
             dataInfo.updateEntityData(gameObject);
@@ -264,6 +276,8 @@ public class Entity : MonoBehaviour
         if (uiManager != null){
             uiUpdate = uiManager.GetComponent<UIManager>();
         }
+
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Fixed Update is called every physics step

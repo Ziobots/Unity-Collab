@@ -18590,6 +18590,7 @@ MonoBehaviour:
   bulletTime: 0
   bulletSpread: 0
   automaticGun: 0
+  reloadingGun: 0
   reloadStartTime: 0
   delayStartTime: 0
   gunNoise: {fileID: 0}
@@ -18697,7 +18698,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7042b58371250043a58e7dabcc42127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawns: []
+  enemySpawns:
+  - spiral
+  - default
   minWave: -1
   maxWave: -1
 --- !u!1 &1705003768
@@ -18744,7 +18747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7042b58371250043a58e7dabcc42127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawns: []
+  enemySpawns:
+  - spiral
+  - default
   minWave: -1
   maxWave: -1
 --- !u!1 &1861345433

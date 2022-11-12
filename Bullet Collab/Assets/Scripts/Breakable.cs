@@ -87,7 +87,9 @@ public class Breakable : Entity
     public override void FixedUpdate(){
         if (rb && moveToSpawn){
             rb.velocity = rb.velocity * 0.98f;
-            transform.position = Vector2.Lerp(transform.position,spawnPosition,Time.fixedDeltaTime * 10f);
+
+            float alpha = Time.fixedDeltaTime * 10f;
+            transform.position = Vector2.Lerp(transform.position,spawnPosition,alpha);
         }
     }
 }

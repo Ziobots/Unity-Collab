@@ -49,8 +49,8 @@ public class remoteBullet : perkData
 
             // turn speed is based on how many of this perk you have
             float alphaSpeed = ((float)Count) * 5f;
-            
-            bulletObj.transform.right = Vector2.Lerp(bulletObj.transform.right,cursorDirection,Time.fixedDeltaTime * alphaSpeed);
+            float alpha = Time.fixedDeltaTime * alphaSpeed;
+            bulletObj.transform.right = Vector2.Lerp(bulletObj.transform.right,cursorDirection,alpha);
         }
     }
 }

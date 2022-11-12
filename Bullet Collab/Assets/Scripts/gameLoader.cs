@@ -109,15 +109,19 @@ public class gameLoader : MonoBehaviour
         return null;
     }
 
-    public List<string> getEnemies(EnemyType type){
+    public List<string> getSpawnEnemies(EnemyType type,int roomNumber){
         List<string> returnList = new List<string>();
         Object[] enemyLoad = Resources.LoadAll("Enemies");
-        Enemy[] enemyObj = new Enemy[enemyLoad.Length];
-        enemyObj.CopyTo(enemyLoad, 0);
+        GameObject[] enemyObjLoad = new GameObject[enemyLoad.Length];
+        enemyLoad.CopyTo(enemyObjLoad, 0);
 
-        foreach (Enemy enemyData in enemyLoad){
-            if (enemyData && enemyData.myType == type){
-                returnList.Add(enemyData.gameObject.name);
+        foreach (GameObject enemyObj in enemyLoad){
+            if (enemyObj){
+                Enemy enemyData = enemyObj.GetComponent<Enemy>();
+                if (enemyData && enemyData.myType == type && enemyData.roomSpawnMinimum <= roomNumber){
+                    print(enemyData.gameObject.name + " is able to spawn");
+                    returnList.Add(enemyData.gameObject.name);
+                }
             }
         }
 
@@ -138,8 +142,9 @@ public class gameLoader : MonoBehaviour
                     List<string> choiceList = pointData.enemySpawns;
                     string chosenID = choiceList.Count > 0 ? pointData.enemySpawns[0] : "default";
 
-                    if (pointData.enemySpawns.Count <= 0 || pointData.spawnType != EnemyType.None){
-                        choiceList = getEnemies(pointData.spawnType);
+                    if (pointData.enemySpawns.Count <= 0 && pointData.spawnType != EnemyType.None){
+                        print("randomly generate enemies");
+                        choiceList = getSpawnEnemies(pointData.spawnType,currentRoom);
                     }
 
                     if (choiceList.Count > 0){
@@ -344,7 +349,7 @@ public class gameLoader : MonoBehaviour
     // Start is called before the first frame update
     private void Start(){
         gameSeed = Mathf.Abs((int)System.DateTime.Now.Ticks);
-        gameSeed = 0;// just for testing if seeds work
+        //gameSeed = 0;// just for testing if seeds work
 
         Random.InitState(gameSeed);
 

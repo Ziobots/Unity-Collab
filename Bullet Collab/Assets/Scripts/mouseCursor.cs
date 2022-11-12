@@ -131,17 +131,16 @@ public class mouseCursor : MonoBehaviour
             if (cursorRect){
                 Vector2 currentPosition = cursorRect.anchoredPosition;
                 float cursorDistance = Vector2.Distance(currentPosition,screenPosition);
-                float alpha = Mathf.Clamp(Time.fixedDeltaTime * 10f * (cursorDistance/15f),0,1);
 
                 // end smooth mouse
                 if (!smoothMovement || cursorDistance <= 5f){
                     smoothMovement = false;
-                    alpha = 1;
                 }
                 
                 Quaternion setRotationEuler = Quaternion.Euler(0, 0, cursorRotation);
-                cursorRect.rotation = Quaternion.Lerp(cursorRect.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
-                cursorRect.anchoredPosition = screenPosition;//Vector2.Lerp(currentPosition,screenPosition,alpha);
+                float alpha = Time.fixedDeltaTime * 10f;
+                cursorRect.rotation = Quaternion.Lerp(cursorRect.rotation, setRotationEuler, alpha);
+                cursorRect.anchoredPosition = screenPosition;
             }
 
             // display radial

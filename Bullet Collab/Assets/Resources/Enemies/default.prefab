@@ -91,8 +91,8 @@ MonoBehaviour:
   perkCommands: {fileID: 0}
   gameManager: {fileID: 0}
   gameInfo: {fileID: 0}
-  currentHealth: 5
-  maxHealth: 5
+  currentHealth: 4
+  maxHealth: 4
   damageAmount: 0
   currency: 0
   weight: 5
@@ -138,6 +138,7 @@ MonoBehaviour:
   checkAngle: 1
   flipSprite: 1
   myType: 1
+  roomSpawnMinimum: 0
   Loaded: 0
 --- !u!114 &6770360506613481947
 MonoBehaviour:
@@ -360,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6770360507337970322}
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: -3.5, y: 0, z: 1.1711692}
+  m_LocalPosition: {x: -3.5, y: 0, z: 0}
   m_LocalScale: {x: 0.43785, y: 0.43785, z: 0.17492999}
   m_ConstrainProportionsScale: 0
   m_Children: []

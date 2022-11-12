@@ -61,12 +61,8 @@ public class perkModule : MonoBehaviour
             rarityChoices.Add(tierEnum,new List<perkData>());
         }
 
-        print("");
-        print("GET PERKS");
-
         foreach (perkData perk in perkObjects){
             if (perk && !blackList.Contains(perk.name)){
-                print(perk.name + " was added to " + perk.perkRarity);
                 rarityChoices[perk.perkRarity].Add(perk);
             }
         }

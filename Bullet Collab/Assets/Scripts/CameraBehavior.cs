@@ -65,10 +65,12 @@ public class CameraBehavior : MonoBehaviour
         }
 
         // Calculate the Zoom Level, Lerp for smooth transition
-        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize,cameraZoom + extraZoom,Time.fixedDeltaTime * 1f);
+        float alpha = Time.fixedDeltaTime * 1f;
+        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize,cameraZoom + extraZoom,alpha);
 
         // Calculate the New Position, Lerp for smooth transition
         Vector3 setPosition = new Vector3(cameraPosition.x,cameraPosition.y,-10);
-        transform.position = Vector3.Lerp(transform.position,setPosition,Time.fixedDeltaTime * 5f);
+        alpha = Time.fixedDeltaTime * 5f;
+        transform.position = Vector3.Lerp(transform.position,setPosition,alpha);
     }
 }

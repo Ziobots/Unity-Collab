@@ -48,10 +48,12 @@ public class Player : Entity
             }
 
             // Set Gun Position
-            arrow.position = Vector2.Lerp(arrow.position,arrowPos,Time.fixedDeltaTime * 30f);
+            float alpha = Time.fixedDeltaTime * 30f;
+            arrow.position = Vector2.Lerp(arrow.position,arrowPos,alpha);
 
             // Rotate Gun
-            arrow.right = Vector2.Lerp(arrow.right,arrowDir,Time.fixedDeltaTime * 10f);
+            alpha = Time.fixedDeltaTime * 10f;
+            arrow.right = Vector2.Lerp(arrow.right,arrowDir,alpha);
             
             // Set Arm Distance
             armDistance = Vector2.Distance(playerRig.position,arrow.position + (arrow.right.normalized * 1f));
@@ -151,9 +153,10 @@ public class Player : Entity
         moveGun();
         // Flip Effect
         Quaternion setRotationEuler = Quaternion.Euler(0, facingRight ? 0f : 180f, 0);
-        playerRig.rotation = Quaternion.Lerp(playerRig.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
+        float alpha = Time.fixedDeltaTime * 10f;
+        playerRig.rotation = Quaternion.Lerp(playerRig.rotation, setRotationEuler, alpha);
         // Smooth Movement 
         Vector3 moveDirection = (movement.normalized * walkSpeed);
-        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 10f);
+        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,alpha);
     }
 }

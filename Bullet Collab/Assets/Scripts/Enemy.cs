@@ -51,6 +51,7 @@ public class Enemy : Entity
     public bool checkAngle = true;
     public bool flipSprite = true;
     public EnemyType myType = EnemyType.None;
+    public int roomSpawnMinimum = 0;
 
     // Spawn Visuals
     public bool Loaded = false;
@@ -186,7 +187,8 @@ public class Enemy : Entity
         lookDirection = getLookDirection();
 
         // Rotate Base
-        float turnAlpha = Mathf.Clamp(Time.fixedDeltaTime * turnSpeed * 0.5f,0f,1f);
+        float alpha = Time.fixedDeltaTime * turnSpeed * 0.5f;
+        float turnAlpha = Mathf.Clamp(alpha,0f,1f);
         transform.Find("body").right = Vector2.Lerp(transform.Find("body").right,lookDirection,turnAlpha);
         facingRight = (bool)(lookDirection.x > 0);
 
@@ -204,7 +206,8 @@ public class Enemy : Entity
 
         // Flip Effect
         Quaternion setRotationEuler = Quaternion.Euler(0, facingRight ? 0f : 180f, 0);
-        transform.Find("eyes").rotation = Quaternion.Lerp(transform.Find("eyes").rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
+        alpha = Time.fixedDeltaTime * 10f;
+        transform.Find("eyes").rotation = Quaternion.Lerp(transform.Find("eyes").rotation, setRotationEuler, alpha);
     }
 
     private void pathGenerated(Path pathGen){
@@ -337,7 +340,8 @@ public class Enemy : Entity
         }
 
         Vector3 moveDirection = (movement.normalized * walkSpeed);
-        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 2f);
+        float alpha = Time.fixedDeltaTime * 2f;
+        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,alpha);
     }
 
     public Vector2 rotateVector2(Vector2 baseVector, float angle){

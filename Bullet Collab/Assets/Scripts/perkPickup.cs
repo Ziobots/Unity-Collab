@@ -184,8 +184,9 @@ public class perkPickup : MonoBehaviour
 
             // set sticker hover position and rotation
             Quaternion setRotationEuler = Quaternion.Euler(0, 0, rotation);
-            transform.rotation = Quaternion.Lerp(transform.rotation, setRotationEuler, Time.fixedDeltaTime * 10f);
-            transform.position = Vector3.Lerp(transform.position,setPosition,Time.fixedDeltaTime * 10f);
+            float alpha = Time.fixedDeltaTime * 10f;
+            transform.rotation = Quaternion.Lerp(transform.rotation, setRotationEuler, alpha);
+            transform.position = Vector3.Lerp(transform.position,setPosition,alpha);
         }
     }
 }

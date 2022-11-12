@@ -15,9 +15,10 @@ MonoBehaviour:
   perkIcon: {fileID: 21300000, guid: 346e905d5f17e8e4a917878daab8944b, type: 3}
   perkName: Bigger Bullets
   perkCost: 0
-  perkDescription: Increase the size and damage of bullets, -1 bullet.
+  perkDescription: Increase the size and damage of bullets, longer delay between
+    shells.
   perkRarity: 2
   stackablePerk: 1
-  addAmmo: -1
+  addDelay: 0.2
   sizeMultiple: 1.5
   damageMultiple: 1.4

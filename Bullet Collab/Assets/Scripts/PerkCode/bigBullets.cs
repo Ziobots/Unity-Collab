@@ -14,7 +14,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Perk/bigBullets")]
 public class bigBullets : perkData
 {
-    public int addAmmo = -1;
+    public float addDelay = 0.2f;
     public float sizeMultiple = 1.5f;
     public float damageMultiple = 1.2f;
 
@@ -23,7 +23,7 @@ public class bigBullets : perkData
 
         if (entityStats){
             // Add the player stats
-            entityStats.maxAmmo += addAmmo;
+            entityStats.bulletTime += addDelay;
         }
     }
 

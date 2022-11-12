@@ -9,7 +9,8 @@
 * 11/07/22  0.20                 DS              started AI
 * 11/08/22  0.30                 DS              pathfinding
 * 11/09/22  0.40                 DS              bumping + damage effects
-* 11/10/22  0.40                 DS              spawn in animation
+* 11/10/22  0.50                 DS              spawn in animation
+* 11/10/22  0.60                 DS              enemies patrol the area instead of standing still when no target
 *******************************************************************************/
 
 using System.Collections;
@@ -35,6 +36,8 @@ public class Enemy : Entity
     [HideInInspector] private int currentWaypoint = 0;
     [HideInInspector] private int visibleWaypoint = -1;
     private Seeker seekObj;
+    public GameObject levelObj = null;
+    public GameObject pathTarget = null;
 
     // Visuals
     public visualFx killPrefab;
@@ -161,8 +164,10 @@ public class Enemy : Entity
             if (checkVisibility(currentTarget,0)){
                 lookDirection = ((Vector2)transform.position - (Vector2)currentTarget.transform.position).normalized;
             }else if (movement.magnitude > 0){
-                lookDirection = -rb.velocity;
+                lookDirection = -movement.normalized;// -rb.velocity;
             }
+        }else if (movement.magnitude > 0){
+            lookDirection = -movement.normalized;
         }
 
         // Rotate Base
@@ -233,12 +238,13 @@ public class Enemy : Entity
             rb.velocity = rb.velocity * 0.95f;
             return;
         }
-        
+                
         if (currentTarget != null){
             float distance = Vector2.Distance((Vector2)transform.position, (Vector2)currentTarget.transform.position);
 
             bool goStraight = false;
             if (checkVisibility(currentTarget,-1)){
+                pathTarget = null;
                 goStraight = true;
                 if (visibleWaypoint <= -1 && currentWaypoint > 0){
                     visibleWaypoint = currentWaypoint;
@@ -265,35 +271,58 @@ public class Enemy : Entity
                     // no need to pathfind if the enemy can see the target, straight line path
                     movement = ((Vector2)currentTarget.transform.position - (Vector2)transform.position).normalized;
                 }
-            }else if(seekObj){
-                // calculate new path to last target position
-                if (seekObj.IsDone()){
-                    float updateDistance = Vector2.Distance(lastTargetPosition,currentTarget.transform.position);
-                    if (currentPath == null || updateDistance > updatePathDistance){
-                        seekObj.StartPath(transform.position,currentTarget.transform.position,pathGenerated);
-                    }
-                }
-
-                // check if reached end of path
-                if (currentPath == null || currentWaypoint >= currentPath.Count){
-                    movement = new Vector2(0,0);
-                }else if (currentPath != null){
-                    movement = (((Vector2) currentPath[currentWaypoint]) - ((Vector2) transform.position)).normalized;
-
-                    // check if enemy should move to next point
-                    float pointDistance = Vector2.Distance(transform.position,currentPath[currentWaypoint]);
-                    if (pointDistance < wayPointDistance){
-                        currentWaypoint++;
-                    }
-                }
+            }else if(seekObj && currentTarget != null){
+                pathTarget = currentTarget;
             }
         }else{
-            currentPath = null;
-            movement = new Vector2(0,0);
+            // do patrol
+            if (pathTarget == null && levelObj && levelObj.transform.Find("spawnPoints")){
+                Transform spawnPoints = levelObj.transform.Find("spawnPoints");
+                if (spawnPoints.childCount > 0){
+                    pathTarget = spawnPoints.GetChild(Random.Range(0,spawnPoints.childCount)).gameObject;
+                    lastTargetPosition = pathTarget.transform.position;
+                    //currentPath = null;
+                    //movement = new Vector2(0,0);
+                }
+            }
+        }
+
+        if (pathTarget != null && pathTarget.transform){
+            // calculate new path to last target position
+            if (seekObj.IsDone()){
+                float updateDistance = Vector2.Distance(lastTargetPosition,pathTarget.transform.position);
+                if (currentPath == null || updateDistance > updatePathDistance){
+                    //currentPath = null;
+                    seekObj.StartPath(transform.position,pathTarget.transform.position,pathGenerated);
+                }
+            }
+
+            // check if reached end of path
+            if (currentPath == null || currentWaypoint >= currentPath.Count){
+                // only end if not calc new path
+                if (seekObj.IsDone()){
+                    pathTarget = null;
+                    currentPath = null;
+                    movement = new Vector2(0,0);
+                }
+            }else if (currentPath != null){
+                movement = (((Vector2) currentPath[currentWaypoint]) - ((Vector2) transform.position)).normalized;
+
+                // check if enemy should move to next point
+                float pointDistance = Vector2.Distance(transform.position,currentPath[currentWaypoint]);
+                if (pointDistance < wayPointDistance){
+                    currentWaypoint++;
+                }
+            }
         }
 
         Vector3 moveDirection = (movement.normalized * walkSpeed);
         rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,Time.fixedDeltaTime * 2f);
+    }
+
+    private Vector2 rotateVector2(Vector2 baseVector, float angle){
+        float newAngle = Mathf.Atan2(baseVector.y, baseVector.x) + angle * Mathf.Deg2Rad;
+        return new Vector2(Mathf.Cos(newAngle), Mathf.Sin(newAngle));
     }
 
     public virtual void pushNearby(){
@@ -319,10 +348,11 @@ public class Enemy : Entity
                 Collider2D otherCollider = gameObject.GetComponent<Collider2D>();
                 if (entityData && entityData.currentHealth > 0 && otherCollider){
                     Vector2 direction = ((Vector2)entityObj.transform.position - (Vector2)transform.position).normalized;
+                    Vector2 randomDir = rotateVector2(direction.normalized,Random.Range(-900,900)/10).normalized;
 
                     // this only happens if they are right on top of eachother
                     if (direction.magnitude <= 0){
-                        direction = new Vector2(Random.Range(100,100)/200,Random.Range(100,100)/200);
+                        direction = rotateVector2(new Vector2(0f,1f),Random.Range(-360,360)).normalized * 3f;
                     }
 
                     // calculate push based on weights of two objects
@@ -338,6 +368,8 @@ public class Enemy : Entity
                     // Player should take damage when bumped
                     if (entityObj.tag == "Player"){
                         entityData.takeDamage(1);
+                    }else{
+                        pushForce = pushForce + randomDir * 0.1f;
                     }
 
                     // Apply the force

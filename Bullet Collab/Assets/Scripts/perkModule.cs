@@ -72,14 +72,14 @@ public class perkModule : MonoBehaviour
         }
 
         // get random perk
-        Random.InitState(perkSeed);
-        Rarity chosenTier = GetRarity(Random.Range(0,100),level);
+        System.Random randomGen = new System.Random(perkSeed);
+        Rarity chosenTier = GetRarity(randomGen.Next(0,100),level);
         if (rarityChoices[chosenTier].Count <= 0){
             chosenTier = Rarity.Common;
         }
 
         // return the chosen perk
-        return rarityChoices[chosenTier].Count > 0 ? rarityChoices[chosenTier][Random.Range(0,rarityChoices[chosenTier].Count)] : null;
+        return rarityChoices[chosenTier].Count > 0 ? rarityChoices[chosenTier][randomGen.Next(0,rarityChoices[chosenTier].Count)] : null;
     }
 
     public Dictionary<string, int> countPerks(List<string> perkIDList){
@@ -116,8 +116,14 @@ public class perkModule : MonoBehaviour
             if (entityInfo.maxAmmo <= 1)
                 entityInfo.maxAmmo = 1;
 
+            if (entityInfo.currentAmmo > entityInfo.maxAmmo)
+                entityInfo.currentAmmo = entityInfo.maxAmmo;
+
             if (entityInfo.maxHealth <= 1)
                 entityInfo.maxHealth = 1;
+
+            if (entityInfo.currentHealth > entityInfo.maxHealth)
+                entityInfo.currentHealth = entityInfo.maxHealth;
 
             if (entityInfo.walkSpeed <= 1)
                 entityInfo.walkSpeed = 1;

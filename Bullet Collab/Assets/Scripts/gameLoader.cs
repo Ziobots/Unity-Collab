@@ -30,6 +30,7 @@ public class gameLoader : MonoBehaviour
     public Transform debriFolder;
     public GameObject levelObj;
     public GameObject playerObj;
+    public GameObject pathGrid;
 
     // ui obj
     public GameObject transitioner;   
@@ -68,7 +69,7 @@ public class gameLoader : MonoBehaviour
     public GameObject createEnemy(string enemyID,GameObject spawnPoint){
         GameObject newEnemy = Instantiate(Resources.Load("Enemies/"+enemyID),spawnPoint.transform.position,new Quaternion(),enemyFolder) as GameObject;
         if (newEnemy != null){
-            Entity entityInfo = newEnemy.GetComponent<Entity>();
+            Enemy entityInfo = newEnemy.GetComponent<Enemy>();
             if (entityInfo){
                 // set the enemy info
                 entityInfo.dataManager = dataManager;
@@ -76,6 +77,7 @@ public class gameLoader : MonoBehaviour
                 entityInfo.bulletFolder = bulletFolder;
                 entityInfo.debriFolder = debriFolder;
                 entityInfo.gameManager = gameObject;
+                entityInfo.levelObj = levelObj;
 
                 // finish setting up the enemy
                 entityInfo.setupEntity();
@@ -109,7 +111,7 @@ public class gameLoader : MonoBehaviour
 
     public void spawnEnemies(){
         // same enemies each wave for same seed
-        Random.InitState(gameSeed + (currentWave * 2) + (currentRoom * 1000) + 444);
+        System.Random randomGen = new System.Random(gameSeed + (currentWave * 2) + (currentRoom * 1000) + 444);
 
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
@@ -120,7 +122,7 @@ public class gameLoader : MonoBehaviour
                 if (pointData){
                     string chosenID = pointData.enemySpawns.Count > 0 ? pointData.enemySpawns[0] : "default";
                     if (pointData.enemySpawns.Count > 1){
-                        chosenID = pointData.enemySpawns[Random.Range(0,pointData.enemySpawns.Count)];
+                        chosenID = pointData.enemySpawns[randomGen.Next(0,pointData.enemySpawns.Count)];
                     }
 
                     createEnemy(chosenID,point);
@@ -200,6 +202,10 @@ public class gameLoader : MonoBehaviour
                     // finish setting up the level
                     levelInfo.loadLevel();
 
+                    if (pathGrid != null){
+                        pathGrid.GetComponent<AstarPath>().Scan();
+                    }
+
                     return levelObj;
                 }
             }
@@ -220,8 +226,8 @@ public class gameLoader : MonoBehaviour
 
         List<GameObject> roomList = getRooms(nextType);
         if (roomList != null && roomList.Count > 0){
-            Random.InitState(gameSeed + (currentRoom * 1000) + 111); // gotta offset from the original seed a bit for uniqueness
-            GameObject chosenRoom = roomList[Random.Range(0,roomList.Count)];
+            System.Random randomGen = new System.Random(gameSeed + (currentRoom * 1000) + 111);// gotta offset from the original seed a bit for uniqueness
+            GameObject chosenRoom = roomList[randomGen.Next(0,roomList.Count)];
             if (chosenRoom){
                 createRoom(chosenRoom);
             }
@@ -317,7 +323,10 @@ public class gameLoader : MonoBehaviour
     // Start is called before the first frame update
     private void Start(){
         gameSeed = Mathf.Abs((int)System.DateTime.Now.Ticks);
-        
+        gameSeed = 0;// just for testing if seeds work
+
+        Random.InitState(gameSeed);
+
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();

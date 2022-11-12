@@ -165,6 +165,7 @@ MonoBehaviour:
   faceSwapTime: 0
   checkAngle: 0
   flipSprite: 0
+  myType: 2
   Loaded: 0
 --- !u!1 &6770360507100599415
 GameObject:

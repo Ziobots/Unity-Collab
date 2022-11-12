@@ -109,6 +109,21 @@ public class gameLoader : MonoBehaviour
         return null;
     }
 
+    public List<string> getEnemies(EnemyType type){
+        List<string> returnList = new List<string>();
+        Object[] enemyLoad = Resources.LoadAll("Enemies");
+        Enemy[] enemyObj = new Enemy[enemyLoad.Length];
+        enemyObj.CopyTo(enemyLoad, 0);
+
+        foreach (Enemy enemyData in enemyLoad){
+            if (enemyData && enemyData.myType == type){
+                returnList.Add(enemyData.gameObject.name);
+            }
+        }
+
+        return returnList;
+    }
+
     public void spawnEnemies(){
         // same enemies each wave for same seed
         System.Random randomGen = new System.Random(gameSeed + (currentWave * 2) + (currentRoom * 1000) + 444);
@@ -120,9 +135,15 @@ public class gameLoader : MonoBehaviour
             if (point){
                 enemyList pointData = point.GetComponent<enemyList>();
                 if (pointData){
-                    string chosenID = pointData.enemySpawns.Count > 0 ? pointData.enemySpawns[0] : "default";
-                    if (pointData.enemySpawns.Count > 1){
-                        chosenID = pointData.enemySpawns[randomGen.Next(0,pointData.enemySpawns.Count)];
+                    List<string> choiceList = pointData.enemySpawns;
+                    string chosenID = choiceList.Count > 0 ? pointData.enemySpawns[0] : "default";
+
+                    if (pointData.enemySpawns.Count <= 0 || pointData.spawnType != EnemyType.None){
+                        choiceList = getEnemies(pointData.spawnType);
+                    }
+
+                    if (choiceList.Count > 0){
+                        chosenID = choiceList[randomGen.Next(0,choiceList.Count)];
                     }
 
                     createEnemy(chosenID,point);

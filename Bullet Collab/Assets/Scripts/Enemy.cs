@@ -20,6 +20,8 @@ using Pathfinding;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+public enum EnemyType {None,Mob,StrongMob,UniqueMob,MiniBoss,Boss};
+
 public class Enemy : Entity
 {
     // Targeting Variables
@@ -48,6 +50,7 @@ public class Enemy : Entity
     // Enemy Variables
     public bool checkAngle = true;
     public bool flipSprite = true;
+    public EnemyType myType = EnemyType.None;
 
     // Spawn Visuals
     public bool Loaded = false;

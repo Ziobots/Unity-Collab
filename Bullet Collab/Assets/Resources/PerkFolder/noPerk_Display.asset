@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761bc13315aecf2489eb3ab8b9160956, type: 3}
   m_Name: noPerk_Display
   m_EditorClassIdentifier: 
-  perkIcon: {fileID: 21300000, guid: 18a1cf72f1e87994fa5eb65e55cc6e4b, type: 3}
+  perkIcon: {fileID: 21300000, guid: bb30a71d7f664414a8ee254a79b099e4, type: 3}
   perkName: No Perks
   perkCost: 0
-  perkDescription: You do not have any perks.
+  perkDescription: You have not collected any perks.
   perkRarity: 0
   stackablePerk: 0

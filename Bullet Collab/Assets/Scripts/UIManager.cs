@@ -36,6 +36,10 @@ public class UIManager : MonoBehaviour
             heartMax = (int) dataInfo.currenthealth;
         }
 
+        if (heartMax % 2 != 0){
+            heartMax++;
+        }
+
         Dictionary<GameObject,bool> safeList = new Dictionary<GameObject, bool>();
         for (int i = 2; i <= (int) heartMax; i += 2){
             // Health is split into wholes and halves, maybe temporary hearts

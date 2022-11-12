@@ -66,11 +66,18 @@ public class gameLoader : MonoBehaviour
         return enemyList;
     }
 
-    public GameObject createEnemy(string enemyID,GameObject spawnPoint){
+    public GameObject createEnemy(string enemyID,GameObject spawnPoint,System.Random randomGen){
+        if (randomGen == null){
+            randomGen = new System.Random(gameSeed + (currentWave * 2) + (currentRoom * 1000) + 1234);
+        }
+
         GameObject newEnemy = Instantiate(Resources.Load("Enemies/"+enemyID),spawnPoint.transform.position,new Quaternion(),enemyFolder) as GameObject;
         if (newEnemy != null){
             Enemy entityInfo = newEnemy.GetComponent<Enemy>();
             if (entityInfo){
+                List<string> spawnPerkIDs = new List<string>();
+                List<string> blackList = new List<string>();
+
                 // set the enemy info
                 entityInfo.dataManager = dataManager;
                 entityInfo.uiManager = uiManager;
@@ -78,12 +85,47 @@ public class gameLoader : MonoBehaviour
                 entityInfo.debriFolder = debriFolder;
                 entityInfo.gameManager = gameObject;
                 entityInfo.levelObj = levelObj;
+                
+                // put the default perks into the spawn list
+                if (entityInfo.perkIDList != null && entityInfo.perkIDList.Count > 0){
+                    foreach (string perkID in entityInfo.perkIDList){
+                        perkData perk = gameObject.GetComponent<perkModule>().getPerk(perkID);
+                        if (perk){
+                            spawnPerkIDs.Add(perkID);
+                            if (!perk.stackablePerk){
+                                blackList.Add(perkID);
+                            }
+                        }
+                    }
+                }
+
+                // increase difficulty of enemies by giving them perks after room 20
+                if (levelObj != null && currentRoom > 20){
+                    levelData levelInfo = levelObj.GetComponent<levelData>();
+                    if (levelInfo){
+                        // random number of perks based on room number
+                        int perkCount = randomGen.Next(0,(int) Mathf.Ceil(currentRoom/10));
+                        for (int i = 1; i < perkCount; i++){
+                            int perkSeed = gameSeed + randomGen.Next(0,10000) + (i * 150);
+                            perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
+                            if (chosenPerk){
+                                spawnPerkIDs.Add(chosenPerk.name);
+                                if (!chosenPerk.stackablePerk){
+                                    blackList.Add(chosenPerk.name);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // overwrite the default perk list
+                entityInfo.perkIDList = new List<string>();
 
                 // finish setting up the enemy
                 entityInfo.setupEntity();
 
-                // Add modifiers
-                foreach (string perkID in entityInfo.perkIDList){
+                // initialize perks on the enemy
+                foreach (string perkID in spawnPerkIDs){
                     perkData perk = gameObject.GetComponent<perkModule>().getPerk(perkID);
                     if (perk != null){
                         // Add to list one by one just in case
@@ -150,7 +192,6 @@ public class gameLoader : MonoBehaviour
                     string chosenID = choiceList.Count > 0 ? pointData.enemySpawns[0] : "default";
 
                     if (pointData.enemySpawns.Count <= 0 && pointData.spawnType != EnemyType.None){
-                        print("randomly generate enemies");
                         choiceList = getSpawnEnemies(pointData.spawnType,currentRoom);
                     }
 
@@ -158,7 +199,7 @@ public class gameLoader : MonoBehaviour
                         chosenID = choiceList[randomGen.Next(0,choiceList.Count)];
                     }
 
-                    createEnemy(chosenID,point);
+                    createEnemy(chosenID,point,randomGen);
                 }
             }
         }

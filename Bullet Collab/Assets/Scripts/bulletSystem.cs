@@ -211,9 +211,9 @@ public class bulletSystem : MonoBehaviour
     }
 
     // When the Bullet overlaps an object with a Collider2D
-    //private void OnTriggerEnter2D(Collider2D otherCollider) {
-    //    checkCollider(otherCollider,new Vector2(0,0));
-    //}
+    private void OnTriggerEnter2D(Collider2D otherCollider) {
+        checkCollider(otherCollider,new Vector2(0,0));
+    }
 
     private void checkCollider(Collider2D otherCollider,Vector2 hitNormal) {
         bool entityHit = true;

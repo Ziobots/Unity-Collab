@@ -18,3 +18,4 @@ MonoBehaviour:
   perkDescription: When you pick a perk, there's a 50% chance the others won't disappear.
   perkRarity: 3
   stackablePerk: 1
+  enemyPerk: 0

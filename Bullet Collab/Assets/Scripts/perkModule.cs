@@ -219,15 +219,15 @@ public class perkModule : MonoBehaviour
             
             
             // fix any stats that are really bad to prevent game from breaking
-            if (objDictionary.ContainsKey("Owner")){
+            if (objDictionary.ContainsKey("Owner") && objDictionary["Owner"] != null){
                 fixEntity(objDictionary["Owner"].GetComponent<Entity>());
             }
 
-            if (objDictionary.ContainsKey("Bullet")){
+            if (objDictionary.ContainsKey("Bullet") && objDictionary["Bullet"] != null){
                 fixBullet(objDictionary["Bullet"].GetComponent<bulletSystem>());
             }
 
-            if (objDictionary.ContainsKey("Target")){
+            if (objDictionary.ContainsKey("Target") && objDictionary["Target"] != null){
                 fixEntity(objDictionary["Target"].GetComponent<Entity>());
             }
         }

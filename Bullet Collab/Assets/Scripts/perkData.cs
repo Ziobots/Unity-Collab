@@ -30,6 +30,7 @@ public class perkData : ScriptableObject
     public string perkDescription;
     public Rarity perkRarity;
     public bool stackablePerk = true;
+    public bool enemyPerk = true;
 
     // This event fires when the player picks up a perk, use it to adjust player stats
     public virtual void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}

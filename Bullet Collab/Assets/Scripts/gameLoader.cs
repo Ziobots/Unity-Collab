@@ -45,7 +45,6 @@ public class gameLoader : MonoBehaviour
 
     public int currentRoom = 1;
     public int currentWave = 0;
-    public int sceneStartWave = 0;
 
     // prefabs
     public perkPickup perkPrefab;
@@ -95,6 +94,9 @@ public class gameLoader : MonoBehaviour
 
                         // This event should only run here on pickup, 3 parameter should always be true here?
                         perk.addedEvent(editList,gameObject.GetComponent<perkModule>().countPerks(entityInfo.perkIDList)[perkID],true);
+
+                        // fix any stats that are really bad
+                        gameObject.GetComponent<perkModule>().fixEntity(entityInfo);
                     }
                 }
 
@@ -107,7 +109,7 @@ public class gameLoader : MonoBehaviour
 
     public void spawnEnemies(){
         // same enemies each wave for same seed
-        Random.InitState(gameSeed + currentWave + (currentRoom * 1000) + 444);
+        Random.InitState(gameSeed + (currentWave * 2) + (currentRoom * 1000) + 444);
 
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
@@ -225,7 +227,7 @@ public class gameLoader : MonoBehaviour
             }
         }
 
-        sceneStartWave = currentWave;
+        currentWave = 1;
         spawningEnemies = false;
         waveStarted = false;
         spawnedPerks = false;
@@ -251,9 +253,10 @@ public class gameLoader : MonoBehaviour
     }
 
     public void spawnPerks(){
-        if (playerObj){
+        if (playerObj && levelObj){
             Player playerData = playerObj.GetComponent<Player>();
-            if (playerData){
+            levelData levelInfo = levelObj.GetComponent<levelData>();
+            if (playerData && levelInfo && !levelInfo.skipPerks){
                 int maxColumn = 7;
                 int columnCount = Mathf.Clamp(playerData.perkCount,1,maxColumn);
                 int rowCount = (int) Mathf.Ceil(playerData.perkCount/columnCount);
@@ -287,8 +290,8 @@ public class gameLoader : MonoBehaviour
                         newPerk.perkObjList = perkObjList;
 
                         // get the perk
-                        int perkSeed = gameSeed + (currentWave * 10) + (i * 100) + (currentRoom * 1000);
-                        perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList);
+                        int perkSeed = gameSeed + (i * 100) + (currentRoom * 1000);
+                        perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
                         if (chosenPerk){
                             newPerk.perkID = chosenPerk.name;
 
@@ -340,7 +343,7 @@ public class gameLoader : MonoBehaviour
         }else{
             levelData levelInfo = levelObj.GetComponent<levelData>();
             if (levelInfo){
-                if (currentWave - sceneStartWave > levelInfo.waveCount){
+                if (currentWave > levelInfo.waveCount){
                     if (!spawnedPerks){
                         spawnedPerks = true;
                         currentWave++;

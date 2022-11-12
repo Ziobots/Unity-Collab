@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7fbb7752d03a74b9811cf06f88ee81, type: 3}
+  m_Name: barrage
+  m_EditorClassIdentifier: 
+  perkIcon: {fileID: 21300000, guid: 0551d56939e27b74699897f215421c80, type: 3}
+  perkName: Shotgun Shells
+  perkCost: 0
+  perkDescription: Add 2 bullets to each shell, less damage, more spread, longer
+    reload time.
+  perkRarity: 2
+  stackablePerk: 1
+  addFireCount: 2
+  addSpread: 9
+  addReload: 0.4
+  sizeMultiple: 0.8
+  damageMultiple: 0.65

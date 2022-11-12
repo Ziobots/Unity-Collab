@@ -1,35 +1,30 @@
 /*******************************************************************************
-* Name : sprayBullets.cs
-* Section Description : This is adds a bunch of bullets and decreases damage
+* Name : bouncy.cs
+* Section Description : This is a perk
 * -------------------------------
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 10/23/22  0.10                 DS              Made the thing
+* 11/11/22  0.10                 DS              Made the thing
 *******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Perk/spray")]
-public class sprayBullets : perkData
+[CreateAssetMenu(menuName = "ScriptableObjects/Perk/bouncy")]
+public class bouncy : perkData
 {
-    public int addBullets = 10;
-    public float damageMultiple = 0.7f;
-    public float delayMultiple = 1f / 3f;
-    public float reloadMultiple = 1f / 1.25f;
-    public float spreadMultiple = 1.3f;
+    public int addBounces = 2;
+    public float sizeMultiple = 1.15f;
+    public float damageMultiple = 1.2f;
+    public float addReload = 0.2f;
 
     public override void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
         Entity entityStats = getEntityStats(objDictionary);
 
         if (entityStats){
             // Add the player stats
-            entityStats.maxAmmo += addBullets;
-            entityStats.bulletTime *= delayMultiple;
-            entityStats.reloadTime *= reloadMultiple;
-            entityStats.bulletSpread *= spreadMultiple;
-            entityStats.automaticGun = true;
+            entityStats.reloadTime += addReload;
         }
     }
 
@@ -39,6 +34,8 @@ public class sprayBullets : perkData
         if (bulletStats){
             // Add the Damage
             bulletStats.bulletDamage *= damageMultiple;
+            bulletStats.bulletSize *= sizeMultiple;
+            bulletStats.bulletBounces += addBounces;
         }
     }
 }

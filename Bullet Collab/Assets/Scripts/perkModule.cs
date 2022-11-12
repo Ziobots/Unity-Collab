@@ -30,8 +30,11 @@ public class perkModule : MonoBehaviour
         return null;
     }
 
-    public Rarity GetRarity(int value){
+    public Rarity GetRarity(int value,levelData level){
         int[] valueList = {40,70,90,100};
+        if (level && level.valueList != null && level.valueList.Length > 0){
+            valueList = level.valueList;
+        }
 
         if (value <= valueList[0]){ // 40%
             return Rarity.Common;
@@ -46,7 +49,7 @@ public class perkModule : MonoBehaviour
         return Rarity.Common;
     }
 
-    public perkData getRandomPerk(int perkSeed,List<string> blackList){
+    public perkData getRandomPerk(int perkSeed,List<string> blackList,levelData level){
         // load all the perks to sort through
         Object[] perkLoad = Resources.LoadAll("PerkFolder");
         perkData[] perkObjects = new perkData[perkLoad.Length];
@@ -70,7 +73,7 @@ public class perkModule : MonoBehaviour
 
         // get random perk
         Random.InitState(perkSeed);
-        Rarity chosenTier = GetRarity(Random.Range(0,100));
+        Rarity chosenTier = GetRarity(Random.Range(0,100),level);
         if (rarityChoices[chosenTier].Count <= 0){
             chosenTier = Rarity.Common;
         }
@@ -103,6 +106,41 @@ public class perkModule : MonoBehaviour
         }
 
         return shortPerkList;
+    }
+
+    // This function will fix entity stats after having an perk applied, ex - max ammo should never be less than one
+    public void fixEntity(Entity entityInfo){
+        if (entityInfo){
+            // stats that can be messed up when offset that need fixed
+            
+            if (entityInfo.maxAmmo <= 1)
+                entityInfo.maxAmmo = 1;
+
+            if (entityInfo.maxHealth <= 1)
+                entityInfo.maxHealth = 1;
+
+            if (entityInfo.walkSpeed <= 1)
+                entityInfo.walkSpeed = 1;
+
+            if (entityInfo.fireCount <= 1)
+                entityInfo.fireCount = 1;
+        }
+    }
+
+    // This function will fix bullet stats after having an perk applied, ex - damage should never be less than 0.1f
+    public void fixBullet(bulletSystem bulletInfo){
+        if (bulletInfo){
+            // stats that can be messed up when offset that need fixed
+            
+            if (bulletInfo.bulletSize <= 0.01f)
+                bulletInfo.bulletSize = 0.01f;
+
+            if (bulletInfo.bulletDamage <= 0.1f)
+                bulletInfo.bulletDamage = 0.1f;
+
+            if (bulletInfo.bulletBounces < 0)
+                bulletInfo.bulletBounces = 0;
+        }
     }
 
     public void applyPerk(List<string> perkIDList,string perkType,Dictionary<string, GameObject> objDictionary){
@@ -143,13 +181,13 @@ public class perkModule : MonoBehaviour
                     case "Reload":// when an entity fires a bullet
                         perk.reloadGunEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
-                    case "Hit":// when a bullet hits an entity
+                    case "Hit":// when a bullet hits an entity, this includes walls and stuff, use getTargetStats to check if target is entity
                         perk.hitEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                     case "Bounce":// when a bullet bounces of a surface
                         perk.bounceEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
-                    case "Damaged":// when an entity receives damage
+                    case "Damaged":// when an entity receives damage, cannot get bullet or entity that hit this entity: refer to hit event
                         perk.damagedEvent(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                     case "Killed":// when an entitys health becomes zero
@@ -161,6 +199,19 @@ public class perkModule : MonoBehaviour
                         perk.enemy_targetChange(objDictionary,perkCounts[perkID],initializePerk);
                         break;
                 }
+            }
+
+            // fix any stats that are really bad to prevent game from breaking
+            if (objDictionary.ContainsKey("Owner")){
+                fixEntity(objDictionary["Owner"].GetComponent<Entity>());
+            }
+
+            if (objDictionary.ContainsKey("Bullet")){
+                fixBullet(objDictionary["Bullet"].GetComponent<bulletSystem>());
+            }
+
+            if (objDictionary.ContainsKey("Target")){
+                fixEntity(objDictionary["Target"].GetComponent<Entity>());
             }
         }
     }

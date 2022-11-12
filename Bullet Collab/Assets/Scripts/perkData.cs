@@ -80,6 +80,16 @@ public class perkData : ScriptableObject
         return null;
     }
 
+    public Entity getTargetStats(Dictionary<string, GameObject> objDictionary){
+        if (objDictionary.ContainsKey("Target")){
+            GameObject entityObj = objDictionary["Target"];
+            Entity entityStats = entityObj.GetComponent<Entity>();
+            return entityStats;
+        }
+
+        return null;
+    }
+
     public bulletSystem getBulletStats(Dictionary<string, GameObject> objDictionary){
         if (objDictionary.ContainsKey("Bullet")){
             GameObject bulletObj = objDictionary["Bullet"];

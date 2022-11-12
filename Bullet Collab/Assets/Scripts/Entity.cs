@@ -54,6 +54,7 @@ public class Entity : MonoBehaviour
 
     // Temporary Bullet
     public int maxAmmo;
+    public int fireCount = 1;
     public int currentAmmo;
     public float reloadTime;
     public float bulletTime;
@@ -74,7 +75,7 @@ public class Entity : MonoBehaviour
     // Upgrade Variables
     public List<string> perkIDList;
 
-    private void setCurrentAmmo(float value){
+    public void setCurrentAmmo(float value){
         currentAmmo = (int) value;
 
         if (dataInfo != null){
@@ -153,35 +154,37 @@ public class Entity : MonoBehaviour
         }
 
         foreach(Transform point in launchPoints){
-            // calculate bullet spread
-            Quaternion spreadQuaternion = Quaternion.Euler(0, 0, 0);
-            if (bulletSpread > 0){
-                bulletSpread = Mathf.Clamp(bulletSpread,0,50);
-                float angle = Random.Range(-bulletSpread * 1000,bulletSpread * 1000) / 1000;
-                spreadQuaternion = Quaternion.Euler(0, 0, angle);
-            }
+            for (int i = 1; i <= fireCount; i++){
+                // calculate bullet spread
+                Quaternion spreadQuaternion = Quaternion.Euler(0, 0, 0);
+                if (bulletSpread > 0){
+                    bulletSpread = Mathf.Clamp(bulletSpread,0,50);
+                    float angle = Random.Range(-bulletSpread * 1000,bulletSpread * 1000) / 1000;
+                    spreadQuaternion = Quaternion.Euler(0, 0, angle);
+                }
 
-            bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation * spreadQuaternion,bulletFolder);
-            if (newBullet != null){
-                // set the default bullet stats
-                newBullet.dataManager = dataManager;
-                newBullet.bulletOwner = gameObject;
-                newBullet.bulletSpeed = 5f;
-                newBullet.bulletSize = 0.11f;
-                newBullet.bulletBounces = 0;
-                newBullet.perkIDList = perkIDList;
-                newBullet.bulletFolder = bulletFolder;
-                newBullet.debriFolder = debriFolder;
+                bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation * spreadQuaternion,bulletFolder);
+                if (newBullet != null){
+                    // set the default bullet stats
+                    newBullet.dataManager = dataManager;
+                    newBullet.bulletOwner = gameObject;
+                    newBullet.bulletSpeed = 5f;
+                    newBullet.bulletSize = 0.11f;
+                    newBullet.bulletBounces = 0;
+                    newBullet.perkIDList = perkIDList;
+                    newBullet.bulletFolder = bulletFolder;
+                    newBullet.debriFolder = debriFolder;
 
-                // finish setting up the bullet
-                localEditBullet(newBullet);
-                newBullet.setupBullet();
+                    // finish setting up the bullet
+                    localEditBullet(newBullet);
+                    newBullet.setupBullet();
 
-                // Check for any onFire modifiers
-                Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
-                editList.Add("Owner", gameObject);
-                editList.Add("Bullet", newBullet.gameObject);
-                perkCommands.applyPerk(perkIDList,"Shoot",editList);
+                    // Check for any onFire modifiers
+                    Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+                    editList.Add("Owner", gameObject);
+                    editList.Add("Bullet", newBullet.gameObject);
+                    perkCommands.applyPerk(perkIDList,"Shoot",editList);
+                }
             }
         }
 

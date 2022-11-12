@@ -67,6 +67,7 @@ public class sharedData : MonoBehaviour
     // Temporary Bullet - mainly for ui
     public int maxAmmo;
     public int currentAmmo;
+    public int fireCount;
     public float reloadTime;
     public float bulletTime;
     public float bulletSpread;
@@ -122,6 +123,9 @@ public class sharedData : MonoBehaviour
 
                         // This event should only run here on pickup, 3 parameter should always be true here?
                         perk.addedEvent(editList,gameObject.GetComponent<perkModule>().countPerks(entityInfo.perkIDList)[perkID],true);
+
+                        // fix any stats that are really bad
+                        gameObject.GetComponent<perkModule>().fixEntity(entityInfo);
                     }
                 }
 
@@ -131,9 +135,6 @@ public class sharedData : MonoBehaviour
                 
             // apply any changes to the data
             updateEntityData(playerObj);
-            if (uiUpdate != null){
-                uiUpdate.updateGameUI();
-            }
         }
     }
 
@@ -146,12 +147,18 @@ public class sharedData : MonoBehaviour
                 maxHealth = entityInfo.maxHealth;
                 currency = entityInfo.currency;
                 maxAmmo = entityInfo.maxAmmo;
+                fireCount = entityInfo.fireCount;
                 currentAmmo = entityInfo.currentAmmo;
                 reloadTime = entityInfo.reloadTime;
                 bulletTime = entityInfo.bulletTime;
                 bulletSpread = entityInfo.bulletSpread;
                 reloadStartTime = entityInfo.reloadStartTime;
                 delayStartTime = entityInfo.delayStartTime;
+
+                // update the ui
+                if (uiUpdate != null){
+                    uiUpdate.updateGameUI();
+                }
             }
         }
     }

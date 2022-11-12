@@ -104,6 +104,11 @@ public class bulletSystem : MonoBehaviour
                 // Apply an on hit modifiers
                 if (perkCommands != null){
                     perkCommands.applyPerk(perkIDList,"Hit",editList);
+                    
+                    // apply any changes to the data
+                    if (bulletOwner){
+                        dataInfo.updateEntityData(bulletOwner);
+                    }
                 }
             }
 

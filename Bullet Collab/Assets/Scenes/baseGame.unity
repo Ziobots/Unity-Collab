@@ -18424,7 +18424,6 @@ MonoBehaviour:
   spawnedPerks: 0
   currentRoom: 0
   currentWave: 0
-  sceneStartWave: 0
   perkPrefab: {fileID: 6002106386034358296, guid: cc262d72688eb0748beeafcee0545124, type: 3}
 --- !u!4 &1104244803
 Transform:
@@ -18497,6 +18496,7 @@ MonoBehaviour:
   perkIDList: []
   maxAmmo: 0
   currentAmmo: 0
+  fireCount: 0
   reloadTime: 0
   bulletTime: 0
   bulletSpread: 0
@@ -18583,6 +18583,7 @@ MonoBehaviour:
   bulletFolder: {fileID: 700863669}
   debriFolder: {fileID: 0}
   maxAmmo: 0
+  fireCount: 1
   currentAmmo: 0
   reloadTime: 0
   bulletTime: 0
@@ -20342,6 +20343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   waveCount: 2
+  skipPerks: 0
+  valueList: 
   spawnPoints: {fileID: 0}
 --- !u!1 &2119487041 stripped
 GameObject:
@@ -20436,6 +20439,10 @@ PrefabInstance:
       propertyPath: cursorObj
       value: 
       objectReference: {fileID: 3391897934961127638}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: fireCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: maxHealth
       value: 6

@@ -124,9 +124,11 @@ public class perkPickup : MonoBehaviour
                     // This event should only run here and data load, 3 parameter should always be true here?
                     perk.addedEvent(addList,perkCommands.countPerks(entityObj.GetComponent<Entity>().perkIDList)[perkID],true);
 
+                    // fix any stats that are really bad
+                    gameObject.GetComponent<perkModule>().fixEntity(entityObj.GetComponent<Entity>());
+
                     // apply any changes to the data
                     dataInfo.updateEntityData(entityObj);
-                    uiUpdate.updateGameUI();
                 }
             }
 
@@ -141,7 +143,6 @@ public class perkPickup : MonoBehaviour
 
                 // apply any changes to the data
                 dataInfo.updateEntityData(entityObj);
-                uiUpdate.updateGameUI();
             }
 
             // if perk was connected to other perks remove those since this was chosen

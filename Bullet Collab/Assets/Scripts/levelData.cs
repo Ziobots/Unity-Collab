@@ -20,6 +20,10 @@ public class levelData : MonoBehaviour
     public RoomType type = RoomType.None;
     public int waveCount = 1;
 
+    // Reward
+    public bool skipPerks = false;
+    public int[] valueList = null;//{40,70,90,100};
+
     // Level Folders
     public Transform spawnPoints;
 

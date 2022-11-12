@@ -16,6 +16,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Perk/remoteBullet")]
 public class remoteBullet : perkData
 {
+    public float speedMultiple = 0.8f;
+
+    public override void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
+        bulletSystem bulletStats = getBulletStats(objDictionary);
+
+        if (bulletStats){
+            // Add the stats
+            bulletStats.bulletSpeed *= speedMultiple;
+        }
+    }
+    
     public override void updateBullet(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
         if (objDictionary.ContainsKey("Bullet") && initialize){
             // Get Mouse Position

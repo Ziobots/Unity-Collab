@@ -81,7 +81,6 @@ public class Player : Entity
 
             // Update Data
             dataInfo.updateEntityData(gameObject);
-            uiUpdate.updateGameUI(); 
         }
     }
 
@@ -103,7 +102,6 @@ public class Player : Entity
 
         // apply any changes to the data
         dataInfo.updateEntityData(gameObject);
-        uiUpdate.updateGameUI();
     }
 
     // Update is called once per frame

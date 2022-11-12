@@ -54,7 +54,7 @@ public class interactPlayer : MonoBehaviour
                     print("add pickup functionality to obj");
                 }
             }
-        }else if (currentObj){
+        }else if (currentObj || popupUI.GetComponent<infoPopup>().popupVisible){
             applyNearbyVFX(null);
             currentObj = null;
         }
@@ -71,7 +71,7 @@ public class interactPlayer : MonoBehaviour
         }
 
         // add nearby to interactable obj
-        if (newObj != null){
+        if (newObj && newObj.gameObject != null){
             showPopup = true;
             if (newObj.gameObject.GetComponent<perkPickup>()){
                 newObj.gameObject.GetComponent<perkPickup>().playerNearby = true;

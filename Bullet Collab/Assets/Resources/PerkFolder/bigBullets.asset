@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e86f5eb3a1af146b0416f7559e39d4, type: 3}
+  m_Name: bigBullets
+  m_EditorClassIdentifier: 
+  perkIcon: {fileID: 21300000, guid: 346e905d5f17e8e4a917878daab8944b, type: 3}
+  perkName: Bigger Bullets
+  perkCost: 0
+  perkDescription: Increase the size and damage of bullets, -1 bullet.
+  perkRarity: 2
+  stackablePerk: 1
+  addAmmo: -1
+  sizeMultiple: 1.5
+  damageMultiple: 1.4

@@ -34,6 +34,9 @@ public class Player : Entity
     public float iFrames = 0.5f;
     public int perkCount = 3;
 
+    // Animation Variables
+    public Animator animator;
+
     private void moveGun() {
         if (arrow != null) {
             arrowDirection = (mousePosition - (Vector2)arrow.position).normalized;
@@ -114,6 +117,10 @@ public class Player : Entity
         // Movement Input Here
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        //Animator Update
+        animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
+        animator.SetBool("Hurt", damageAnimation);
 
         // Mouse Direction Here
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -76,6 +76,9 @@ public class Entity : MonoBehaviour
     // Upgrade Variables
     public List<string> perkIDList;
 
+    // Animation Variables
+    public bool damageAnimation = false;
+
     public void setCurrentAmmo(float value){
         currentAmmo = (int) value;
 
@@ -244,11 +247,13 @@ public class Entity : MonoBehaviour
         if (gameObject){
             Transform bodyObj = gameObject.transform.Find("body");
             if (bodyObj && bodyObj.gameObject){
+                damageAnimation = true;
                 bodyObj.gameObject.GetComponent<SpriteRenderer>().material = Resources.Load("Materials/damaged") as Material;
                 bodyObj.gameObject.GetComponent<SpriteRenderer>().color = new Color32(253,106,106,255);
                 StartCoroutine(doWait(0.05f,delegate{
                     if (bodyObj && bodyObj.gameObject){
                         bodyObj.gameObject.GetComponent<SpriteRenderer>().material = Resources.Load("Materials/default") as Material;
+                        damageAnimation = false;
                         bodyObj.gameObject.GetComponent<SpriteRenderer>().color = spriteColor;
                     }
                 }));

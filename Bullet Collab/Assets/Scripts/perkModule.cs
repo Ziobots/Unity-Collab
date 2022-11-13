@@ -147,8 +147,8 @@ public class perkModule : MonoBehaviour
         if (bulletInfo){
             // stats that can be messed up when offset that need fixed
             
-            if (bulletInfo.bulletSize <= 0.01f)
-                bulletInfo.bulletSize = 0.01f;
+            if (bulletInfo.bulletSize <= 0.05f)
+                bulletInfo.bulletSize = 0.05f;
 
             if (bulletInfo.bulletDamage <= 0.1f)
                 bulletInfo.bulletDamage = 0.1f;

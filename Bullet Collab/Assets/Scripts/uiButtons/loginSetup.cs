@@ -37,6 +37,7 @@ public class loginSetup : MonoBehaviour
     public GameObject gameMenu;
     public GameObject createMenu;
     public GameObject loginMenu;
+    public GameObject playMenu;
 
     // start game variables
     public GameObject enterMenu;
@@ -50,7 +51,8 @@ public class loginSetup : MonoBehaviour
     private Color32 errorColor = new Color32(253,106,106,255);
 
     // transition obj
-    public GameObject transitioner;   
+    public GameObject transitioner; 
+    private bool loginActive = false;  
 
     public Button submitButton;
     private EventSystem system;
@@ -62,6 +64,10 @@ public class loginSetup : MonoBehaviour
 
     // button functions
     public void loginButton(){
+        if (!loginActive){
+            return;
+        }
+
         if (emailField.text == ""){
             errorMenu.GetComponent<errorPopup>().displayError("Please enter a valid email address.",errorColor);
             return;
@@ -80,10 +86,15 @@ public class loginSetup : MonoBehaviour
             Password = passwordField.text
         };
 
+        loginActive = false;
         PlayFabClientAPI.LoginWithEmailAddress(request,onLoginSuccess,onPlayfabError);
     }
 
     public void forgotPasswordButton(){
+        if (!loginActive){
+            return;
+        }
+
         if (emailField.text == ""){
             errorMenu.GetComponent<errorPopup>().displayError("Please enter a valid email address.",errorColor);
             return;
@@ -94,6 +105,7 @@ public class loginSetup : MonoBehaviour
             TitleId = "1853B"
         };
 
+        loginActive = false;
         PlayFabClientAPI.SendAccountRecoveryEmail(request,onPasswordEmail,onPlayfabError);
     }
 
@@ -106,6 +118,10 @@ public class loginSetup : MonoBehaviour
 
     public void createAccountButton(){
         if (createMenu != null && loginMenu != null){
+            if (!loginActive){
+                return;
+            }
+
             errorColor = new Color32(253,106,106,255);
             transitioner.GetComponent<fadeTransition>().startFade(c_A_B,true);
         }
@@ -113,6 +129,10 @@ public class loginSetup : MonoBehaviour
 
     // to make the account
     public void newAccountButton(){
+        if (!loginActive){
+            return;
+        }
+        
         if (createEmailField.text == ""){
             errorMenu.GetComponent<errorPopup>().displayError("Please enter a valid email address.",errorColor);
             return;
@@ -140,23 +160,34 @@ public class loginSetup : MonoBehaviour
 
         emailField.text = createEmailField.text;
         passwordField.text = createPasswordField.text;
+        loginActive = false;
 
         PlayFabClientAPI.RegisterPlayFabUser(request,onRegisterSuccess,onPlayfabError);
     }
 
 
     public void guestButton(){
+        if (!loginActive){
+            return;
+        }
+
         closeMenu();
     }
 
     public void b_B(){
         errorMenu.GetComponent<errorPopup>().hideError();
         loginMenu.SetActive(true);
+        loginActive = true;
         createMenu.SetActive(false);
     }
 
     public void backButton(){
         if (createMenu != null && loginMenu != null){
+            if (!loginActive){
+                return;
+            }
+            
+            loginActive = false;
             errorColor = new Color32(247,192,74,255);
             transitioner.GetComponent<fadeTransition>().startFade(b_B,false);
         }
@@ -167,6 +198,7 @@ public class loginSetup : MonoBehaviour
     private void onPlayfabError(PlayFabError error){
         print(error.ErrorMessage);
         errorMenu.GetComponent<errorPopup>().displayError(error.ErrorMessage,errorColor);
+        loginActive = true;
     }
 
     private void onLoginSuccess(LoginResult result){
@@ -176,17 +208,21 @@ public class loginSetup : MonoBehaviour
         dataInfo.sessionTicket = result.SessionTicket;
         dataInfo.userID = result.PlayFabId;
         dataInfo.loggedIn = true;
+        loginActive = false;
 
         closeMenu();
     }
 
     private void onRegisterSuccess(RegisterPlayFabUserResult result){
         print("register success");
+        loginActive = true;
         loginButton();
     }
 
     private void onPasswordEmail(SendAccountRecoveryEmailResult result){
+        loginActive = true;
         print("Sent email");
+        errorMenu.GetComponent<errorPopup>().displayError("Playfab has sent you an email to reset your password.",errorColor);
     }
 
     public void c_M(){
@@ -205,23 +241,19 @@ public class loginSetup : MonoBehaviour
         emailField.text = "";
         passwordField.text = "";
 
-        // enable reticle
-        mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
-        cursorData.reticleActive = true;
-        cursorData.updateHover(false);
-
         // show game menu
         loginMenu.SetActive(false);
         createMenu.SetActive(false);
         mainMenu.SetActive(false);
-        gameMenu.SetActive(true);
+        gameMenu.SetActive(false);
+        playMenu.SetActive(true);
         enterMenu.SetActive(false);
 
-        // continue the last run --------- MOVE THIS LATER TO THE CONTINUE GAME BUTTON
-        dataInfo.getTemporaryData();
+        playMenu.GetComponent<playscreenSetup>().loadMenu();
     }
 
     public void closeMenu(){
+        loginActive = false;
         errorColor = new Color32(253,106,106,255);
         transitioner.GetComponent<fadeTransition>().startFade(c_M,true);
     }
@@ -253,6 +285,7 @@ public class loginSetup : MonoBehaviour
         enterMenu.SetActive(false);
 
         errorColor = new Color32(247,192,74,255);
+        loginActive = true;
     }
 
     public void loadEnter(){
@@ -275,6 +308,8 @@ public class loginSetup : MonoBehaviour
         if (playerObj != null){
             playerObj.SetActive(false);
         }
+
+        loginActive = true;
     }
 
     // Start is called before the first frame update

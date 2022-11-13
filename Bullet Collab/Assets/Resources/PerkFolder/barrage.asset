@@ -19,8 +19,9 @@ MonoBehaviour:
     reload time.
   perkRarity: 2
   stackablePerk: 1
+  enemyPerk: 1
   addFireCount: 2
   addSpread: 9
-  addReload: 0.4
+  addReload: 0.2
   sizeMultiple: 0.8
   damageMultiple: 0.65

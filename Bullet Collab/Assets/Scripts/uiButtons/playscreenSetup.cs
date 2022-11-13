@@ -29,12 +29,6 @@ public class playscreenSetup : MonoBehaviour
     public GameObject cursorObj;
     public GameObject errorMenu;
 
-    // start game variables
-    private bool startVisible = true;
-    private float startTime = 0;
-    private float gameLoadTime = 0;
-    private bool anyKeyPressed = false;
-
     // transition obj
     public GameObject transitioner;   
     private EventSystem system;

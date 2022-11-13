@@ -139,7 +139,7 @@ MonoBehaviour:
   maxAmmo: 10
   fireCount: 1
   currentAmmo: 10
-  reloadTime: 2.5
+  reloadTime: 2
   bulletTime: 0.15
   bulletSpread: 2
   automaticGun: 0

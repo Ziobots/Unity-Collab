@@ -168,7 +168,6 @@ public class gameLoader : MonoBehaviour
             if (enemyObj){
                 Enemy enemyData = enemyObj.GetComponent<Enemy>();
                 if (enemyData && enemyData.myType == type && enemyData.roomSpawnMinimum <= roomNumber){
-                    print(enemyData.gameObject.name + " is able to spawn");
                     returnList.Add(enemyData.gameObject.name);
                 }
             }
@@ -269,6 +268,7 @@ public class gameLoader : MonoBehaviour
         // Reset Position of Player to 0,0,0
         if (playerObj != null){
             playerObj.transform.position = new Vector2(0,0);
+            Camera.current.gameObject.GetComponent<CameraBehavior>().instantJump = true;
         }
 
         if (roomBase != null){
@@ -429,7 +429,7 @@ public class gameLoader : MonoBehaviour
                 waveStarted = false;
                 spawningEnemies = false;
             }
-        }else{
+        }else if (levelObj != null){
             levelData levelInfo = levelObj.GetComponent<levelData>();
             if (levelInfo){
                 if (currentWave > levelInfo.waveCount){

@@ -18,6 +18,7 @@ MonoBehaviour:
   perkDescription: Increase bullet speed and damage, more reload time.
   perkRarity: 1
   stackablePerk: 1
+  enemyPerk: 1
   damageMultiple: 1.35
   bulletSpeed: 1.5
-  addReload: 0.4
+  addReload: 0.25

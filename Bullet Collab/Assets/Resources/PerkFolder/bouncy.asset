@@ -18,7 +18,8 @@ MonoBehaviour:
   perkDescription: Add 2 bounces to bullets, increase damage, some more reload.
   perkRarity: 1
   stackablePerk: 1
+  enemyPerk: 1
   addBounces: 2
   sizeMultiple: 1.15
   damageMultiple: 1.2
-  addReload: 0.2
+  addReload: 0.15

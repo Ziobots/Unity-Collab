@@ -19,6 +19,7 @@ MonoBehaviour:
     shells.
   perkRarity: 2
   stackablePerk: 1
-  addDelay: 0.2
+  enemyPerk: 1
+  addDelay: 0.05
   sizeMultiple: 1.5
   damageMultiple: 1.4

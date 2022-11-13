@@ -99,8 +99,8 @@ public class gameLoader : MonoBehaviour
                     }
                 }
 
-                // increase difficulty of enemies by giving them perks after room 20
-                if (levelObj != null && currentRoom > 20){
+                // increase difficulty of enemies by giving them perks after room 10
+                if (levelObj != null && currentRoom > 10){
                     levelData levelInfo = levelObj.GetComponent<levelData>();
                     if (levelInfo){
                         // random number of perks based on room number

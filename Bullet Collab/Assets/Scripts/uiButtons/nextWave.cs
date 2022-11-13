@@ -58,6 +58,6 @@ public class nextWave : MonoBehaviour
     
     // hide this at the start
     void Start(){
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

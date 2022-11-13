@@ -83,6 +83,7 @@ MonoBehaviour:
   enemySpawns: []
   minWave: -1
   maxWave: -1
+  spawnType: 1
 --- !u!212 &3609152323955388969
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -183,6 +184,7 @@ MonoBehaviour:
   enemySpawns: []
   minWave: -1
   maxWave: -1
+  spawnType: 1
 --- !u!212 &3609152323961644238
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -741,6 +743,7 @@ MonoBehaviour:
   enemySpawns: []
   minWave: -1
   maxWave: -1
+  spawnType: 1
 --- !u!212 &3609152324366332264
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -841,6 +844,7 @@ MonoBehaviour:
   enemySpawns: []
   minWave: -1
   maxWave: -1
+  spawnType: 1
 --- !u!212 &3609152324537672106
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 112
+  controlID: 21
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 113
+  controlID: 22
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 114
+  controlID: 23
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 115
+  controlID: 24
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -424,9 +424,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d21d0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: b6bcfffff4cfffffc0dfffffd0e9ffff54f0ffffe8f9ffff1c7800006a780000
+      m_ExpandedIDs: b8bcffff00bdffff1abdffff3cbdffffdac3ffff42c5ffff8ac5ffffdcc7ffff06c8ffffa8ceffff1cd6ffff58dfffff88e5ffff60e8ffffa8e8fffff6eaffff1cebffffbaf1ffffe8f9ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -732,9 +732,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.831514, y: 9.710527, z: -9.06441}
+    m_Target: {x: 52.82194, y: 21.906391, z: -18.108555}
     speed: 2
-    m_Value: {x: -2.831514, y: 9.710527, z: -9.06441}
+    m_Value: {x: 52.82194, y: 21.906391, z: -18.108555}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -785,9 +785,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 23.317852
+    m_Target: 402.45215
     speed: 2
-    m_Value: 23.317852
+    m_Value: 402.45215
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -853,22 +853,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\zions\Documents\GitHub\Unity-Collab\Bullet Collab
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 49}
-    m_SelectedIDs: 66700000
-    m_LastClickedID: 28774
-    m_ExpandedIDs: 00000000587000005a7000005c7000005e70000060700000627000006470000066700000
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 7a700000
+    m_LastClickedID: 28794
+    m_ExpandedIDs: 0000000056700000587000005a7000005c7000005e700000607000006270000064700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -896,7 +896,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000587000005a7000005c7000005e70000060700000627000006470000066700000
+    m_ExpandedIDs: 0000000056700000587000005a7000005c7000005e700000607000006270000064700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

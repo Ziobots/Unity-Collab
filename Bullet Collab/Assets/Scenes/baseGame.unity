@@ -722,6 +722,7 @@ MonoBehaviour:
   extraZoom: 0
   cameraPosition: {x: 0, y: 0}
   cursorObj: {fileID: 0}
+  instantJump: 0
   mousePosition: {x: 0, y: 0}
   mouseDirection: {x: 0, y: 0}
 --- !u!114 &519420034
@@ -20315,6 +20316,10 @@ PrefabInstance:
     - target: {fileID: 4819104967065076147, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_BodyType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819104967065076147, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4819104967065076147, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_UseFullKinematicContacts

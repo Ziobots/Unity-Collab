@@ -376,7 +376,7 @@ public class gameLoader : MonoBehaviour
                         newPerk.perkObjList = perkObjList;
 
                         // get the perk
-                        int perkSeed = gameSeed + (i * 100) + (currentRoom * 1000);
+                        int perkSeed = gameSeed + (i * 100) + (currentRoom * 1000) + 894636;
                         perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
                         if (chosenPerk){
                             newPerk.perkID = chosenPerk.name;
@@ -404,6 +404,7 @@ public class gameLoader : MonoBehaviour
     private void Start(){
         gameSeed = Mathf.Abs((int)System.DateTime.Now.Ticks);
         //gameSeed = 0;// just for testing if seeds work
+        print("GAME SEED: " + gameSeed);
 
         Random.InitState(gameSeed);
 

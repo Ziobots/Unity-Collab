@@ -42,8 +42,6 @@ public class interactPlayer : MonoBehaviour
 
             // check for player input
             if (interactPressed()){
-                print("Interact with Obj");
-
                 // check if obj has pickup
                 perkPickup pickupdData = interactObj.gameObject.GetComponent<perkPickup>();
                 if (pickupdData && pickupdData.interactActive){

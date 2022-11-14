@@ -334,9 +334,6 @@ public class gameLoader : MonoBehaviour
             if (continueData){
                 // set the function to be done on press
                 continueData.showButton(delegate{
-                    // next wave room
-                    print("continue to next wave");
-                    
                     // start room transition
                     transitioner.GetComponent<fadeTransition>().startFade(delegate{
                         continueData.hideButton();
@@ -433,6 +430,7 @@ public class gameLoader : MonoBehaviour
 
     public void startNewGame(){
         Setup();
+
         if (dataInfo != null){
             print("START NEW GAME");
 
@@ -465,8 +463,8 @@ public class gameLoader : MonoBehaviour
 
             // show game menu
             mainMenu.SetActive(false);
-            gameMenu.SetActive(true);
             gameEndScreen.SetActive(false);
+            gameMenu.SetActive(true);
 
             dataInfo.gameStartTime = Time.time;
 
@@ -475,6 +473,11 @@ public class gameLoader : MonoBehaviour
                 playerObj.SetActive(true);
             }
 
+            // update the ui
+            if (uiUpdate != null){
+                uiUpdate.updateGameUI();
+                uiUpdate.updateHealth();
+            }
         }
     }
 
@@ -513,7 +516,6 @@ public class gameLoader : MonoBehaviour
     private void FixedUpdate() {
         if (waveStarted){
             if (getEnemies().Count <= 0){
-                print("END WAVE");
                 waveStarted = false;
                 spawningEnemies = false;
             }
@@ -540,7 +542,6 @@ public class gameLoader : MonoBehaviour
                         }
                     }
                 }else if(!spawningEnemies){
-                    print("SPAWN ENEMIES");
                     currentWave++;
                     spawningEnemies = true;
                     spawnEnemies();

@@ -43,7 +43,11 @@ public class UIManager : MonoBehaviour
         Dictionary<GameObject,bool> safeList = new Dictionary<GameObject, bool>();
         for (int i = 2; i <= (int) heartMax; i += 2){
             // Health is split into wholes and halves, maybe temporary hearts
-            GameObject newHeart = GameObject.Find(healthBar.name + "/heart_" + i);
+            Transform heartFind = healthBar.transform.Find("heart_" + i);
+            GameObject newHeart = null;
+            if (heartFind != null){
+                newHeart = heartFind.gameObject;
+            }
 
             if (newHeart == null){
                 newHeart = Instantiate(heartPrefab,healthBar.transform);
@@ -70,6 +74,7 @@ public class UIManager : MonoBehaviour
         // remove hearts that dont exist
         foreach (Transform child in healthBar.transform){
             if (!safeList.ContainsKey(child.gameObject)){
+                print("not safe:" + child.name);
                 Destroy(child.gameObject);
             }
         }

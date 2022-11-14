@@ -78,7 +78,9 @@ public class Player : Entity
 
             if (currentHealth <= 0){
                 // end game
-                print("end game");
+                if (gameInfo != null){
+                    gameInfo.endGame();
+                }
             }
 
             // Update Data

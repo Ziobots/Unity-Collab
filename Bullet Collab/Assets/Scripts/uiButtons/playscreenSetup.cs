@@ -23,6 +23,10 @@ public class playscreenSetup : MonoBehaviour
     public GameObject dataManager;
     [HideInInspector] public sharedData dataInfo;
 
+    // Game Data Stuff
+    public GameObject gameManager;
+    [HideInInspector] public gameLoader gameInfo;
+
     // main stuff
     public GameObject mainMenu;
     public GameObject gameMenu;
@@ -38,40 +42,24 @@ public class playscreenSetup : MonoBehaviour
     public GameObject playerObj;
     private string userName;
 
-    public void newGame(){
-        errorMenu.GetComponent<errorPopup>().hideError();
-        unloadMenu();
-
-        // enable the player controller
-        if (playerObj != null){
-            playerObj.SetActive(true);
-        }
-
-        // enable reticle
-        mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
-        cursorData.reticleActive = true;
-        cursorData.updateHover(false);
-
-        // show game menu
-        mainMenu.SetActive(false);
-        gameMenu.SetActive(true);
-
-        // continue the last run --------- MOVE THIS LATER TO THE CONTINUE GAME BUTTON
-        dataInfo.getTemporaryData();
-    }
-
     public void newgameButton(){
         if (playMenuActive){
+            setupMenu();
             playMenuActive = false;
-            transitioner.GetComponent<fadeTransition>().startFade(newGame,false);
+            transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                unloadMenu();
+                gameInfo.newGameTransition();
+            },false);
         }
     }
 
     public void unloadMenu(){
+        errorMenu.GetComponent<errorPopup>().hideError();
+
         // remove any created instances and hide any objects that were created
     }
 
-    public void loadMenu(){
+    public void setupMenu(){
         // get event sytem
         system = EventSystem.current;
 
@@ -79,6 +67,15 @@ public class playscreenSetup : MonoBehaviour
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
         }
+
+        // get game management script
+        if (gameManager != null){
+            gameInfo = gameManager.GetComponent<gameLoader>();
+        }
+    }
+
+    public void loadMenu(){
+        setupMenu();
 
         // disable the player controller
         if (playerObj != null){

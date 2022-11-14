@@ -466,7 +466,7 @@ public class Enemy : Entity
 
     public virtual void shootGun(){
         if (currentTarget != null && currentHealth > 0){
-            if (checkVisibility(currentTarget,1.2f) || fireGunCheck()){
+            if (checkVisibility(currentTarget,1f) || fireGunCheck()){
                 // check angle between target and the way the enemy is facing
                 Vector2 targetDirection = ((Vector2)currentTarget.transform.position - (Vector2)transform.position).normalized;
                 Vector2 myDirection = -transform.Find("body").right.normalized;

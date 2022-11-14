@@ -86,7 +86,6 @@ public class sharedData : MonoBehaviour
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
 
-
     // Reset the Run Data
     public void resetGameStats(){
         enemiesKilled = 0;

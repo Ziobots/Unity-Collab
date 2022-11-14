@@ -12,6 +12,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class endScreen : MonoBehaviour
 {
@@ -19,20 +22,61 @@ public class endScreen : MonoBehaviour
     public GameObject dataManager;
     [HideInInspector] public sharedData dataInfo;
 
+    // Game Data Stuff
+    public GameObject gameManager;
+    [HideInInspector] public gameLoader gameInfo;
+
     // ui variables
     public GameObject statHolder;
+    public GameObject gamePanel;
+    public GameObject popupUI;
+    public GameObject cursorObj;
+    public GameObject playerObj;
+    public GameObject transitioner;   
+
+    private bool optionMade = false;
+
+    // Blur Obj
+    public GameObject blurObj;
+    private PostProcessVolume postVolume;
+    private DepthOfField blurField;
     
     private void setStatValue(string statName, string statValue){
         Transform statObj = statHolder.transform.Find(statName);
-        if (statObj && statObj.gameObject != null){
-            statObj.Find("value_Field").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = statValue;
+        if (statObj != null && statObj.gameObject != null){
+            statObj.Find("valueField").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = statValue;
         }
+    }
+
+    // for tweening
+    private void setPivot(Vector2 value){
+        gameObject.transform.Find("Holder").gameObject.GetComponent<RectTransform>().pivot = value;
+    }
+
+    // buttons
+    public void replayButton(){
+        if (gameInfo != null && !optionMade){
+            optionMade = true;
+            transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                unloadMenu();
+                gameInfo.newGameTransition();
+            },false);
+        }
+    }
+
+    public void menuButton(){
+
+    }
+
+    public void unloadMenu(){
+        blurObj.SetActive(false);
     }
 
     // load this menu
     public void loadMenu(){
         setupMenu();
 
+        // set the stats from shared info module
         if (dataInfo != null && statHolder != null){
             setStatValue("stat_Time","0:00:00");
             setStatValue("stat_Enemy","" + dataInfo.enemiesKilled);
@@ -41,13 +85,57 @@ public class endScreen : MonoBehaviour
             setStatValue("stat_Score","" + dataInfo.totalScore);
         }
 
+        // set the blur
+        blurField.focusDistance.value = 2f;
+        blurObj.SetActive(true);
+
+        // hide the main game ui
+        if (gamePanel != null){
+            gamePanel.SetActive(false);
+        }
+
+        // remove info popup for interacting
+        if (popupUI != null){
+            popupUI.GetComponent<infoPopup>().hidePopup(true);
+        }
+
+        if (playerObj != null){
+            playerObj.GetComponent<interactPlayer>().currentObj = null;
+        }
+
+        // Update Mouse
+        mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
+        cursorData.reticleActive = false;
+        cursorData.smoothMovement = true;
+        cursorData.overwriteMovement = false;
+        cursorData.updateHover(false);
+
         gameObject.SetActive(true);
+        Camera.current.GetComponent<CameraBehavior>().factorMouse = false;
+
+
+        // tween the fade
+        LeanTween.cancel(gameObject);
+        LeanTween.value(gameObject,new Vector2(0.5f,1f),new Vector2(0.5f,0.5f),0.4f).setIgnoreTimeScale(true).setEaseOutBack().setOnUpdateVector2(setPivot);
+
+        optionMade = false;
     }
 
     public void setupMenu(){
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
+        }
+
+        // get game management script
+        if (gameManager != null){
+            gameInfo = gameManager.GetComponent<gameLoader>();
+        }
+
+        // blur game
+        postVolume = blurObj.GetComponent<PostProcessVolume>();
+        if (postVolume){
+            postVolume.profile.TryGetSettings(out blurField);
         }
     }
 

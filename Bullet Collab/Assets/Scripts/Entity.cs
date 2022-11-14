@@ -129,6 +129,10 @@ public class Entity : MonoBehaviour
 
     // Entity will fire Bullets
     public virtual bool fireBullets(){
+        if (currentHealth <= 0){
+            return false;
+        }
+
         // make sure game is running
         if (Time.timeScale <= 0){
             return false;
@@ -282,7 +286,7 @@ public class Entity : MonoBehaviour
 
     // Fixed Update is called every physics step
     public virtual void FixedUpdate() {
-        if (perkCommands != null){
+        if (perkCommands != null && currentHealth > 0){
             // Check for any entity lifetime modifiers
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);

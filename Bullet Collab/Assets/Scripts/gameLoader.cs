@@ -37,6 +37,14 @@ public class gameLoader : MonoBehaviour
     public GameObject transitioner;   
     public GameObject continueButton;   
 
+    public GameObject loadUIScreen;
+    public GameObject gameEndScreen;
+    public GameObject mainMenu;
+    public GameObject gameMenu;
+
+    public GameObject errorMenu;
+    public GameObject cursorObj;
+
     // Game Data
     public int gameSeed;
     public string currentArea = "baseGame";
@@ -401,6 +409,28 @@ public class gameLoader : MonoBehaviour
         }
     }
 
+    private IEnumerator doWait(System.Action onComplete,float waitTime){
+        yield return new WaitForSeconds(waitTime);
+        // run on complete
+        onComplete();
+    }
+
+    public void newGameTransition(){
+        // show load screen
+        loadUIScreen.SetActive(true);
+
+        if (dataInfo.loggedIn){
+            // if not guest then get playfab to set data to current run data
+        }
+
+        StartCoroutine(doWait(delegate{
+            startNewGame();
+            transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                loadUIScreen.SetActive(false);
+            },false);
+        },1));
+    }
+
     public void startNewGame(){
         Setup();
         if (dataInfo != null){
@@ -418,11 +448,33 @@ public class gameLoader : MonoBehaviour
             currentWave = 1;
             nextRoom();
 
+            // reset data for obj
             dataInfo.resetGameStats();
             dataInfo.resetPlayerObj(playerObj);
             dataInfo.updateEntityData(playerObj);
 
+            // camera cursor stuff
+            Camera.current.GetComponent<CameraBehavior>().factorMouse = true;
+            mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
+            cursorData.reticleActive = true;
+            cursorData.updateHover(false);
+
+            // LOAD LAST RUN IF COUNTINUE HERE
+            // continue the last run --------- MOVE THIS LATER TO THE CONTINUE GAME BUTTON
+            //dataInfo.getTemporaryData();
+
+            // show game menu
+            mainMenu.SetActive(false);
+            gameMenu.SetActive(true);
+            gameEndScreen.SetActive(false);
+
             dataInfo.gameStartTime = Time.time;
+
+            // enable the player controller
+            if (playerObj != null){
+                playerObj.SetActive(true);
+            }
+
         }
     }
 
@@ -430,6 +482,10 @@ public class gameLoader : MonoBehaviour
         Setup();
         if (dataInfo != null){
             dataInfo.gameEndTime = Time.time;
+
+            if (gameEndScreen != null){
+                gameEndScreen.GetComponent<endScreen>().loadMenu();
+            }
         }
     }
 

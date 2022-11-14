@@ -18345,6 +18345,12 @@ MonoBehaviour:
   pathGrid: {fileID: 386263583}
   transitioner: {fileID: 1156881030}
   continueButton: {fileID: 2119487041}
+  loadUIScreen: {fileID: 1661042500}
+  gameEndScreen: {fileID: 1827698064}
+  mainMenu: {fileID: 74849736}
+  gameMenu: {fileID: 1541335612}
+  errorMenu: {fileID: 1776362039}
+  cursorObj: {fileID: 3391897934961127638}
   gameSeed: 0
   currentArea: baseGame
   waveStarted: 0
@@ -18422,6 +18428,12 @@ MonoBehaviour:
   maxHealth: 6
   currency: 0
   perkIDList: []
+  gameStartTime: 0
+  gameEndTime: 0
+  enemiesKilled: 0
+  totalScore: 0
+  currentRoom: 1
+  currentWave: 1
   maxAmmo: 0
   currentAmmo: 0
   fireCount: 0
@@ -18458,9 +18470,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1dd4f18063ff5448e48b0ddebf7de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1533298084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9024918582608041943, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+  m_PrefabInstance: {fileID: 7924832519663925789}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1541335612 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1453640619513492153, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+  m_PrefabInstance: {fileID: 7924832519663925789}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1661042500 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6405605073544002909, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
   m_PrefabInstance: {fileID: 7924832519663925789}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1703038422
@@ -18564,6 +18586,11 @@ MonoBehaviour:
 --- !u!1 &1776362039 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5575013024610300198, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+  m_PrefabInstance: {fileID: 7924832519663925789}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1827698064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8008163611056065427, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
   m_PrefabInstance: {fileID: 7924832519663925789}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1861345433
@@ -20699,7 +20726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1956121410536444743, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -9.1805725
+      value: -9.180542
       objectReference: {fileID: 0}
     - target: {fileID: 2020805528119872734, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -20821,6 +20848,10 @@ PrefabInstance:
       propertyPath: dataManager
       value: 
       objectReference: {fileID: 1356760222}
+    - target: {fileID: 2196427089865964724, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1104244799}
     - target: {fileID: 2196427089865964724, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: transitioner
       value: 
@@ -21158,9 +21189,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: blurObj
+      value: 
+      objectReference: {fileID: 1533298084}
+    - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: popupUI
+      value: 
+      objectReference: {fileID: 7924832519663925790}
+    - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: cursorObj
+      value: 
+      objectReference: {fileID: 3391897934961127638}
+    - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: gamePanel
+      value: 
+      objectReference: {fileID: 1541335612}
+    - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 3568330077112155242}
+    - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: dataManager
       value: 
       objectReference: {fileID: 1356760222}
+    - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1104244799}
+    - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: transitioner
+      value: 
+      objectReference: {fileID: 1156881030}
     - target: {fileID: 4613219054949529017, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -110,6 +110,11 @@ public class Player : Entity
 
     // Update is called once per frame
     void Update() {
+        if (currentHealth <= 0){
+            movement = new Vector2(0,0);
+            return;
+        }
+
         // Update Variables
         facingRight = (bool)(arrowDirection.x > 0);
 

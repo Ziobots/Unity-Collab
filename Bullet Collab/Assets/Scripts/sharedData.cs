@@ -7,8 +7,9 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/23/22  0.10                 DS              Made the thing
-* 10/26/22  0.11                 DS              Added Health to connect to healthbar
-* 11/04/22  0.11                 DS              Added saving system + json
+* 10/26/22  0.20                 DS              Added Health to connect to healthbar
+* 11/04/22  0.30                 DS              Added saving system + json
+* 11/14/22  0.40                 DS              Added game handler + stats + reset functions
 *******************************************************************************/
 
 using System.Collections;
@@ -64,6 +65,14 @@ public class sharedData : MonoBehaviour
     public float maxHealth;
     public int currency;
     public List<string> perkIDList = new List<string>();
+    // game stats
+    public float gameStartTime;
+    public float gameEndTime;
+    public int enemiesKilled = 0;
+    public int totalScore = 0;
+    public int currentRoom = 1;
+    public int currentWave = 1;
+
     // Temporary Bullet - mainly for ui
     public int maxAmmo;
     public int currentAmmo;
@@ -72,12 +81,21 @@ public class sharedData : MonoBehaviour
     public float bulletTime;
     public float bulletSpread;
     public float bulletDamage;
+
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
 
 
     // Reset the Run Data
+    public void resetGameStats(){
+        enemiesKilled = 0;
+        totalScore = 0;
+        currentRoom = 1;
+        currentWave = 1;
+    }
+
+    // Reset the Player obj
     public void resetPlayerObj(GameObject playerObj) {
         if (playerObj != null && playerObj.tag == "Player"){
             Entity entityInfo = playerObj.GetComponent<Entity>();
@@ -89,10 +107,25 @@ public class sharedData : MonoBehaviour
                 entityInfo.currency = 0;
 
                 // non saved stats, these are changed by perks which are saved though
+                entityInfo.maxAmmo = 3;
+                entityInfo.fireCount = 1;
+                entityInfo.currentAmmo = entityInfo.maxAmmo;
                 entityInfo.reloadTime = 0.7f;
                 entityInfo.bulletTime = 0.25f;
                 entityInfo.bulletSpread = 2;
                 entityInfo.automaticGun = false;
+                entityInfo.reloadingGun = false;
+                entityInfo.weight = 5f;
+                entityInfo.walkSpeed = 6f;
+                entityInfo.damagedBy = null;
+
+                // player obj unique stats
+                Player playerInfo = playerObj.GetComponent<Player>();
+                if (playerInfo != null){
+                    playerInfo.hitTime = 0;
+                    playerInfo.iFrames = 0.5f;
+                    playerInfo.perkCount = 3;
+                }
             }
         }
     }

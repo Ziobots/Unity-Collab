@@ -22,12 +22,23 @@ public class endScreen : MonoBehaviour
     // ui variables
     public GameObject statHolder;
     
+    private void setStatValue(string statName, string statValue){
+        Transform statObj = statHolder.transform.Find(statName);
+        if (statObj && statObj.gameObject != null){
+            statObj.Find("value_Field").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = statValue;
+        }
+    }
+
     // load this menu
     public void loadMenu(){
         setupMenu();
 
         if (dataInfo != null && statHolder != null){
-
+            setStatValue("stat_Time","0:00:00");
+            setStatValue("stat_Enemy","" + dataInfo.enemiesKilled);
+            setStatValue("stat_Perk","" + dataInfo.perkIDList.Count);
+            setStatValue("stat_Room","" + (dataInfo.currentRoom));
+            setStatValue("stat_Score","" + dataInfo.totalScore);
         }
 
         gameObject.SetActive(true);

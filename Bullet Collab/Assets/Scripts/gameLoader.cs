@@ -6,8 +6,9 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 11/09/22  0.10                 DS              Made the thing
-* 11/10/22  0.10                 DS              Added enemy spawning + perks
-* 11/11/22  0.10                 DS              added level loading + next button
+* 11/10/22  0.20                 DS              Added enemy spawning + perks
+* 11/11/22  0.30                 DS              added level loading + next button
+* 11/14/22  0.40                 DS              added game start + end + stats
 *******************************************************************************/
 
 using System.Collections;
@@ -45,7 +46,7 @@ public class gameLoader : MonoBehaviour
     [HideInInspector] public bool spawnedPerks = false;
 
     public int currentRoom = 1;
-    public int currentWave = 0;
+    public int currentWave = 1;
 
     // prefabs
     public perkPickup perkPrefab;
@@ -400,14 +401,39 @@ public class gameLoader : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    private void Start(){
-        gameSeed = Mathf.Abs((int)System.DateTime.Now.Ticks);
-        //gameSeed = 0;// just for testing if seeds work
-        print("GAME SEED: " + gameSeed);
+    public void startNewGame(){
+        Setup();
+        if (dataInfo != null){
+            print("START NEW GAME");
 
-        Random.InitState(gameSeed);
+            // get a seed for randomly generated content
+            gameSeed = Mathf.Abs((int)System.DateTime.Now.Ticks);
+            dataInfo.seed = gameSeed;
+            //gameSeed = 0;// just for testing if seeds work
+            print("SEED: " + gameSeed);
 
+            Random.InitState(gameSeed);
+
+            currentRoom = 0;
+            currentWave = 1;
+            nextRoom();
+
+            dataInfo.resetGameStats();
+            dataInfo.resetPlayerObj(playerObj);
+            dataInfo.updateEntityData(playerObj);
+
+            dataInfo.gameStartTime = Time.time;
+        }
+    }
+
+    public void endGame(){
+        Setup();
+        if (dataInfo != null){
+            dataInfo.gameEndTime = Time.time;
+        }
+    }
+
+    public void Setup(){
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
@@ -420,6 +446,11 @@ public class gameLoader : MonoBehaviour
 
         // should persist
         DontDestroyOnLoad(gameObject);
+    }
+
+    // Start is called before the first frame update
+    private void Start(){
+        Setup();
     }
 
     // Update is called once per frame

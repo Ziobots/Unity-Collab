@@ -11,6 +11,7 @@
 * 11/09/22  0.40                 DS              bumping + damage effects
 * 11/10/22  0.50                 DS              spawn in animation
 * 11/10/22  0.60                 DS              enemies patrol the area instead of standing still when no target
+* 11/10/22  0.70                 DS              added stats stuff
 *******************************************************************************/
 
 using System.Collections;
@@ -428,6 +429,12 @@ public class Enemy : Entity
         
         if (currentHealth <= 0 && !killed){
             killed = true;
+
+            if (damagedBy != null && damagedBy.tag == "Player"){
+                if (dataInfo != null){
+                    dataInfo.enemiesKilled++;
+                }
+            }
 
             visualFx killVFX = Instantiate(killPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),new Quaternion(),gameObject.transform);
             if (killVFX != null){

@@ -13,6 +13,7 @@
 * 11/03/22  0.20                 DS              updated health stuff, removed ref for perk list
 *******************************************************************************/
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -119,8 +120,9 @@ public class Player : Entity
         movement.y = Input.GetAxisRaw("Vertical");
 
         //Animator Update
-        animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
+        animator.SetFloat("Speed", (movement.x)+Math.Abs(movement.y)/2);
         animator.SetBool("Hurt", damageAnimation);
+        animator.SetBool("facingRight", facingRight);
 
         // Mouse Direction Here
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

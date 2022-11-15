@@ -222,11 +222,16 @@ public class sharedData : MonoBehaviour
         }
     }
 
-    public void saveTemporaryData(){
+    public void saveTemporaryData(tempDataClass forceSave){
         if (loggedIn){
+            tempDataClass dataToSave = getTemporaryJSON();
+            if (forceSave != null){
+                dataToSave = forceSave;
+            }
+
             var request = new UpdateUserDataRequest{
                 Data = new Dictionary<string, string>{
-                    {"Temp_Data", JsonConvert.SerializeObject(getTemporaryJSON())}
+                    {"Temp_Data", JsonConvert.SerializeObject(dataToSave)}
                 }
             };
 

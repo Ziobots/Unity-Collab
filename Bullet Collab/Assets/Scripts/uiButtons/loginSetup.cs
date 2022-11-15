@@ -35,6 +35,7 @@ public class loginSetup : MonoBehaviour
     // main stuff
     public GameObject mainMenu;
     public GameObject gameMenu;
+    public GameObject pauseMenu;
     public GameObject createMenu;
     public GameObject loginMenu;
     public GameObject playMenu;
@@ -241,6 +242,7 @@ public class loginSetup : MonoBehaviour
         createMenu.SetActive(false);
         mainMenu.SetActive(false);
         gameMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         playMenu.SetActive(true);
         enterMenu.SetActive(false);
 
@@ -308,6 +310,7 @@ public class loginSetup : MonoBehaviour
         createMenu.SetActive(false);
         mainMenu.SetActive(true);
         gameMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         enterMenu.SetActive(false);
 
         errorColor = new Color32(247,192,74,255);
@@ -321,6 +324,7 @@ public class loginSetup : MonoBehaviour
         // hide other menus
         createMenu.SetActive(false);
         gameMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         enterMenu.SetActive(true);
         loginMenu.SetActive(true);
         mainMenu.SetActive(true);

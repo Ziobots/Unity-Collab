@@ -30,6 +30,7 @@ public class playscreenSetup : MonoBehaviour
     // main stuff
     public GameObject mainMenu;
     public GameObject gameMenu;
+    public GameObject pauseMenu;
     public GameObject cursorObj;
     public GameObject errorMenu;
     public GameObject continueButton;
@@ -78,6 +79,9 @@ public class playscreenSetup : MonoBehaviour
     public void loadMenu(){
         setupMenu();
 
+        // wipe workspace
+        gameInfo.clearGameObj();
+
         // disable the player controller
         if (playerObj != null){
             playerObj.SetActive(false);
@@ -91,6 +95,7 @@ public class playscreenSetup : MonoBehaviour
         // show login menu
         mainMenu.SetActive(true);
         gameMenu.SetActive(false);
+        pauseMenu.SetActive(false);
 
         // disable the player controller
         if (playerObj != null){

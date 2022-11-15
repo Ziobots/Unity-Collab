@@ -4726,6 +4726,7 @@ MonoBehaviour:
   createPasswordField: {fileID: 7385287919091143474}
   mainMenu: {fileID: 7822413281357736600}
   gameMenu: {fileID: 1453640619513492153}
+  pauseMenu: {fileID: 7924832520000705511}
   createMenu: {fileID: 682803069146528651}
   loginMenu: {fileID: 6297870795955690338}
   playMenu: {fileID: 4349013503837091521}
@@ -10032,6 +10033,7 @@ MonoBehaviour:
   gameInfo: {fileID: 0}
   mainMenu: {fileID: 7822413281357736600}
   gameMenu: {fileID: 8008163611056065427}
+  pauseMenu: {fileID: 7924832520000705511}
   cursorObj: {fileID: 4821340908508482251}
   errorMenu: {fileID: 5575013024610300198}
   continueButton: {fileID: 4636406563815039243}
@@ -21109,6 +21111,10 @@ MonoBehaviour:
   gamePanel: {fileID: 1453640619513492153}
   screenObj: {fileID: 7924832519742925681}
   popupUI: {fileID: 7924832519206309152}
+  transitioner: {fileID: 0}
+  playMenu: {fileID: 0}
+  mainMenu: {fileID: 0}
+  gameMenu: {fileID: 0}
   cursorObj: {fileID: 4821340908508482251}
   playerObj: {fileID: 0}
   uiManager: {fileID: 7924832519742925690}

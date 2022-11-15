@@ -25,6 +25,10 @@ public class pauseButton : MonoBehaviour
     public GameObject gamePanel;
     public RectTransform screenObj;
     public GameObject popupUI;
+    public GameObject transitioner;  
+    public GameObject playMenu;
+    public GameObject mainMenu;
+    public GameObject gameMenu;
 
     // Pause Variables
     private bool gamePaused = false;
@@ -112,10 +116,17 @@ public class pauseButton : MonoBehaviour
     public void returnHome(string sceneID){
         // save and quit
         if (dataInfo != null){
-            dataInfo.saveTemporaryData();
+            dataInfo.saveTemporaryData(null);
         }
 
-        resumeGame();
+        transitioner.GetComponent<fadeTransition>().startFade(delegate{
+            resumeGame();
+            mainMenu.SetActive(false);
+            gameMenu.SetActive(false);
+            playMenu.SetActive(true);
+            playMenu.GetComponent<playscreenSetup>().loadMenu();
+        },false);
+
         if (gameInfo != null){
             //gameInfo.LoadScene(sceneID,null);
         }

@@ -78,8 +78,6 @@ public class endScreen : MonoBehaviour
                 playMenu.SetActive(true);
                 playMenu.GetComponent<playscreenSetup>().loadMenu();
             },false);
-
-
         }
     }
 

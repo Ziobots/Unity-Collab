@@ -722,6 +722,7 @@ MonoBehaviour:
   extraZoom: 0
   cameraPosition: {x: 0, y: 0}
   cursorObj: {fileID: 0}
+  zoomSpeed: 1
   instantJump: 0
   mousePosition: {x: 0, y: 0}
   mouseDirection: {x: 0, y: 0}
@@ -17759,6 +17760,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &571447399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7924832520000705511, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+  m_PrefabInstance: {fileID: 7924832519663925789}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &693162314 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3568330077501156643, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
@@ -18349,6 +18355,7 @@ MonoBehaviour:
   gameEndScreen: {fileID: 1827698064}
   mainMenu: {fileID: 74849736}
   gameMenu: {fileID: 1541335612}
+  pauseMenu: {fileID: 571447399}
   errorMenu: {fileID: 1776362039}
   cursorObj: {fileID: 3391897934961127638}
   gameSeed: 0
@@ -18356,6 +18363,7 @@ MonoBehaviour:
   waveStarted: 0
   spawningEnemies: 0
   spawnedPerks: 0
+  roomLoaded: 0
   currentRoom: 0
   currentWave: 0
   perkPrefab: {fileID: 6002106386034358296, guid: cc262d72688eb0748beeafcee0545124, type: 3}
@@ -18423,7 +18431,7 @@ MonoBehaviour:
   minTime: 0
   seed: 0
   wave: 0
-  currentSceneID: 
+  currentRoomID: 
   currenthealth: 6
   maxHealth: 6
   currency: 0

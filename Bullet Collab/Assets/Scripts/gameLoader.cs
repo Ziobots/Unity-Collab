@@ -41,6 +41,7 @@ public class gameLoader : MonoBehaviour
     public GameObject gameEndScreen;
     public GameObject mainMenu;
     public GameObject gameMenu;
+    public GameObject pauseMenu;
 
     public GameObject errorMenu;
     public GameObject cursorObj;
@@ -258,6 +259,13 @@ public class gameLoader : MonoBehaviour
         }
     }
 
+    // Remove Bullets and Enemies and other stuff
+    public void clearGameObj(){
+        clearFolder(bulletFolder);
+        clearFolder(enemyFolder);
+        clearFolder(debriFolder);
+    }
+
     public GameObject createRoom(GameObject roomBase){
         // remove the old room
         if (levelObj != null){
@@ -271,9 +279,7 @@ public class gameLoader : MonoBehaviour
         }
 
         // Remove Bullets and Enemies and other stuff
-        clearFolder(bulletFolder);
-        clearFolder(enemyFolder);
-        clearFolder(debriFolder);
+        clearGameObj();
 
         // Reset Position of Player to 0,0,0
         if (playerObj != null){
@@ -361,7 +367,7 @@ public class gameLoader : MonoBehaviour
                         nextRoom(null);
 
                         // save the run data each time they enter a new room
-                        dataInfo.saveTemporaryData();
+                        dataInfo.saveTemporaryData(null);
                     },false);
                 });
             }
@@ -495,6 +501,7 @@ public class gameLoader : MonoBehaviour
             mainMenu.SetActive(false);
             gameEndScreen.SetActive(false);
             gameMenu.SetActive(true);
+            pauseMenu.SetActive(true);
 
             // get the time
             if (dataInfo.currentTempData.startTime == 0){
@@ -523,6 +530,9 @@ public class gameLoader : MonoBehaviour
         if (dataInfo != null){
             dataInfo.currentTempData = new tempDataClass();
             dataInfo.gameEndTime = Time.time;
+
+            // overwrite the current run data
+            dataInfo.saveTemporaryData(dataInfo.currentTempData);
 
             if (gameEndScreen != null){
                 gameEndScreen.GetComponent<endScreen>().loadMenu();

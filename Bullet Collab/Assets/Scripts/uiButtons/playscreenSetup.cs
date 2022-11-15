@@ -32,6 +32,7 @@ public class playscreenSetup : MonoBehaviour
     public GameObject gameMenu;
     public GameObject cursorObj;
     public GameObject errorMenu;
+    public GameObject continueButton;
 
     // transition obj
     public GameObject transitioner;   
@@ -94,6 +95,16 @@ public class playscreenSetup : MonoBehaviour
         // disable the player controller
         if (playerObj != null){
             playerObj.SetActive(false);
+        }
+
+        // check for previous run
+        if (continueButton != null){
+            string buttonText = "Start Run";
+             if (dataInfo.currentTempData.room > 1){
+                buttonText = "Continue Run";
+             }
+
+             continueButton.transform.Find("Holder").Find("textField").GetComponent<TMPro.TextMeshPro>().text = buttonText;
         }
 
         playMenuActive = true;

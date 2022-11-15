@@ -59,6 +59,7 @@ public class endScreen : MonoBehaviour
     public void replayButton(){
         if (gameInfo != null && !optionMade){
             optionMade = true;
+            dataInfo.currentTempData = new tempDataClass();
             transitioner.GetComponent<fadeTransition>().startFade(delegate{
                 unloadMenu();
                 gameInfo.newGameTransition();

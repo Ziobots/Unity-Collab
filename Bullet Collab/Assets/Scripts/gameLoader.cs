@@ -304,7 +304,7 @@ public class gameLoader : MonoBehaviour
     }
 
     // find the next room for the player, based on seed
-    public void nextRoom(){
+    public void nextRoom(string setID){
         currentRoom++;
         RoomType nextType = RoomType.Enemy;
         if (currentRoom % 10 == 0){
@@ -317,6 +317,17 @@ public class gameLoader : MonoBehaviour
         if (roomList != null && roomList.Count > 0){
             System.Random randomGen = new System.Random(gameSeed + (currentRoom * 1000) + 111);// gotta offset from the original seed a bit for uniqueness
             GameObject chosenRoom = roomList[randomGen.Next(0,roomList.Count)];
+
+            // check for forced room
+            if (setID != null && setID != ""){
+                foreach (GameObject room in roomList){
+                    if (room.name == setID){
+                        chosenRoom = room;
+                        break;
+                    }
+                }
+            }
+
             if (chosenRoom){
                 createRoom(chosenRoom);
             }
@@ -340,7 +351,7 @@ public class gameLoader : MonoBehaviour
                     // start room transition
                     transitioner.GetComponent<fadeTransition>().startFade(delegate{
                         continueData.hideButton();
-                        nextRoom();
+                        nextRoom(null);
                     },false);
                 });
             }
@@ -419,12 +430,9 @@ public class gameLoader : MonoBehaviour
         // show load screen
         loadUIScreen.SetActive(true);
 
-        if (dataInfo.loggedIn){
-            // if not guest then get playfab to set data to current run data
-        }
+        startNewGame();
 
         StartCoroutine(doWait(delegate{
-            startNewGame();
             transitioner.GetComponent<fadeTransition>().startFade(delegate{
                 loadUIScreen.SetActive(false);
             },false);
@@ -438,44 +446,48 @@ public class gameLoader : MonoBehaviour
             print("START NEW GAME");
 
             // get a seed for randomly generated content
-            gameSeed = Mathf.Abs((int)System.DateTime.Now.Ticks);
+            gameSeed = dataInfo.currentTempData.seed;
             dataInfo.seed = gameSeed;
             //gameSeed = 0;// just for testing if seeds work
             print("SEED: " + gameSeed);
 
             Random.InitState(gameSeed);
 
-            currentRoom = 0;
-            currentWave = 1;
-            nextRoom();
+            currentRoom = dataInfo.currentTempData.room - 1;
+            nextRoom(dataInfo.currentTempData.roomID);
+            currentWave = dataInfo.currentTempData.wave;
 
+            // reset data for obj
+            dataInfo.enemiesKilled = dataInfo.currentTempData.enemiesKilled;
+            dataInfo.totalScore = dataInfo.currentTempData.totalScore;
             dataInfo.currentRoom = currentRoom;
             dataInfo.currentWave = currentWave;
 
-            // reset data for obj
-            dataInfo.resetGameStats();
-            dataInfo.resetPlayerObj(playerObj);
-            dataInfo.updateEntityData(playerObj);
+            dataInfo.overwriteEntity(playerObj,dataInfo.currentTempData);
 
             // camera cursor stuff
             Camera.current.GetComponent<CameraBehavior>().factorMouse = true;
             Camera.current.GetComponent<CameraBehavior>().extraZoom = 0;
             Camera.current.GetComponent<CameraBehavior>().zoomSpeed = 1f;
+            Camera.current.GetComponent<CameraBehavior>().instantJump = true;
             
             mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
             cursorData.reticleActive = true;
             cursorData.updateHover(false);
-
-            // LOAD LAST RUN IF COUNTINUE HERE
-            // continue the last run --------- MOVE THIS LATER TO THE CONTINUE GAME BUTTON
-            //dataInfo.getTemporaryData();
 
             // show game menu
             mainMenu.SetActive(false);
             gameEndScreen.SetActive(false);
             gameMenu.SetActive(true);
 
-            dataInfo.gameStartTime = Time.time;
+            // get the time
+            if (dataInfo.currentTempData.startTime == 0){
+                dataInfo.gameStartTime = Time.time;
+            }else{
+                dataInfo.gameStartTime = dataInfo.currentTempData.startTime;
+            }
+                    
+            dataInfo.currentTempData.startTime = dataInfo.gameStartTime;
 
             // enable the player controller
             if (playerObj != null){
@@ -493,6 +505,7 @@ public class gameLoader : MonoBehaviour
     public void endGame(){
         Setup();
         if (dataInfo != null){
+            dataInfo.currentTempData = new tempDataClass();
             dataInfo.gameEndTime = Time.time;
 
             if (gameEndScreen != null){

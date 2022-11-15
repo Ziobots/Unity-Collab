@@ -46,7 +46,7 @@ public class levelLoader : MonoBehaviour
 
     public void LoadScene(string sceneID,System.Action onComplete) {
         // Update Player Data
-        dataInfo.currentSceneID = sceneID;
+        dataInfo.currentRoomID = sceneID;
 
         // Load the Scene from ID
         SceneManager.LoadScene(sceneID);

@@ -38,6 +38,7 @@ public class loginSetup : MonoBehaviour
     public GameObject createMenu;
     public GameObject loginMenu;
     public GameObject playMenu;
+    public GameObject loadUIScreen;
 
     // start game variables
     public GameObject enterMenu;
@@ -225,13 +226,28 @@ public class loginSetup : MonoBehaviour
         errorMenu.GetComponent<errorPopup>().displayError("Playfab has sent you an email to reset your password.",errorColor);
     }
 
-    public void c_M(){
+    private IEnumerator doWait(System.Action onComplete,float waitTime){
+        yield return new WaitForSeconds(waitTime);
+        // run on complete
+        onComplete();
+    }
+
+    public void gotCurrentRunData(){
         errorMenu.GetComponent<errorPopup>().hideError();
 
-        // enable the player controller
-        if (playerObj != null){
-            playerObj.SetActive(true);
-        }
+        // show game menu
+        loadUIScreen.SetActive(false);
+        loginMenu.SetActive(false);
+        createMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        gameMenu.SetActive(false);
+        playMenu.SetActive(true);
+        enterMenu.SetActive(false);
+
+        playMenu.GetComponent<playscreenSetup>().loadMenu();
+    }
+
+    public void c_M(){
 
         // remove input data
         createEmailField.text = "";
@@ -241,15 +257,25 @@ public class loginSetup : MonoBehaviour
         emailField.text = "";
         passwordField.text = "";
 
-        // show game menu
-        loginMenu.SetActive(false);
-        createMenu.SetActive(false);
-        mainMenu.SetActive(false);
-        gameMenu.SetActive(false);
-        playMenu.SetActive(true);
-        enterMenu.SetActive(false);
+        if (dataInfo.loggedIn){
+            // show load screen
+            loadUIScreen.SetActive(true);
 
-        playMenu.GetComponent<playscreenSetup>().loadMenu();
+            // get the information from the last run
+            dataInfo.onDataGet = delegate{
+                StartCoroutine(doWait(delegate{
+                    transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                        gotCurrentRunData();
+                    },false);
+                },1.25f));
+            };
+
+            // get the user information
+            dataInfo.getTemporaryData();
+        }else{
+            gotCurrentRunData();
+        }
+
     }
 
     public void closeMenu(){

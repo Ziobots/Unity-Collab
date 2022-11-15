@@ -4728,7 +4728,8 @@ MonoBehaviour:
   gameMenu: {fileID: 1453640619513492153}
   createMenu: {fileID: 682803069146528651}
   loginMenu: {fileID: 6297870795955690338}
-  playMenu: {fileID: 0}
+  playMenu: {fileID: 4349013503837091521}
+  loadUIScreen: {fileID: 6405605073544002909}
   enterMenu: {fileID: 7375904889412035552}
   errorMenu: {fileID: 5575013024610300198}
   transitioner: {fileID: 7484231557570648093}
@@ -10029,11 +10030,12 @@ MonoBehaviour:
   dataInfo: {fileID: 0}
   gameManager: {fileID: 0}
   gameInfo: {fileID: 0}
-  mainMenu: {fileID: 0}
-  gameMenu: {fileID: 0}
-  cursorObj: {fileID: 0}
-  errorMenu: {fileID: 0}
-  transitioner: {fileID: 0}
+  mainMenu: {fileID: 7822413281357736600}
+  gameMenu: {fileID: 8008163611056065427}
+  cursorObj: {fileID: 4821340908508482251}
+  errorMenu: {fileID: 5575013024610300198}
+  continueButton: {fileID: 4636406563815039243}
+  transitioner: {fileID: 7484231557570648093}
   playerObj: {fileID: 0}
 --- !u!1 &4349278592553582856
 GameObject:

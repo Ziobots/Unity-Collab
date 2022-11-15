@@ -23,15 +23,22 @@ using Newtonsoft.Json;
 
 // use this to store default values
 public class tempDataClass{
+    // player stats
     public List<string> perkIDList = new List<string>();
     public float currenthealth = 6;
     public int currency = 0;
-    public int wave = 0;
     public int seed = 0;
-    public string sceneID = "baseGame";
+    public string roomID = "";
+
+    // stats
+    public int enemiesKilled = 0;
+    public int totalScore = 0;
+    public int wave = 0;
+    public int room = 0;
+    public float startTime = 0;
 
     public tempDataClass(){
-
+        seed = Mathf.Abs((int)System.DateTime.Now.Ticks);
     }
 }
 
@@ -60,11 +67,13 @@ public class sharedData : MonoBehaviour
     // Temporary Data
     public int seed;
     public int wave;
-    public string currentSceneID;
+    public string currentRoomID;
     public float currenthealth;
     public float maxHealth;
     public int currency;
     public List<string> perkIDList = new List<string>();
+    [HideInInspector] public tempDataClass currentTempData = new tempDataClass();
+
     // game stats
     public float gameStartTime;
     public float gameEndTime;
@@ -86,13 +95,8 @@ public class sharedData : MonoBehaviour
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
 
-    // Reset the Run Data
-    public void resetGameStats(){
-        enemiesKilled = 0;
-        totalScore = 0;
-        currentRoom = 1;
-        currentWave = 1;
-    }
+    // Data Receive function variables
+    [HideInInspector] public System.Action onDataGet = null;
 
     // Reset the Player obj
     public void resetPlayerObj(GameObject playerObj) {
@@ -201,8 +205,13 @@ public class sharedData : MonoBehaviour
         tempData.currenthealth = currenthealth;
         tempData.currency = currency;
         tempData.wave = wave;
-        tempData.sceneID = currentSceneID;
+        tempData.roomID = currentRoomID;
         tempData.seed = seed;
+        tempData.room = currentRoom;
+        tempData.wave = currentWave;
+        tempData.enemiesKilled = enemiesKilled;
+        tempData.totalScore = totalScore;
+        tempData.startTime = gameStartTime;
 
         return tempData;
     }
@@ -237,14 +246,23 @@ public class sharedData : MonoBehaviour
             if (result.Data.ContainsKey("Temp_Data")){
                 tempDataClass tempData = JsonConvert.DeserializeObject<tempDataClass>(result.Data["Temp_Data"].Value);
                 if (tempData != null){
-                    overwriteEntity(playerObj,tempData);
+                    currentTempData = tempData;
+                    //overwriteEntity(playerObj,tempData);
                 }
             }
+        }
+
+        if (onDataGet != null){
+            onDataGet();
+            onDataGet = null;
         }
     }
 
     public void onDataError(PlayFabError error){
-
+        if (onDataGet != null){
+            onDataGet();
+            onDataGet = null;
+        }
     }
 
     // Setup data module

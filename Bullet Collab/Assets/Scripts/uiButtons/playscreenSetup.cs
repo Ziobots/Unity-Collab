@@ -104,7 +104,7 @@ public class playscreenSetup : MonoBehaviour
                 buttonText = "Continue Run";
              }
 
-             continueButton.transform.Find("Holder").Find("textField").GetComponent<TMPro.TextMeshPro>().text = buttonText;
+             continueButton.transform.Find("Holder").Find("textField").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = buttonText;
         }
 
         playMenuActive = true;

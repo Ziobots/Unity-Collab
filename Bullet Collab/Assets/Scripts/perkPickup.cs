@@ -34,6 +34,7 @@ public class perkPickup : MonoBehaviour
     private Vector3 basePosition;
 
     public bool interactActive = false;
+    [HideInInspector] public System.Action perkGet = null;
 
     // Interaction
     public bool playerNearby = false;
@@ -153,6 +154,10 @@ public class perkPickup : MonoBehaviour
                         perkObj.GetComponent<perkPickup>().removePerk();
                     }
                 }
+            }
+
+            if (perkGet != null){
+                perkGet();
             }
 
             // remove this perk obj

@@ -52,6 +52,7 @@ public class gameLoader : MonoBehaviour
     [HideInInspector] public bool waveStarted = false;
     [HideInInspector] public bool spawningEnemies = false;
     [HideInInspector] public bool spawnedPerks = false;
+    [HideInInspector] public bool roomLoaded = false;
 
     public int currentRoom = 1;
     public int currentWave = 1;
@@ -333,6 +334,7 @@ public class gameLoader : MonoBehaviour
             }
         }
 
+        roomLoaded = false;
         currentWave = 1;
         spawningEnemies = false;
         waveStarted = false;
@@ -340,6 +342,11 @@ public class gameLoader : MonoBehaviour
 
         dataInfo.currentRoom = currentRoom;
         dataInfo.currentWave = currentWave;
+
+        // dont spawn enemies immediately
+        StartCoroutine(doWait(delegate{
+            roomLoaded = true;
+        },1.5f));
     }
 
     public void showContinue(){
@@ -352,6 +359,9 @@ public class gameLoader : MonoBehaviour
                     transitioner.GetComponent<fadeTransition>().startFade(delegate{
                         continueData.hideButton();
                         nextRoom(null);
+
+                        // save the run data each time they enter a new room
+                        dataInfo.saveTemporaryData();
                     },false);
                 });
             }
@@ -394,6 +404,12 @@ public class gameLoader : MonoBehaviour
                         newPerk.count = 1;
                         newPerk.addFolder = debriFolder;
                         newPerk.perkObjList = perkObjList;
+
+                        newPerk.perkGet = delegate{
+                            currentWave++;
+                            dataInfo.currentRoom = currentRoom;
+                            dataInfo.currentWave = currentWave;
+                        };
 
                         // get the perk
                         int perkSeed = gameSeed + (i * 100) + (currentRoom * 1000) + 894636;
@@ -545,12 +561,8 @@ public class gameLoader : MonoBehaviour
             levelData levelInfo = levelObj.GetComponent<levelData>();
             if (levelInfo){
                 if (currentWave > levelInfo.waveCount){
-                    if (!spawnedPerks){
+                    if (!spawnedPerks && currentWave <= (levelInfo.waveCount + 1)){
                         spawnedPerks = true;
-                        currentWave++;
-
-                        dataInfo.currentRoom = currentRoom;
-                        dataInfo.currentWave = currentWave;
 
                         spawnPerks();
                         showContinue();
@@ -566,8 +578,11 @@ public class gameLoader : MonoBehaviour
                                 }
                             }
                         }
+                    }else if (!spawnedPerks){
+                        spawnedPerks = true;
+                        showContinue();
                     }
-                }else if(!spawningEnemies){
+                }else if(!spawningEnemies && roomLoaded){
                     currentWave++;
                     spawningEnemies = true;
                     spawnEnemies();

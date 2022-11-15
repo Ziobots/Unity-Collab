@@ -28,11 +28,13 @@ public class endScreen : MonoBehaviour
 
     // ui variables
     public GameObject statHolder;
-    public GameObject gamePanel;
     public GameObject popupUI;
     public GameObject cursorObj;
     public GameObject playerObj;
-    public GameObject transitioner;   
+    public GameObject transitioner;  
+    public GameObject playMenu;
+    public GameObject mainMenu;
+    public GameObject gameMenu;
 
     private bool optionMade = false;
 
@@ -65,7 +67,19 @@ public class endScreen : MonoBehaviour
     }
 
     public void menuButton(){
+        if (gameInfo != null && !optionMade){
+            optionMade = true;
 
+            transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                unloadMenu();
+                mainMenu.SetActive(false);
+                gameMenu.SetActive(false);
+                playMenu.SetActive(true);
+                playMenu.GetComponent<playscreenSetup>().loadMenu();
+            },false);
+
+
+        }
     }
 
     public void unloadMenu(){
@@ -107,8 +121,8 @@ public class endScreen : MonoBehaviour
         blurObj.SetActive(true);
 
         // hide the main game ui
-        if (gamePanel != null){
-            gamePanel.SetActive(false);
+        if (gameMenu != null){
+            gameMenu.SetActive(false);
         }
 
         // remove info popup for interacting

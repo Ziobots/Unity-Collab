@@ -11163,10 +11163,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7924832519508211046}
-        m_TargetAssemblyTypeName: pauseButton, Assembly-CSharp
-        m_MethodName: returnHome
-        m_Mode: 5
+      - m_Target: {fileID: 4536397820068541718}
+        m_TargetAssemblyTypeName: endScreen, Assembly-CSharp
+        m_MethodName: menuButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21601,12 +21601,14 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   gameInfo: {fileID: 0}
   statHolder: {fileID: 6267659385423252136}
-  gamePanel: {fileID: 0}
-  popupUI: {fileID: 0}
-  cursorObj: {fileID: 0}
+  popupUI: {fileID: 7924832519206309152}
+  cursorObj: {fileID: 4821340908508482251}
   playerObj: {fileID: 0}
-  transitioner: {fileID: 0}
-  blurObj: {fileID: 0}
+  transitioner: {fileID: 7484231557570648093}
+  playMenu: {fileID: 4349013503837091521}
+  mainMenu: {fileID: 7822413281357736600}
+  gameMenu: {fileID: 1453640619513492153}
+  blurObj: {fileID: 9024918582608041943}
 --- !u!1 &8027807156060845140
 GameObject:
   m_ObjectHideFlags: 0

@@ -228,7 +228,7 @@ public class loginSetup : MonoBehaviour
     }
 
     private IEnumerator doWait(System.Action onComplete,float waitTime){
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
         // run on complete
         onComplete();
     }

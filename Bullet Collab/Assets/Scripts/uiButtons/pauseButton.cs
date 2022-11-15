@@ -31,7 +31,7 @@ public class pauseButton : MonoBehaviour
     public GameObject gameMenu;
 
     // Pause Variables
-    private bool gamePaused = false;
+    public bool gamePaused = false;
     public GameObject cursorObj;
     public GameObject playerObj;
 
@@ -53,6 +53,8 @@ public class pauseButton : MonoBehaviour
 
     // Pause Menu Functions
     public void pauseGame(){
+        setupMenu();
+
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
@@ -95,6 +97,7 @@ public class pauseButton : MonoBehaviour
 
     // un-Pause the game
     public void resumeGame(){
+        setupMenu();
         // Update Mouse
         mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
         cursorData.reticleActive = true;
@@ -113,26 +116,28 @@ public class pauseButton : MonoBehaviour
     }
 
     // return to the main menu
-    public void returnHome(string sceneID){
+    public void returnHome(){
+        setupMenu();
+
         // save and quit
         if (dataInfo != null){
+            dataInfo.currentTempData = dataInfo.getTemporaryJSON();
             dataInfo.saveTemporaryData(null);
         }
 
+        print("GO HOME");
+
         transitioner.GetComponent<fadeTransition>().startFade(delegate{
             resumeGame();
+            print("DO ACTIVES");
             mainMenu.SetActive(false);
-            gameMenu.SetActive(false);
             playMenu.SetActive(true);
             playMenu.GetComponent<playscreenSetup>().loadMenu();
+            gameMenu.SetActive(false);
         },false);
-
-        if (gameInfo != null){
-            //gameInfo.LoadScene(sceneID,null);
-        }
     }
 
-    private void Start() {
+    private void setupMenu() {
         // Get UI management script
         if (uiManager != null){
             uiUpdate = uiManager.GetComponent<UIManager>();
@@ -149,14 +154,7 @@ public class pauseButton : MonoBehaviour
         }
     }
 
-    private void Update() {
-        // check for esc key
-        if (Input.GetKeyDown("escape")){
-            if (gamePaused){
-                resumeGame();
-            }else{
-                pauseGame();
-            }
-        }
+    private void Start(){
+        setupMenu();
     }
 }

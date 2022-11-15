@@ -21111,10 +21111,11 @@ MonoBehaviour:
   gamePanel: {fileID: 1453640619513492153}
   screenObj: {fileID: 7924832519742925681}
   popupUI: {fileID: 7924832519206309152}
-  transitioner: {fileID: 0}
-  playMenu: {fileID: 0}
-  mainMenu: {fileID: 0}
-  gameMenu: {fileID: 0}
+  transitioner: {fileID: 7484231557570648093}
+  playMenu: {fileID: 4349013503837091521}
+  mainMenu: {fileID: 7822413281357736600}
+  gameMenu: {fileID: 1453640619513492153}
+  gamePaused: 0
   cursorObj: {fileID: 4821340908508482251}
   playerObj: {fileID: 0}
   uiManager: {fileID: 7924832519742925690}
@@ -21365,7 +21366,7 @@ MonoBehaviour:
       - m_Target: {fileID: 7924832519508211046}
         m_TargetAssemblyTypeName: pauseButton, Assembly-CSharp
         m_MethodName: returnHome
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

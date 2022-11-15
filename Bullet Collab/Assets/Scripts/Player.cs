@@ -34,6 +34,9 @@ public class Player : Entity
     public float iFrames = 0.5f;
     public int perkCount = 3;
 
+    // ui variables
+    public GameObject pauseUI;
+
     private void moveGun() {
         if (arrow != null) {
             arrowDirection = (mousePosition - (Vector2)arrow.position).normalized;
@@ -156,6 +159,17 @@ public class Player : Entity
             // check to see if they, just fired bullet, have max ammo, are currently reloading
             if (Time.time - delayStartTime >= 0.25f && currentAmmo < maxAmmo && Time.time - reloadStartTime >= reloadTime){
                 reloadGun();
+            }
+        }
+
+        if (Input.GetKeyDown("escape") && pauseUI != null){
+            pauseButton pauseInfo = pauseUI.GetComponent<pauseButton>();
+            if (pauseInfo != null){
+                if (pauseInfo.gamePaused){
+                    pauseInfo.resumeGame();
+                }else{
+                    pauseInfo.pauseGame();
+                }
             }
         }
     }

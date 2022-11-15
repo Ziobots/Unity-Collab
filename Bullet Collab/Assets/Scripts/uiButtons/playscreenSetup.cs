@@ -105,7 +105,7 @@ public class playscreenSetup : MonoBehaviour
         // check for previous run
         if (continueButton != null){
             string buttonText = "Start Run";
-             if (dataInfo.currentTempData.room > 1){
+             if (dataInfo.currentTempData.room >= 1){
                 buttonText = "Continue Run";
              }
 

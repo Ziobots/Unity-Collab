@@ -41,7 +41,7 @@ public class gameLoader : MonoBehaviour
     public GameObject gameEndScreen;
     public GameObject mainMenu;
     public GameObject gameMenu;
-    public GameObject pauseMenu;
+    public GameObject pauseUI;
 
     public GameObject errorMenu;
     public GameObject cursorObj;
@@ -54,6 +54,7 @@ public class gameLoader : MonoBehaviour
     [HideInInspector] public bool spawningEnemies = false;
     [HideInInspector] public bool spawnedPerks = false;
     [HideInInspector] public bool roomLoaded = false;
+    [HideInInspector] public bool gameLoaded = false;
 
     public int currentRoom = 1;
     public int currentWave = 1;
@@ -336,6 +337,7 @@ public class gameLoader : MonoBehaviour
             }
 
             if (chosenRoom){
+                dataInfo.currentRoomID = chosenRoom.name;
                 createRoom(chosenRoom);
             }
         }
@@ -352,7 +354,7 @@ public class gameLoader : MonoBehaviour
         // dont spawn enemies immediately
         StartCoroutine(doWait(delegate{
             roomLoaded = true;
-        },1.5f));
+        },0.5f));
     }
 
     public void showContinue(){
@@ -443,7 +445,7 @@ public class gameLoader : MonoBehaviour
     }
 
     private IEnumerator doWait(System.Action onComplete,float waitTime){
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
         // run on complete
         onComplete();
     }
@@ -452,11 +454,17 @@ public class gameLoader : MonoBehaviour
         // show load screen
         loadUIScreen.SetActive(true);
 
+        gameLoaded = false;
         startNewGame();
 
+        // wait for game to load
         StartCoroutine(doWait(delegate{
             transitioner.GetComponent<fadeTransition>().startFade(delegate{
                 loadUIScreen.SetActive(false);
+                // wait a bit before loading enemies
+                StartCoroutine(doWait(delegate{
+                    gameLoaded = true;
+                },1));
             },false);
         },1));
     }
@@ -501,7 +509,7 @@ public class gameLoader : MonoBehaviour
             mainMenu.SetActive(false);
             gameEndScreen.SetActive(false);
             gameMenu.SetActive(true);
-            pauseMenu.SetActive(true);
+            pauseUI.GetComponent<pauseButton>().resumeGame();
 
             // get the time
             if (dataInfo.currentTempData.startTime == 0){
@@ -567,7 +575,7 @@ public class gameLoader : MonoBehaviour
                 waveStarted = false;
                 spawningEnemies = false;
             }
-        }else if (levelObj != null){
+        }else if (levelObj != null && gameLoaded){
             levelData levelInfo = levelObj.GetComponent<levelData>();
             if (levelInfo){
                 if (currentWave > levelInfo.waveCount){
@@ -592,7 +600,7 @@ public class gameLoader : MonoBehaviour
                         spawnedPerks = true;
                         showContinue();
                     }
-                }else if(!spawningEnemies && roomLoaded){
+                }else if(!spawningEnemies && roomLoaded && gameLoaded){
                     currentWave++;
                     spawningEnemies = true;
                     spawnEnemies();

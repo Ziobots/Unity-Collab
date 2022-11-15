@@ -39,7 +39,7 @@ public class fadeTransition : MonoBehaviour
 
     // wait function
     private IEnumerator doWait(System.Action onComplete){
-        yield return new WaitForSeconds(fadeTime/2);
+        yield return new WaitForSecondsRealtime(fadeTime/2);
         // run on complete
         onComplete();
     }

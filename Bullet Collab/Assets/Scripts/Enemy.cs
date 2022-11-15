@@ -371,7 +371,7 @@ public class Enemy : Entity
             if (entityObj){
                 Entity entityData = entityObj.GetComponent<Entity>();
                 Collider2D otherCollider = gameObject.GetComponent<Collider2D>();
-                if (entityData && entityData.currentHealth > 0 && otherCollider){
+                if (entityData && (entityData.currentHealth > 0 || entityObj.tag == "Player") && otherCollider){
                     Vector2 direction = ((Vector2)entityObj.transform.position - (Vector2)transform.position).normalized;
                     Vector2 randomDir = rotateVector2(direction.normalized,Random.Range(-900,900)/10).normalized;
 

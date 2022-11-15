@@ -459,6 +459,9 @@ public class gameLoader : MonoBehaviour
 
             // camera cursor stuff
             Camera.current.GetComponent<CameraBehavior>().factorMouse = true;
+            Camera.current.GetComponent<CameraBehavior>().extraZoom = 0;
+            Camera.current.GetComponent<CameraBehavior>().zoomSpeed = 1f;
+            
             mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
             cursorData.reticleActive = true;
             cursorData.updateHover(false);

@@ -70,7 +70,7 @@ public class Player : Entity
     // overwrite the take damage function so its only 1 damage - also check for gameover here
     public override void takeDamage(float amount){
         // Player can only take damage every so often
-        if (Time.time - hitTime >= iFrames){
+        if (Time.time - hitTime >= iFrames && currentHealth > 0){
             hitTime = Time.time;
 
             // Run Damage Visual - only 1 damage for players
@@ -79,7 +79,15 @@ public class Player : Entity
             if (currentHealth <= 0){
                 // end game
                 if (gameInfo != null){
-                    gameInfo.endGame();
+                    // do killed visual
+                    dataInfo.updateEntityData(gameObject);
+                    Camera.current.GetComponent<CameraBehavior>().factorMouse = false;
+                    Camera.current.GetComponent<CameraBehavior>().extraZoom = -3.5f;
+                    Camera.current.GetComponent<CameraBehavior>().zoomSpeed = 4f;
+
+                    StartCoroutine(doWait(1.5f,delegate{
+                        gameInfo.endGame();
+                    }));
                 }
             }
 

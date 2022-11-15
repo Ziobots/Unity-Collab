@@ -234,7 +234,7 @@ public class bulletSystem : MonoBehaviour
                 }
             }else{
                 Entity entityData = otherCollider.gameObject.GetComponent<Entity>();
-                if (entityData != null && entityData.currentHealth > 0){
+                if (entityData != null){// && entityData.currentHealth > 0
                     if (bulletOwner != null && otherCollider.gameObject){
                         if (otherCollider.gameObject == bulletOwner && !damageOwner){
                             return;

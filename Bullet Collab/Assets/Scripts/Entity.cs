@@ -238,7 +238,7 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private IEnumerator doWait(float waitTime, System.Action onComplete){
+    public IEnumerator doWait(float waitTime, System.Action onComplete){
         yield return new WaitForSeconds(waitTime);
         // run on complete
         onComplete();

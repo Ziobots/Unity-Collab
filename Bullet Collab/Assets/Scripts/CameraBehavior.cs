@@ -7,6 +7,7 @@
 * Date		Software Version	Initials		Description
 * 10/26/22  0.10                 DS              Made the thing
 * 10/26/22  0.20                 DS              added instant step
+* 10/26/22  0.30                 DS              added death zoom
 *******************************************************************************/
 
 using System.Collections;
@@ -22,7 +23,9 @@ public class CameraBehavior : MonoBehaviour
     public float extraZoom = 0;
     public Vector2 cameraPosition = new Vector2(0,0);
     public GameObject cursorObj;
-
+    
+    // zoom variables
+    public float zoomSpeed = 1f;
     public bool instantJump = false;
 
     // Mouse Variables
@@ -68,7 +71,7 @@ public class CameraBehavior : MonoBehaviour
         }
 
         // Calculate the Zoom Level, Lerp for smooth transition
-        float alpha = instantJump ? 1f : Time.fixedDeltaTime * 1f;
+        float alpha = instantJump ? 1f : Time.fixedDeltaTime * zoomSpeed;
         Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize,cameraZoom + extraZoom,alpha);
 
         // Calculate the New Position, Lerp for smooth transition

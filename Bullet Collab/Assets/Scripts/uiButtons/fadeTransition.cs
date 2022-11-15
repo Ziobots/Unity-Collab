@@ -44,6 +44,19 @@ public class fadeTransition : MonoBehaviour
         onComplete();
     }
 
+    private void halfFade(System.Action onComplete,bool rightToLeft){
+        Vector2 startPivot = new Vector2(0f,0.5f);
+        Vector2 endPivot = new Vector2(1f,0.5f);
+        if (!rightToLeft){
+            startPivot = new Vector2(1f,0.5f);
+            endPivot = new Vector2(0f,0.5f);
+        }
+
+        onComplete();
+
+        LeanTween.value(gameObject,new Vector2(0.5f,0.5f),endPivot,fadeTime/2).setIgnoreTimeScale(true).setEaseLinear().setOnUpdateVector2(setPivot).setOnComplete(hideFade);
+    }
+
     // do a fade transition
     public void startFade(System.Action onComplete,bool rightToLeft){
         transitioning = true;
@@ -58,16 +71,15 @@ public class fadeTransition : MonoBehaviour
 
         // tween the fade
         LeanTween.cancel(gameObject);
-        LeanTween.value(gameObject,startPivot,endPivot,fadeTime).setIgnoreTimeScale(true).setEaseLinear().setOnUpdateVector2(setPivot).setOnComplete(hideFade);
-        
-        // activate it
+        setPivot(startPivot);
         Transform fade = gameObject.transform.Find("fade");
         if (fade){
             fade.gameObject.SetActive(true);
         }
-
-        // wait until screen is fully covered to continue thread
-        StartCoroutine(doWait(onComplete));
+        
+        LeanTween.value(gameObject,startPivot,new Vector2(0.5f,0.5f),fadeTime/2).setIgnoreTimeScale(true).setEaseLinear().setOnUpdateVector2(setPivot).setOnComplete(delegate(){
+            halfFade(onComplete,rightToLeft);
+        });
     }
 
     // hide this at the start

@@ -55,6 +55,7 @@ public class loginSetup : MonoBehaviour
     // transition obj
     public GameObject transitioner; 
     private bool loginActive = false;  
+    private bool closeActive = true;
 
     public Button submitButton;
     private EventSystem system;
@@ -66,7 +67,7 @@ public class loginSetup : MonoBehaviour
 
     // button functions
     public void loginButton(){
-        if (!loginActive){
+        if (!loginActive || dataInfo.loggedIn){
             return;
         }
 
@@ -204,15 +205,15 @@ public class loginSetup : MonoBehaviour
     }
 
     private void onLoginSuccess(LoginResult result){
-        print("login success");
+        if (!dataInfo.loggedIn){
+            // update the shared data
+            dataInfo.sessionTicket = result.SessionTicket;
+            dataInfo.userID = result.PlayFabId;
+            dataInfo.loggedIn = true;
+            loginActive = false;
 
-        // update the shared data
-        dataInfo.sessionTicket = result.SessionTicket;
-        dataInfo.userID = result.PlayFabId;
-        dataInfo.loggedIn = true;
-        loginActive = false;
-
-        closeMenu();
+            closeMenu();
+        }
     }
 
     private void onRegisterSuccess(RegisterPlayFabUserResult result){
@@ -264,23 +265,36 @@ public class loginSetup : MonoBehaviour
             loadUIScreen.SetActive(true);
 
             // get the information from the last run
+            bool alreadyGot = false;
             dataInfo.onDataGet = delegate{
+                if (alreadyGot){
+                    return;
+                }
+
+                alreadyGot = true;
+                dataInfo.onDataGet = null;
                 StartCoroutine(doWait(delegate{
                     transitioner.GetComponent<fadeTransition>().startFade(delegate{
                         gotCurrentRunData();
-                    },false);
-                },1.25f));
+                    },true);
+                },1f));
             };
 
             // get the user information
-            dataInfo.getTemporaryData();
+            StartCoroutine(doWait(delegate{
+                dataInfo.getTemporaryData();
+            },0.5f));
         }else{
             gotCurrentRunData();
         }
-
     }
 
     public void closeMenu(){
+        if (!closeActive){
+            return;
+        }
+
+        closeActive = false;
         loginActive = false;
         errorColor = new Color32(253,106,106,255);
         transitioner.GetComponent<fadeTransition>().startFade(c_M,true);
@@ -328,6 +342,7 @@ public class loginSetup : MonoBehaviour
         enterMenu.SetActive(true);
         loginMenu.SetActive(true);
         mainMenu.SetActive(true);
+        loadUIScreen.SetActive(false);
 
         // disable reticle
         mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();

@@ -72,16 +72,33 @@ public class endScreen : MonoBehaviour
         blurObj.SetActive(false);
     }
 
+    public string padInteger(int padNumber){
+        if (Mathf.Abs(padNumber) < 10){
+            return "0" + Mathf.Abs(padNumber);
+        }
+
+        return "" + padNumber;
+    }
+
+    // get readable time
+    public string getReadableTime(float duration){
+        int hours = (int) Mathf.Floor(duration/60f/60f);
+        duration -= hours * 60f * 60f;
+        int minutes = (int) Mathf.Floor(duration/60f);
+        duration -= minutes * 60f;
+        return padInteger(hours) + ":" + padInteger(minutes) + ":" + padInteger((int)duration);
+    }
+
     // load this menu
     public void loadMenu(){
         setupMenu();
 
         // set the stats from shared info module
         if (dataInfo != null && statHolder != null){
-            setStatValue("stat_Time","0:00:00");
+            setStatValue("stat_Time",getReadableTime(dataInfo.gameEndTime - dataInfo.gameStartTime));
             setStatValue("stat_Enemy","" + dataInfo.enemiesKilled);
             setStatValue("stat_Perk","" + dataInfo.perkIDList.Count);
-            setStatValue("stat_Room","" + (dataInfo.currentRoom));
+            setStatValue("stat_Room","" + (dataInfo.currentRoom - 1));
             setStatValue("stat_Score","" + dataInfo.totalScore);
         }
 

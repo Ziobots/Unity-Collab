@@ -326,6 +326,9 @@ public class gameLoader : MonoBehaviour
         spawningEnemies = false;
         waveStarted = false;
         spawnedPerks = false;
+
+        dataInfo.currentRoom = currentRoom;
+        dataInfo.currentWave = currentWave;
     }
 
     public void showContinue(){
@@ -446,6 +449,9 @@ public class gameLoader : MonoBehaviour
             currentWave = 1;
             nextRoom();
 
+            dataInfo.currentRoom = currentRoom;
+            dataInfo.currentWave = currentWave;
+
             // reset data for obj
             dataInfo.resetGameStats();
             dataInfo.resetPlayerObj(playerObj);
@@ -526,6 +532,10 @@ public class gameLoader : MonoBehaviour
                     if (!spawnedPerks){
                         spawnedPerks = true;
                         currentWave++;
+
+                        dataInfo.currentRoom = currentRoom;
+                        dataInfo.currentWave = currentWave;
+
                         spawnPerks();
                         showContinue();
 
@@ -546,6 +556,9 @@ public class gameLoader : MonoBehaviour
                     spawningEnemies = true;
                     spawnEnemies();
                     waveStarted = true;
+
+                    dataInfo.currentRoom = currentRoom;
+                    dataInfo.currentWave = currentWave;
                 }
             }
         }

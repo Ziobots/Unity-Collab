@@ -433,6 +433,7 @@ public class Enemy : Entity
             if (damagedBy != null && damagedBy.tag == "Player"){
                 if (dataInfo != null){
                     dataInfo.enemiesKilled++;
+                    dataInfo.totalScore += (int)(maxHealth * 10);
                 }
             }
 

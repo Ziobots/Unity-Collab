@@ -239,7 +239,30 @@ public class sharedData : MonoBehaviour
         }
     }
 
+    public void sendLeaderboard(int score){
+        if (loggedIn){
+            var request = new UpdatePlayerStatisticsRequest{
+                Statistics = new List<StatisticUpdate>{
+                    new StatisticUpdate{
+                        StatisticName = "Score",
+                        Value = score
+                    }
+                }
+            };
+
+            PlayFabClientAPI.UpdatePlayerStatistics(request,onLeaderboardSend,onLeaderboardError);
+        }
+    }
+
     // Playfab Events
+
+    public void onLeaderboardSend(UpdatePlayerStatisticsResult result){
+        print("Score was sent to playfab leaderboard");
+    }
+
+    public void onLeaderboardError(PlayFabError error){
+        print("Score was sent to playfab leaderboard");
+    }
 
     public void onDataSend(UpdateUserDataResult result){
         print("Data was sent to playfab");

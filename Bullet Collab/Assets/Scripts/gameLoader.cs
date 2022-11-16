@@ -321,6 +321,10 @@ public class gameLoader : MonoBehaviour
             nextType = RoomType.Shop;
         }
 
+        if (currentRoom > 1){
+            dataInfo.totalScore += 1000;
+        }
+
         List<GameObject> roomList = getRooms(nextType);
         if (roomList != null && roomList.Count > 0){
             System.Random randomGen = new System.Random(gameSeed + (currentRoom * 1000) + 111);// gotta offset from the original seed a bit for uniqueness
@@ -536,6 +540,7 @@ public class gameLoader : MonoBehaviour
     public void endGame(){
         Setup();
         if (dataInfo != null){
+            dataInfo.sendLeaderboard(dataInfo.totalScore);
             dataInfo.currentTempData = new tempDataClass();
             dataInfo.gameEndTime = Time.time;
 
@@ -603,6 +608,7 @@ public class gameLoader : MonoBehaviour
                 }else if(!spawningEnemies && roomLoaded && gameLoaded){
                     currentWave++;
                     spawningEnemies = true;
+                    dataInfo.totalScore += 100;
                     spawnEnemies();
                     waveStarted = true;
 

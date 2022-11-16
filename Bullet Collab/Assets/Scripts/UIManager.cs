@@ -28,6 +28,12 @@ public class UIManager : MonoBehaviour
     public GameObject bulletBar;
     public GameObject bulletUIPrefab;
 
+    public GameObject scoreLabel;
+
+    // temp vars
+    private int lastCurrent = -1;
+    private int lastScore = -1;
+
     // Update the health bar visual
     public void updateHealth(){
         // Shield Check?
@@ -81,8 +87,6 @@ public class UIManager : MonoBehaviour
     }
 
     // bullet ui stuff
-    //private int lastMax = -1;
-    private int lastCurrent = -1;
 
     private void setTextSize(float value){
         GameObject textLabel = bulletBar.transform.Find("reSize").Find("ammoCount").gameObject;
@@ -145,10 +149,31 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // score tween methods
+    private void setScoreSize(float value){
+        if (scoreLabel != null){
+            scoreLabel.GetComponent<TMPro.TextMeshProUGUI>().fontSize = value;
+        }
+    }
+
+    // score update
+    public void updateScore(){
+        if (dataInfo.totalScore != lastScore && scoreLabel != null){
+            lastScore = dataInfo.totalScore;
+
+            scoreLabel.GetComponent<TMPro.TextMeshProUGUI>().text = "" + lastScore;
+            
+            LeanTween.cancel(scoreLabel);
+            LeanTween.value(scoreLabel,40f,45f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setScoreSize);
+            LeanTween.value(scoreLabel,45f,40f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setScoreSize).setDelay(0.1f);
+        }
+    }
+
     // function for updating ui
     public void updateGameUI(){
         updateHealth();
         updateBullet();
+        updateScore();
     }
 
     /* // OLD RADIAL DIAL STUFF

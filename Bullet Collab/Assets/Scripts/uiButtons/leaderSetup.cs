@@ -18,9 +18,15 @@ public class leaderSetup : MonoBehaviour
     public GameObject dataManager;
     [HideInInspector] public sharedData dataInfo;
     
+    // ui stuff
+    public GameObject transitioner; 
+    public GameObject playMenu;
+
     // leaderboard variables
     public GameObject statHolder;
     public GameObject leaderHolder;
+
+    public bool menuActive = false;
 
     private void setStatValue(string statName, string statValue){
         Transform statObj = statHolder.transform.Find(statName);
@@ -38,7 +44,18 @@ public class leaderSetup : MonoBehaviour
 
     public void loadLeaderboard(){
         if (leaderHolder != null){
-            
+
+        }
+    }
+
+    public void backButton(){
+        if (menuActive){
+            menuActive = false;
+            transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                unloadMenu();
+                playMenu.SetActive(true);
+                playMenu.GetComponent<playscreenSetup>().loadMenu();
+            },false);
         }
     }
 
@@ -55,11 +72,13 @@ public class leaderSetup : MonoBehaviour
             setStatValue("stat_Room","" + dataInfo.statRoomCount);
         }
 
+        menuActive = true;
+
         // load in the leaderboard
         loadLeaderboard();
     }
 
     public void unloadMenu(){
-        
+        gameObject.SetActive(false);
     }
 }

@@ -97,12 +97,18 @@ public class sharedData : MonoBehaviour
     public float bulletSpread;
     public float bulletDamage;
 
+    // Leaderboard
+    public GetLeaderboardResult leaderboardData;
+    public float lastLeaderboardTime = -50000f;
+    public float resetLeaderTime = 60 * 10;
+
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
 
     // Data Receive function variables
     [HideInInspector] public System.Action onDataGet = null;
+    [HideInInspector] public System.Action onLeaderGet = null;
 
     // Reset the Player obj
     public void resetPlayerObj(GameObject playerObj) {
@@ -245,6 +251,23 @@ public class sharedData : MonoBehaviour
         }
     }
 
+    public void getLeaderboard(){
+        // only get the leaderboard every 10 minutes
+        if (leaderboardData != null || Time.realtimeSinceStartup - lastLeaderboardTime >= resetLeaderTime){
+            lastLeaderboardTime = Time.realtimeSinceStartup;
+            
+            var request = new GetLeaderboardRequest{
+                StatisticName = "Score",
+                StartPosition = 0,
+                MaxResultsCount = 99
+            };
+
+            PlayFabClientAPI.GetLeaderboard(request,onLeaderboardGet,onLeaderboardError);
+        }else{
+            onLeaderboardGet(leaderboardData);
+        }
+    }
+
     public void sendLeaderboard(int score){
         if (loggedIn){
             var request = new UpdatePlayerStatisticsRequest{
@@ -262,12 +285,26 @@ public class sharedData : MonoBehaviour
 
     // Playfab Events
 
+    public void onLeaderboardGet(GetLeaderboardResult result){
+        print("got leaderboard data");
+        leaderboardData = result;
+        if (onLeaderGet != null){
+            onLeaderGet();
+            onLeaderGet = null;
+        }
+    }
+
     public void onLeaderboardSend(UpdatePlayerStatisticsResult result){
         print("Score was sent to playfab leaderboard");
     }
 
     public void onLeaderboardError(PlayFabError error){
-        print("Score was sent to playfab leaderboard");
+        print("Cannot connect to playfab leaderboard");
+        print(error.ErrorMessage);
+        if (onLeaderGet != null){
+            onLeaderGet();
+            onLeaderGet = null;
+        }
     }
 
     public void onDataSend(UpdateUserDataResult result){
@@ -293,6 +330,9 @@ public class sharedData : MonoBehaviour
     }
 
     public void onDataError(PlayFabError error){
+        print("could not save/get data");
+        print(error.ErrorMessage);
+
         if (onDataGet != null){
             onDataGet();
             onDataGet = null;

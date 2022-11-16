@@ -80,7 +80,6 @@ public class UIManager : MonoBehaviour
         // remove hearts that dont exist
         foreach (Transform child in healthBar.transform){
             if (!safeList.ContainsKey(child.gameObject)){
-                print("not safe:" + child.name);
                 Destroy(child.gameObject);
             }
         }

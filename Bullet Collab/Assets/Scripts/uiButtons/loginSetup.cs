@@ -6,6 +6,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 11/04/22  0.10                 DS              Made the thing
+* 11/16/22  0.40                 DS              login as guest creates a temp account
 *******************************************************************************/
 
 using System.Collections;
@@ -158,6 +159,7 @@ public class loginSetup : MonoBehaviour
             Email = createEmailField.text,
             Password = createPasswordField.text,
             Username = createNameField.text,
+            DisplayName = createNameField.text,
             RequireBothUsernameAndEmail = true
         };
 
@@ -172,6 +174,18 @@ public class loginSetup : MonoBehaviour
     public void guestButton(){
         if (!loginActive){
             return;
+        }
+
+        // create a temporary login so that we can still call api for the leaderboard, etc
+        if (!dataInfo.loggedIn){
+            print("Login as guest");
+
+            var request = new LoginWithCustomIDRequest {
+                CustomId = SystemInfo.deviceUniqueIdentifier,
+                CreateAccount = true
+            };
+
+            PlayFabClientAPI.LoginWithCustomID(request,onGuestSuccess,onGuestError);
         }
 
         closeMenu();
@@ -202,6 +216,14 @@ public class loginSetup : MonoBehaviour
         print(error.ErrorMessage);
         errorMenu.GetComponent<errorPopup>().displayError(error.ErrorMessage,errorColor);
         loginActive = true;
+    }
+
+    private void onGuestError(PlayFabError error){
+        print(error.ErrorMessage);
+    }
+
+    private void onGuestSuccess(LoginResult result){
+        print("Guest login successful");
     }
 
     private void onLoginSuccess(LoginResult result){
@@ -284,8 +306,15 @@ public class loginSetup : MonoBehaviour
             StartCoroutine(doWait(delegate{
                 dataInfo.getTemporaryData();
             },0.5f));
-        }else{
-            gotCurrentRunData();
+        }else{// gotta wait for temp login
+            // show load screen
+            loadUIScreen.SetActive(true);
+
+            StartCoroutine(doWait(delegate{
+                transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                    gotCurrentRunData();
+                },true);
+            },1f));
         }
     }
 

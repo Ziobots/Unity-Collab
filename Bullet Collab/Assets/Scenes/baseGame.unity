@@ -18451,6 +18451,11 @@ MonoBehaviour:
   bulletTime: 0
   bulletSpread: 0
   bulletDamage: 0
+  leaderboardData:
+    Leaderboard: []
+    Version: 0
+  lastLeaderboardTime: -1000
+  resetLeaderTime: 600
   reloadStartTime: 0
   delayStartTime: 0
 --- !u!4 &1356760224
@@ -21913,7 +21918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7242223613507955597, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00035801277
+      value: -0.000007892864
       objectReference: {fileID: 0}
     - target: {fileID: 7245284069980374470, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchorMax.y

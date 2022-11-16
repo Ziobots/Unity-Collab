@@ -131,10 +131,14 @@ public class leaderSetup : MonoBehaviour
 
                             // tween effect
                             LeanTween.cancel(newLeaderSpot.gameObject);
-                            newLeaderSpot.Find("Holder").gameObject.GetComponent<RectTransform>().pivot = new Vector2(2f,0.5f);
-                            LeanTween.value(newLeaderSpot.gameObject,2f,0.5f,0.5f).setIgnoreTimeScale(true).setEaseOutBack().setOnUpdate(delegate(float value){
-                                newLeaderSpot.Find("Holder").gameObject.GetComponent<RectTransform>().pivot = new Vector2(value,0.5f);
-                            }).setDelay(item.Position / 10f);
+                            if (waitTime == 0f){
+                                newLeaderSpot.Find("Holder").gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f);
+                            }else{
+                                newLeaderSpot.Find("Holder").gameObject.GetComponent<RectTransform>().pivot = new Vector2(2f,0.5f);
+                                LeanTween.value(newLeaderSpot.gameObject,2f,0.5f,0.5f).setIgnoreTimeScale(true).setEaseOutBack().setOnUpdate(delegate(float value){
+                                    newLeaderSpot.Find("Holder").gameObject.GetComponent<RectTransform>().pivot = new Vector2(value,0.5f);
+                                }).setDelay(item.Position / 10f);
+                            }
                         }
                     }
                 }else{

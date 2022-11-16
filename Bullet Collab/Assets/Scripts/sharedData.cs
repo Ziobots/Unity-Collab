@@ -65,22 +65,28 @@ public class sharedData : MonoBehaviour
     public float minTime; // in seconds
 
     // Temporary Data
+    public float gameStartTime;
+    public float gameEndTime;
+    public int totalScore = 0;
+    public int currentRoom = 1;
+    public int currentWave = 1;
     public int seed;
     public int wave;
     public string currentRoomID;
     public float currenthealth;
     public float maxHealth;
+    public int enemiesKilled = 0;
     public int currency;
     public List<string> perkIDList = new List<string>();
     [HideInInspector] public tempDataClass currentTempData = new tempDataClass();
 
-    // game stats
-    public float gameStartTime;
-    public float gameEndTime;
-    public int enemiesKilled = 0;
-    public int totalScore = 0;
-    public int currentRoom = 1;
-    public int currentWave = 1;
+    // perm stats
+    public int statHighscore = 0;
+    public int statRunCount = 0;
+    public int statWinCount = 0;
+    public int statKillCount = 0;
+    public int statPerkCount = 0;
+    public int statRoomCount = 0;
 
     // Temporary Bullet - mainly for ui
     public int maxAmmo;

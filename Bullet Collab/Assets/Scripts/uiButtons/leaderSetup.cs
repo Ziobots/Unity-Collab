@@ -33,6 +33,10 @@ public class leaderSetup : MonoBehaviour
 
     public bool menuActive = false;
 
+    // error variables
+    public GameObject errorMenu;
+    private Color32 errorColor = new Color32(253,106,106,255);
+
     private void setStatValue(string statName, string statValue){
         Transform statObj = statHolder.transform.Find(statName);
         if (statObj != null && statObj.gameObject != null){
@@ -71,7 +75,7 @@ public class leaderSetup : MonoBehaviour
             print("Load leader menu");
 
             float waitTime = 0f;
-            if (Time.realtimeSinceStartup - dataInfo.lastLeaderboardTime >= dataInfo.resetLeaderTime){
+            if ((Time.realtimeSinceStartup - dataInfo.lastLeaderboardTime >= dataInfo.resetLeaderTime) || !dataInfo.connectedToPlayfab){
                 print("LOAD WAIT");
                 wipeLeaderboard();
                 loadHolder.SetActive(true);
@@ -80,13 +84,13 @@ public class leaderSetup : MonoBehaviour
                 rankField.GetComponent<CanvasGroup>().alpha = 0f;
                 waitTime = 2f;
             }else{
-                loadHolder.SetActive(false);
+                loadHolder.SetActive(!dataInfo.connectedToPlayfab);
             }
 
             scroller.value = 1f;
 
             dataInfo.onRankGet = delegate{
-                if (!(gameObject.activeSelf && menuActive)){
+                if (!(gameObject.activeSelf && menuActive && dataInfo.connectedToPlayfab)){
                     return;
                 }
 
@@ -111,7 +115,11 @@ public class leaderSetup : MonoBehaviour
             };
 
             dataInfo.onLeaderGet = delegate{
-                if (!(gameObject.activeSelf && menuActive)){
+                if (!dataInfo.connectedToPlayfab){
+                    errorMenu.GetComponent<errorPopup>().displayError("Unable to connect to PlayFab.",errorColor);
+                }
+                
+                if (!(gameObject.activeSelf && menuActive && dataInfo.connectedToPlayfab)){
                     return;
                 }
 
@@ -122,7 +130,7 @@ public class leaderSetup : MonoBehaviour
 
                 Dictionary<GameObject,bool> safeList = new Dictionary<GameObject, bool>();
                 
-                if (dataInfo.leaderboardData != null){
+                if (dataInfo.leaderboardData != null && dataInfo.connectedToPlayfab){
                     // fake values just for testing // REMOVE IT LATER
                     for (int a = 1; a <= 50; a++){
                         var fake = new PlayFab.ClientModels.PlayerLeaderboardEntry();
@@ -231,6 +239,7 @@ public class leaderSetup : MonoBehaviour
     public void unloadMenu(){
         menuActive = false;
         gameObject.SetActive(false);
+        errorMenu.GetComponent<errorPopup>().hideError();
         dataInfo.onLeaderGet = null;
         dataInfo.onRankGet = null;
     }

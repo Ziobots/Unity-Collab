@@ -224,6 +224,7 @@ public class loginSetup : MonoBehaviour
 
     private void onGuestSuccess(LoginResult result){
         print("Guest login successful");
+        dataInfo.connectedToPlayfab = true;
     }
 
     private void onLoginSuccess(LoginResult result){
@@ -233,6 +234,7 @@ public class loginSetup : MonoBehaviour
             dataInfo.userID = result.PlayFabId;
             dataInfo.loggedIn = true;
             loginActive = false;
+            dataInfo.connectedToPlayfab = true;
 
             closeMenu();
         }

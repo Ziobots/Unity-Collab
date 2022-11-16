@@ -57,6 +57,7 @@ public class sharedData : MonoBehaviour
     public string userName;
     public string userID; 
     public bool loggedIn = false;
+    public bool connectedToPlayfab = false;
 
     // Persistant Data
     public int runCount;
@@ -232,13 +233,13 @@ public class sharedData : MonoBehaviour
     }
 
     public void getTemporaryData(){
-        if (loggedIn){
+        if (loggedIn && connectedToPlayfab){
             PlayFabClientAPI.GetUserData(new GetUserDataRequest(), onDataReceive, onDataError);
         }
     }
 
     public void saveTemporaryData(tempDataClass forceSave){
-        if (loggedIn){
+        if (loggedIn && connectedToPlayfab){
             tempDataClass dataToSave = getTemporaryJSON();
             if (forceSave != null){
                 dataToSave = forceSave;
@@ -256,7 +257,7 @@ public class sharedData : MonoBehaviour
 
     public void getClientRank(){
         // only get the leaderboard every 10 minutes
-        if (loggedIn &&  (userID != null && (clientLeaderboardData != null || Time.realtimeSinceStartup - lastClientRankTime >= resetLeaderTime))){
+        if ((loggedIn && connectedToPlayfab) &&  (userID != null && (clientLeaderboardData != null || Time.realtimeSinceStartup - lastClientRankTime >= resetLeaderTime))){
             lastClientRankTime = Time.realtimeSinceStartup;
             
             var request = new GetLeaderboardAroundPlayerRequest{
@@ -273,7 +274,7 @@ public class sharedData : MonoBehaviour
 
     public void getLeaderboard(){
         // only get the leaderboard every 10 minutes
-        if ((leaderboardData != null || Time.realtimeSinceStartup - lastLeaderboardTime >= resetLeaderTime)){
+        if (connectedToPlayfab && (leaderboardData != null || Time.realtimeSinceStartup - lastLeaderboardTime >= resetLeaderTime)){
             print("Call Playfab for leaderboard");
             lastLeaderboardTime = Time.realtimeSinceStartup;
             
@@ -290,7 +291,7 @@ public class sharedData : MonoBehaviour
     }
 
     public void sendLeaderboard(int score){
-        if (loggedIn){
+        if (loggedIn && connectedToPlayfab){
             var request = new UpdatePlayerStatisticsRequest{
                 Statistics = new List<StatisticUpdate>{
                     new StatisticUpdate{

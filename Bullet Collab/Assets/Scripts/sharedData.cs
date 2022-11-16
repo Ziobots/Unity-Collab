@@ -99,7 +99,9 @@ public class sharedData : MonoBehaviour
 
     // Leaderboard
     public GetLeaderboardResult leaderboardData;
+    public GetLeaderboardAroundPlayerResult clientLeaderboardData;
     public float lastLeaderboardTime = -50000f;
+    public float lastClientRankTime = -50000f;
     public float resetLeaderTime = 60 * 10;
 
     // time vars
@@ -109,6 +111,7 @@ public class sharedData : MonoBehaviour
     // Data Receive function variables
     [HideInInspector] public System.Action onDataGet = null;
     [HideInInspector] public System.Action onLeaderGet = null;
+    [HideInInspector] public System.Action onRankGet = null;
 
     // Reset the Player obj
     public void resetPlayerObj(GameObject playerObj) {
@@ -251,9 +254,27 @@ public class sharedData : MonoBehaviour
         }
     }
 
+    public void getClientRank(){
+        // only get the leaderboard every 10 minutes
+        if (loggedIn &&  (userID != null && (clientLeaderboardData != null || Time.realtimeSinceStartup - lastClientRankTime >= resetLeaderTime))){
+            lastClientRankTime = Time.realtimeSinceStartup;
+            
+            var request = new GetLeaderboardAroundPlayerRequest{
+                StatisticName = "Score",
+                PlayFabId = userID,
+                MaxResultsCount = 1
+            };
+
+            PlayFabClientAPI.GetLeaderboardAroundPlayer(request,onClientRankGet,onClientRankError);
+        }else{
+            onClientRankGet(clientLeaderboardData);
+        }
+    }
+
     public void getLeaderboard(){
         // only get the leaderboard every 10 minutes
-        if (leaderboardData != null || Time.realtimeSinceStartup - lastLeaderboardTime >= resetLeaderTime){
+        if ((leaderboardData != null || Time.realtimeSinceStartup - lastLeaderboardTime >= resetLeaderTime)){
+            print("Call Playfab for leaderboard");
             lastLeaderboardTime = Time.realtimeSinceStartup;
             
             var request = new GetLeaderboardRequest{
@@ -285,6 +306,15 @@ public class sharedData : MonoBehaviour
 
     // Playfab Events
 
+    public void onClientRankGet(GetLeaderboardAroundPlayerResult result){
+        print("got client rank data");
+        clientLeaderboardData = result;
+        if (onRankGet != null){
+            onRankGet();
+            onRankGet = null;
+        }
+    }
+
     public void onLeaderboardGet(GetLeaderboardResult result){
         print("got leaderboard data");
         leaderboardData = result;
@@ -296,6 +326,15 @@ public class sharedData : MonoBehaviour
 
     public void onLeaderboardSend(UpdatePlayerStatisticsResult result){
         print("Score was sent to playfab leaderboard");
+    }
+
+    public void onClientRankError(PlayFabError error){
+        print("Cannot get client rank");
+        print(error.ErrorMessage);
+        if (onRankGet != null){
+            onRankGet();
+            onRankGet = null;
+        }
     }
 
     public void onLeaderboardError(PlayFabError error){

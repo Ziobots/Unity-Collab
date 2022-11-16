@@ -29,6 +29,7 @@ public class leaderSetup : MonoBehaviour
     public GameObject leaderPrefab;
     public GameObject loadHolder;
     public Scrollbar scroller;
+    public GameObject rankField;
 
     public bool menuActive = false;
 
@@ -67,6 +68,8 @@ public class leaderSetup : MonoBehaviour
 
     public void loadLeaderboard(){
         if (leaderHolder != null){
+            print("Load leader menu");
+
             float waitTime = 0f;
             if (Time.realtimeSinceStartup - dataInfo.lastLeaderboardTime >= dataInfo.resetLeaderTime){
                 print("LOAD WAIT");
@@ -74,17 +77,43 @@ public class leaderSetup : MonoBehaviour
                 loadHolder.SetActive(true);
                 LeanTween.cancel(loadHolder);
                 loadHolder.GetComponent<CanvasGroup>().alpha = 1f;
+                rankField.GetComponent<CanvasGroup>().alpha = 0f;
                 waitTime = 2f;
             }else{
                 loadHolder.SetActive(false);
             }
 
-            dataInfo.onLeaderGet = delegate{
+            scroller.value = 1f;
+
+            dataInfo.onRankGet = delegate{
                 if (!(gameObject.activeSelf && menuActive)){
                     return;
                 }
 
-                scroller.value = 1f;
+                string myRank = "Unknown";
+                if (dataInfo.clientLeaderboardData != null && dataInfo.clientLeaderboardData.Leaderboard.Count > 0){
+                    if (rankField && dataInfo.clientLeaderboardData.Leaderboard[0] != null){
+                        myRank = "#" + (dataInfo.clientLeaderboardData.Leaderboard[0].Position + 1);
+                    }
+                }
+
+                rankField.transform.Find("title").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = myRank;
+                rankField.GetComponent<TMPro.TextMeshProUGUI>().text = myRank;
+                LeanTween.cancel(rankField);
+
+                if (waitTime == 0){
+                    rankField.GetComponent<CanvasGroup>().alpha = 1f;
+                }else{
+                    LeanTween.value(rankField,0f,1f,0.1f).setIgnoreTimeScale(true).setEaseLinear().setOnUpdate(delegate(float alpha){
+                        rankField.GetComponent<CanvasGroup>().alpha = alpha;
+                    });
+                }
+            };
+
+            dataInfo.onLeaderGet = delegate{
+                if (!(gameObject.activeSelf && menuActive)){
+                    return;
+                }
 
                 if (loadHolder.GetComponent<CanvasGroup>().alpha >= 1f){
                     LeanTween.cancel(loadHolder);
@@ -94,8 +123,6 @@ public class leaderSetup : MonoBehaviour
                 Dictionary<GameObject,bool> safeList = new Dictionary<GameObject, bool>();
                 
                 if (dataInfo.leaderboardData != null){
-
-
                     // fake values just for testing // REMOVE IT LATER
                     for (int a = 1; a <= 50; a++){
                         var fake = new PlayFab.ClientModels.PlayerLeaderboardEntry();
@@ -164,6 +191,7 @@ public class leaderSetup : MonoBehaviour
 
             StartCoroutine(doWait(delegate{
                 if (gameObject.activeSelf && menuActive){
+                    dataInfo.getClientRank();
                     dataInfo.getLeaderboard();
                 }
             },waitTime));
@@ -204,6 +232,7 @@ public class leaderSetup : MonoBehaviour
         menuActive = false;
         gameObject.SetActive(false);
         dataInfo.onLeaderGet = null;
+        dataInfo.onRankGet = null;
     }
 
     private void Update() {

@@ -5613,6 +5613,7 @@ MonoBehaviour:
   dataInfo: {fileID: 0}
   transitioner: {fileID: 7484231557570648093}
   menuActive: 0
+  statPanel: {fileID: 6819626068755207960}
 --- !u!1 &1438314800407679896
 GameObject:
   m_ObjectHideFlags: 0
@@ -13354,12 +13355,24 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6114391716169490339}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 2
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1576296990745763724}
+        m_TargetAssemblyTypeName: settingSetup, Assembly-CSharp
+        m_MethodName: update_MusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3837239213091915813
 GameObject:
   m_ObjectHideFlags: 0
@@ -27184,12 +27197,24 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4860574696860588614}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 2
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1576296990745763724}
+        m_TargetAssemblyTypeName: settingSetup, Assembly-CSharp
+        m_MethodName: update_MasterVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7068852861286676040
 GameObject:
   m_ObjectHideFlags: 0
@@ -27507,7 +27532,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1576296990745763724}
+        m_TargetAssemblyTypeName: settingSetup, Assembly-CSharp
+        m_MethodName: update_MobileControl
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &7240828972829763223
 GameObject:
@@ -29472,12 +29509,24 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4866350726363946008}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 2
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1576296990745763724}
+        m_TargetAssemblyTypeName: settingSetup, Assembly-CSharp
+        m_MethodName: update_GameVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7747086375329874084
 GameObject:
   m_ObjectHideFlags: 0
@@ -30516,7 +30565,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1576296990745763724}
+        m_TargetAssemblyTypeName: settingSetup, Assembly-CSharp
+        m_MethodName: update_Particles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &7908817940961414031
 GameObject:

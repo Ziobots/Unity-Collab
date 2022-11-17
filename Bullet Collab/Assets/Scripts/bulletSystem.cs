@@ -62,15 +62,17 @@ public class bulletSystem : MonoBehaviour
     }
 
     private void hitEffect(){
-        visualFx newHitVFX = Instantiate(hitPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),transform.rotation,debriFolder);
-        if (newHitVFX != null){
-            newHitVFX.lifeTime = 0f;
-            newHitVFX.killAnimation = true;
-            newHitVFX.animSpeed = 2f;
+        if (dataInfo.particleFX){
+            visualFx newHitVFX = Instantiate(hitPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),transform.rotation,debriFolder);
+            if (newHitVFX != null){
+                newHitVFX.lifeTime = 0f;
+                newHitVFX.killAnimation = true;
+                newHitVFX.animSpeed = 2f;
 
-            float hitScale = Mathf.Clamp(transform.localScale.x * 10f,2f,1000f);
-            newHitVFX.transform.localScale = new Vector3(hitScale,hitScale,1);
-            newHitVFX.setupVFX();
+                float hitScale = Mathf.Clamp(transform.localScale.x * 10f,2f,1000f);
+                newHitVFX.transform.localScale = new Vector3(hitScale,hitScale,1);
+                newHitVFX.setupVFX();
+            }
         }
     }
 
@@ -180,6 +182,7 @@ public class bulletSystem : MonoBehaviour
         float alpha = Time.fixedDeltaTime * 20f;
         transform.localScale = Vector3.Lerp(transform.localScale,new Vector3(bulletSize,bulletSize,1),alpha);
         gameObject.GetComponent<TrailRenderer>().startWidth = bulletSize * 2.3f;
+        gameObject.GetComponent<TrailRenderer>().enabled = dataInfo.particleFX;
 
         // remove the bullet after certain amount of time
         if (Time.time - createTime >= lifeTime){

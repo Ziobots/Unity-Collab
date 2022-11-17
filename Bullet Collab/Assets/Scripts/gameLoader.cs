@@ -544,6 +544,19 @@ public class gameLoader : MonoBehaviour
             dataInfo.currentTempData = new tempDataClass();
             dataInfo.gameEndTime = Time.time;
 
+            // change perm stats
+            dataInfo.statKillCount += dataInfo.enemiesKilled;
+            dataInfo.statPerkCount += dataInfo.perkIDList.Count;
+            dataInfo.statRoomCount += dataInfo.currentRoom;
+            
+            if (dataInfo.currenthealth > 0){
+                dataInfo.statWinCount++;
+            }
+            
+            if (dataInfo.statHighscore < dataInfo.totalScore){
+                dataInfo.statHighscore = dataInfo.totalScore;
+            }
+
             // overwrite the current run data
             dataInfo.saveTemporaryData(dataInfo.currentTempData);
 

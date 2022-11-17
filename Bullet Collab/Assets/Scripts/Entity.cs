@@ -100,7 +100,7 @@ public class Entity : MonoBehaviour
         perkCommands.applyPerk(perkIDList,"Reload",editList);
 
         if (reloadNoise != null){
-            reloadNoise.PlayOneShot(reloadNoise.clip,reloadNoise.volume);
+            reloadNoise.PlayOneShot(reloadNoise.clip,reloadNoise.volume  * dataInfo.gameVolume * dataInfo.masterVolume);
         }
 
         // add to the ammo one by one over time
@@ -164,7 +164,7 @@ public class Entity : MonoBehaviour
         }
 
         if (gunNoise != null){
-            gunNoise.PlayOneShot(gunNoise.clip,gunNoise.volume);
+            gunNoise.PlayOneShot(gunNoise.clip,gunNoise.volume  * dataInfo.gameVolume * dataInfo.masterVolume);
         }
 
         foreach(Transform point in launchPoints){
@@ -230,7 +230,7 @@ public class Entity : MonoBehaviour
             if (currentHealth <= 0){
                 perkCommands.applyPerk(perkIDList,"Killed",editList);
                 if (hurtNoise != null){
-                    hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume);
+                    hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume * dataInfo.gameVolume * dataInfo.masterVolume);
                 }
             }
 

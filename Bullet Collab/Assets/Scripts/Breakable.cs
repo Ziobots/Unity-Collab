@@ -62,7 +62,7 @@ public class Breakable : Entity
 
             currentHealth -= amount;
             if (hurtNoise != null){
-                hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume);
+                hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume  * dataInfo.gameVolume * dataInfo.masterVolume);
             }
 
             damageEffect();

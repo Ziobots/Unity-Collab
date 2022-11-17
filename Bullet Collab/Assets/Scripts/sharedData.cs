@@ -51,9 +51,9 @@ public class persistDataClass{
     public int statPerkCount = 0;
     public int statRoomCount = 0;
     // Settings
-    public float masterVolume = 0.5f;
-    public float musicVolume = 0.5f;
-    public float gameVolume = 0.5f;
+    public float masterVolume = 1f;
+    public float musicVolume = 1f;
+    public float gameVolume = 1f;
     public bool mobileControls = false;
     public bool particleFX = true;
 
@@ -241,6 +241,7 @@ public class sharedData : MonoBehaviour
         permData.masterVolume = masterVolume;
         permData.mobileControls = mobileControls;
         permData.musicVolume = musicVolume;
+        permData.gameVolume = gameVolume;
         permData.particleFX = particleFX;
         permData.statHighscore = statHighscore;
         permData.statKillCount = statKillCount;
@@ -407,6 +408,7 @@ public class sharedData : MonoBehaviour
                     masterVolume = permData.masterVolume;
                     //mobileControls = permData.mobileControls;
                     musicVolume = permData.musicVolume;
+                    gameVolume = permData.gameVolume;
                     particleFX = permData.particleFX;
                     statHighscore = permData.statHighscore;
                     statKillCount = permData.statKillCount;

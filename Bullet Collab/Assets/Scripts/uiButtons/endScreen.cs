@@ -37,6 +37,7 @@ public class endScreen : MonoBehaviour
     public GameObject gameMenu;
 
     private bool optionMade = false;
+    public GameObject currentCamera;
 
     // Blur Obj
     public GameObject blurObj;
@@ -141,8 +142,9 @@ public class endScreen : MonoBehaviour
         cursorData.updateHover(false);
 
         gameObject.SetActive(true);
-        Camera.current.GetComponent<CameraBehavior>().factorMouse = false;
-
+        if (currentCamera != null){
+            currentCamera.GetComponent<CameraBehavior>().factorMouse = false;
+        }
 
         // tween the fade
         LeanTween.cancel(gameObject);

@@ -18763,6 +18763,7 @@ MonoBehaviour:
   musicShop: {fileID: 69201633}
   musicBoss: {fileID: 20964807}
   currentSource: {fileID: 1396156597}
+  currentCamera: {fileID: 519420028}
 --- !u!4 &1104244803
 Transform:
   m_ObjectHideFlags: 0
@@ -21083,6 +21084,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: hurtUI
+      value: 
+      objectReference: {fileID: 7924832519663925794}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: weight
       value: 0
       objectReference: {fileID: 0}
@@ -21170,6 +21175,10 @@ PrefabInstance:
       propertyPath: bulletSpread
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: currentCamera
+      value: 
+      objectReference: {fileID: 519420028}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: currentHealth
       value: 6
@@ -22430,6 +22439,10 @@ PrefabInstance:
       propertyPath: transitioner
       value: 
       objectReference: {fileID: 1156881030}
+    - target: {fileID: 4536397820068541718, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+      propertyPath: currentCamera
+      value: 
+      objectReference: {fileID: 519420028}
     - target: {fileID: 4613219054949529017, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -23636,6 +23649,11 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &7924832519663925794 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6718673665601220483, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
+  m_PrefabInstance: {fileID: 7924832519663925789}
+  m_PrefabAsset: {fileID: 0}
 --- !u!225 &7924832519663925799
 CanvasGroup:
   m_ObjectHideFlags: 0

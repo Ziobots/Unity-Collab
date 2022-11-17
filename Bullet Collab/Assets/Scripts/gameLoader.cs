@@ -69,6 +69,7 @@ public class gameLoader : MonoBehaviour
     public AudioSource musicShop;
     public AudioSource musicBoss;
     public AudioSource currentSource;
+    public GameObject currentCamera;
 
     // music functions
 
@@ -143,6 +144,7 @@ public class gameLoader : MonoBehaviour
                 entityInfo.debriFolder = debriFolder;
                 entityInfo.gameManager = gameObject;
                 entityInfo.levelObj = levelObj;
+                entityInfo.currentCamera = currentCamera;
                 
                 // put the default perks into the spawn list
                 if (entityInfo.perkIDList != null && entityInfo.perkIDList.Count > 0){
@@ -329,9 +331,9 @@ public class gameLoader : MonoBehaviour
         clearGameObj();
 
         // Reset Position of Player to 0,0,0
-        if (playerObj != null){
+        if (playerObj != null && currentCamera != null){
             playerObj.transform.position = new Vector2(0,0);
-            Camera.current.gameObject.GetComponent<CameraBehavior>().instantJump = true;
+            currentCamera.GetComponent<CameraBehavior>().instantJump = true;
         }
 
         if (roomBase != null){
@@ -567,10 +569,12 @@ public class gameLoader : MonoBehaviour
             dataInfo.overwriteEntity(playerObj,dataInfo.currentTempData);
 
             // camera cursor stuff
-            Camera.current.GetComponent<CameraBehavior>().factorMouse = true;
-            Camera.current.GetComponent<CameraBehavior>().extraZoom = 0;
-            Camera.current.GetComponent<CameraBehavior>().zoomSpeed = 1f;
-            Camera.current.GetComponent<CameraBehavior>().instantJump = true;
+            if (currentCamera != null){
+                currentCamera.GetComponent<CameraBehavior>().factorMouse = true;
+                currentCamera.GetComponent<CameraBehavior>().extraZoom = 0;
+                currentCamera.GetComponent<CameraBehavior>().zoomSpeed = 1f;
+                currentCamera.GetComponent<CameraBehavior>().instantJump = true;
+            }
             
             mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
             cursorData.reticleActive = true;

@@ -526,9 +526,9 @@ public class Enemy : Entity
 
         base.setupEntity();
 
-        if (Camera.current){
-            hurtNoise = Camera.current.transform.Find("SoundAssets").Find("hurt").gameObject.GetComponent<AudioSource>();
-            gunNoise = Camera.current.transform.Find("SoundAssets").Find("enemyFire").gameObject.GetComponent<AudioSource>();
+        if (currentCamera != null){
+            hurtNoise = currentCamera.transform.Find("SoundAssets").Find("hurt").gameObject.GetComponent<AudioSource>();
+            gunNoise = currentCamera.transform.Find("SoundAssets").Find("enemyFire").gameObject.GetComponent<AudioSource>();
         }
 
         spawnAnimation();

@@ -70,6 +70,7 @@ public class Entity : MonoBehaviour
     public AudioSource reloadNoise;
     public AudioSource hurtNoise;
     public AudioSource damageNoise;
+    public GameObject currentCamera;
 
     // Visual Variables
     public Color spriteColor = new Color(255,255,255,255);

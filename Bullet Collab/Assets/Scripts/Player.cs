@@ -36,6 +36,7 @@ public class Player : Entity
 
     // ui variables
     public GameObject pauseUI;
+    public GameObject hurtUI;
 
     private void moveGun() {
         if (arrow != null) {
@@ -78,6 +79,9 @@ public class Player : Entity
 
             // Run Damage Visual - only 1 damage for players
             base.takeDamage(1);
+            if (hurtUI != null){
+                hurtUI.GetComponent<hurtUI>().startFlash();
+            }
 
             if (currentHealth <= 0){
                 // end game
@@ -85,9 +89,11 @@ public class Player : Entity
                     // do killed visual
                     gameInfo.switchMusic(null,0f);
                     dataInfo.updateEntityData(gameObject);
-                    Camera.current.GetComponent<CameraBehavior>().factorMouse = false;
-                    Camera.current.GetComponent<CameraBehavior>().extraZoom = -3.5f;
-                    Camera.current.GetComponent<CameraBehavior>().zoomSpeed = 4f;
+                    if (currentCamera != null){
+                        currentCamera.GetComponent<CameraBehavior>().factorMouse = false;
+                        currentCamera.GetComponent<CameraBehavior>().extraZoom = -3.5f;
+                        currentCamera.GetComponent<CameraBehavior>().zoomSpeed = 4f;
+                    }
 
                     StartCoroutine(doWait(1.5f,delegate{
                         gameInfo.endGame();

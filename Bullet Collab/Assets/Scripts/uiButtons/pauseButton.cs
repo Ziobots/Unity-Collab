@@ -29,8 +29,10 @@ public class pauseButton : MonoBehaviour
     public GameObject playMenu;
     public GameObject mainMenu;
     public GameObject gameMenu;
+    public GameObject settingsMenu;
 
     // Pause Variables
+    public bool pauseActive = false;
     public bool gamePaused = false;
     public GameObject cursorObj;
     public GameObject playerObj;
@@ -53,7 +55,13 @@ public class pauseButton : MonoBehaviour
 
     // Pause Menu Functions
     public void pauseGame(){
+        if (settingsMenu && settingsMenu.activeSelf){
+            return;
+        }
+        
         setupMenu();
+
+        pauseActive = true;
 
         // Get data management script
         if (dataManager != null){
@@ -97,8 +105,18 @@ public class pauseButton : MonoBehaviour
 
     // un-Pause the game
     public void resumeGame(){
+        if (settingsMenu && settingsMenu.activeSelf){
+            return;
+        }
+
+        if (!pauseActive){
+            return;
+        }
+
         setupMenu();
         // Update Mouse
+        pauseActive = false;
+
         mouseCursor cursorData = cursorObj.GetComponent<mouseCursor>();
         cursorData.reticleActive = true;
         cursorData.updateHover(false);
@@ -115,9 +133,25 @@ public class pauseButton : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void settingsButton(){
+        if (settingsMenu && pauseActive){
+            pauseActive = false;
+            transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                pauseActive = true;
+                settingsMenu.SetActive(true);
+                settingsMenu.GetComponent<settingSetup>().loadMenu();
+            },true);
+        }
+    }
+
     // return to the main menu
     public void returnHome(){
+        if (!pauseActive){
+            return;
+        }
+
         setupMenu();
+        pauseActive = false;
 
         // save and quit
         if (dataInfo != null){

@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class settingSetup : MonoBehaviour
 {
@@ -26,26 +27,45 @@ public class settingSetup : MonoBehaviour
     public bool menuActive = false;
     public GameObject statPanel;
 
+    // sounds
+    public AudioMixer masterMixer;
+
     // setting functions
 
     public void update_MasterVolume(){
-        
+        float value = statPanel.transform.Find("stat_MasterVolume").Find("Slider").gameObject.GetComponent<Slider>().value;
+        masterMixer.SetFloat("mixer_Master",Mathf.Log10(value) * 20);
+        if (dataInfo != null){
+            dataInfo.masterVolume = value;
+        }
     }
 
     public void update_MusicVolume(){
-        
+        float value = statPanel.transform.Find("stat_MusicVolume").Find("Slider").gameObject.GetComponent<Slider>().value;
+        masterMixer.SetFloat("mixer_Music",Mathf.Log10(value) * 20);
+        if (dataInfo != null){
+            dataInfo.musicVolume = value;
+        }
     }
 
     public void update_GameVolume(){
-        
+        float value = statPanel.transform.Find("stat_SFXVolume").Find("Slider").gameObject.GetComponent<Slider>().value;
+        masterMixer.SetFloat("mixer_Sound",Mathf.Log10(value) * 20);
+        if (dataInfo != null){
+            dataInfo.gameVolume = value;
+        }
     }
 
     public void update_MobileControl(){
-        
+        if (dataInfo != null){
+            dataInfo.mobileControls = statPanel.transform.Find("stat_Mobile").Find("Toggle").gameObject.GetComponent<Toggle>().isOn;
+        }
     }
 
     public void update_Particles(){
-        
+        if (dataInfo != null){
+            dataInfo.particleFX = statPanel.transform.Find("stat_Particles").Find("Toggle").gameObject.GetComponent<Toggle>().isOn;
+        }
     }
 
     public void setupMenu(){
@@ -56,6 +76,8 @@ public class settingSetup : MonoBehaviour
     }
 
     public void resetButton(){
+        setupMenu();
+
         persistDataClass resetValues = new persistDataClass();
         dataInfo.masterVolume = resetValues.masterVolume;
         dataInfo.mobileControls = resetValues.mobileControls;

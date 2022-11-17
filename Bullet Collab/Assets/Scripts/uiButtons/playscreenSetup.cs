@@ -35,6 +35,7 @@ public class playscreenSetup : MonoBehaviour
     public GameObject errorMenu;
     public GameObject continueButton;
     public GameObject leaderboardMenu;
+    public GameObject settingsMenu;
 
     // transition obj
     public GameObject transitioner;   
@@ -64,6 +65,17 @@ public class playscreenSetup : MonoBehaviour
                 unloadMenu();
                 leaderboardMenu.SetActive(true);
                 leaderboardMenu.GetComponent<leaderSetup>().loadMenu();
+            },true);
+        }
+    }
+
+    public void settingsButton(){
+        if (settingsMenu){
+            playMenuActive = false;
+            transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                playMenuActive = true;
+                settingsMenu.SetActive(true);
+                settingsMenu.GetComponent<settingSetup>().loadMenu();
             },true);
         }
     }

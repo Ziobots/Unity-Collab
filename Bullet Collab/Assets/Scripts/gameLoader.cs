@@ -9,6 +9,7 @@
 * 11/10/22  0.20                 DS              Added enemy spawning + perks
 * 11/11/22  0.30                 DS              added level loading + next button
 * 11/14/22  0.40                 DS              added game start + end + stats
+* 11/16/22  0.50                 DS              added music
 *******************************************************************************/
 
 using System.Collections;
@@ -61,6 +62,12 @@ public class gameLoader : MonoBehaviour
 
     // prefabs
     public perkPickup perkPrefab;
+
+    // Sound Stuff
+    public AudioSource musicMenu;
+    public AudioSource musicGame;
+    public AudioSource musicShop;
+    public AudioSource musicBoss;
 
     // game checks
     public List<GameObject> getEnemies(){
@@ -548,7 +555,7 @@ public class gameLoader : MonoBehaviour
             dataInfo.statKillCount += dataInfo.enemiesKilled;
             dataInfo.statPerkCount += dataInfo.perkIDList.Count;
             dataInfo.statRoomCount += dataInfo.currentRoom;
-            
+
             if (dataInfo.currenthealth > 0){
                 dataInfo.statWinCount++;
             }

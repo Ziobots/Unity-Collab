@@ -532,6 +532,7 @@ public class gameLoader : MonoBehaviour
 
         if (dataInfo != null){
             print("START NEW GAME");
+            continueButton.GetComponent<nextWave>().hideButton();
 
             bool createNewGame = false;
 

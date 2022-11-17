@@ -533,6 +533,18 @@ public class gameLoader : MonoBehaviour
         if (dataInfo != null){
             print("START NEW GAME");
 
+            bool createNewGame = false;
+
+            if (dataInfo.currentTempData == null){
+                createNewGame = true;
+            }else if (dataInfo.currentTempData.room <= 1){
+                createNewGame = true;
+            }
+
+            if (createNewGame){
+                dataInfo.currentTempData = new tempDataClass();
+            }
+
             // get a seed for randomly generated content
             gameSeed = dataInfo.currentTempData.seed;
             dataInfo.seed = gameSeed;

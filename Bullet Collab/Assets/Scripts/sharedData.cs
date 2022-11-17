@@ -42,6 +42,26 @@ public class tempDataClass{
     }
 }
 
+public class persistDataClass{
+    // user stats
+    public int statHighscore = 0;
+    public int statRunCount = 0;
+    public int statWinCount = 0;
+    public int statKillCount = 0;
+    public int statPerkCount = 0;
+    public int statRoomCount = 0;
+    // Settings
+    public float masterVolume = 0.5f;
+    public float musicVolume = 0.5f;
+    public float gameVolume = 0.5f;
+    public bool mobileControls = false;
+    public bool particleFX = true;
+
+    public persistDataClass(){
+
+    }
+}
+
 public class sharedData : MonoBehaviour
 {
     // reference for use in other scripts
@@ -60,10 +80,18 @@ public class sharedData : MonoBehaviour
     public bool connectedToPlayfab = false;
 
     // Persistant Data
-    public int runCount;
-    public int winCount;
-    public float maxScore;
-    public float minTime; // in seconds
+    public int statHighscore = 0;
+    public int statRunCount = 0;
+    public int statWinCount = 0;
+    public int statKillCount = 0;
+    public int statPerkCount = 0;
+    public int statRoomCount = 0;
+    // Settings
+    public float masterVolume = 0.5f;
+    public float musicVolume = 0.5f;
+    public float gameVolume = 0.5f;
+    public bool mobileControls = false;
+    public bool particleFX = true;
 
     // Temporary Data
     public float gameStartTime;
@@ -80,14 +108,7 @@ public class sharedData : MonoBehaviour
     public int currency;
     public List<string> perkIDList = new List<string>();
     [HideInInspector] public tempDataClass currentTempData = new tempDataClass();
-
-    // perm stats
-    public int statHighscore = 0;
-    public int statRunCount = 0;
-    public int statWinCount = 0;
-    public int statKillCount = 0;
-    public int statPerkCount = 0;
-    public int statRoomCount = 0;
+    [HideInInspector] public persistDataClass currentPersistData = new persistDataClass();
 
     // Temporary Bullet - mainly for ui
     public int maxAmmo;
@@ -215,6 +236,22 @@ public class sharedData : MonoBehaviour
         }
     }
 
+    public persistDataClass getPersistJSON(){
+        persistDataClass permData = new persistDataClass();
+        permData.masterVolume = masterVolume;
+        permData.mobileControls = mobileControls;
+        permData.musicVolume = musicVolume;
+        permData.particleFX = particleFX;
+        permData.statHighscore = statHighscore;
+        permData.statKillCount = statKillCount;
+        permData.statPerkCount = statPerkCount;
+        permData.statRoomCount = statRoomCount;
+        permData.statRunCount = statRunCount;
+        permData.statWinCount = statWinCount;
+
+        return permData;
+    }
+
     public tempDataClass getTemporaryJSON(){
         tempDataClass tempData = new tempDataClass();
         tempData.perkIDList = perkIDList;
@@ -240,14 +277,17 @@ public class sharedData : MonoBehaviour
 
     public void saveTemporaryData(tempDataClass forceSave){
         if (loggedIn && connectedToPlayfab){
+            persistDataClass permSave = getPersistJSON();
             tempDataClass dataToSave = getTemporaryJSON();
+
             if (forceSave != null){
                 dataToSave = forceSave;
             }
 
             var request = new UpdateUserDataRequest{
                 Data = new Dictionary<string, string>{
-                    {"Temp_Data", JsonConvert.SerializeObject(dataToSave)}
+                    {"Temp_Data", JsonConvert.SerializeObject(dataToSave)},
+                    {"Perm_Data", JsonConvert.SerializeObject(permSave)}
                 }
             };
 
@@ -356,9 +396,24 @@ public class sharedData : MonoBehaviour
         if (result != null && result.Data != null){
             if (result.Data.ContainsKey("Temp_Data")){
                 tempDataClass tempData = JsonConvert.DeserializeObject<tempDataClass>(result.Data["Temp_Data"].Value);
+                persistDataClass permData = JsonConvert.DeserializeObject<persistDataClass>(result.Data["Perm_Data"].Value);
+
                 if (tempData != null){
                     currentTempData = tempData;
-                    //overwriteEntity(playerObj,tempData);
+                }
+
+                if (permData != null){
+                    currentPersistData = permData;
+                    masterVolume = permData.masterVolume;
+                    //mobileControls = permData.mobileControls;
+                    musicVolume = permData.musicVolume;
+                    particleFX = permData.particleFX;
+                    statHighscore = permData.statHighscore;
+                    statKillCount = permData.statKillCount;
+                    statPerkCount = permData.statPerkCount;
+                    statRoomCount = permData.statRoomCount;
+                    statRunCount = permData.statRunCount;
+                    statWinCount = permData.statWinCount;
                 }
             }
         }

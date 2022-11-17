@@ -254,5 +254,11 @@ public class leaderSetup : MonoBehaviour
                 label.GetComponent<RectTransform>().pivot = new Vector2(0.5f,Mathf.Sin(Time.time * 5f) * 0.1f + 0.5f);
             }
         }
+
+        if (menuActive){
+            if (Input.GetKeyDown("escape")){
+                backButton();
+            }
+        }
     }
 }

@@ -117,4 +117,16 @@ public class settingSetup : MonoBehaviour
     public void unloadMenu(){
         gameObject.SetActive(false);
     }
+
+    private void Start() {
+        setupMenu();
+    }
+
+    private void Update() {
+        if (menuActive){
+            if (Input.GetKeyDown("escape")){
+                backButton();
+            }
+        }
+    }
 }

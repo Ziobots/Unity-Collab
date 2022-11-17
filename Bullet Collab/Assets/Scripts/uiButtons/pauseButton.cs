@@ -162,6 +162,7 @@ public class pauseButton : MonoBehaviour
         print("GO HOME");
 
         transitioner.GetComponent<fadeTransition>().startFade(delegate{
+            pauseActive = true;
             resumeGame();
             print("DO ACTIVES");
             mainMenu.SetActive(false);

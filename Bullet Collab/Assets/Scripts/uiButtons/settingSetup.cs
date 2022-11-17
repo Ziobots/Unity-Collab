@@ -97,6 +97,8 @@ public class settingSetup : MonoBehaviour
     }
 
     public void loadFields(){
+        setupMenu();
+
         if (dataInfo != null && statPanel != null){
             // Volume Fields
             statPanel.transform.Find("stat_MasterVolume").Find("Slider").gameObject.GetComponent<Slider>().value = dataInfo.masterVolume;

@@ -16,6 +16,7 @@ public class nextWave : MonoBehaviour
 {
     private float fadeTime = 0.45f;
     public bool buttonActive = false;
+    public bool transitioning = false;
 
     public System.Action onClick;
 
@@ -26,14 +27,22 @@ public class nextWave : MonoBehaviour
 
     public void showComplete(){
         buttonActive = true;
+        transitioning = false;
     }
     
     public void hideButton(){
         buttonActive = false;
+        transitioning = false;
         gameObject.SetActive(false);
+        onClick = null;
     }
         
     public void showButton(System.Action onComplete){
+        if (transitioning){
+            return;
+        }
+
+        transitioning = true;
         buttonActive = false;
 
         // set the direction
@@ -50,14 +59,10 @@ public class nextWave : MonoBehaviour
     }
 
     public void onWaveClick(){
+        print("NEXT WAVE CLICKED: " + buttonActive + " _ " + onClick);
         if (onClick != null && buttonActive){
             buttonActive = false;
             onClick();
         }
-    }
-    
-    // hide this at the start
-    void Start(){
-        //gameObject.SetActive(false);
     }
 }

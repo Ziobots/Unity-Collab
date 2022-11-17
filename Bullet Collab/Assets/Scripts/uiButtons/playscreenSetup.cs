@@ -48,6 +48,7 @@ public class playscreenSetup : MonoBehaviour
 
     public void quitButton(){
         if (dataInfo.loggedIn){
+            dataInfo.canDoSave = true;
             dataInfo.saveTemporaryData(null);
         }
 
@@ -140,7 +141,7 @@ public class playscreenSetup : MonoBehaviour
         // check for previous run
         if (continueButton != null){
             string buttonText = "Start Run";
-             if (dataInfo.currentTempData.room >= 1){
+             if (dataInfo.currentTempData != null && dataInfo.currentTempData.room >= 0){
                 buttonText = "Continue Run";
              }
 

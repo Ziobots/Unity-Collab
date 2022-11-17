@@ -130,6 +130,7 @@ public class sharedData : MonoBehaviour
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
+    public bool canDoSave = true;
 
     // Data Receive function variables
     [HideInInspector] public System.Action onDataGet = null;
@@ -278,7 +279,7 @@ public class sharedData : MonoBehaviour
     }
 
     public void saveTemporaryData(tempDataClass forceSave){
-        if (loggedIn && connectedToPlayfab){
+        if (loggedIn && connectedToPlayfab && canDoSave){
             persistDataClass permSave = getPersistJSON();
             tempDataClass dataToSave = getTemporaryJSON();
 

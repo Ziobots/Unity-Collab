@@ -75,7 +75,15 @@ public class leaderSetup : MonoBehaviour
             print("Load leader menu");
 
             float waitTime = 0f;
-            if ((Time.realtimeSinceStartup - dataInfo.lastLeaderboardTime >= dataInfo.resetLeaderTime) || !dataInfo.connectedToPlayfab){
+            bool newHighscore = false;
+
+            if (dataInfo != null && dataInfo.clientLeaderboardData != null && dataInfo.clientLeaderboardData.Leaderboard[0] != null){
+                if (dataInfo.statHighscore > dataInfo.clientLeaderboardData.Leaderboard[0].StatValue){
+                    newHighscore = true;
+                }
+            }
+
+            if ((Time.realtimeSinceStartup - dataInfo.lastLeaderboardTime >= dataInfo.resetLeaderTime) || newHighscore || !dataInfo.connectedToPlayfab){
                 print("LOAD WAIT");
                 wipeLeaderboard();
                 loadHolder.SetActive(true);
@@ -132,13 +140,13 @@ public class leaderSetup : MonoBehaviour
                 
                 if (dataInfo.leaderboardData != null && dataInfo.connectedToPlayfab){
                     // fake values just for testing // REMOVE IT LATER
-                    for (int a = 1; a <= 50; a++){
+                    /*for (int a = 1; a <= 50; a++){
                         var fake = new PlayFab.ClientModels.PlayerLeaderboardEntry();
                         fake.Position = a;
                         fake.DisplayName = "Player " + a;
                         fake.StatValue = 1000 - (a*5);
                         dataInfo.leaderboardData.Leaderboard.Add(fake);
-                    }
+                    }*/
 
                     foreach (var item in dataInfo.leaderboardData.Leaderboard){
                         Transform newLeaderSpot = leaderHolder.transform.Find("gridContent").Find("leaderSpot_" + item.Position);

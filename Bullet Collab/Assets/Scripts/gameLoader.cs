@@ -425,10 +425,12 @@ public class gameLoader : MonoBehaviour
                 continueData.showButton(delegate{
                     // start room transition
                     transitioner.GetComponent<fadeTransition>().startFade(delegate{
+                        print("GO TO NEXT WAVE");
                         continueData.hideButton();
                         nextRoom(null);
 
                         // save the run data each time they enter a new room
+                        dataInfo.canDoSave = true;
                         dataInfo.saveTemporaryData(null);
                     },false);
                 });
@@ -441,6 +443,10 @@ public class gameLoader : MonoBehaviour
             Player playerData = playerObj.GetComponent<Player>();
             levelData levelInfo = levelObj.GetComponent<levelData>();
             if (playerData && levelInfo && !levelInfo.skipPerks){
+                dataInfo.saveTemporaryData(null);
+                dataInfo.canDoSave = false;
+
+                
                 int maxColumn = 7;
                 int columnCount = Mathf.Clamp(playerData.perkCount,1,maxColumn);
                 int rowCount = (int) Mathf.Ceil(playerData.perkCount/columnCount);
@@ -540,7 +546,7 @@ public class gameLoader : MonoBehaviour
 
             if (dataInfo.currentTempData == null){
                 createNewGame = true;
-            }else if (dataInfo.currentTempData.room <= 1){
+            }else if (dataInfo.currentTempData.room < 0){
                 createNewGame = true;
             }
 
@@ -616,6 +622,8 @@ public class gameLoader : MonoBehaviour
             switchMusic(musicMenu,0.2f);
             dataInfo.sendLeaderboard(dataInfo.totalScore);
             dataInfo.currentTempData = new tempDataClass();
+            dataInfo.currentTempData.room = -1;
+
             dataInfo.gameEndTime = Time.time;
 
             // change perm stats
@@ -634,6 +642,7 @@ public class gameLoader : MonoBehaviour
             }
 
             // overwrite the current run data
+            dataInfo.canDoSave = true;
             dataInfo.saveTemporaryData(dataInfo.currentTempData);
 
             if (gameEndScreen != null){

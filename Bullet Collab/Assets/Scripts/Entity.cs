@@ -158,12 +158,6 @@ public class Entity : MonoBehaviour
 
         // entity passed all checks, can fire
         delayStartTime = Time.time;
-        currentAmmo -= 1;
-
-        // the delay after firing the last bullet shouldnt be as long
-        if (currentAmmo <= 0){
-            delayStartTime = Time.time - bulletTime + 0.25f;
-        }
 
         if (gunNoise != null){
             gunNoise.PlayOneShot(gunNoise.clip,gunNoise.volume);//  * dataInfo.gameVolume * dataInfo.masterVolume
@@ -171,37 +165,45 @@ public class Entity : MonoBehaviour
 
         foreach(Transform point in launchPoints){
             for (int i = 1; i <= fireCount; i++){
-                // calculate bullet spread
-                Quaternion spreadQuaternion = Quaternion.Euler(0, 0, 0);
-                if (bulletSpread > 0){
-                    bulletSpread = Mathf.Clamp(bulletSpread,0,50);
-                    float angle = Random.Range(-bulletSpread * 1000,bulletSpread * 1000) / 1000;
-                    spreadQuaternion = Quaternion.Euler(0, 0, angle);
-                }
+                if (currentAmmo > 0){
+                    currentAmmo -= 1;
+                    // calculate bullet spread
+                    Quaternion spreadQuaternion = Quaternion.Euler(0, 0, 0);
+                    if (bulletSpread > 0){
+                        bulletSpread = Mathf.Clamp(bulletSpread,0,50);
+                        float angle = Random.Range(-bulletSpread * 1000,bulletSpread * 1000) / 1000;
+                        spreadQuaternion = Quaternion.Euler(0, 0, angle);
+                    }
 
-                bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation * spreadQuaternion,bulletFolder);
-                if (newBullet != null){
-                    // set the default bullet stats
-                    newBullet.dataManager = dataManager;
-                    newBullet.bulletOwner = gameObject;
-                    newBullet.bulletSpeed = 5f;
-                    newBullet.bulletSize = 0.11f;
-                    newBullet.bulletBounces = 0;
-                    newBullet.perkIDList = perkIDList;
-                    newBullet.bulletFolder = bulletFolder;
-                    newBullet.debriFolder = debriFolder;
+                    bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation * spreadQuaternion,bulletFolder);
+                    if (newBullet != null){
+                        // set the default bullet stats
+                        newBullet.dataManager = dataManager;
+                        newBullet.bulletOwner = gameObject;
+                        newBullet.bulletSpeed = 5f;
+                        newBullet.bulletSize = 0.11f;
+                        newBullet.bulletBounces = 0;
+                        newBullet.perkIDList = perkIDList;
+                        newBullet.bulletFolder = bulletFolder;
+                        newBullet.debriFolder = debriFolder;
 
-                    // finish setting up the bullet
-                    localEditBullet(newBullet);
-                    newBullet.setupBullet();
+                        // finish setting up the bullet
+                        localEditBullet(newBullet);
+                        newBullet.setupBullet();
 
-                    // Check for any onFire modifiers
-                    Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
-                    editList.Add("Owner", gameObject);
-                    editList.Add("Bullet", newBullet.gameObject);
-                    perkCommands.applyPerk(perkIDList,"Shoot",editList);
+                        // Check for any onFire modifiers
+                        Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+                        editList.Add("Owner", gameObject);
+                        editList.Add("Bullet", newBullet.gameObject);
+                        perkCommands.applyPerk(perkIDList,"Shoot",editList);
+                    }
                 }
             }
+        }
+
+        // the delay after firing the last bullet shouldnt be as long
+        if (currentAmmo <= 0){
+            delayStartTime = Time.time - bulletTime + 0.25f;
         }
 
         bulletFired();

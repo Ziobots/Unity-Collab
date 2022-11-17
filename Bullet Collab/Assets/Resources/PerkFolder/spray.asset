@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: spray
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 21300000, guid: 5f9f5929aaef6384a8f56a803e84cd43, type: 3}
-  perkName: Spray
+  perkName: Ammo Belt
   perkCost: 0
   perkDescription: Add 5 shells, increased spread, decrease damage, faster reload
     and faster fire rate.
   perkRarity: 3
   stackablePerk: 1
+  enemyPerk: 1
   addBullets: 5
   damageMultiple: 0.85
   delayMultiple: 0.85
   reloadMultiple: 0.7
   spreadMultiple: 1.5
+  sizeMultiple: 0.85

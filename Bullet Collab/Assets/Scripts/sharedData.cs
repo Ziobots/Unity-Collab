@@ -71,6 +71,7 @@ public class sharedData : MonoBehaviour
     // UI Stuff
     public GameObject uiManager;
     [HideInInspector] public UIManager uiUpdate;
+    public GameObject settingMenu;
 
     // User Information
     public string sessionTicket;
@@ -397,12 +398,13 @@ public class sharedData : MonoBehaviour
         if (result != null && result.Data != null){
             if (result.Data.ContainsKey("Temp_Data")){
                 tempDataClass tempData = JsonConvert.DeserializeObject<tempDataClass>(result.Data["Temp_Data"].Value);
-                persistDataClass permData = JsonConvert.DeserializeObject<persistDataClass>(result.Data["Perm_Data"].Value);
-
                 if (tempData != null){
                     currentTempData = tempData;
                 }
+            }
 
+            if (result.Data.ContainsKey("Perm_Data")){
+                persistDataClass permData = JsonConvert.DeserializeObject<persistDataClass>(result.Data["Perm_Data"].Value);
                 if (permData != null){
                     currentPersistData = permData;
                     masterVolume = permData.masterVolume;
@@ -416,6 +418,11 @@ public class sharedData : MonoBehaviour
                     statRoomCount = permData.statRoomCount;
                     statRunCount = permData.statRunCount;
                     statWinCount = permData.statWinCount;
+
+                    // run any change functions
+                    if (settingMenu != null){
+                        settingMenu.GetComponent<settingSetup>().loadFields();
+                    }
                 }
             }
         }

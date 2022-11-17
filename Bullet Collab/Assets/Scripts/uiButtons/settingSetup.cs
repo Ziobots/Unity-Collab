@@ -96,10 +96,7 @@ public class settingSetup : MonoBehaviour
         }
     }
 
-    public void loadMenu(){
-        setupMenu();
-        
-        // load in the player settings
+    public void loadFields(){
         if (dataInfo != null && statPanel != null){
             // Volume Fields
             statPanel.transform.Find("stat_MasterVolume").Find("Slider").gameObject.GetComponent<Slider>().value = dataInfo.masterVolume;
@@ -110,6 +107,13 @@ public class settingSetup : MonoBehaviour
             statPanel.transform.Find("stat_Mobile").Find("Toggle").gameObject.GetComponent<Toggle>().isOn = dataInfo.mobileControls;
             statPanel.transform.Find("stat_Particles").Find("Toggle").gameObject.GetComponent<Toggle>().isOn = dataInfo.particleFX;
         }
+    }
+
+    public void loadMenu(){
+        setupMenu();
+        
+        // load in the player settings
+        loadFields();
 
         menuActive = true;
     }

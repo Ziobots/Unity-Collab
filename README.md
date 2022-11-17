@@ -1,4 +1,4 @@
-# Unity-Collab
+# Bullet-Hero
 
 Tutorial I used to set up this Repository.
 https://www.youtube.com/watch?v=pNUdu-6ZNBg

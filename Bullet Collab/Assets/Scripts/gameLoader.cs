@@ -68,6 +68,45 @@ public class gameLoader : MonoBehaviour
     public AudioSource musicGame;
     public AudioSource musicShop;
     public AudioSource musicBoss;
+    public AudioSource currentSource;
+
+    // music functions
+
+    public void switchMusic(AudioSource setMusic,float fadeTime){
+        if (fadeTime < 0){
+            fadeTime = 0.5f;
+        }
+
+        if (currentSource != setMusic){
+            if (currentSource != null){
+                LeanTween.cancel(currentSource.gameObject);
+                LeanTween.value(currentSource.gameObject,0.1f,0f,fadeTime).setIgnoreTimeScale(true).setEaseLinear().setOnUpdate(delegate(float value){
+                    currentSource.volume = value;
+                }).setOnComplete(delegate(){
+                    currentSource.Stop();
+                    currentSource = setMusic;
+                    if (currentSource != null){
+                        LeanTween.cancel(currentSource.gameObject);
+                        LeanTween.value(currentSource.gameObject,0f,0.1f,fadeTime).setIgnoreTimeScale(true).setEaseLinear().setOnUpdate(delegate(float value){
+                            currentSource.volume = value;
+                        });
+
+                        currentSource.Play();
+                    }
+                });
+            }else{
+                currentSource = setMusic;
+                if (currentSource != null){
+                    LeanTween.cancel(currentSource.gameObject);
+                    LeanTween.value(currentSource.gameObject,0f,0.1f,fadeTime).setIgnoreTimeScale(true).setEaseLinear().setOnUpdate(delegate(float value){
+                        currentSource.volume = value;
+                    });
+
+                    currentSource.Play();
+                }
+            }
+        }
+    }
 
     // game checks
     public List<GameObject> getEnemies(){
@@ -301,7 +340,15 @@ public class gameLoader : MonoBehaviour
                 levelData levelInfo = levelObj.GetComponent<levelData>();
                 if (levelInfo){
                     // set the level info
-                    // no info yet
+
+                    // set the music
+                    if (levelInfo.type == RoomType.Shop){
+                        switchMusic(musicShop,0.5f);
+                    }else if (levelInfo.type == RoomType.Boss){
+                        switchMusic(musicBoss,0.5f);
+                    }else{
+                        switchMusic(musicGame,0.5f);
+                    }
 
                     // finish setting up the level
                     levelInfo.loadLevel();
@@ -541,12 +588,15 @@ public class gameLoader : MonoBehaviour
                 uiUpdate.updateGameUI();
                 uiUpdate.updateHealth();
             }
+
+            switchMusic(musicGame,0.5f);
         }
     }
 
     public void endGame(){
         Setup();
         if (dataInfo != null){
+            switchMusic(musicMenu,0.2f);
             dataInfo.sendLeaderboard(dataInfo.totalScore);
             dataInfo.currentTempData = new tempDataClass();
             dataInfo.gameEndTime = Time.time;

@@ -111,7 +111,7 @@ public class endScreen : MonoBehaviour
             setStatValue("stat_Time",getReadableTime(dataInfo.gameEndTime - dataInfo.gameStartTime));
             setStatValue("stat_Enemy","" + dataInfo.enemiesKilled);
             setStatValue("stat_Perk","" + dataInfo.perkIDList.Count);
-            setStatValue("stat_Room","" + (dataInfo.currentRoom - 1));
+            setStatValue("stat_Room","" + (dataInfo.currentRoom));
             setStatValue("stat_Score","" + dataInfo.totalScore);
         }
 

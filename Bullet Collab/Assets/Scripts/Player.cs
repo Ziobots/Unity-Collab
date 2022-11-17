@@ -83,6 +83,7 @@ public class Player : Entity
                 // end game
                 if (gameInfo != null){
                     // do killed visual
+                    gameInfo.switchMusic(null,0f);
                     dataInfo.updateEntityData(gameObject);
                     Camera.current.GetComponent<CameraBehavior>().factorMouse = false;
                     Camera.current.GetComponent<CameraBehavior>().extraZoom = -3.5f;

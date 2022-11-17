@@ -107,6 +107,7 @@ public class playscreenSetup : MonoBehaviour
 
         // wipe workspace
         gameInfo.clearGameObj();
+        gameInfo.switchMusic(gameInfo.musicMenu,0.5f);
 
         // disable the player controller
         if (playerObj != null){

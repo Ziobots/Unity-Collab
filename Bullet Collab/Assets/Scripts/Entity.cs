@@ -69,6 +69,7 @@ public class Entity : MonoBehaviour
     public AudioSource gunNoise;
     public AudioSource reloadNoise;
     public AudioSource hurtNoise;
+    public AudioSource damageNoise;
 
     // Visual Variables
     public Color spriteColor = new Color(255,255,255,255);
@@ -231,6 +232,10 @@ public class Entity : MonoBehaviour
                 perkCommands.applyPerk(perkIDList,"Killed",editList);
                 if (hurtNoise != null){
                     hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume);// * dataInfo.gameVolume * dataInfo.masterVolume
+                }
+            }else{
+                if (damageNoise != null){
+                    damageNoise.PlayOneShot(damageNoise.clip,damageNoise.volume);// * dataInfo.gameVolume * dataInfo.masterVolume
                 }
             }
 

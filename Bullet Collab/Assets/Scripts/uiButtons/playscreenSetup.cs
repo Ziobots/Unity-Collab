@@ -46,6 +46,14 @@ public class playscreenSetup : MonoBehaviour
     public GameObject playerObj;
     private string userName;
 
+    public void quitButton(){
+        if (dataInfo.loggedIn){
+            dataInfo.saveTemporaryData(null);
+        }
+
+        Application.Quit();
+    }
+
     public void newgameButton(){
         if (playMenuActive){
             setupMenu();

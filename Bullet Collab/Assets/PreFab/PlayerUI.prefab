@@ -13576,7 +13576,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6726828137662816587}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2196427089865964724}
+        m_TargetAssemblyTypeName: playscreenSetup, Assembly-CSharp
+        m_MethodName: quitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6442498629993421730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32368,6 +32380,7 @@ MonoBehaviour:
   playMenu: {fileID: 4349013503837091521}
   mainMenu: {fileID: 7822413281357736600}
   gameMenu: {fileID: 1453640619513492153}
+  currentCamera: {fileID: 0}
   blurObj: {fileID: 9024918582608041943}
 --- !u!1 &8027807156060845140
 GameObject:

@@ -445,7 +445,6 @@ public class gameLoader : MonoBehaviour
             if (playerData && levelInfo && !levelInfo.skipPerks){
                 dataInfo.saveTemporaryData(null);
                 dataInfo.canDoSave = false;
-
                 
                 int maxColumn = 7;
                 int columnCount = Mathf.Clamp(playerData.perkCount,1,maxColumn);

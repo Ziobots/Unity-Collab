@@ -108,7 +108,7 @@ public class sharedData : MonoBehaviour
     public int enemiesKilled = 0;
     public int currency;
     public List<string> perkIDList = new List<string>();
-    [HideInInspector] public tempDataClass currentTempData = new tempDataClass();
+    [HideInInspector] public tempDataClass currentTempData = null;
     [HideInInspector] public persistDataClass currentPersistData = new persistDataClass();
 
     // Temporary Bullet - mainly for ui
@@ -279,14 +279,19 @@ public class sharedData : MonoBehaviour
     }
 
     public void saveTemporaryData(tempDataClass forceSave){
+        persistDataClass permSave = getPersistJSON();
+        tempDataClass dataToSave = getTemporaryJSON();
+
+        if (forceSave != null){
+            dataToSave = forceSave;
+        }
+        
+        if (canDoSave){
+            print("SAVE THE CURRENT PROGRESS");
+            currentTempData = dataToSave;
+        }
+
         if (loggedIn && connectedToPlayfab && canDoSave){
-            persistDataClass permSave = getPersistJSON();
-            tempDataClass dataToSave = getTemporaryJSON();
-
-            if (forceSave != null){
-                dataToSave = forceSave;
-            }
-
             var request = new UpdateUserDataRequest{
                 Data = new Dictionary<string, string>{
                     {"Temp_Data", JsonConvert.SerializeObject(dataToSave)},

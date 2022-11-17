@@ -155,7 +155,6 @@ public class pauseButton : MonoBehaviour
 
         // save and quit
         if (dataInfo != null){
-            dataInfo.currentTempData = dataInfo.getTemporaryJSON();
             dataInfo.saveTemporaryData(null);
         }
 

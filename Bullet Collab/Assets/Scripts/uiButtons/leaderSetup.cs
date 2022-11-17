@@ -77,7 +77,7 @@ public class leaderSetup : MonoBehaviour
             float waitTime = 0f;
             bool newHighscore = false;
 
-            if (dataInfo != null && dataInfo.clientLeaderboardData != null && dataInfo.clientLeaderboardData.Leaderboard[0] != null){
+            if (dataInfo != null && dataInfo.clientLeaderboardData != null && dataInfo.clientLeaderboardData.Leaderboard.Count > 0 && dataInfo.clientLeaderboardData.Leaderboard[0] != null){
                 if (dataInfo.statHighscore > dataInfo.clientLeaderboardData.Leaderboard[0].StatValue){
                     newHighscore = true;
                 }

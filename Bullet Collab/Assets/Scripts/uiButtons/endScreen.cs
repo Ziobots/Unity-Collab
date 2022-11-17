@@ -61,6 +61,8 @@ public class endScreen : MonoBehaviour
         if (gameInfo != null && !optionMade){
             optionMade = true;
             dataInfo.currentTempData = new tempDataClass();
+            dataInfo.currentTempData.room = -1;
+            
             transitioner.GetComponent<fadeTransition>().startFade(delegate{
                 unloadMenu();
                 gameInfo.newGameTransition();

@@ -622,6 +622,8 @@ public class gameLoader : MonoBehaviour
             if (dataInfo.currenthealth > 0){
                 dataInfo.statWinCount++;
             }
+
+            dataInfo.statRunCount++;
             
             if (dataInfo.statHighscore < dataInfo.totalScore){
                 dataInfo.statHighscore = dataInfo.totalScore;

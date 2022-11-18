@@ -18976,6 +18976,29 @@ MonoBehaviour:
   enemiesKilled: 0
   currency: 0
   perkIDList: []
+  currentTempData:
+    perkIDList: []
+    currenthealth: 6
+    currency: 0
+    seed: 887852168
+    roomID: 
+    enemiesKilled: 0
+    totalScore: 0
+    wave: 1
+    room: -1
+    startTime: 0
+  currentPersistData:
+    statHighscore: 0
+    statRunCount: 0
+    statWinCount: 0
+    statKillCount: 0
+    statPerkCount: 0
+    statRoomCount: 0
+    masterVolume: 1
+    musicVolume: 1
+    gameVolume: 1
+    mobileControls: 0
+    particleFX: 1
   maxAmmo: 0
   currentAmmo: 0
   fireCount: 0
@@ -18994,6 +19017,7 @@ MonoBehaviour:
   resetLeaderTime: 600
   reloadStartTime: 0
   delayStartTime: 0
+  canDoSave: 1
 --- !u!4 &1356760224
 Transform:
   m_ObjectHideFlags: 0

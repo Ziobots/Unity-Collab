@@ -42,6 +42,10 @@ public class loginSetup : MonoBehaviour
     public GameObject playMenu;
     public GameObject loadUIScreen;
 
+    // loadbuttons
+    public GameObject loginUIButton;
+    public GameObject signupUIButton;
+
     // start game variables
     public GameObject enterMenu;
     private bool startVisible = true;
@@ -91,6 +95,7 @@ public class loginSetup : MonoBehaviour
         };
 
         loginActive = false;
+        setButtonVisual(false);
         PlayFabClientAPI.LoginWithEmailAddress(request,onLoginSuccess,onPlayfabError);
     }
 
@@ -111,6 +116,26 @@ public class loginSetup : MonoBehaviour
 
         loginActive = false;
         PlayFabClientAPI.SendAccountRecoveryEmail(request,onPasswordEmail,onPlayfabError);
+    }
+
+    public void setButtonVisual(bool active){
+        if (loginUIButton != null && signupUIButton != null){
+            if (active){
+                loginUIButton.transform.Find("Holder").Find("textField").gameObject.SetActive(true);
+                signupUIButton.transform.Find("Holder").Find("textField").gameObject.SetActive(true);
+                loginUIButton.transform.Find("Holder").Find("loader").gameObject.SetActive(false);
+                signupUIButton.transform.Find("Holder").Find("loader").gameObject.SetActive(false);
+                loginUIButton.transform.Find("Holder").Find("background").gameObject.GetComponent<Image>().color = new Color32(253,106,106,255);
+                signupUIButton.transform.Find("Holder").Find("background").gameObject.GetComponent<Image>().color = new Color32(247,192,74,255);
+            }else{
+                loginUIButton.transform.Find("Holder").Find("textField").gameObject.SetActive(false);
+                signupUIButton.transform.Find("Holder").Find("textField").gameObject.SetActive(false);
+                loginUIButton.transform.Find("Holder").Find("loader").gameObject.SetActive(true);
+                signupUIButton.transform.Find("Holder").Find("loader").gameObject.SetActive(true);
+                loginUIButton.transform.Find("Holder").Find("background").gameObject.GetComponent<Image>().color = new Color32(152,152,152,255);
+                signupUIButton.transform.Find("Holder").Find("background").gameObject.GetComponent<Image>().color = new Color32(152,152,152,255);
+            }
+        }
     }
 
     // to access the account creation menu
@@ -166,6 +191,7 @@ public class loginSetup : MonoBehaviour
         emailField.text = createEmailField.text;
         passwordField.text = createPasswordField.text;
         loginActive = false;
+        setButtonVisual(false);
 
         PlayFabClientAPI.RegisterPlayFabUser(request,onRegisterSuccess,onPlayfabError);
     }
@@ -216,6 +242,7 @@ public class loginSetup : MonoBehaviour
         print(error.ErrorMessage);
         errorMenu.GetComponent<errorPopup>().displayError(error.ErrorMessage,errorColor);
         loginActive = true;
+        setButtonVisual(true);
     }
 
     private void onGuestError(PlayFabError error){
@@ -235,6 +262,7 @@ public class loginSetup : MonoBehaviour
             dataInfo.loggedIn = true;
             loginActive = false;
             dataInfo.connectedToPlayfab = true;
+            setButtonVisual(true);
 
             closeMenu();
         }
@@ -275,6 +303,7 @@ public class loginSetup : MonoBehaviour
     }
 
     public void c_M(){
+        setButtonVisual(true);
 
         // remove input data
         createEmailField.text = "";

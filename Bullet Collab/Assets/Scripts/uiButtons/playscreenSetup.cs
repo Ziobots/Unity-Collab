@@ -49,7 +49,7 @@ public class playscreenSetup : MonoBehaviour
     public void quitButton(){
         if (dataInfo.loggedIn){
             dataInfo.canDoSave = true;
-            dataInfo.saveTemporaryData(null);
+            dataInfo.saveTemporaryData(dataInfo.currentTempData);
         }
 
         Application.Quit();

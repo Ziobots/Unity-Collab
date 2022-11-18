@@ -22,6 +22,7 @@ using PlayFab.ClientModels;
 using Newtonsoft.Json;
 
 // use this to store default values
+[System.Serializable]
 public class tempDataClass{
     // player stats
     public List<string> perkIDList = new List<string>();
@@ -42,6 +43,7 @@ public class tempDataClass{
     }
 }
 
+[System.Serializable]
 public class persistDataClass{
     // user stats
     public int statHighscore = 0;
@@ -108,8 +110,8 @@ public class sharedData : MonoBehaviour
     public int enemiesKilled = 0;
     public int currency;
     public List<string> perkIDList = new List<string>();
-    [HideInInspector] public tempDataClass currentTempData = null;
-    [HideInInspector] public persistDataClass currentPersistData = new persistDataClass();
+    public tempDataClass currentTempData = null;
+    public persistDataClass currentPersistData = new persistDataClass();
 
     // Temporary Bullet - mainly for ui
     public int maxAmmo;

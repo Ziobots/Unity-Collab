@@ -39,7 +39,7 @@ public class bulletSystem : MonoBehaviour
 
     // Bullet Local Variabls
     private float createTime;
-    private float lifeTime = 20f;
+    public float lifeTime = 20f;
     private bool damageOwner = false;
     private bool firstFrame = true;
     private bool bulletSetup = false;

@@ -18,14 +18,22 @@ public class fallingObj : MonoBehaviour
     public float rotationSpeed = 0;
     public RectTransform parentRect;
 
+    public bool swtichAxis = false;
+
     // Update is called once per frame
     void Update(){
         if (parentRect != null){
             gameObject.GetComponent<RectTransform>().rotation = gameObject.GetComponent<RectTransform>().rotation * Quaternion.Euler(0f, 0f, rotationSpeed * 8f * Time.fixedDeltaTime);
-            gameObject.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition + new Vector3(0f,fallSpeed * 8f * Time.fixedDeltaTime,0f);
-            //if (gameObject.GetComponent<RectTransform>().localPosition.y <= -parentRect.rect.height/2){
-            if (gameObject.GetComponent<RectTransform>().localPosition.y >= parentRect.rect.height/2){
-                Destroy(gameObject);
+            if (swtichAxis){
+                gameObject.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition + new Vector3(fallSpeed * 8f * Time.fixedDeltaTime,0f,0f);
+                if (gameObject.GetComponent<RectTransform>().localPosition.x >= parentRect.rect.width/2){
+                    Destroy(gameObject);
+                }
+            }else{
+                gameObject.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition + new Vector3(0f,fallSpeed * 8f * Time.fixedDeltaTime,0f);
+                if (gameObject.GetComponent<RectTransform>().localPosition.y >= parentRect.rect.height/2){
+                    Destroy(gameObject);
+                }
             }
         }
     }

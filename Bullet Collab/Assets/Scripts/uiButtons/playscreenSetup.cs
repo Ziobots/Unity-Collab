@@ -46,6 +46,13 @@ public class playscreenSetup : MonoBehaviour
     public GameObject playerObj;
     private string userName;
 
+    // splash icons
+    public GameObject splashHead;
+    public GameObject splashHand;
+    public GameObject backPanel;
+    public GameObject fallObjPrefab;
+    public float fallTime = 0;
+
     public void quitButton(){
         if (dataInfo.loggedIn){
             dataInfo.canDoSave = true;
@@ -149,5 +156,57 @@ public class playscreenSetup : MonoBehaviour
         }
 
         playMenuActive = true;
+    }
+
+    public void spawnFallingPerk(){
+        if (backPanel != null && backPanel.transform.Find("fallingIcon")){
+            GameObject fallObj = Instantiate(fallObjPrefab,backPanel.transform.Find("fallingIcon"));
+            if (fallObj != null){
+                RectTransform backRect = backPanel.transform.Find("fallingIcon").GetComponent<RectTransform>();
+                float yPosition = backRect.rect.height/2;
+                Vector3 spawnPosition = new Vector3(Random.Range(-backRect.rect.width/2*0.8f,backRect.rect.width/2*0.8f),yPosition,0);
+                Quaternion spawnRotation = Quaternion.Euler(0f, 0f, Random.Range(0,360));
+
+                fallObj.transform.localPosition = spawnPosition;
+                fallObj.transform.rotation = spawnRotation;
+
+                int perkSeed = Mathf.Abs((int)System.DateTime.Now.Ticks);
+                perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,null,null);
+                if (chosenPerk){
+                    fallObj.GetComponent<Image>().sprite = chosenPerk.perkIcon;
+                }
+
+                fallObj.GetComponent<fallingObj>().fallSpeed = Random.Range(5,9) * 0.5f;
+                fallObj.GetComponent<fallingObj>().rotationSpeed = Random.Range(-5,5) * 0.5f;
+                if (fallObj.GetComponent<fallingObj>().rotationSpeed == 0){
+                    fallObj.GetComponent<fallingObj>().rotationSpeed = 1;
+                }
+
+                fallObj.GetComponent<fallingObj>().parentRect = backRect;
+            }
+        }
+    }
+
+    private void Update() {
+        if (splashHand != null && splashHead != null){
+            float angle = Mathf.Sin(Time.time * 3f) * 3f;
+            float offset = Mathf.Sin(Time.time * 5f) * 0.02f;
+
+            Quaternion setRotationEuler = Quaternion.Euler(0f, 0f, angle);
+            splashHead.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f + offset);
+            splashHead.GetComponent<RectTransform>().rotation = setRotationEuler;
+
+            setRotationEuler = Quaternion.Euler(0f, 0f, -angle * 0.5f);
+            splashHand.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f + offset);
+            splashHand.GetComponent<RectTransform>().rotation = setRotationEuler;
+
+            splashHead.transform.Find("foot1").gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f + (offset * 0.5f));
+            splashHead.transform.Find("foot2").gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f - (offset * 0.5f));
+        }
+
+        if (Time.time >= fallTime){
+            fallTime = Time.time + Random.Range(70,90)/50;
+            spawnFallingPerk();
+        }
     }
 }

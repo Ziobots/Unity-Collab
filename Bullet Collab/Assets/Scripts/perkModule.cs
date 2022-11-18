@@ -47,7 +47,7 @@ public class perkModule : MonoBehaviour
 
     public Rarity GetRarity(int value,levelData level){
         int[] valueList = {40,70,90,100};
-        if (level && level.valueList != null && level.valueList.Length > 0){
+        if (level != null && level.valueList != null && level.valueList.Length > 0){
             valueList = level.valueList;
         }
 
@@ -75,7 +75,7 @@ public class perkModule : MonoBehaviour
         }
 
         foreach (perkData perk in perkObjects){
-            if (perk && !blackList.Contains(perk.name)){
+            if (perk && (blackList == null || !blackList.Contains(perk.name))){
                 rarityChoices[perk.perkRarity].Add(perk);
             }
         }

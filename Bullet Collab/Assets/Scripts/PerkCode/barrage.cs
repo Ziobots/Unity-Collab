@@ -14,7 +14,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Perk/barrage")]
 public class barrage : perkData
 {
-    public int addFireCount = 3;
+    public int addFireCount = 2;
+    public int addAmmo = 3;
     public float addSpread = 3f;
     public float addReload = 0.4f;
 
@@ -29,6 +30,7 @@ public class barrage : perkData
             entityStats.fireCount += addFireCount;
             entityStats.reloadTime += addReload;
             entityStats.bulletSpread += addSpread;
+            entityStats.maxAmmo += addAmmo;
         }
     }
 

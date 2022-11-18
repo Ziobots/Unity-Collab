@@ -172,9 +172,9 @@ MonoBehaviour:
   - {fileID: 1853580970003226635}
   bulletFolder: {fileID: 0}
   debriFolder: {fileID: 0}
-  maxAmmo: 1
+  maxAmmo: 3
   fireCount: 1
-  currentAmmo: 1
+  currentAmmo: 3
   reloadTime: 1.5
   bulletTime: 0.4
   bulletSpread: 0
@@ -185,6 +185,8 @@ MonoBehaviour:
   gunNoise: {fileID: 0}
   reloadNoise: {fileID: 0}
   hurtNoise: {fileID: 0}
+  damageNoise: {fileID: 0}
+  currentCamera: {fileID: 0}
   spriteColor: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 255}
   perkIDList: []
   currentTarget: {fileID: 0}

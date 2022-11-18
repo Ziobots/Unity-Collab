@@ -51,6 +51,7 @@ public class playscreenSetup : MonoBehaviour
     public GameObject splashHand;
     public GameObject backPanel;
     public GameObject fallObjPrefab;
+    public GameObject logo;
     public float fallTime = 0;
 
     public void quitButton(){
@@ -188,11 +189,12 @@ public class playscreenSetup : MonoBehaviour
     }
 
     private void Update() {
+        float angle = Mathf.Sin(Time.time * 3f) * 3f;
+        float offset = Mathf.Sin(Time.time * 5f) * 0.02f;
+        Quaternion setRotationEuler = Quaternion.Euler(0f, 0f, angle);
+        
         if (splashHand != null && splashHead != null){
-            float angle = Mathf.Sin(Time.time * 3f) * 3f;
-            float offset = Mathf.Sin(Time.time * 5f) * 0.02f;
 
-            Quaternion setRotationEuler = Quaternion.Euler(0f, 0f, angle);
             splashHead.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f + offset);
             splashHead.GetComponent<RectTransform>().rotation = setRotationEuler;
 
@@ -212,6 +214,21 @@ public class playscreenSetup : MonoBehaviour
         if (Time.time >= fallTime){
             fallTime = Time.time + Random.Range(70,90)/50;
             spawnFallingPerk();
+        }
+
+        if (logo != null){
+            offset = Mathf.Sin(Time.time * 5f) * 0.05f;
+            angle = Mathf.Sin(Time.time * 3f) * 3f;
+
+            if (offset < 0){
+                offset *= 1.2f;
+            }else{
+                offset *= 0.5f;
+            }
+
+            setRotationEuler = Quaternion.Euler(0f, 0f, angle);
+            logo.GetComponent<RectTransform>().rotation = setRotationEuler;
+            logo.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f + (offset * 0.5f));
         }
     }
 }

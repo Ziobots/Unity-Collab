@@ -204,7 +204,7 @@ MonoBehaviour:
   checkAngle: 1
   flipSprite: 1
   myType: 1
-  roomSpawnMinimum: 0
+  roomSpawnMinimum: 2
   Loaded: 0
 --- !u!114 &6770360506613481947
 MonoBehaviour:

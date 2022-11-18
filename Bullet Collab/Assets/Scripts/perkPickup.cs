@@ -39,9 +39,17 @@ public class perkPickup : MonoBehaviour
     // Interaction
     public bool playerNearby = false;
 
+    // Sound Stuff
+    public AudioSource collectNoise;
+
+
     private void collectEffect(){
         visualFx collectVFX = Instantiate(collectPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),new Quaternion(),addFolder);
         if (collectVFX != null){
+            if (collectNoise != null){
+                collectNoise.PlayOneShot(collectNoise.clip,collectNoise.volume);
+            }
+
             collectVFX.lifeTime = 0f;
             collectVFX.killAnimation = true;
             collectVFX.animSpeed = 2.5f;

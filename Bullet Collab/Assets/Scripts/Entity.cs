@@ -120,6 +120,7 @@ public class Entity : MonoBehaviour
 
     // This function exits for enemies with unique bullet phases
     public virtual void finishedReload(){
+        currentAmmo = maxAmmo;
         reloadingGun = false;
     }
 
@@ -146,7 +147,7 @@ public class Entity : MonoBehaviour
         }
 
         // check if entity is reloading
-        if (Time.time - reloadStartTime < reloadTime){
+        if (Time.time - reloadStartTime < reloadTime || reloadingGun){
             return false;
         }
 

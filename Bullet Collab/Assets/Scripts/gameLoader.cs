@@ -69,6 +69,7 @@ public class gameLoader : MonoBehaviour
     public AudioSource musicShop;
     public AudioSource musicBoss;
     public AudioSource currentSource;
+    public AudioSource collectNoise;
     public GameObject currentCamera;
 
     // music functions
@@ -477,6 +478,7 @@ public class gameLoader : MonoBehaviour
                         newPerk.count = 1;
                         newPerk.addFolder = debriFolder;
                         newPerk.perkObjList = perkObjList;
+                        newPerk.collectNoise = collectNoise;
 
                         newPerk.perkGet = delegate{
                             currentWave++;

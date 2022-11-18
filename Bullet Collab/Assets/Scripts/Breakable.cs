@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Name : Breakable.cs
-* Section Description : This is a subclass for stuff that can be hit by bullets.
+* Section Description : This is a subclass for stuff that can be hit by bullets. 
 * -------------------------------
 * - HISTORY OF CHANGES -
 * -------------------------------

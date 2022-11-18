@@ -48,13 +48,10 @@ public class loginSetup : MonoBehaviour
 
     // start game variables
     public GameObject enterMenu;
-    private bool startVisible = true;
-    private float startTime = 0;
     private float gameLoadTime = 0;
-    private bool anyKeyPressed = false;
 
     // error variables
-    public GameObject errorMenu;
+    public GameObject errorMenu; 
     private Color32 errorColor = new Color32(253,106,106,255);
 
     // transition obj
@@ -455,25 +452,6 @@ public class loginSetup : MonoBehaviour
                     if (emailField.text != "" && passwordField.text != ""){
                         submitButton.onClick.Invoke();
                     }
-                }
-            }
-        }
-
-        // do main menu stuff
-        if (enterMenu && enterMenu.activeSelf){
-            // animate start game text
-            float blipTime = startVisible ? 1f : 0.1f;
-            if (Time.fixedTime - startTime >= blipTime){
-                startVisible = !startVisible;
-                startTime = Time.fixedTime;
-                enterMenu.transform.Find("title").gameObject.SetActive(startVisible);
-            }
-
-            // check for any key press
-            if (Time.fixedTime - gameLoadTime >= 0.5f){
-                if (Input.anyKey && !anyKeyPressed){
-                    anyKeyPressed = true;
-                    transitioner.GetComponent<fadeTransition>().startFade(loadMenu,true);
                 }
             }
         }

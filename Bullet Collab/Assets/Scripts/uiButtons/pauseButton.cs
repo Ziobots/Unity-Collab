@@ -74,6 +74,11 @@ public class pauseButton : MonoBehaviour
         // load the perk viewer
         pausePanel.transform.Find("perkPanel").GetComponent<perkView>().loadPerkViewer(1);
 
+        if (dataInfo != null){
+            pausePanel.transform.Find("room").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = "" + (dataInfo.currentRoom + 1) + " : Room";
+            pausePanel.transform.Find("seed").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = "" + dataInfo.seed + " : seed";
+        }
+
         // set the blur
         blurField.focusDistance.value = 0f;
         blurObj.SetActive(true);

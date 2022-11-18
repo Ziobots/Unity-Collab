@@ -7,6 +7,7 @@
 * Date		Software Version	Initials		Description
 * 10/27/22  0.10                 DS              Made the thing
 * 11/03/22  0.15                 DS              added bullet stuff
+* 11/17/22  0.4                  DS              changed heart ui
 *******************************************************************************/
 
 using System.Collections;
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
     public GameObject bulletUIPrefab;
 
     public GameObject scoreLabel;
+    public GameObject roomLabel;
 
     // temp vars
     private int lastCurrent = -1;
@@ -64,12 +66,12 @@ public class UIManager : MonoBehaviour
                 newHeart.name = "heart_" + i;
                 if (i <= (dataInfo.currenthealth + 1)){
                     if (i > dataInfo.currenthealth){
-                        newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("Hearts")[1];
+                        newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("hearts2")[1];// Hearts
                     }else{
-                        newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("Hearts")[0];
+                        newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("hearts2")[0];
                     }
                 }else{
-                    newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("Hearts")[2];
+                    newHeart.GetComponent<Image>().sprite = Resources.LoadAll<Sprite>("hearts2")[2];
                 }
 
                 // add heart to safelist 
@@ -157,14 +159,16 @@ public class UIManager : MonoBehaviour
 
     // score update
     public void updateScore(){
-        if (dataInfo.totalScore != lastScore && scoreLabel != null){
-            lastScore = dataInfo.totalScore;
+        if (dataInfo != null){
+            if (dataInfo.totalScore != lastScore && scoreLabel != null){
+                lastScore = dataInfo.totalScore;
 
-            scoreLabel.GetComponent<TMPro.TextMeshProUGUI>().text = "" + lastScore;
-            
-            LeanTween.cancel(scoreLabel);
-            LeanTween.value(scoreLabel,40f,45f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setScoreSize);
-            LeanTween.value(scoreLabel,45f,40f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setScoreSize).setDelay(0.1f);
+                scoreLabel.GetComponent<TMPro.TextMeshProUGUI>().text = "" + lastScore;
+                
+                LeanTween.cancel(scoreLabel);
+                LeanTween.value(scoreLabel,40f,45f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setScoreSize);
+                LeanTween.value(scoreLabel,45f,40f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setScoreSize).setDelay(0.1f);
+            }
         }
     }
 

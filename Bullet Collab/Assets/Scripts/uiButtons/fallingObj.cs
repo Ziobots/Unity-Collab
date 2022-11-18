@@ -22,8 +22,9 @@ public class fallingObj : MonoBehaviour
     void Update(){
         if (parentRect != null){
             gameObject.GetComponent<RectTransform>().rotation = gameObject.GetComponent<RectTransform>().rotation * Quaternion.Euler(0f, 0f, rotationSpeed * 8f * Time.fixedDeltaTime);
-            gameObject.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition - new Vector3(0f,fallSpeed * 8f * Time.fixedDeltaTime,0f);
-            if (gameObject.GetComponent<RectTransform>().localPosition.y <= -parentRect.rect.height/2){
+            gameObject.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition + new Vector3(0f,fallSpeed * 8f * Time.fixedDeltaTime,0f);
+            //if (gameObject.GetComponent<RectTransform>().localPosition.y <= -parentRect.rect.height/2){
+            if (gameObject.GetComponent<RectTransform>().localPosition.y >= parentRect.rect.height/2){
                 Destroy(gameObject);
             }
         }

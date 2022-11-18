@@ -163,7 +163,7 @@ public class playscreenSetup : MonoBehaviour
             GameObject fallObj = Instantiate(fallObjPrefab,backPanel.transform.Find("fallingIcon"));
             if (fallObj != null){
                 RectTransform backRect = backPanel.transform.Find("fallingIcon").GetComponent<RectTransform>();
-                float yPosition = backRect.rect.height/2;
+                float yPosition = -backRect.rect.height/2;
                 Vector3 spawnPosition = new Vector3(Random.Range(-backRect.rect.width/2*0.8f,backRect.rect.width/2*0.8f),yPosition,0);
                 Quaternion spawnRotation = Quaternion.Euler(0f, 0f, Random.Range(0,360));
 
@@ -202,6 +202,11 @@ public class playscreenSetup : MonoBehaviour
 
             splashHead.transform.Find("foot1").gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f + (offset * 0.5f));
             splashHead.transform.Find("foot2").gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f,0.5f - (offset * 0.5f));
+        }
+
+        if (backPanel != null && backPanel.transform.Find("background")){
+            RawImage scrollBack =  backPanel.transform.Find("background").gameObject.GetComponent<RawImage>();
+            scrollBack.uvRect = new Rect(scrollBack.uvRect.position + new Vector2(0,-4.20f) * Time.deltaTime,scrollBack.uvRect.size);
         }
 
         if (Time.time >= fallTime){

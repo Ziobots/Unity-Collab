@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 21300000, guid: a6133086256f6104580e42a99aac13cf, type: 3}
   perkName: Aiming Bullets
-  perkCost: 0
+  perkCost: 180
   perkDescription: Bullets will turn toward the cursor.
   perkRarity: 4
   stackablePerk: 1
+  enemyPerk: 1
+  speedMultiple: 0.8

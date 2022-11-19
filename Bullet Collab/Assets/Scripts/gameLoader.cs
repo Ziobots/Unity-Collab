@@ -72,6 +72,8 @@ public class gameLoader : MonoBehaviour
     public AudioSource musicBoss;
     public AudioSource currentSource;
     public AudioSource collectNoise;
+    public AudioSource errorNoise;
+    public AudioSource buyNoise;
     public GameObject currentCamera;
 
     // music functions
@@ -389,8 +391,8 @@ public class gameLoader : MonoBehaviour
     // find the next room for the player, based on seed
     public void nextRoom(string setID){
         currentRoom++;
-        RoomType nextType = RoomType.Enemy;
-        if (currentRoom % 10 == 0){
+        RoomType nextType = RoomType.Shop;
+        if (currentRoom % 10 == 0 && currentRoom > 5){
             nextType = RoomType.Boss;
         }else if (currentRoom % 10 == 5){
             nextType = RoomType.Shop;
@@ -427,7 +429,7 @@ public class gameLoader : MonoBehaviour
         }
 
         roomLoaded = false;
-        currentWave = 1;
+        currentWave = 0;
         spawningEnemies = false;
         waveStarted = false;
         spawnedPerks = false;
@@ -475,17 +477,24 @@ public class gameLoader : MonoBehaviour
         if (playerObj && levelObj){
             Player playerData = playerObj.GetComponent<Player>();
             levelData levelInfo = levelObj.GetComponent<levelData>();
-            if (playerData && levelInfo && !levelInfo.skipPerks){
+            if (playerData && levelInfo){
                 dataInfo.saveTemporaryData(null);
                 dataInfo.canDoSave = false;
                 
+                List<string> blackList = new List<string>();
+                int spawnPerkCount = playerData.perkCount;
+
+                if (levelInfo.type == RoomType.Shop){
+                    spawnPerkCount = 5;
+                    blackList.Add("COST_ONLY_PERK");
+                }
+
                 int maxColumn = 7;
-                int columnCount = Mathf.Clamp(playerData.perkCount,1,maxColumn);
-                int rowCount = (int) Mathf.Ceil(playerData.perkCount/columnCount);
+                int columnCount = Mathf.Clamp(spawnPerkCount,1,maxColumn);
+                int rowCount = (int) Mathf.Ceil(spawnPerkCount/columnCount);
                 List<GameObject> perkObjList = new List<GameObject>();
 
                 // should not spawn perks that cant stack that the player has
-                List<string> blackList = new List<string>();
                 foreach (string perkID in playerObj.GetComponent<Entity>().perkIDList){
                     perkData perk = gameObject.GetComponent<perkModule>().getPerk(perkID);
                     if (perk && !perk.stackablePerk){
@@ -493,14 +502,27 @@ public class gameLoader : MonoBehaviour
                     }
                 }
 
-                for (int i = 0; i < playerData.perkCount; i++){
+                // spawn the perks
+                for (int i = 0; i < spawnPerkCount; i++){
                     // get the position of the perk
+                    Vector3 perkBasePosition = new Vector3(0,0,0);
                     Vector3 perkPosition = new Vector3(0,0,0);
+
+                    if (levelInfo.type == RoomType.Shop){
+                        // change to item shop
+                        if (i >= spawnPerkCount - 2){
+                            blackList.Add("SHOP_ONLY_PERK");
+                        }
+
+                        if (levelObj && levelObj.transform.Find("shopPosition")){
+                            perkBasePosition = levelObj.transform.Find("shopPosition").position;
+                        }
+                    }
+
                     perkPosition.x = -Mathf.Ceil((float)columnCount / (float)2f) + ((i % columnCount) + 1);
-                    //perkPosition.y = -Mathf.Floor((float)rowCount / (float)2f) + Mathf.Floor((float)i/(float)columnCount);
                     perkPosition.y = Mathf.Floor((float)i/(float)columnCount);
 
-                    perkPickup newPerk = Instantiate(perkPrefab,perkPosition * 2.5f,new Quaternion(),debriFolder);
+                    perkPickup newPerk = Instantiate(perkPrefab,perkBasePosition + (perkPosition * 2.5f),new Quaternion(),debriFolder);
                     if (newPerk != null){
                         // set the default perk stats
                         newPerk.dataManager = dataManager;
@@ -512,6 +534,7 @@ public class gameLoader : MonoBehaviour
                         newPerk.addFolder = debriFolder;
                         newPerk.perkObjList = perkObjList;
                         newPerk.collectNoise = collectNoise;
+                        newPerk.errorNoise = errorNoise;
 
                         newPerk.perkGet = delegate{
                             currentWave++;
@@ -524,6 +547,10 @@ public class gameLoader : MonoBehaviour
                         perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
                         if (chosenPerk){
                             newPerk.perkID = chosenPerk.name;
+                            if (levelInfo.type == RoomType.Shop){
+                                newPerk.cost = chosenPerk.perkCost;
+                                newPerk.collectNoise = buyNoise;
+                            }
 
                             // check if should add to blacklist
                             if (chosenPerk && !chosenPerk.stackablePerk){
@@ -533,12 +560,16 @@ public class gameLoader : MonoBehaviour
 
                         // finish setting up the perk
                         newPerk.setupPickup();
-                        perkObjList.Add(newPerk.gameObject);
+                        if (levelInfo.type != RoomType.Shop){
+                            perkObjList.Add(newPerk.gameObject);
+                        }
                     }
                 }
 
-                foreach (GameObject perkObj in perkObjList){
-                    perkObj.GetComponent<perkPickup>().perkObjList = perkObjList;
+                if (levelInfo.type != RoomType.Shop){
+                    foreach (GameObject perkObj in perkObjList){
+                        perkObj.GetComponent<perkPickup>().perkObjList = perkObjList;
+                    }
                 }
             }
         }
@@ -653,7 +684,7 @@ public class gameLoader : MonoBehaviour
 
             // change perm stats
             dataInfo.statKillCount += dataInfo.enemiesKilled;
-            dataInfo.statPerkCount += dataInfo.perkIDList.Count;
+            dataInfo.statPerkCount += gameObject.GetComponent<perkModule>().countPerks(dataInfo.perkIDList,false);
             dataInfo.statRoomCount += dataInfo.currentRoom;
 
             if (dataInfo.currenthealth > 0){
@@ -708,7 +739,7 @@ public class gameLoader : MonoBehaviour
         }else if (levelObj != null && gameLoaded){
             levelData levelInfo = levelObj.GetComponent<levelData>();
             if (levelInfo){
-                if (currentWave > levelInfo.waveCount){
+                if (currentWave >= levelInfo.waveCount){
                     // get time spent clearing room
                     if (roomStartTime != 0){
                         dataInfo.elapsedTime += Time.time - roomStartTime;
@@ -718,8 +749,11 @@ public class gameLoader : MonoBehaviour
                     if (!spawnedPerks && currentWave <= (levelInfo.waveCount + 1)){
                         spawnedPerks = true;
 
-                        if (!levelInfo.skipPerks){
+                        if (!levelInfo.skipPerks || levelInfo.type == RoomType.Shop){
                             spawnPerks();
+                        }
+
+                        if (!levelInfo.skipPerks){
                             showContinue();
                         }
 

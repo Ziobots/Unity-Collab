@@ -34,7 +34,7 @@ public class tempDataClass{
     // stats
     public int enemiesKilled = 0;
     public int totalScore = 0;
-    public int wave = 1;
+    public int wave = 0;
     public int room = 0;
     public float elapsedTime = 0;
 

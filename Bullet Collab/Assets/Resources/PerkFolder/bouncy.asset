@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 21300000, guid: 9b81802da5ada654491a5eb274b31c1b, type: 3}
   perkName: Bounce
-  perkCost: 0
+  perkCost: 70
   perkDescription: Add 2 bounces to bullets, increase damage, some more reload.
   perkRarity: 1
   stackablePerk: 1

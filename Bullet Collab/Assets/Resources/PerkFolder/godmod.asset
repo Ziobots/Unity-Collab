@@ -9,19 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf4c86099080594ab3392d0a550542f, type: 3}
+  m_Script: {fileID: 11500000, guid: 88b28b5c52804834e9b64ae0e8c8abd7, type: 3}
   m_Name: godmod
   m_EditorClassIdentifier: 
-  perkIcon: {fileID: 21300000, guid: 5f9f5929aaef6384a8f56a803e84cd43, type: 3}
-  perkName: TESTING
+  perkIcon: {fileID: 21300000, guid: f95f697d66d238446b1ab717def09945, type: 3}
+  perkName: wipe screen
   perkCost: 0
-  perkDescription: for testing only
+  perkDescription: testing
   perkRarity: 0
-  stackablePerk: 1
+  stackablePerk: 0
   enemyPerk: 1
-  addBullets: 30
-  damageMultiple: 5
-  delayMultiple: 0.1
-  reloadMultiple: 0.1
-  spreadMultiple: 0
-  sizeMultiple: 1

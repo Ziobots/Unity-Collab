@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 21300000, guid: ec6085bf8b83c1f46b24ee84fd693a06, type: 3}
   perkName: Perk Lottery
-  perkCost: 0
-  perkDescription: When you pick a perk, there's a 50% chance the others won't disappear.
+  perkCost: 200
+  perkDescription: When you pickup a perk, there's a 50% chance the others won't
+    disappear.
   perkRarity: 3
   stackablePerk: 1
   enemyPerk: 0

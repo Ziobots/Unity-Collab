@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 0}
   perkName: Glass Cannon
-  perkCost: 0
+  perkCost: 150
   perkDescription: Bullets are a lot stronger but you only have one hp.
   perkRarity: 4
   stackablePerk: 1
+  enemyPerk: 1
   reloadMultiple: 0.7
   damageMultiple: 3
   sizeMultiple: 2

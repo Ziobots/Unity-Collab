@@ -33217,7 +33217,6 @@ MonoBehaviour:
   bulletUIPrefab: {fileID: 126159910631133397, guid: db6afb331c8fed64b85bd5ff52d40888, type: 3}
   scoreLabel: {fileID: 5988384193971450429}
   moneyPanel: {fileID: 6195688107827498055}
-  roomLabel: {fileID: 6070201170837988597}
 --- !u!1 &7924832519960571916
 GameObject:
   m_ObjectHideFlags: 0
@@ -39793,6 +39792,22 @@ PrefabInstance:
     - target: {fileID: 6996868689747485346, guid: e2ad71d23ed78974892225cd9af6aecd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996868690759669776, guid: e2ad71d23ed78974892225cd9af6aecd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996868690759669776, guid: e2ad71d23ed78974892225cd9af6aecd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996868690759669777, guid: e2ad71d23ed78974892225cd9af6aecd, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996868690759669777, guid: e2ad71d23ed78974892225cd9af6aecd, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2ad71d23ed78974892225cd9af6aecd, type: 3}

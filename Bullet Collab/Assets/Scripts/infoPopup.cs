@@ -41,6 +41,14 @@ public class infoPopup : MonoBehaviour
         return false;
     }
 
+    // make background same size as text width
+    private void scaleTextPopup(){
+        // change background size to text width
+
+        float width = transform.Find("Purchase").gameObject.transform.Find("context").gameObject.GetComponent<TMPro.TextMeshProUGUI>().preferredWidth * 1f;
+        transform.Find("Purchase").gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width + 50f,40f);
+    }
+
     // overwrite the popup with the new data
     public Dictionary<string, bool> setBoxInfo(Dictionary<string, string> showData){
         Dictionary<string, bool> showUI = new Dictionary<string, bool>();
@@ -74,6 +82,7 @@ public class infoPopup : MonoBehaviour
         transform.Find("Info").gameObject.transform.Find("perkName").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = showData["Title"];
         transform.Find("Info").gameObject.transform.Find("perkDesc").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = showData["Description"];
         transform.Find("Purchase").gameObject.transform.Find("context").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = showData["Context"].ToUpper();
+        scaleTextPopup();
 
         showUI.Add("Box", showBox);
         showUI.Add("Context", showContext);
@@ -109,6 +118,7 @@ public class infoPopup : MonoBehaviour
 
             transform.gameObject.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(startOpacity,endVisible,alpha);
             gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,(startHeight - 30f) + (yOffset * 30f),0);
+            scaleTextPopup();
 
             // wait until next frame to run
             yield return null;

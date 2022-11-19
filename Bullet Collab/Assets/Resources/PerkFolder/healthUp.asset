@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5772bf18b6d0cdc49b915d97b48603ed, type: 3}
   m_Name: healthUp
   m_EditorClassIdentifier: 
-  perkIcon: {fileID: 21300000, guid: 767edfb1f6103134e8563296fde18b0d, type: 3}
-  perkName: Healh Increase
-  perkCost: 0
-  perkDescription: 
-  perkRarity: 0
+  perkIcon: {fileID: -1240546518, guid: b01d69872d141a34e8e021c0b2047a30, type: 3}
+  perkName: Half Heart
+  perkCost: 50
+  perkDescription: Heal one half heart worth of health.
+  perkRarity: 5
   stackablePerk: 1
+  enemyPerk: 0
   healthInc: 1

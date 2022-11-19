@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 21300000, guid: 0551d56939e27b74699897f215421c80, type: 3}
   perkName: Shotgun Shells
-  perkCost: 0
+  perkCost: 90
   perkDescription: Fire an extra shell each shot, less damage, more spread, longer
     reload time, plus 2 ammo.
   perkRarity: 2

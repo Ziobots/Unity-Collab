@@ -163,7 +163,7 @@ public class perkView : MonoBehaviour
         List<string> shortPerkList = new List<string>();
         shortPerkList.Add("noPerk_Display");
         if (dataInfo != null && dataInfo.perkIDList.Count > 0){
-            List<string> shortCheck = gameObject.GetComponent<perkModule>().shortenList(dataInfo.perkIDList);
+            List<string> shortCheck = gameObject.GetComponent<perkModule>().shortenList(dataInfo.perkIDList,false);
             if (shortCheck.Count > 0){
                 shortPerkList = shortCheck;
             }

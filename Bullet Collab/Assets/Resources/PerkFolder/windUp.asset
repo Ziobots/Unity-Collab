@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 21300000, guid: 701bf26d92f877642854eab9bfa865dc, type: 3}
   perkName: Wind Up
-  perkCost: 0
+  perkCost: 110
   perkDescription: Increase bullet speed and damage, more reload time.
   perkRarity: 1
   stackablePerk: 1

@@ -52,6 +52,12 @@ public class nextWave : MonoBehaviour
         });
     }
         
+    public IEnumerator doWait(float waitTime, System.Action waitDone){
+        yield return new WaitForSeconds(waitTime);
+        // run on complete
+        waitDone();
+    }
+        
     public void showButton(System.Action onComplete){
         if (transitioning){
             return;
@@ -72,6 +78,12 @@ public class nextWave : MonoBehaviour
         // activate it
         gameObject.SetActive(true);
         onClick = onComplete;
+
+        StartCoroutine(doWait(fadeTime,delegate{
+            if (nextVisible){
+                showComplete();
+            }
+        }));
     }
 
     public void onWaveClick(){

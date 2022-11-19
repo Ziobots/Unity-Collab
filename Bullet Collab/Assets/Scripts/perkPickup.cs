@@ -45,7 +45,7 @@ public class perkPickup : MonoBehaviour
 
     // Sound Stuff
     public AudioSource collectNoise;
-
+    public AudioSource errorNoise;
 
     private void collectEffect(){
         visualFx collectVFX = Instantiate(collectPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),new Quaternion(),addFolder);
@@ -122,65 +122,78 @@ public class perkPickup : MonoBehaviour
 
     public void onPickup(GameObject entityObj){
         if (perkCommands != null && dataInfo != null){
-            // Disabled Collider
-            gameObject.GetComponent<Collider2D>().enabled = false;
+            Entity entityInfo = entityObj.GetComponent<Entity>();
+            if (entityInfo && entityInfo.currency >= cost){
+                entityInfo.currency -= cost;
+                // Disabled Collider
+                gameObject.GetComponent<Collider2D>().enabled = false;
 
-            // add perk to ID list
-            perkData perk = perkCommands.getPerk(perkID);
-            if (perk != null){
-                for (int i = 1; i <= count; i++){
-                    // add the perk to the data
-                    print("added perk " + perkID);
-                    entityObj.GetComponent<Entity>().perkIDList.Add(perkID);
+                // add perk to ID list
+                perkData perk = perkCommands.getPerk(perkID);
+                if (perk != null){
+                    for (int i = 1; i <= count; i++){
+                        // add the perk to the data
+                        print("added perk " + perkID);
+                        entityObj.GetComponent<Entity>().perkIDList.Add(perkID);
 
-                    // create the dictionary for on add
-                    Dictionary<string, GameObject> addList = new Dictionary<string, GameObject>();
-                    addList.Add("Owner", entityObj);
-                    addList.Add("PerkObj", gameObject);
+                        // create the dictionary for on add
+                        Dictionary<string, GameObject> addList = new Dictionary<string, GameObject>();
+                        addList.Add("Owner", entityObj);
+                        addList.Add("PerkObj", gameObject);
 
-                    // This event should only run here and data load, 3 parameter should always be true here?
-                    perk.addedEvent(addList,perkCommands.countPerks(entityObj.GetComponent<Entity>().perkIDList)[perkID],true);
+                        // This event should only run here and data load, 3 parameter should always be true here?
+                        perk.addedEvent(addList,perkCommands.countPerks(entityObj.GetComponent<Entity>().perkIDList)[perkID],true);
 
-                    // fix any stats that are really bad
-                    gameObject.GetComponent<perkModule>().fixEntity(entityObj.GetComponent<Entity>());
+                        // fix any stats that are really bad
+                        gameObject.GetComponent<perkModule>().fixEntity(entityObj.GetComponent<Entity>());
+
+                        // apply any changes to the data
+                        dataInfo.updateEntityData(entityObj);
+                    }
+                }
+
+                // do collect effect
+                collectEffect();
+
+                Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+                if (perkCommands != null){
+                    editList.Add("Owner", entityObj);
+                    editList.Add("PerkObj", gameObject);
+                    editList.Add("GameManager",gameManager);
+                    editList.Add("DataManager",dataManager);
+                    perkCommands.applyPerk(dataInfo.perkIDList,"Perk_Collect",editList);
 
                     // apply any changes to the data
                     dataInfo.updateEntityData(entityObj);
                 }
-            }
 
-            // do collect effect
-            collectEffect();
-
-            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
-            if (perkCommands != null){
-                editList.Add("Owner", entityObj);
-                editList.Add("PerkObj", gameObject);
-                editList.Add("GameManager",gameManager);
-                editList.Add("DataManager",dataManager);
-                perkCommands.applyPerk(dataInfo.perkIDList,"Perk_Collect",editList);
-
-                // apply any changes to the data
-                dataInfo.updateEntityData(entityObj);
-            }
-
-            // if perk was connected to other perks remove those since this was chosen
-            if (!editList.ContainsKey("SKIP_DESTROY")){
-                foreach (GameObject perkObj in perkObjList){
-                    if (perkObj != gameObject && perkObj != null){
-                        // do destroy effect
-                        perkObj.GetComponent<perkPickup>().removePerk();
+                // if perk was connected to other perks remove those since this was chosen
+                if (!editList.ContainsKey("SKIP_DESTROY")){
+                    foreach (GameObject perkObj in perkObjList){
+                        if (perkObj != gameObject && perkObj != null){
+                            // do destroy effect
+                            perkObj.GetComponent<perkPickup>().removePerk();
+                        }
                     }
                 }
-            }
 
-            if (perkGet != null){
-                perkGet();
-            }
+                if (perkGet != null){
+                    perkGet();
+                }
 
-            // remove this perk obj
-            if (gameObject != null){
-                Destroy(gameObject);
+                if (uiUpdate){
+                    uiUpdate.updateGameUI();
+                }
+
+                // remove this perk obj
+                if (gameObject != null){
+                    Destroy(gameObject);
+                }
+
+            }else{
+                if (errorNoise != null){
+                    errorNoise.PlayOneShot(errorNoise.clip,errorNoise.volume);
+                }
             }
         }
     }

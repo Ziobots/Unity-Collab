@@ -31,6 +31,9 @@ public class errorPopup : MonoBehaviour
     private float spikeTime = 0f;
     private bool spikeBool = false;
 
+    // Sound Stuff
+    public AudioSource errorNoise;
+
     // tween functions
     private void setAnchoredPosition(Vector3 value){
         gameObject.GetComponent<RectTransform>().anchoredPosition = value;
@@ -70,6 +73,10 @@ public class errorPopup : MonoBehaviour
     public void displayError(string errorMessage,Color32 backgroundColor){
         // tween the fade
         LeanTween.cancel(gameObject);
+
+        if (errorNoise != null){
+            errorNoise.PlayOneShot(errorNoise.clip,errorNoise.volume);
+        }
 
         // just bump if already visible
         if (errorVisible){

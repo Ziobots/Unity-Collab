@@ -6,7 +6,8 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/31/22  0.10                 DS              made the thing
-* 11/02/22  0.10                 DS              added popup functionality
+* 11/02/22  0.20                 DS              added popup functionality
+* 11/02/22  0.30                 DS              hide when player dies
 *******************************************************************************/
 
 using System.Collections;
@@ -28,12 +29,19 @@ public class interactPlayer : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        bool canSearch = true;
         if (Time.timeScale <= 0){
             return;
         }
 
+        if (gameObject & gameObject.GetComponent<Entity>()){
+            if (gameObject.GetComponent<Entity>().currentHealth <= 0){
+                canSearch = false;
+            }
+        }
+
         Collider2D interactObj = findObject();
-        if (interactObj != null && interactObj.gameObject != null){
+        if (interactObj != null && interactObj.gameObject != null && canSearch){
             // apply highlight effect to obj
             if (currentObj != interactObj){
                 applyNearbyVFX(interactObj);

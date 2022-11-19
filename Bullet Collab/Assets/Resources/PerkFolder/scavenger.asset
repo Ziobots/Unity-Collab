@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 21300000, guid: 2f498fbb1316b2c4b883fc136f69a3a5, type: 3}
   perkName: Scavenger
-  perkCost: 0
+  perkCost: 250
   perkDescription: Dealing damage reloads your gun, longer reload time.
   perkRarity: 4
   stackablePerk: 0
+  enemyPerk: 1
   addReload: 0.5

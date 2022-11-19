@@ -41,14 +41,16 @@ public class perkModule : MonoBehaviour
         // Only load perks onces, optimization, before it loaded them everytime lagging the game when called too often
         loadPerkFolder();
 
-        // dont loop if not needed
-            return perkIDDictionary[perkID];
+        return perkIDDictionary[perkID];
     }
 
     public Rarity GetRarity(int value,levelData level){
         int[] valueList = {40,70,90,100};
         if (level != null && level.valueList != null && level.valueList.Length > 0){
             valueList = level.valueList;
+        }else if (level != null && level.type == RoomType.Shop){
+            int[] replace = {30,60,85,100};
+            valueList = replace;
         }
 
         if (value <= valueList[0]){ // 40%
@@ -67,6 +69,10 @@ public class perkModule : MonoBehaviour
     public perkData getRandomPerk(int perkSeed,List<string> blackList,levelData level){
         // load all the perks to sort through
         loadPerkFolder();
+        bool costOnly = false;
+        if (blackList != null && blackList.Contains("COST_ONLY_PERK")){
+            costOnly = true;
+        }
 
         // get perks and put them into each rarity list
         Dictionary<Rarity, List<perkData>> rarityChoices = new Dictionary<Rarity, List<perkData>>();
@@ -76,6 +82,10 @@ public class perkModule : MonoBehaviour
 
         foreach (perkData perk in perkObjects){
             if (perk && (blackList == null || !blackList.Contains(perk.name))){
+                if (costOnly && perk.perkCost <= 0){
+                    continue;
+                }
+                
                 rarityChoices[perk.perkRarity].Add(perk);
             }
         }
@@ -83,6 +93,10 @@ public class perkModule : MonoBehaviour
         // get random perk
         System.Random randomGen = new System.Random(perkSeed);
         Rarity chosenTier = GetRarity(randomGen.Next(0,100),level);
+        if (blackList != null && blackList.Contains("SHOP_ONLY_PERK")){
+            chosenTier = Rarity.ShopOnly;
+        }
+
         if (rarityChoices[chosenTier].Count <= 0){
             chosenTier = Rarity.Common;
         }
@@ -103,14 +117,31 @@ public class perkModule : MonoBehaviour
         return perkCounts;
     }
 
-    public List<string> shortenList(List<string> perkIDList){
+    public int countPerks(List<string> perkIDList,bool includeShop){
+        int count = 0;
+        
+        // go through all perks
+        foreach (string perkID in perkIDList){
+            perkData perk = getPerk(perkID);
+            if (perk && (perk.perkRarity != Rarity.ShopOnly || includeShop)){
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public List<string> shortenList(List<string> perkIDList,bool includeShop){
         List<string> shortPerkList = new List<string>();
 
         // go through all perks
         foreach (string perkID in perkIDList){
             // Check if key exists then create if none
             if (!shortPerkList.Contains(perkID)){
-                shortPerkList.Add(perkID);
+                perkData perk = getPerk(perkID);
+                if (perk && (perk.perkRarity != Rarity.ShopOnly || includeShop)){
+                    shortPerkList.Add(perkID);
+                }
             }
         }
 

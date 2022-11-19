@@ -41,6 +41,13 @@ public class Breakable : Entity
     private void spinAnimation(){
         spinRotation(0);
 
+        if (currentCamera){
+            AudioSource hitNoise = currentCamera.transform.Find("SoundAssets").Find("kick").gameObject.GetComponent<AudioSource>();
+            if (hitNoise != null){
+                hitNoise.PlayOneShot(hitNoise.clip,hitNoise.volume);
+            }
+        }
+
         LeanTween.cancel(gameObject);
         if (currentHealth <= 0){
             LeanTween.value(gameObject,0f,270f,1f).setEaseOutQuad().setOnUpdate(spinRotation).setOnComplete(destroyObj);
@@ -59,9 +66,7 @@ public class Breakable : Entity
 
     public override void onPushObj(Entity pushInfo){
         base.onPushObj(pushInfo);
-        if (spinHit){
-            spinAnimation();
-        }
+        takeDamage(1);
     }
 
     public override void takeDamage(float amount){
@@ -92,9 +97,9 @@ public class Breakable : Entity
 
     public override void FixedUpdate(){
         if (rb && moveToSpawn){
-            rb.velocity = rb.velocity * 0.98f;
+            rb.velocity = rb.velocity * 0.99f;
 
-            float alpha = Time.fixedDeltaTime * 10f;
+            float alpha = Time.fixedDeltaTime * 8f;
             transform.position = Vector2.Lerp(transform.position,spawnPosition,alpha);
         }
 

@@ -57,6 +57,13 @@ public class Breakable : Entity
         base.damageEffect();
     }
 
+    public override void onPushObj(Entity pushInfo){
+        base.onPushObj(pushInfo);
+        if (spinHit){
+            spinAnimation();
+        }
+    }
+
     public override void takeDamage(float amount){
         if (amount > 0 && currentHealth > 0 && canHit){
             amount = 0;
@@ -75,7 +82,6 @@ public class Breakable : Entity
     }
 
     public virtual void destroyObj(){
-        
         Destroy(gameObject);
     }
 

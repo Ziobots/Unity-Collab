@@ -18932,7 +18932,7 @@ GameObject:
   - component: {fileID: 1175775913}
   m_Layer: 7
   m_Name: nextIcon
-  m_TagString: Enemy
+  m_TagString: Destructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21573,7 +21573,7 @@ PrefabInstance:
       objectReference: {fileID: 7924832519663925794}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: weight
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: maxAmmo

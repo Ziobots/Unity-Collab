@@ -345,65 +345,6 @@ public class Enemy : Entity
         rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,alpha);
     }
 
-    public Vector2 rotateVector2(Vector2 baseVector, float angle){
-        float newAngle = Mathf.Atan2(baseVector.y, baseVector.x) + angle * Mathf.Deg2Rad;
-        return new Vector2(Mathf.Cos(newAngle), Mathf.Sin(newAngle));
-    }
-
-    public virtual void pushNearby(){
-        if (currentHealth <= 0){
-            return;
-        }
-
-        CircleCollider2D myCollider = gameObject.GetComponent<CircleCollider2D>();
-        List<Collider2D> entityList = new List<Collider2D>();
-
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(LayerMask.GetMask("EntityCollide"));
-        filter.useLayerMask = true;
-
-        // get any entities that are overlapping
-        Physics2D.OverlapCollider(myCollider,filter,entityList);
-
-        // go through each object and push if too close
-        foreach(Collider2D collider in entityList){
-            GameObject entityObj = collider.gameObject;
-            if (entityObj){
-                Entity entityData = entityObj.GetComponent<Entity>();
-                Collider2D otherCollider = gameObject.GetComponent<Collider2D>();
-                if (entityData && (entityData.currentHealth > 0 || entityObj.tag == "Player") && otherCollider){
-                    Vector2 direction = ((Vector2)entityObj.transform.position - (Vector2)transform.position).normalized;
-                    Vector2 randomDir = rotateVector2(direction.normalized,Random.Range(-900,900)/10).normalized;
-
-                    // this only happens if they are right on top of eachother
-                    if (direction.magnitude <= 0){
-                        direction = rotateVector2(new Vector2(0f,1f),Random.Range(-360,360)).normalized * 3f;
-                    }
-
-                    // calculate push based on weights of two objects
-                    Vector2 pushForce = (direction * -entityData.weight) + (direction * (gameObject.GetComponent<Entity>().weight * 0.7f));
-                    if (gameObject.GetComponent<Entity>().weight * 0.7f > entityData.weight){
-                        pushForce = direction * -entityData.weight * 0.1f;
-                    }
-
-                    if (entityData.weight <= 0){
-                        pushForce = -direction * 2;
-                    }
-
-                    // Player should take damage when bumped
-                    if (entityObj.tag == "Player"){
-                        entityData.takeDamage(1);
-                    }else{
-                        pushForce = pushForce + randomDir * 0.1f;
-                    }
-
-                    // Apply the force
-                    rb.velocity = rb.velocity + (pushForce * 0.9f);
-                }
-            }
-        } 
-    }
-
     // base enemy bullet stats
     public override void localEditBullet(bulletSystem bulletObj){
         base.localEditBullet(bulletObj);
@@ -567,7 +508,6 @@ public class Enemy : Entity
         shootGun();
         movePattern();
         rotateEnemy();
-        pushNearby();
         faceCheck();
     }
 }

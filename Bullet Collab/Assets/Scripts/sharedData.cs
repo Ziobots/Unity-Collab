@@ -158,7 +158,7 @@ public class sharedData : MonoBehaviour
                 entityInfo.bulletSpread = 2;
                 entityInfo.automaticGun = false;
                 entityInfo.reloadingGun = false;
-                entityInfo.weight = 5f;
+                entityInfo.weight = -20f;
                 entityInfo.walkSpeed = 6f;
                 entityInfo.damagedBy = null;
 

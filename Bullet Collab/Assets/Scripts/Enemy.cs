@@ -430,10 +430,25 @@ public class Enemy : Entity
         if (currentHealth <= 0 && !killed){
             killed = true;
 
-            if (damagedBy != null && damagedBy.tag == "Player"){
-                if (dataInfo != null){
-                    dataInfo.enemiesKilled++;
-                    dataInfo.totalScore += (int)(maxHealth * 10);
+            if (damagedBy != null){
+                int healthMoney = (int)(Mathf.Ceil((int)Mathf.Sqrt(maxHealth) * 1.5f) + 1);
+                int addMoney = (int)Mathf.Ceil(Random.Range(healthMoney * 0.5f,healthMoney * Mathf.Sqrt(dataInfo.currentRoom) * 0.8f));
+
+                // give the killer money, this works for enemies too
+                Entity killerInfo = damagedBy.GetComponent<Entity>();
+                if (killerInfo != null){
+                    killerInfo.currency += (currency + addMoney);
+                }
+
+                // add player stats
+                if (damagedBy.tag == "Player"){
+                    if (dataInfo != null){
+                        dataInfo.enemiesKilled++;
+                        dataInfo.totalScore += (int)(maxHealth * 10);
+                        if (uiUpdate != null){
+                            uiUpdate.updateGameUI();
+                        }
+                    }
                 }
             }
 

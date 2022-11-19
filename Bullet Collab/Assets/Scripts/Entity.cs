@@ -61,6 +61,7 @@ public class Entity : MonoBehaviour
     public float bulletSpread;
     public bool automaticGun = false;
     public bool reloadingGun = false;
+    public bool deflectBullets = false;
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;

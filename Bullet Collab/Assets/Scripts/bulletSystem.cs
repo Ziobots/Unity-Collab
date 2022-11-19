@@ -43,6 +43,7 @@ public class bulletSystem : MonoBehaviour
     private bool damageOwner = false;
     private bool firstFrame = true;
     private bool bulletSetup = false;
+    private float deflectTime = 0;
 
     private Vector2 lastPosition;
 
@@ -76,46 +77,51 @@ public class bulletSystem : MonoBehaviour
         }
     }
 
-    public void removeBullet(Collider2D hit) {
-        if (myCollider.enabled){
-            myCollider.enabled = false;
+    public void bulletHitEvent(Collider2D hit){
+        if (hit != null && hit.gameObject != null){
+            // Check if hit obj can take damage
+            Entity hitObj = hit.gameObject.GetComponent<Entity>();
+            Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
+            editList.Add("Owner", bulletOwner);
+            editList.Add("Bullet", gameObject);
 
-            if (hit != null && hit.gameObject != null){
-                // Check if hit obj can take damage
-                Entity hitObj = hit.gameObject.GetComponent<Entity>();
-                Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
-                editList.Add("Owner", bulletOwner);
-                editList.Add("Bullet", gameObject);
-
-                if (hitObj != null){
-                    if (bulletOwner != hit.gameObject){
-                        hitObj.damagedBy = bulletOwner;
-                    }
-
-                    editList.Add("Target", hit.gameObject);
-                    hitObj.takeDamage(bulletDamage);
-
-                    // Do knockback based on force
-                    if (hitObj.weight != 0f){
-                        Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
-                        if (rb != null){
-                            rb.velocity = gameObject.transform.right.normalized * ((Mathf.Sqrt(bulletSpeed) * 10f ) / hitObj.weight);
-                        }
-                    }
+            if (hitObj != null){
+                if (bulletOwner != hit.gameObject){
+                    hitObj.damagedBy = bulletOwner;
                 }
 
-                // Apply an on hit modifiers
-                if (perkCommands != null){
-                    perkCommands.applyPerk(perkIDList,"Hit",editList);
-                    
-                    // apply any changes to the data
-                    if (bulletOwner){
-                        dataInfo.updateEntityData(bulletOwner);
+                editList.Add("Target", hit.gameObject);
+                hitObj.takeDamage(bulletDamage);
+
+                // Do knockback based on force
+                if (hitObj.weight != 0f){
+                    Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
+                    if (rb != null){
+                        rb.velocity = gameObject.transform.right.normalized * ((Mathf.Sqrt(bulletSpeed) * 10f ) / hitObj.weight);
                     }
                 }
             }
 
-            hitEffect();
+            // Apply an on hit modifiers
+            if (perkCommands != null){
+                perkCommands.applyPerk(perkIDList,"Hit",editList);
+                
+                // apply any changes to the data
+                if (bulletOwner){
+                    dataInfo.updateEntityData(bulletOwner);
+                }
+            }
+        }
+
+        hitEffect();
+    }
+
+    public void removeBullet(Collider2D hit) {
+        if (myCollider.enabled){
+            myCollider.enabled = false;
+
+            bulletHitEvent(hit);
+
             Destroy(gameObject);
         }
     }
@@ -125,12 +131,14 @@ public class bulletSystem : MonoBehaviour
             // Get the new direction of the bullet
             bulletBounces -= 1;
             damageOwner = true;
-            transform.right = Vector2.Reflect(transform.right,hitNormal);//contact.normal);
+
+            transform.right = Vector2.Reflect(transform.right.normalized,hitNormal.normalized);//contact.normal);
 
             // fix the velocity
             rb.velocity = transform.right * Mathf.Clamp(bulletSpeed,0,25f) * Time.fixedDeltaTime * 100f;
 
-            hitEffect();
+            //hitEffect();
+            bulletHitEvent(otherCollider);
 
             // Check for any bounce modifiers
             if (perkCommands != null && gameObject != null){
@@ -218,6 +226,11 @@ public class bulletSystem : MonoBehaviour
         checkCollider(otherCollider,new Vector2(0,0));
     }
 
+    public Vector2 rotateVector2(Vector2 baseVector, float angle){
+        float newAngle = Mathf.Atan2(baseVector.y, baseVector.x) + angle * Mathf.Deg2Rad;
+        return new Vector2(Mathf.Cos(newAngle), Mathf.Sin(newAngle));
+    }
+
     private void checkCollider(Collider2D otherCollider,Vector2 hitNormal) {
         bool entityHit = true;
 
@@ -240,6 +253,20 @@ public class bulletSystem : MonoBehaviour
                 if (entityData != null){// && entityData.currentHealth > 0
                     if (bulletOwner != null && otherCollider.gameObject){
                         if (otherCollider.gameObject == bulletOwner && !damageOwner){
+                            return;
+                        }
+                    }
+
+                    if (otherCollider.gameObject != null && entityData.deflectBullets){
+                        if (Time.time - deflectTime >= 0.1f){
+                            Vector2 deflectNormal = ((Vector2)lastPosition - (Vector2)otherCollider.gameObject.transform.position).normalized;
+                            bulletBounces += 1;
+                            deflectTime = Time.time;
+
+                            //deflectNormal = rotateVector2(deflectNormal,90f);
+                            bounceBullet(otherCollider,-deflectNormal);
+                            return;
+                        }else{
                             return;
                         }
                     }

@@ -41,6 +41,7 @@ public class Breakable : Entity
     private void spinAnimation(){
         spinRotation(0);
 
+        LeanTween.cancel(gameObject);
         if (currentHealth <= 0){
             LeanTween.value(gameObject,0f,270f,1f).setEaseOutQuad().setOnUpdate(spinRotation).setOnComplete(destroyObj);
         }else{ 
@@ -58,7 +59,7 @@ public class Breakable : Entity
 
     public override void takeDamage(float amount){
         if (amount > 0 && currentHealth > 0 && canHit){
-            amount = 1;
+            amount = 0;
 
             currentHealth -= amount;
             if (hurtNoise != null){

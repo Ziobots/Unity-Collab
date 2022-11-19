@@ -5,7 +5,8 @@
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 11/2/22  0.10                 DS              Made the thing
+* 11/2/22   0.10                 DS              Made the thing
+* 11/19/22  0.20                 DS              fixed display, added money
 *******************************************************************************/
 
 using System.Collections;
@@ -140,7 +141,7 @@ public class infoPopup : MonoBehaviour
 
     // hide the popup
     public void hidePopup(bool instantHide) {
-        if (popupVisible){
+        if (popupVisible || instantHide){
             popupVisible = false;
 
             if (!instantHide){

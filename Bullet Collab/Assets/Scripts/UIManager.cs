@@ -8,6 +8,7 @@
 * 10/27/22  0.10                 DS              Made the thing
 * 11/03/22  0.15                 DS              added bullet stuff
 * 11/17/22  0.4                  DS              changed heart ui
+* 11/19/22  0.5                  DS              added money ui
 *******************************************************************************/
 
 using System.Collections;
@@ -30,11 +31,32 @@ public class UIManager : MonoBehaviour
     public GameObject bulletUIPrefab;
 
     public GameObject scoreLabel;
-    public GameObject roomLabel;
+    public GameObject moneyPanel;
 
     // temp vars
     private int lastCurrent = -1;
     private int lastScore = -1;
+    private int lastMoney = -1;
+
+    // update the money visual
+    public void updateMoney(){
+        // set the text
+        GameObject textLabel = moneyPanel.transform.Find("count").gameObject;
+        textLabel.GetComponent<TMPro.TextMeshProUGUI>().text = "" + dataInfo.currency;
+
+        // bump tween for text
+        if (lastMoney != dataInfo.currency){
+            lastMoney = dataInfo.currency;
+            
+            LeanTween.cancel(textLabel);
+            LeanTween.value(textLabel,40f,45f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(delegate(float value){
+                setTextSize(value,textLabel);
+            });
+            LeanTween.value(textLabel,45f,40f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(delegate(float value){
+                setTextSize(value,textLabel);
+            }).setDelay(0.1f);
+        }
+    }
 
     // Update the health bar visual
     public void updateHealth(){
@@ -89,9 +111,8 @@ public class UIManager : MonoBehaviour
 
     // bullet ui stuff
 
-    private void setTextSize(float value){
-        GameObject textLabel = bulletBar.transform.Find("reSize").Find("ammoCount").gameObject;
-        if (textLabel){
+    private void setTextSize(float value,GameObject textLabel){
+        if (textLabel != null){
             textLabel.GetComponent<TMPro.TextMeshProUGUI>().fontSize = value;
         }
     }
@@ -145,15 +166,12 @@ public class UIManager : MonoBehaviour
             lastCurrent = dataInfo.currentAmmo;
             
             LeanTween.cancel(textLabel);
-            LeanTween.value(textLabel,60f,65f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setTextSize);
-            LeanTween.value(textLabel,65f,60f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setTextSize).setDelay(0.1f);
-        }
-    }
-
-    // score tween methods
-    private void setScoreSize(float value){
-        if (scoreLabel != null){
-            scoreLabel.GetComponent<TMPro.TextMeshProUGUI>().fontSize = value;
+            LeanTween.value(textLabel,60f,65f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(delegate(float value){
+                setTextSize(value,textLabel);
+            });
+            LeanTween.value(textLabel,65f,60f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(delegate(float value){
+                setTextSize(value,textLabel);
+            }).setDelay(0.1f);
         }
     }
 
@@ -166,8 +184,12 @@ public class UIManager : MonoBehaviour
                 scoreLabel.GetComponent<TMPro.TextMeshProUGUI>().text = "" + lastScore;
                 
                 LeanTween.cancel(scoreLabel);
-                LeanTween.value(scoreLabel,40f,45f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setScoreSize);
-                LeanTween.value(scoreLabel,45f,40f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setScoreSize).setDelay(0.1f);
+                LeanTween.value(scoreLabel,40f,45f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(delegate(float value){
+                    setTextSize(value,scoreLabel);
+                });
+                LeanTween.value(scoreLabel,45f,40f,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(delegate(float value){
+                    setTextSize(value,scoreLabel);
+                }).setDelay(0.1f);
             }
         }
     }
@@ -177,6 +199,7 @@ public class UIManager : MonoBehaviour
         updateHealth();
         updateBullet();
         updateScore();
+        updateMoney();
     }
 
     /* // OLD RADIAL DIAL STUFF

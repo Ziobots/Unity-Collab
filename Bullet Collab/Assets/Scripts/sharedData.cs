@@ -36,7 +36,7 @@ public class tempDataClass{
     public int totalScore = 0;
     public int wave = 1;
     public int room = 0;
-    public float startTime = 0;
+    public float elapsedTime = 0;
 
     public tempDataClass(){
         seed = Mathf.Abs((int)System.DateTime.Now.Ticks);
@@ -97,8 +97,7 @@ public class sharedData : MonoBehaviour
     public bool particleFX = true;
 
     // Temporary Data
-    public float gameStartTime;
-    public float gameEndTime;
+    public float elapsedTime = 0;
     public int totalScore = 0;
     public int currentRoom = 1;
     public int currentWave = 1;
@@ -269,7 +268,7 @@ public class sharedData : MonoBehaviour
         tempData.wave = currentWave;
         tempData.enemiesKilled = enemiesKilled;
         tempData.totalScore = totalScore;
-        tempData.startTime = gameStartTime;
+        tempData.elapsedTime = elapsedTime;
 
         return tempData;
     }

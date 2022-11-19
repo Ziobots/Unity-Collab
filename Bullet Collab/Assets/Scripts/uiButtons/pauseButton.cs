@@ -160,6 +160,12 @@ public class pauseButton : MonoBehaviour
 
         // save and quit
         if (dataInfo != null){
+            // get time spent clearing room
+            if (gameInfo.roomStartTime != 0){
+                dataInfo.elapsedTime += Time.time - gameInfo.roomStartTime;
+                gameInfo.roomStartTime = 0;
+            }
+
             dataInfo.saveTemporaryData(null);
         }
 

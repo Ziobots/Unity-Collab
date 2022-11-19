@@ -59,6 +59,7 @@ public class gameLoader : MonoBehaviour
 
     public int currentRoom = 1;
     public int currentWave = 1;
+    public float roomStartTime = 0;
 
     // prefabs
     public perkPickup perkPrefab;
@@ -542,6 +543,7 @@ public class gameLoader : MonoBehaviour
         if (dataInfo != null){
             print("START NEW GAME");
             continueButton.GetComponent<nextWave>().hideButton();
+            roomStartTime = 0;
 
             bool createNewGame = false;
 
@@ -572,6 +574,7 @@ public class gameLoader : MonoBehaviour
             dataInfo.totalScore = dataInfo.currentTempData.totalScore;
             dataInfo.currentRoom = currentRoom;
             dataInfo.currentWave = currentWave;
+            dataInfo.elapsedTime = dataInfo.currentTempData.elapsedTime;
 
             dataInfo.overwriteEntity(playerObj,dataInfo.currentTempData);
 
@@ -592,15 +595,6 @@ public class gameLoader : MonoBehaviour
             gameEndScreen.SetActive(false);
             gameMenu.SetActive(true);
             pauseUI.GetComponent<pauseButton>().resumeGame();
-
-            // get the time
-            if (dataInfo.currentTempData.startTime == 0){
-                dataInfo.gameStartTime = Time.time;
-            }else{
-                dataInfo.gameStartTime = dataInfo.currentTempData.startTime;
-            }
-                    
-            dataInfo.currentTempData.startTime = dataInfo.gameStartTime;
 
             // enable the player controller
             if (playerObj != null){
@@ -625,8 +619,6 @@ public class gameLoader : MonoBehaviour
             dataInfo.currentTempData = new tempDataClass();
             dataInfo.currentTempData.room = -1;
 
-            dataInfo.gameEndTime = Time.time;
-
             // change perm stats
             dataInfo.statKillCount += dataInfo.enemiesKilled;
             dataInfo.statPerkCount += dataInfo.perkIDList.Count;
@@ -637,7 +629,8 @@ public class gameLoader : MonoBehaviour
             }
 
             dataInfo.statRunCount++;
-            
+            roomStartTime = 0;
+
             if (dataInfo.statHighscore < dataInfo.totalScore){
                 dataInfo.statHighscore = dataInfo.totalScore;
             }
@@ -683,6 +676,12 @@ public class gameLoader : MonoBehaviour
             levelData levelInfo = levelObj.GetComponent<levelData>();
             if (levelInfo){
                 if (currentWave > levelInfo.waveCount){
+                    // get time spent clearing room
+                    if (roomStartTime != 0){
+                        dataInfo.elapsedTime += Time.time - roomStartTime;
+                        roomStartTime = 0;
+                    }
+
                     if (!spawnedPerks && currentWave <= (levelInfo.waveCount + 1)){
                         spawnedPerks = true;
 
@@ -705,6 +704,10 @@ public class gameLoader : MonoBehaviour
                         showContinue();
                     }
                 }else if(!spawningEnemies && roomLoaded && gameLoaded){
+                    if (roomStartTime == 0){
+                        roomStartTime = Time.time;
+                    }
+                    
                     currentWave++;
                     spawningEnemies = true;
                     dataInfo.totalScore += 100;

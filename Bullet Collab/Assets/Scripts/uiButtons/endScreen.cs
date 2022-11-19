@@ -111,7 +111,7 @@ public class endScreen : MonoBehaviour
 
         // set the stats from shared info module
         if (dataInfo != null && statHolder != null){
-            setStatValue("stat_Time",getReadableTime(dataInfo.gameEndTime - dataInfo.gameStartTime));
+            setStatValue("stat_Time",getReadableTime(dataInfo.elapsedTime));
             setStatValue("stat_Enemy","" + dataInfo.enemiesKilled);
             setStatValue("stat_Perk","" + dataInfo.perkIDList.Count);
             setStatValue("stat_Room","" + (dataInfo.currentRoom));

@@ -88,6 +88,12 @@ public class Player : Entity
                 if (gameInfo != null){
                     // do killed visual
                     gameInfo.switchMusic(null,0f);
+
+                    // get final time
+                    if (gameInfo.roomStartTime != 0){
+                        dataInfo.elapsedTime += Time.time - gameInfo.roomStartTime;
+                    }
+                    
                     dataInfo.updateEntityData(gameObject);
                     if (currentCamera != null){
                         currentCamera.GetComponent<CameraBehavior>().factorMouse = false;

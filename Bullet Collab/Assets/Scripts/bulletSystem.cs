@@ -22,6 +22,10 @@ public class bulletSystem : MonoBehaviour
     [HideInInspector] public sharedData dataInfo;
     [HideInInspector] public perkModule perkCommands;
 
+    // Game Data Stuff
+    public GameObject gameManager;
+    [HideInInspector] public gameLoader gameInfo;
+
     // Editable Variables
     public GameObject bulletOwner;
     public float bulletSpeed = 1f;
@@ -58,6 +62,10 @@ public class bulletSystem : MonoBehaviour
             perkCommands = dataManager.GetComponent<perkModule>();
         }
 
+        if (gameManager != null){
+            gameInfo = gameManager.GetComponent<gameLoader>();
+        }
+
         lastPosition = transform.position;
         bulletSetup = true;
     }
@@ -84,6 +92,9 @@ public class bulletSystem : MonoBehaviour
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", bulletOwner);
             editList.Add("Bullet", gameObject);
+
+            editList.Add("GameManager",gameManager);
+            editList.Add("DataManager",dataManager);
 
             if (hitObj != null){
                 if (bulletOwner != hit.gameObject){
@@ -145,6 +156,8 @@ public class bulletSystem : MonoBehaviour
                 Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                 editList.Add("Owner", bulletOwner);
                 editList.Add("Bullet", gameObject);
+                editList.Add("GameManager",gameManager);
+                editList.Add("DataManager",dataManager);
                 perkCommands.applyPerk(perkIDList,"Bounce",editList);
             }
         }else{
@@ -213,6 +226,8 @@ public class bulletSystem : MonoBehaviour
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", bulletOwner);
             editList.Add("Bullet", gameObject);
+            editList.Add("GameManager",gameManager);
+            editList.Add("DataManager",dataManager);
             perkCommands.applyPerk(perkIDList,"Update_Bullet",editList);
         }
 

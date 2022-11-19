@@ -66,11 +66,10 @@ public class Breakable : Entity
 
     public override void takeDamage(float amount){
         if (amount > 0 && currentHealth > 0 && canHit){
-            amount = 0;
+            base.takeDamage(1);
 
-            currentHealth -= amount;
             if (hurtNoise != null){
-                hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume);// * dataInfo.gameVolume * dataInfo.masterVolume
+                //hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume);// * dataInfo.gameVolume * dataInfo.masterVolume
             }
 
             damageEffect();
@@ -98,5 +97,7 @@ public class Breakable : Entity
             float alpha = Time.fixedDeltaTime * 10f;
             transform.position = Vector2.Lerp(transform.position,spawnPosition,alpha);
         }
+
+        pushNearby();
     }
 }

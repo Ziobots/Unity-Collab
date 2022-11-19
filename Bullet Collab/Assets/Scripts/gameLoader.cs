@@ -60,6 +60,7 @@ public class gameLoader : MonoBehaviour
     public int currentRoom = 1;
     public int currentWave = 1;
     public float roomStartTime = 0;
+    public bool ContinueVisible = false;
 
     // prefabs
     public perkPickup perkPrefab;
@@ -354,6 +355,22 @@ public class gameLoader : MonoBehaviour
                         switchMusic(musicGame,0.5f);
                     }
 
+                    if (levelObj.transform.Find("BreakableObj")){
+                        foreach (Transform destructable in levelObj.transform.Find("BreakableObj")){
+                            Breakable breakInfo = destructable.gameObject.GetComponent<Breakable>();
+                            if (breakInfo != null){
+                                breakInfo.gameManager = gameObject;
+                                breakInfo.dataManager = dataManager;
+                                breakInfo.uiManager = uiManager;
+                                breakInfo.debriFolder = debriFolder;
+                                breakInfo.bulletFolder = bulletFolder;
+                                breakInfo.currentCamera = currentCamera;
+
+                                breakInfo.Start();
+                            }
+                        }
+                    }
+
                     // finish setting up the level
                     levelInfo.loadLevel();
 
@@ -384,9 +401,14 @@ public class gameLoader : MonoBehaviour
         }
 
         List<GameObject> roomList = getRooms(nextType);
+        print("ROOM LIST: " + roomList.Count + "_" + nextType);
+
         if (roomList != null && roomList.Count > 0){
             System.Random randomGen = new System.Random(gameSeed + (currentRoom * 1000) + 111);// gotta offset from the original seed a bit for uniqueness
-            GameObject chosenRoom = roomList[randomGen.Next(0,roomList.Count)];
+            GameObject chosenRoom = roomList[0];
+            if (roomList.Count > 1){
+                chosenRoom = roomList[randomGen.Next(0,roomList.Count)];
+            }
 
             // check for forced room
             if (setID != null && setID != ""){
@@ -419,21 +441,30 @@ public class gameLoader : MonoBehaviour
         },0.5f));
     }
 
+    public void hideContinue(){
+        nextWave continueData = continueButton.GetComponent<nextWave>();
+        ContinueVisible = false;
+        continueData.hideButton();
+    }
+
     public void showContinue(){
-        if (continueButton != null){
+        if (continueButton != null && !ContinueVisible){
             nextWave continueData = continueButton.GetComponent<nextWave>();
             if (continueData){
+                ContinueVisible = true;
+
                 // set the function to be done on press
                 continueData.showButton(delegate{
                     // start room transition
                     transitioner.GetComponent<fadeTransition>().startFade(delegate{
-                        print("GO TO NEXT WAVE");
-                        continueData.hideButton();
-                        nextRoom(null);
+                        if (playerObj.GetComponent<Entity>().currentHealth > 0){
+                            hideContinue();
+                            nextRoom(null);
 
-                        // save the run data each time they enter a new room
-                        dataInfo.canDoSave = true;
-                        dataInfo.saveTemporaryData(null);
+                            // save the run data each time they enter a new room
+                            dataInfo.canDoSave = true;
+                            dataInfo.saveTemporaryData(null);
+                        }
                     },false);
                 });
             }
@@ -473,6 +504,7 @@ public class gameLoader : MonoBehaviour
                     if (newPerk != null){
                         // set the default perk stats
                         newPerk.dataManager = dataManager;
+                        newPerk.gameManager = gameObject;
                         newPerk.uiManager = uiManager;
 
                         newPerk.cost = 0;
@@ -542,7 +574,7 @@ public class gameLoader : MonoBehaviour
 
         if (dataInfo != null){
             print("START NEW GAME");
-            continueButton.GetComponent<nextWave>().hideButton();
+            hideContinue();
             roomStartTime = 0;
 
             bool createNewGame = false;
@@ -638,6 +670,7 @@ public class gameLoader : MonoBehaviour
             // overwrite the current run data
             dataInfo.canDoSave = true;
             dataInfo.saveTemporaryData(dataInfo.currentTempData);
+            dataInfo.canDoSave = false;
 
             if (gameEndScreen != null){
                 gameEndScreen.GetComponent<endScreen>().loadMenu();
@@ -685,8 +718,10 @@ public class gameLoader : MonoBehaviour
                     if (!spawnedPerks && currentWave <= (levelInfo.waveCount + 1)){
                         spawnedPerks = true;
 
-                        spawnPerks();
-                        showContinue();
+                        if (!levelInfo.skipPerks){
+                            spawnPerks();
+                            showContinue();
+                        }
 
                         // pop all bullets, aka: player shouldnt be in danger once all the enemies are gone (unless they hurt themself)
                         foreach (Transform child in bulletFolder){
@@ -701,7 +736,9 @@ public class gameLoader : MonoBehaviour
                         }
                     }else if (!spawnedPerks){
                         spawnedPerks = true;
-                        showContinue();
+                        if (!levelInfo.skipPerks){
+                            showContinue();
+                        }
                     }
                 }else if(!spawningEnemies && roomLoaded && gameLoaded){
                     if (roomStartTime == 0){

@@ -101,6 +101,8 @@ public class Entity : MonoBehaviour
         // Check for any reload modifiers
         Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
         editList.Add("Owner", gameObject);
+        editList.Add("GameManager",gameManager);
+        editList.Add("DataManager",dataManager);
         perkCommands.applyPerk(perkIDList,"Reload",editList);
 
         if (reloadNoise != null){
@@ -182,6 +184,7 @@ public class Entity : MonoBehaviour
                     if (newBullet != null){
                         // set the default bullet stats
                         newBullet.dataManager = dataManager;
+                        newBullet.gameManager = gameManager;
                         newBullet.bulletOwner = gameObject;
                         newBullet.bulletSpeed = 5f;
                         newBullet.bulletSize = 0.11f;
@@ -198,6 +201,8 @@ public class Entity : MonoBehaviour
                         Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
                         editList.Add("Owner", gameObject);
                         editList.Add("Bullet", newBullet.gameObject);
+                        editList.Add("GameManager",gameManager);
+                        editList.Add("DataManager",dataManager);
                         perkCommands.applyPerk(perkIDList,"Shoot",editList);
                     }
                 }
@@ -230,6 +235,8 @@ public class Entity : MonoBehaviour
             // Check for any bounce modifiers 
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
+            editList.Add("GameManager",gameManager);
+            editList.Add("DataManager",dataManager);
             damageAmount = amount;
             perkCommands.applyPerk(perkIDList,"Damaged",editList);
 
@@ -368,6 +375,8 @@ public class Entity : MonoBehaviour
             // Check for any entity lifetime modifiers
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
+            editList.Add("GameManager",gameManager);
+            editList.Add("DataManager",dataManager);
             perkCommands.applyPerk(perkIDList,"Update_Entity",editList);
 
             pushNearby();

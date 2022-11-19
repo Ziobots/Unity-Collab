@@ -19,6 +19,10 @@ public class perkPickup : MonoBehaviour
     [HideInInspector] public sharedData dataInfo;
     [HideInInspector] public perkModule perkCommands;
 
+    // Game Data Stuff
+    public GameObject gameManager;
+    [HideInInspector] public gameLoader gameInfo;
+
     // UI Stuff
     public GameObject uiManager;
     [HideInInspector] public UIManager uiUpdate;
@@ -94,6 +98,10 @@ public class perkPickup : MonoBehaviour
             perkCommands = dataManager.GetComponent<perkModule>();
         }
 
+        if (gameManager != null){
+            gameInfo = dataManager.GetComponent<gameLoader>();
+        }
+
         // Get UI management script
         if (uiManager != null){
             uiUpdate = uiManager.GetComponent<UIManager>();
@@ -148,6 +156,8 @@ public class perkPickup : MonoBehaviour
             if (perkCommands != null){
                 editList.Add("Owner", entityObj);
                 editList.Add("PerkObj", gameObject);
+                editList.Add("GameManager",gameManager);
+                editList.Add("DataManager",dataManager);
                 perkCommands.applyPerk(dataInfo.perkIDList,"Perk_Collect",editList);
 
                 // apply any changes to the data

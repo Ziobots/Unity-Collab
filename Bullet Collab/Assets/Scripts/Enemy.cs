@@ -157,6 +157,8 @@ public class Enemy : Entity
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
             editList.Add("Owner", gameObject);
             editList.Add("Target", currentTarget);
+            editList.Add("GameManager",gameManager);
+            editList.Add("DataManager",dataManager);
             perkCommands.applyPerk(perkIDList,"Target_Change",editList);
 
             // We can use the edit list to send back information as well

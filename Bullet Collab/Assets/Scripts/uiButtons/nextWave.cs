@@ -14,9 +14,13 @@ using UnityEngine;
 
 public class nextWave : MonoBehaviour
 {
+    // continue variables
     private float fadeTime = 0.45f;
     public bool buttonActive = false;
     public bool transitioning = false;
+    private Vector2 startPivot = new Vector2(1f,0.5f);
+    private Vector2 endPivot = new Vector2(0.5f,0.5f);
+    private bool nextVisible = false;
 
     public System.Action onClick;
 
@@ -31,10 +35,21 @@ public class nextWave : MonoBehaviour
     }
     
     public void hideButton(){
+        if (!nextVisible){
+            return;
+        }
+
+        nextVisible = false;
         buttonActive = false;
         transitioning = false;
-        gameObject.SetActive(false);
         onClick = null;
+
+        LeanTween.cancel(gameObject);
+        LeanTween.value(gameObject,endPivot,startPivot,0.1f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdateVector2(setPivot).setOnComplete(delegate(){
+            if (!nextVisible){
+                gameObject.SetActive(false);
+            }
+        });
     }
         
     public void showButton(System.Action onComplete){
@@ -42,12 +57,13 @@ public class nextWave : MonoBehaviour
             return;
         }
 
+        if (nextVisible){
+            return;
+        }
+
+        nextVisible = true;
         transitioning = true;
         buttonActive = false;
-
-        // set the direction
-        Vector2 startPivot = new Vector2(1f,0.5f);
-        Vector2 endPivot = new Vector2(0.5f,0.5f);
 
         // tween the fade
         LeanTween.cancel(gameObject);

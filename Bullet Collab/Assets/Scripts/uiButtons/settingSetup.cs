@@ -26,6 +26,7 @@ public class settingSetup : MonoBehaviour
     // menu variables
     public bool menuActive = false;
     public GameObject statPanel;
+    public GameObject mobilePanel;
 
     // sounds
     public AudioMixer masterMixer;
@@ -59,6 +60,7 @@ public class settingSetup : MonoBehaviour
     public void update_MobileControl(){
         if (dataInfo != null){
             dataInfo.mobileControls = statPanel.transform.Find("stat_Mobile").Find("Toggle").gameObject.GetComponent<Toggle>().isOn;
+            mobilePanel.SetActive(dataInfo.mobileControls);
         }
     }
 

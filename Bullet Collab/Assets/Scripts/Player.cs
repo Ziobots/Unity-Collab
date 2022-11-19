@@ -11,6 +11,7 @@
 * 10/25/22  0.11                 KJ              Moved gun and flip to Fixed, changed Lerp alpha values to 10
 * 11/02/22  0.15                 DS              used ref for perkidlist 
 * 11/03/22  0.20                 DS              updated health stuff, removed ref for perk list
+* 11/19/22  0.20                 DS              added mobile support
 *******************************************************************************/
 
 using System.Collections;
@@ -37,14 +38,22 @@ public class Player : Entity
     // ui variables
     public GameObject pauseUI;
     public GameObject hurtUI;
+    public Joystick moveStick;
+    public Joystick aimStick;
 
     private void moveGun() {
         if (arrow != null) {
-            arrowDirection = (mousePosition - (Vector2)arrow.position).normalized;
+            Vector2 checkMousePosition = mousePosition;
+
+            arrowDirection = (checkMousePosition - (Vector2)arrow.position).normalized;
+            if (aimStick.Direction.magnitude > 0){
+                arrowDirection = aimStick.Direction;
+                checkMousePosition = (Vector2)transform.position + arrowDirection * 10f;
+            }
 
             Vector2 arrowDir = arrowDirection * 1.2f;
             Vector2 arrowPos = (Vector2)playerRig.position + arrowDir;//(mousePosition.normalized);
-            float distance = Vector2.Distance(playerRig.position,mousePosition);
+            float distance = Vector2.Distance(playerRig.position,checkMousePosition);
             
             // Check if gun is too close to Player
             if (distance <= 2f){
@@ -93,7 +102,7 @@ public class Player : Entity
                     if (gameInfo.roomStartTime != 0){
                         dataInfo.elapsedTime += Time.time - gameInfo.roomStartTime;
                     }
-                    
+
                     dataInfo.updateEntityData(gameObject);
                     if (currentCamera != null){
                         currentCamera.GetComponent<CameraBehavior>().factorMouse = false;
@@ -143,8 +152,8 @@ public class Player : Entity
         facingRight = (bool)(arrowDirection.x > 0);
 
         // Movement Input Here
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal") + moveStick.Horizontal;
+        movement.y = Input.GetAxisRaw("Vertical") + moveStick.Vertical;
 
         // Mouse Direction Here
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -156,7 +165,7 @@ public class Player : Entity
         }
 
         // fire bullet
-        if (isMouseDown) {
+        if (isMouseDown || aimStick.Direction.magnitude > 0) {
             // Check if mouse is hovering button
             if (cursorObj == null || !cursorObj.GetComponent<mouseCursor>().isHovering){
                 // check if player is too close to wall

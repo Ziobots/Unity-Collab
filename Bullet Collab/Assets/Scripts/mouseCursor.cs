@@ -35,6 +35,10 @@ public class mouseCursor : MonoBehaviour
 
     private string currentCursorImg = "";
 
+    // mobile
+    public Joystick aimStick;
+    public Transform playerObj;
+
     public void cursorHover(){
         isHovering = true;
         if (currentCursorImg != "hoverCursor"){
@@ -131,6 +135,9 @@ public class mouseCursor : MonoBehaviour
                 mousePosition = movementPosition;
             }else{
                 cursorRotation = 0;
+                if (aimStick.Direction.magnitude > 0){
+                    mousePosition = (Vector2)playerObj.position + aimStick.Direction * 10f;
+                }
             }
 
             Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(mousePosition);

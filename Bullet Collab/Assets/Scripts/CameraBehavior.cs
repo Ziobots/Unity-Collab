@@ -33,6 +33,9 @@ public class CameraBehavior : MonoBehaviour
     private float mouseDistance = 0;
     public Vector2 mouseDirection;
 
+    // mobile var
+    public Joystick aimStick;
+
     private void Start() {
         DontDestroyOnLoad(gameObject);
         Cursor.visible = false;
@@ -48,6 +51,7 @@ public class CameraBehavior : MonoBehaviour
     private void FixedUpdate() {
         // Move the reticle
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         if (cursorObj != null){
             mousePosition = Camera.main.ScreenToWorldPoint(cursorObj.GetComponent<RectTransform>().position);
         }
@@ -55,9 +59,13 @@ public class CameraBehavior : MonoBehaviour
         // Check if the Camera is following an object
         if (followObject != null){
             Vector2 followPosition = followObject.transform.position;
+            if (aimStick.Direction.magnitude > 0){
+                mousePosition = (Vector2)followPosition + aimStick.Direction * 10f;
+            }
 
             // Check if Camera should factor the Mouse Position when finding the new Position
             if (factorMouse){
+
                 mouseDistance = Vector2.Distance(followPosition,mousePosition);
                 mouseDistance = Mathf.Clamp(mouseDistance,0f,13f);
                 extraZoom = mouseDistance / 20f;

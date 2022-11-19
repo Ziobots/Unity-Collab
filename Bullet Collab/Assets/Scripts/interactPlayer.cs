@@ -42,19 +42,25 @@ public class interactPlayer : MonoBehaviour
 
             // check for player input
             if (interactPressed()){
-                // check if obj has pickup
-                perkPickup pickupdData = interactObj.gameObject.GetComponent<perkPickup>();
-                if (pickupdData && pickupdData.interactActive){
-                    pickupdData.onPickup(gameObject);
-                    currentObj = null;
-                    applyNearbyVFX(null);
-                }else{
-                    print("add pickup functionality to obj");
-                }
+                buttonInteract();
             }
         }else if (currentObj || popupUI.GetComponent<infoPopup>().popupVisible){
             applyNearbyVFX(null);
             currentObj = null;
+        }
+    }
+
+    public void buttonInteract(){
+        if (currentObj != null){
+            // check if obj has pickup
+            perkPickup pickupdData = currentObj.gameObject.GetComponent<perkPickup>();
+            if (pickupdData && pickupdData.interactActive){
+                pickupdData.onPickup(gameObject);
+                currentObj = null;
+                applyNearbyVFX(null);
+            }else{
+                print("add pickup functionality to obj");
+            }
         }
     }
 

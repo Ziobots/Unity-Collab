@@ -696,7 +696,7 @@ public class gameLoader : MonoBehaviour
                 uiUpdate.updateHealth();
             }
 
-            switchMusic(musicGame,0.5f);
+            //switchMusic(musicGame,0.5f);
         }
     }
 

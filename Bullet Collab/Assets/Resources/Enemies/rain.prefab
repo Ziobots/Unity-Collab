@@ -141,7 +141,7 @@ MonoBehaviour:
   currentAmmo: 0
   reloadTime: 2
   bulletTime: 0.1
-  bulletSpread: 40
+  bulletSpread: 45
   automaticGun: 1
   reloadingGun: 0
   deflectBullets: 0

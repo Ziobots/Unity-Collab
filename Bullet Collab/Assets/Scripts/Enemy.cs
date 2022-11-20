@@ -53,6 +53,7 @@ public class Enemy : Entity
     public bool flipSprite = true;
     public EnemyType myType = EnemyType.None;
     public int roomSpawnMinimum = 0;
+    public float lastSeeTime = 0;
 
     // Spawn Visuals
     public bool Loaded = false;
@@ -98,6 +99,10 @@ public class Enemy : Entity
                     canSee = true;
                 }
             }
+        }
+
+        if (canSee){
+            lastSeeTime = Time.time;
         }
 
         return canSee;
@@ -481,7 +486,8 @@ public class Enemy : Entity
 
     public override void setupEntity(){
         Loaded = false;
-
+        lastSeeTime = Time.time;
+        
         base.setupEntity();
 
         if (currentCamera != null){

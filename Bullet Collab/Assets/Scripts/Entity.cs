@@ -182,6 +182,7 @@ public class Entity : MonoBehaviour
 
                     bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation * spreadQuaternion,bulletFolder);
                     if (newBullet != null){
+                        List<string> copyPerkList = new List<string>(perkIDList);
                         // set the default bullet stats
                         newBullet.dataManager = dataManager;
                         newBullet.gameManager = gameManager;
@@ -189,7 +190,7 @@ public class Entity : MonoBehaviour
                         newBullet.bulletSpeed = 5f;
                         newBullet.bulletSize = 0.11f;
                         newBullet.bulletBounces = 0;
-                        newBullet.perkIDList = perkIDList;
+                        newBullet.perkIDList = copyPerkList;
                         newBullet.bulletFolder = bulletFolder;
                         newBullet.debriFolder = debriFolder;
 

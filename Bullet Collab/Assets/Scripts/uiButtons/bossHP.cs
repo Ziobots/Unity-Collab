@@ -90,12 +90,12 @@ public class bossHP : MonoBehaviour
         }
 
         // set the entity info
-        currentHeath = setEntity.currentHealth;
+        currentHeath = -1;
         currentMaxHealth = setEntity.maxHealth;
         currentEntity = setEntity;
 
-        updateHealthBar(true);
         hpVisible = true;
+        updateHealthBar(true);
     }
 
     // Update is called once per frame

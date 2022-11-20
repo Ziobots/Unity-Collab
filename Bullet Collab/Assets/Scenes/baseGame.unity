@@ -19121,6 +19121,7 @@ MonoBehaviour:
   currency: 0
   weight: 15
   damagedBy: {fileID: 0}
+  tookDamage: 0
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
@@ -19901,6 +19902,16 @@ MonoBehaviour:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8008163611056065427, guid: fcd43da0d504a3f4f86651c5f008bc6a, type: 3}
   m_PrefabInstance: {fileID: 7924832519663925789}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1842503005 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5028240097792878550, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+  m_PrefabInstance: {fileID: 3568330077112155241}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1842503006 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5361541642897107401, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+  m_PrefabInstance: {fileID: 3568330077112155241}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1861345433
 GameObject:
@@ -21798,11 +21809,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3568330078130665452, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.42
+      value: -4.73
       objectReference: {fileID: 0}
     - target: {fileID: 3568330078130665452, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.59
+      value: -0.23
       objectReference: {fileID: 0}
     - target: {fileID: 3568330078130665452, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21857,6 +21868,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1788281430}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1842503006}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: gunNoise
       value: 
       objectReference: {fileID: 970930459}
@@ -21884,6 +21899,10 @@ PrefabInstance:
       propertyPath: perkCount
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: playerRig
+      value: 
+      objectReference: {fileID: 1842503005}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: uiManager
       value: 

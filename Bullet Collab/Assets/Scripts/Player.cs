@@ -41,6 +41,9 @@ public class Player : Entity
     public Joystick moveStick;
     public Joystick aimStick;
 
+    // Animation Variables
+    public Animator animator;
+
     private void moveGun() {
         if (arrow != null) {
             Vector2 checkMousePosition = mousePosition;
@@ -143,6 +146,10 @@ public class Player : Entity
 
     // Update is called once per frame
     void Update() {
+        if (Time.timeScale <= 0){
+            return;
+        }
+
         if (currentHealth <= 0){
             movement = new Vector2(0,0);
             return;
@@ -163,6 +170,11 @@ public class Player : Entity
         if (automaticGun){
             isMouseDown = Input.GetMouseButton(0);
         }
+
+        //Animator Update
+        animator.SetFloat("Speed", (movement.x)+ Mathf.Abs(movement.y)/2);
+        animator.SetBool("Hurt", tookDamage);
+        animator.SetBool("facingRight", facingRight);
 
         // fire bullet
         if (isMouseDown || aimStick.Direction.magnitude > 0) {

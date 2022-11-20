@@ -36,6 +36,7 @@ public class Entity : MonoBehaviour
 
     // Stat Variables
     [HideInInspector] public GameObject damagedBy;
+    [HideInInspector] public bool tookDamage;
 
     // UI Stuff 
     public GameObject uiManager;
@@ -340,10 +341,12 @@ public class Entity : MonoBehaviour
             if (bodyObj && bodyObj.gameObject){
                 bodyObj.gameObject.GetComponent<SpriteRenderer>().material = Resources.Load("Materials/damaged") as Material;
                 bodyObj.gameObject.GetComponent<SpriteRenderer>().color = new Color32(253,106,106,255);
+                tookDamage = true;
                 StartCoroutine(doWait(0.05f,delegate{
                     if (bodyObj && bodyObj.gameObject){
                         bodyObj.gameObject.GetComponent<SpriteRenderer>().material = Resources.Load("Materials/default") as Material;
                         bodyObj.gameObject.GetComponent<SpriteRenderer>().color = spriteColor;
+                        tookDamage = false;
                     }
                 }));
             }

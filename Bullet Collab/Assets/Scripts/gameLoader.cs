@@ -37,6 +37,7 @@ public class gameLoader : MonoBehaviour
     // ui obj
     public GameObject transitioner;   
     public GameObject continueButton;   
+    public GameObject bossHealthBar;
 
     public GameObject loadUIScreen;
     public GameObject gameEndScreen;
@@ -209,6 +210,10 @@ public class gameLoader : MonoBehaviour
                     }
                 }
 
+                if (bossHealthBar != null && entityInfo.myType == EnemyType.Boss){
+                    bossHealthBar.GetComponent<bossHP>().displayHealthBar(entityInfo);
+                }
+
                 return newEnemy;
             }
         }
@@ -335,12 +340,6 @@ public class gameLoader : MonoBehaviour
         // Remove Bullets and Enemies and other stuff
         clearGameObj();
 
-        // Reset Position of Player to 0,0,0
-        if (playerObj != null && currentCamera != null){
-            playerObj.transform.position = new Vector2(0,0);
-            currentCamera.GetComponent<CameraBehavior>().instantJump = true;
-        }
-
         if (roomBase != null){
             levelObj = Instantiate(Resources.Load("Levels/"+roomBase.name),new Vector3(0,0,0),new Quaternion()) as GameObject;
             if (levelObj != null){
@@ -350,11 +349,11 @@ public class gameLoader : MonoBehaviour
 
                     // set the music
                     if (levelInfo.type == RoomType.Shop){
-                        switchMusic(musicShop,0.5f);
+                        switchMusic(musicShop,0.25f);
                     }else if (levelInfo.type == RoomType.Boss){
-                        switchMusic(musicBoss,0.5f);
+                        switchMusic(musicBoss,0.25f);
                     }else{
-                        switchMusic(musicGame,0.5f);
+                        switchMusic(musicGame,0.25f);
                     }
 
                     if (levelObj.transform.Find("BreakableObj")){
@@ -376,6 +375,18 @@ public class gameLoader : MonoBehaviour
                     // finish setting up the level
                     levelInfo.loadLevel();
 
+                    // Reset Position of Player to 0,0,0
+                    if (playerObj != null && currentCamera != null){
+                        Vector3 spawnPosition = new Vector3(0,0,0);
+                        if (levelObj != null && levelObj.transform.Find("spawnPosition")){
+                            spawnPosition = levelObj.transform.Find("spawnPosition").position;
+                        }
+
+                        playerObj.transform.position = spawnPosition;
+                        currentCamera.GetComponent<CameraBehavior>().instantJump = true;
+                    }   
+
+
                     if (pathGrid != null){
                         pathGrid.GetComponent<AstarPath>().Scan();
                     }
@@ -391,10 +402,10 @@ public class gameLoader : MonoBehaviour
     // find the next room for the player, based on seed
     public void nextRoom(string setID){
         currentRoom++;
-        RoomType nextType = RoomType.Enemy;
-        if (currentRoom % 10 == 0 && currentRoom > 5){
+        RoomType nextType = RoomType.Boss;
+        if ((currentRoom + 1) % 10 == 0 && currentRoom > 5){
             nextType = RoomType.Boss;
-        }else if (currentRoom % 10 == 5){
+        }else if ((currentRoom + 1) % 10 == 5){
             nextType = RoomType.Shop;
         }
 
@@ -403,7 +414,7 @@ public class gameLoader : MonoBehaviour
         }
 
         List<GameObject> roomList = getRooms(nextType);
-        print("ROOM LIST: " + roomList.Count + "_" + nextType);
+        print(currentRoom + " ROOM LIST: " + roomList.Count + "_" + nextType);
 
         if (roomList != null && roomList.Count > 0){
             System.Random randomGen = new System.Random(gameSeed + (currentRoom * 1000) + 111);// gotta offset from the original seed a bit for uniqueness
@@ -447,9 +458,16 @@ public class gameLoader : MonoBehaviour
         nextWave continueData = continueButton.GetComponent<nextWave>();
         ContinueVisible = false;
         continueData.hideButton();
+        if (bossHealthBar != null){
+            bossHealthBar.GetComponent<bossHP>().hideHealthBar();
+        }
     }
 
     public void showContinue(){
+        if (bossHealthBar != null){
+            bossHealthBar.GetComponent<bossHP>().hideHealthBar();
+        }
+
         if (continueButton != null && !ContinueVisible){
             nextWave continueData = continueButton.GetComponent<nextWave>();
             if (continueData){
@@ -513,10 +531,14 @@ public class gameLoader : MonoBehaviour
                         if (i >= spawnPerkCount - 2){
                             blackList.Add("SHOP_ONLY_PERK");
                         }
+                    }
 
-                        if (levelObj && levelObj.transform.Find("shopPosition")){
-                            perkBasePosition = levelObj.transform.Find("shopPosition").position;
-                        }
+                    if (levelObj != null && levelObj.transform.Find("spawnPosition")){
+                        perkBasePosition = levelObj.transform.Find("spawnPosition").position;
+                    }
+
+                    if (levelObj && levelObj.transform.Find("shopPosition")){
+                        perkBasePosition = levelObj.transform.Find("shopPosition").position;
                     }
 
                     perkPosition.x = -Mathf.Ceil((float)columnCount / (float)2f) + ((i % columnCount) + 1);
@@ -606,6 +628,10 @@ public class gameLoader : MonoBehaviour
         if (dataInfo != null){
             print("START NEW GAME");
             hideContinue();
+            if (bossHealthBar != null){
+                bossHealthBar.GetComponent<bossHP>().hideHealthBar();
+            }
+
             roomStartTime = 0;
 
             bool createNewGame = false;

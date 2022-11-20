@@ -16,7 +16,10 @@ public class healthUp : perkData
 {
     public int healthInc = 1;
 
-    public override void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
-
+    public override void buyEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
+        Entity entityInfo = getEntityStats(objDictionary);
+        if (entityInfo){
+            entityInfo.currentHealth += healthInc;
+        }
     }
 }

@@ -35,6 +35,9 @@ public class perkData : ScriptableObject
     // This event fires when the player picks up a perk, use it to adjust player stats
     public virtual void addedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 
+    // This event fires when the player buys a perk, use it to adjust player stats
+    public virtual void buyEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
+
     // This event fires when the player shoots a bullet, use it to modify bullets when they are created
     public virtual void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {}
 

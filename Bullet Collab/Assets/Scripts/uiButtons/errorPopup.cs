@@ -82,7 +82,6 @@ public class errorPopup : MonoBehaviour
         if (errorVisible){
             Vector3 bump = startPosition + new Vector3(0f,5f,0f);
             LeanTween.value(gameObject,bump,startPosition,tweenTime).setIgnoreTimeScale(true).setEaseOutBack().setOnUpdateVector3(setAnchoredPosition);
-            LeanTween.value(gameObject,0f,1f,tweenTime).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setPanelAlpha);
         }else{
             LeanTween.value(gameObject,spawnPosition,startPosition,tweenTime).setIgnoreTimeScale(true).setEaseOutBack().setOnUpdateVector3(setAnchoredPosition);
             LeanTween.value(gameObject,0f,1f,tweenTime).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setPanelAlpha);

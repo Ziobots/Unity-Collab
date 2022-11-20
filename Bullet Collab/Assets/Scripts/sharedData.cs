@@ -207,6 +207,7 @@ public class sharedData : MonoBehaviour
 
                 // overwrite the health with their old health
                 entityInfo.currentHealth = Mathf.Clamp(overwriteData.currenthealth,1,entityInfo.maxHealth);
+                entityInfo.currency = overwriteData.currency;
             }
                 
             // apply any changes to the data

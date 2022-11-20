@@ -253,6 +253,10 @@ public class Entity : MonoBehaviour
                 }
             }
 
+            if (dataInfo != null){
+                dataInfo.updateEntityData(gameObject);
+            }
+
             damageEffect();
         }
     }

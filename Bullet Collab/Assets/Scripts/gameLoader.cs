@@ -402,7 +402,7 @@ public class gameLoader : MonoBehaviour
     // find the next room for the player, based on seed
     public void nextRoom(string setID){
         currentRoom++;
-        RoomType nextType = RoomType.Boss;
+        RoomType nextType = RoomType.Enemy;
         if ((currentRoom + 1) % 10 == 0 && currentRoom > 5){
             nextType = RoomType.Boss;
         }else if ((currentRoom + 1) % 10 == 5){

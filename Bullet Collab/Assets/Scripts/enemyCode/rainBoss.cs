@@ -71,6 +71,7 @@ public class rainBoss : Enemy
             bulletObj.bulletBounces = 15;
             bulletObj.bulletSpeed *= 1.1f;
             bulletObj.perkIDList.Add("remoteBullet");
+            deflectBullets = true;
         }
     }
 

@@ -505,6 +505,8 @@ public class gameLoader : MonoBehaviour
                 if (levelInfo.type == RoomType.Shop){
                     spawnPerkCount = 5;
                     blackList.Add("COST_ONLY_PERK");
+                }else if (levelInfo.type == RoomType.Boss){
+                    spawnPerkCount += 1;
                 }
 
                 int maxColumn = 7;
@@ -541,10 +543,12 @@ public class gameLoader : MonoBehaviour
                         perkBasePosition = levelObj.transform.Find("shopPosition").position;
                     }
 
-                    perkPosition.x = -Mathf.Ceil((float)columnCount / (float)2f) + ((i % columnCount) + 1);
+                    float offsetX = columnCount % 2 == 0 ? 0.5f : 1f;
+                    perkPosition.x = -Mathf.Ceil((float)columnCount / (float)2f) + ((i % columnCount) + offsetX);
                     perkPosition.y = Mathf.Floor((float)i/(float)columnCount);
 
                     perkPickup newPerk = Instantiate(perkPrefab,perkBasePosition + (perkPosition * 2.5f),new Quaternion(),debriFolder);
+
                     if (newPerk != null){
                         // set the default perk stats
                         newPerk.dataManager = dataManager;
@@ -567,6 +571,12 @@ public class gameLoader : MonoBehaviour
                         // get the perk
                         int perkSeed = gameSeed + (i * 100) + (currentRoom * 1000) + 894636;
                         perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
+                        if (levelInfo.type == RoomType.Boss){
+                            if (i == 0){
+                                chosenPerk = gameObject.GetComponent<perkModule>().getPerk("maxHPIncrease");
+                            }
+                        }
+                        
                         if (chosenPerk){
                             newPerk.perkID = chosenPerk.name;
                             if (levelInfo.type == RoomType.Shop){

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5772bf18b6d0cdc49b915d97b48603ed, type: 3}
+  m_Name: maxHPIncrease
+  m_EditorClassIdentifier: 
+  perkIcon: {fileID: -378741952, guid: b01d69872d141a34e8e021c0b2047a30, type: 3}
+  perkName: Heart Container
+  perkCost: 500
+  perkDescription: Gain one extra heart of health.
+  perkRarity: 5
+  stackablePerk: 1
+  enemyPerk: 0
+  healthInc: 0
+  maxHealthInc: 2

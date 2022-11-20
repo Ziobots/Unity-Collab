@@ -299,13 +299,13 @@ public class Entity : MonoBehaviour
                     }
 
                     // calculate push based on weights of two objects
-                    Vector2 pushForce = (direction * -entityData.weight) + (direction * (gameObject.GetComponent<Entity>().weight * 0.7f));
-                    if (gameObject.GetComponent<Entity>().weight * 0.7f > entityData.weight){
+                    Vector2 pushForce = (direction * -entityData.weight) + (direction * (weight * 0.7f));
+                    if (weight * 0.7f > entityData.weight && entityData.weight > 0){
                         pushForce = direction * -entityData.weight * 0.1f;
                     }
 
                     if (entityData.weight <= 0){
-                        pushForce = -direction * 2;
+                        pushForce = direction * ((entityData.weight - 2) * 0.5f);
                     }
 
                     // Player should take damage when bumped

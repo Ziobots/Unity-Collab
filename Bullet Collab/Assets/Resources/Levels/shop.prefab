@@ -110,6 +110,7 @@ MonoBehaviour:
   currency: 0
   weight: 15
   damagedBy: {fileID: 0}
+  tookDamage: 0
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}

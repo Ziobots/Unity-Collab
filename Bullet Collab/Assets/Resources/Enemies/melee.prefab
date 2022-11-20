@@ -97,6 +97,7 @@ MonoBehaviour:
   currency: 0
   weight: 2
   damagedBy: {fileID: 0}
+  tookDamage: 0
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
@@ -115,7 +116,7 @@ MonoBehaviour:
   bulletTime: 0.4
   bulletSpread: 3
   automaticGun: 0
-  reloadingGun: 0
+  reloadingGun: 1
   deflectBullets: 0
   reloadStartTime: 0
   delayStartTime: 0

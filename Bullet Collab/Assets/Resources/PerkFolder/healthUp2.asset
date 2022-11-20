@@ -19,5 +19,5 @@ MonoBehaviour:
   perkRarity: 5
   stackablePerk: 1
   enemyPerk: 0
-  healthInc: 1
+  healthInc: 2
   maxHealthInc: 0

@@ -41,7 +41,11 @@ public class perkModule : MonoBehaviour
         // Only load perks onces, optimization, before it loaded them everytime lagging the game when called too often
         loadPerkFolder();
 
-        return perkIDDictionary[perkID];
+        if (perkIDDictionary.ContainsKey(perkID)){
+            return perkIDDictionary[perkID];
+        }else{
+            return null;
+        }
     }
 
     public Rarity GetRarity(int value,levelData level){

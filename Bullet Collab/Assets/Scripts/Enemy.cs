@@ -53,6 +53,7 @@ public class Enemy : Entity
     public bool flipSprite = true;
     public EnemyType myType = EnemyType.None;
     public int roomSpawnMinimum = 0;
+    public int roomSpawnMaximum = -1;
     public float lastSeeTime = 0;
 
     // Spawn Visuals

@@ -238,7 +238,9 @@ public class gameLoader : MonoBehaviour
             if (enemyObj){
                 Enemy enemyData = enemyObj.GetComponent<Enemy>();
                 if (enemyData && enemyData.myType == type && enemyData.roomSpawnMinimum <= roomNumber){
-                    returnList.Add(enemyData.gameObject.name);
+                    if (enemyData.roomSpawnMaximum <= -1 || enemyData.roomSpawnMaximum > roomNumber){
+                        returnList.Add(enemyData.gameObject.name);
+                    }
                 }
             }
         }
@@ -463,6 +465,10 @@ public class gameLoader : MonoBehaviour
                         break;
                     }
                 }
+            }
+
+            if (currentRoom <= 1 && (setID == null  || setID == "")){
+                chosenRoomID = "tutorial";
             }
 
             if (chosenRoomID != null && chosenRoomID != ""){

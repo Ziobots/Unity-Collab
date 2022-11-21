@@ -63,6 +63,7 @@ public class Entity : MonoBehaviour
     public float bulletSpread;
     public bool automaticGun = false;
     public bool reloadingGun = false;
+    public bool shootingGun = false;
     public bool deflectBullets = false;
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
@@ -164,6 +165,7 @@ public class Entity : MonoBehaviour
 
         // entity passed all checks, can fire
         delayStartTime = Time.time;
+        shootingGun = true;
 
         if (gunNoise != null){
             gunNoise.PlayOneShot(gunNoise.clip,gunNoise.volume);//  * dataInfo.gameVolume * dataInfo.masterVolume
@@ -210,6 +212,7 @@ public class Entity : MonoBehaviour
                 }
             }
         }
+        
 
         // the delay after firing the last bullet shouldnt be as long
         if (currentAmmo <= 0){

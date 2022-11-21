@@ -42,7 +42,8 @@ public class Player : Entity
     public Joystick aimStick;
 
     // Animation Variables
-    public Animator animator;
+    public Animator body_animator;
+    public Animator gun_animator;
 
     private void moveGun() {
         if (arrow != null) {
@@ -144,6 +145,8 @@ public class Player : Entity
         dataInfo.updateEntityData(gameObject);
     }
 
+
+
     // Update is called once per frame
     void Update() {
         if (Time.timeScale <= 0){
@@ -172,9 +175,11 @@ public class Player : Entity
         }
 
         //Animator Update
-        animator.SetFloat("Speed", (movement.x)+ Mathf.Abs(movement.y)/2);
-        animator.SetBool("Hurt", tookDamage);
-        animator.SetBool("facingRight", facingRight);
+        body_animator.SetFloat("Speed", (movement.x)+ Mathf.Abs(movement.y)/2);
+        body_animator.SetBool("Hurt", tookDamage);
+        body_animator.SetBool("facingRight", facingRight);
+        gun_animator.SetBool("Reloading", reloadingGun);
+        gun_animator.SetBool("Shoot", shootingGun);
 
         // fire bullet
         if (isMouseDown || aimStick.Direction.magnitude > 0) {

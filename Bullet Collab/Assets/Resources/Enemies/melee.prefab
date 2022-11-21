@@ -95,7 +95,7 @@ MonoBehaviour:
   maxHealth: 3
   damageAmount: 0
   currency: 0
-  weight: 2
+  weight: 1
   damagedBy: {fileID: 0}
   tookDamage: 0
   uiManager: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   shootDistance: -2
   lookDirection: {x: 1, y: 0}
-  turnSpeed: 3
+  turnSpeed: 2
   lastTargetPosition: {x: 0, y: 0}
   wayPointDistance: 1
   levelObj: {fileID: 0}

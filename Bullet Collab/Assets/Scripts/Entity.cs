@@ -338,6 +338,10 @@ public class Entity : MonoBehaviour
     public virtual void damageEffect(){
         if (gameObject){
             Transform bodyObj = gameObject.transform.Find("body");
+            if (gameObject.GetComponent<SpriteRenderer>() && bodyObj == null){
+                bodyObj = gameObject.transform;
+            }
+
             if (bodyObj && bodyObj.gameObject){
                 bodyObj.gameObject.GetComponent<SpriteRenderer>().material = Resources.Load("Materials/damaged") as Material;
                 bodyObj.gameObject.GetComponent<SpriteRenderer>().color = new Color32(253,106,106,255);

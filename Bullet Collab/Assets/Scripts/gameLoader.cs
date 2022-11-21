@@ -257,6 +257,20 @@ public class gameLoader : MonoBehaviour
             if (point){
                 enemyList pointData = point.GetComponent<enemyList>();
                 if (pointData){
+                    
+                    // check if point is active
+                    if (pointData.minWave >= 0){
+                        if (currentWave < pointData.minWave){
+                            continue;
+                        }
+                    }
+
+                    if (pointData.maxWave >= 0){
+                        if (currentWave > pointData.maxWave){
+                            continue;
+                        }
+                    }
+
                     List<string> choiceList = pointData.enemySpawns;
                     string chosenID = choiceList.Count > 0 ? pointData.enemySpawns[0] : "default";
 
@@ -278,15 +292,31 @@ public class gameLoader : MonoBehaviour
     private bool resourceLevelLoaded = false;
     private GameObject[] levelResourceObj;
 
-    public List<GameObject> getRooms(RoomType getType){
-        List<GameObject> roomList = new List<GameObject>();
-
+    public void loadRooms(){
         if (!resourceLevelLoaded){
             resourceLevelLoaded = true;
             Object[] roomLoad = Resources.LoadAll("Levels");
             levelResourceObj = new GameObject[roomLoad.Length];
             roomLoad.CopyTo(levelResourceObj, 0);
         }
+    }
+
+    public GameObject getRoom(string roomID){
+        loadRooms();
+
+        // search for room from id
+        foreach (GameObject level in levelResourceObj){
+            if (level && level.name == roomID){
+                return level;
+            }
+        }
+
+        return null;
+    }
+
+    public List<string> getRoomList(RoomType getType){
+        List<string> roomList = new List<string>();
+        loadRooms();
 
         // go through each room and check if it is avaliable
         foreach (GameObject level in levelResourceObj){
@@ -295,7 +325,7 @@ public class gameLoader : MonoBehaviour
                 if (levelInfo){
                     // check if the room can appear
                     if (levelInfo.type == getType || levelInfo.allowLevel()){
-                        roomList.Add(level);
+                        roomList.Add(level.name);
                     }
                 }
             }
@@ -303,7 +333,7 @@ public class gameLoader : MonoBehaviour
 
         // add a room to empty lists just in case
         if (roomList.Count <= 0 && levelResourceObj.Length > 0){
-            roomList.Add(levelResourceObj[0]);
+            roomList.Add(levelResourceObj[0].name);
         }
 
         return roomList;
@@ -325,7 +355,9 @@ public class gameLoader : MonoBehaviour
         clearFolder(debriFolder);
     }
 
-    public GameObject createRoom(GameObject roomBase){
+    public GameObject createRoom(string roomID){
+        GameObject roomBase = getRoom(roomID);
+
         // remove the old room
         if (levelObj != null){
             levelData oldData = levelObj.GetComponent<levelData>();
@@ -413,29 +445,29 @@ public class gameLoader : MonoBehaviour
             dataInfo.totalScore += 1000;
         }
 
-        List<GameObject> roomList = getRooms(nextType);
+        List<string> roomList = getRoomList(nextType);
         print(currentRoom + " ROOM LIST: " + roomList.Count + "_" + nextType);
 
         if (roomList != null && roomList.Count > 0){
             System.Random randomGen = new System.Random(gameSeed + (currentRoom * 1000) + 111);// gotta offset from the original seed a bit for uniqueness
-            GameObject chosenRoom = roomList[0];
+            string chosenRoomID = roomList[0];
             if (roomList.Count > 1){
-                chosenRoom = roomList[randomGen.Next(0,roomList.Count)];
+                chosenRoomID = roomList[randomGen.Next(0,roomList.Count)];
             }
 
             // check for forced room
             if (setID != null && setID != ""){
-                foreach (GameObject room in roomList){
-                    if (room.name == setID){
-                        chosenRoom = room;
+                foreach (string roomID in roomList){
+                    if (roomID == setID){
+                        chosenRoomID = roomID;
                         break;
                     }
                 }
             }
 
-            if (chosenRoom){
-                dataInfo.currentRoomID = chosenRoom.name;
-                createRoom(chosenRoom);
+            if (chosenRoomID != null && chosenRoomID != ""){
+                dataInfo.currentRoomID = chosenRoomID;
+                createRoom(chosenRoomID);
             }
         }
 

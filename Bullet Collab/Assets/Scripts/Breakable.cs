@@ -17,9 +17,12 @@ public class Breakable : Entity
     // hit variables
     public bool spinHit = false;
     private bool canHit = true;
+    public bool hitGrow = false;
 
     [HideInInspector] public Vector2 spawnPosition;
+    [HideInInspector] public Vector3 baseScale;
     public bool moveToSpawn = false;
+    private float noiseTime = 0;
 
     // remove unwanted functions
     public override void reloadGun(){}
@@ -33,18 +36,38 @@ public class Breakable : Entity
         transform.rotation = setRotationEuler;
     }
 
-    private void spinFinished(){
-        spinRotation(0f);
-        canHit = true;
+    // grow effect
+    public void growSprite(Vector3 value){
+        transform.localScale = value;
+    }
+
+    private void growAnimation(){
+        growSprite(baseScale);
+
+        if (currentCamera){
+            if (damageNoise != null && Time.time - noiseTime >= .1f){
+                noiseTime = Time.time;
+                damageNoise.PlayOneShot(damageNoise.clip,damageNoise.volume);
+            }
+        }
+
+        LeanTween.cancel(gameObject);
+        Vector3 growScale = new Vector3(baseScale.x*1.2f,baseScale.y*1.2f,baseScale.z*1);
+        LeanTween.value(gameObject,baseScale,growScale,0.07f).setEaseOutQuad().setOnUpdateVector3(growSprite).setOnComplete(delegate(){
+            LeanTween.value(gameObject,growScale,baseScale,0.2f).setEaseOutBack().setOnUpdateVector3(growSprite).setOnComplete(delegate(){
+                growSprite(baseScale);
+                canHit = true;
+            });
+        });
     }
 
     private void spinAnimation(){
         spinRotation(0);
 
         if (currentCamera){
-            AudioSource hitNoise = currentCamera.transform.Find("SoundAssets").Find("kick").gameObject.GetComponent<AudioSource>();
-            if (hitNoise != null){
-                hitNoise.PlayOneShot(hitNoise.clip,hitNoise.volume);
+            if (damageNoise != null && Time.time - noiseTime >= .1f){
+                noiseTime = Time.time;
+                damageNoise.PlayOneShot(damageNoise.clip,damageNoise.volume);
             }
         }
 
@@ -52,13 +75,20 @@ public class Breakable : Entity
         if (currentHealth <= 0){
             LeanTween.value(gameObject,0f,270f,1f).setEaseOutQuad().setOnUpdate(spinRotation).setOnComplete(destroyObj);
         }else{ 
-            LeanTween.value(gameObject,0f,360f,1.3f).setEaseOutBack().setOnUpdate(spinRotation).setOnComplete(spinFinished);
+            LeanTween.value(gameObject,0f,360f,1.3f).setEaseOutBack().setOnUpdate(spinRotation).setOnComplete(delegate(){
+                spinRotation(0f);
+                canHit = true;
+            });
         }
     }
 
     public override void damageEffect(){
         if (spinHit){
             spinAnimation();
+        }
+
+        if (hitGrow){
+            growAnimation();
         }
 
         base.damageEffect();
@@ -93,14 +123,15 @@ public class Breakable : Entity
         base.Start();
 
         spawnPosition = transform.position;
+        baseScale = transform.localScale;
     }
 
     public override void FixedUpdate(){
         if (rb && moveToSpawn){
-            rb.velocity = rb.velocity * 0.99f;
 
-            float alpha = Time.fixedDeltaTime * 8f;
+            float alpha = Time.fixedDeltaTime * 12f;
             transform.position = Vector2.Lerp(transform.position,spawnPosition,alpha);
+            rb.velocity = Vector3.Lerp(rb.velocity, new Vector3(0,0,0),alpha);
         }
 
         pushNearby();

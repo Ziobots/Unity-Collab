@@ -25,8 +25,7 @@ public class glassCannon : perkData
         if (entityStats){
             // Add the player stats
             entityStats.reloadTime *= reloadMultiple;
-            entityStats.maxHealth = 1;
-            entityStats.currentHealth = 1;
+            entityStats.maxHealth = 2;
         }
     }
 

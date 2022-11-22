@@ -64,6 +64,7 @@ public class Entity : MonoBehaviour
     public bool automaticGun = false;
     public bool reloadingGun = false;
     public bool deflectBullets = false;
+    public bool shootingGun = false;
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
@@ -98,6 +99,7 @@ public class Entity : MonoBehaviour
         reloadStartTime = Time.time;
         delayStartTime = 0;
         reloadingGun = true;
+        shootingGun = false;
 
         // Check for any reload modifiers
         Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
@@ -164,6 +166,7 @@ public class Entity : MonoBehaviour
 
         // entity passed all checks, can fire
         delayStartTime = Time.time;
+        shootingGun = true;
 
         if (gunNoise != null){
             gunNoise.PlayOneShot(gunNoise.clip,gunNoise.volume);//  * dataInfo.gameVolume * dataInfo.masterVolume

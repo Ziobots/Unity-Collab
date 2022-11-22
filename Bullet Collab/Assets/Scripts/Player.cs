@@ -42,7 +42,8 @@ public class Player : Entity
     public Joystick aimStick;
 
     // Animation Variables
-    public Animator animator;
+    public Animator bodyAnimator;
+    public Animator gunAnimator;
 
     private void moveGun() {
         if (arrow != null) {
@@ -172,9 +173,11 @@ public class Player : Entity
         }
 
         //Animator Update
-        animator.SetFloat("Speed", (movement.x)+ Mathf.Abs(movement.y)/2);
-        animator.SetBool("Hurt", tookDamage);
-        animator.SetBool("facingRight", facingRight);
+        bodyAnimator.SetFloat("Speed", ((movement.x) + Mathf.Abs(movement.y)/2) * (rb.velocity.magnitude * movement.magnitude));
+        bodyAnimator.SetBool("Hurt", tookDamage);
+        bodyAnimator.SetBool("facingRight", facingRight);
+        gunAnimator.SetBool("Reloading", reloadingGun);
+        gunAnimator.SetBool("Shoot", shootingGun);
 
         // fire bullet
         if (isMouseDown || aimStick.Direction.magnitude > 0) {

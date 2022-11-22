@@ -18166,6 +18166,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!95 &558453274 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 513737756818927390, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+  m_PrefabInstance: {fileID: 3568330077112155241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &693162314 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3568330077501156643, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
@@ -19142,6 +19147,7 @@ MonoBehaviour:
   automaticGun: 0
   reloadingGun: 0
   deflectBullets: 1
+  shootingGun: 0
   reloadStartTime: 0
   delayStartTime: 0
   gunNoise: {fileID: 0}
@@ -22072,9 +22078,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1104244799}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: gunAnimator
+      value: 
+      objectReference: {fileID: 558453274}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: reloadNoise
       value: 
       objectReference: {fileID: 1097027928}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: bodyAnimator
+      value: 
+      objectReference: {fileID: 1842503006}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: bulletDamage
       value: 1

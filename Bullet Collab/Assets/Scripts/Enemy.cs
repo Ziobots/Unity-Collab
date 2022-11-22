@@ -46,6 +46,8 @@ public class Enemy : Entity
     public visualFx killPrefab;
     public string defaultFace = "eyes_Normal";
     public string currentFace = "eyes_Normal";
+    public string hurtFace = "eyes_Hurt";
+    public string deathFace = "eyes_Shock";
     public float faceSwapTime = 0;
 
     // Enemy Variables
@@ -403,7 +405,7 @@ public class Enemy : Entity
 
             visualFx killVFX = Instantiate(killPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),new Quaternion(),gameObject.transform);
             if (killVFX != null){
-                currentFace = "eyes_Shock";
+                currentFace = deathFace;
                 faceSwapTime = Time.time;
 
                 killVFX.lifeTime = 0f;
@@ -419,7 +421,7 @@ public class Enemy : Entity
                 killVFX.setupVFX();
             }
         }else{
-            currentFace = "eyes_Hurt";
+            currentFace = hurtFace;
             faceSwapTime = Time.time;
         }
     }
@@ -456,7 +458,7 @@ public class Enemy : Entity
         // should the face return to the default
         if (currentFace != defaultFace && Time.time - faceSwapTime >= .25){
             if (currentHealth <= 0){
-                currentFace = "eyes_Hurt";
+                currentFace = hurtFace;
             }else{
                 currentFace = defaultFace;
             }

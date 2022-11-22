@@ -47,6 +47,16 @@ public class levelData : MonoBehaviour
 
     }
 
+    // fires when the wave changes
+    public virtual void onNextWave(int waveNumber){
+
+    }
+
+    // fires when the room is cleared
+    public virtual void onLevelClear(){
+
+    }
+
     // this is for unique levels or something for subclass levels
     public virtual bool allowLevel(){
         return false;// do not change this

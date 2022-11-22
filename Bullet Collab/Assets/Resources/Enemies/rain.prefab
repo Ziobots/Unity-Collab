@@ -119,12 +119,13 @@ MonoBehaviour:
   perkCommands: {fileID: 0}
   gameManager: {fileID: 0}
   gameInfo: {fileID: 0}
-  currentHealth: 50
-  maxHealth: 50
+  currentHealth: 70
+  maxHealth: 70
   damageAmount: 0
   currency: 10
   weight: 15
   damagedBy: {fileID: 0}
+  tookDamage: 0
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
@@ -170,6 +171,8 @@ MonoBehaviour:
   flipSprite: 1
   myType: 5
   roomSpawnMinimum: 0
+  roomSpawnMaximum: -1
+  lastSeeTime: 0
   Loaded: 0
 --- !u!1 &6770360507100599415
 GameObject:

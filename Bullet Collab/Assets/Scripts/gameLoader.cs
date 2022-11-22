@@ -467,7 +467,7 @@ public class gameLoader : MonoBehaviour
                 }
             }
 
-            if (currentRoom <= 1 && (setID == null  || setID == "")){
+            if (currentRoom <= 0 && (setID == null  || setID == "")){
                 chosenRoomID = "tutorial";
             }
 
@@ -510,6 +510,13 @@ public class gameLoader : MonoBehaviour
             nextWave continueData = continueButton.GetComponent<nextWave>();
             if (continueData){
                 ContinueVisible = true;
+
+                if (levelObj != null){
+                    levelData levelInfo = levelObj.GetComponent<levelData>();
+                    if (levelInfo){
+                        levelInfo.onLevelClear();
+                    }
+                }
 
                 // set the function to be done on press
                 continueData.showButton(delegate{
@@ -706,6 +713,13 @@ public class gameLoader : MonoBehaviour
             nextRoom(dataInfo.currentTempData.roomID);
             currentWave = dataInfo.currentTempData.wave;
 
+            if (levelObj != null && currentWave > 0){
+                levelData levelInfo = levelObj.GetComponent<levelData>();
+                if (levelInfo){
+                    levelInfo.onNextWave(currentWave);
+                }
+            }
+
             // reset data for obj
             dataInfo.enemiesKilled = dataInfo.currentTempData.enemiesKilled;
             dataInfo.totalScore = dataInfo.currentTempData.totalScore;
@@ -861,6 +875,12 @@ public class gameLoader : MonoBehaviour
 
                     dataInfo.currentRoom = currentRoom;
                     dataInfo.currentWave = currentWave;
+
+                    if (levelObj != null){
+                        if (levelInfo){
+                            levelInfo.onNextWave(currentWave);
+                        }
+                    }
                 }
             }
         }

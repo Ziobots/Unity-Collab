@@ -119,12 +119,13 @@ MonoBehaviour:
   perkCommands: {fileID: 0}
   gameManager: {fileID: 0}
   gameInfo: {fileID: 0}
-  currentHealth: 8
-  maxHealth: 8
+  currentHealth: 12
+  maxHealth: 12
   damageAmount: 0
   currency: 0
   weight: 6
   damagedBy: {fileID: 0}
+  tookDamage: 0
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
@@ -144,11 +145,14 @@ MonoBehaviour:
   bulletSpread: 2
   automaticGun: 0
   reloadingGun: 0
+  deflectBullets: 0
   reloadStartTime: 0
   delayStartTime: 0
   gunNoise: {fileID: 0}
   reloadNoise: {fileID: 0}
   hurtNoise: {fileID: 0}
+  damageNoise: {fileID: 0}
+  currentCamera: {fileID: 0}
   spriteColor: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 255}
   perkIDList: []
   currentTarget: {fileID: 0}
@@ -167,6 +171,8 @@ MonoBehaviour:
   flipSprite: 0
   myType: 2
   roomSpawnMinimum: 3
+  roomSpawnMaximum: -1
+  lastSeeTime: 0
   Loaded: 0
 --- !u!1 &6770360507100599415
 GameObject:

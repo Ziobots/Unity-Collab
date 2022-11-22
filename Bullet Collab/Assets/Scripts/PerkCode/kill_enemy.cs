@@ -15,7 +15,6 @@ using UnityEngine;
 public class kill_enemy : perkData
 {
     public override void damagedEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
-        Debug.Log("crystal event");
         if (initialize && objDictionary.ContainsKey("GameManager")){
             Entity ownerInfo = getEntityStats(objDictionary);
             if (ownerInfo){
@@ -23,7 +22,17 @@ public class kill_enemy : perkData
                 ownerInfo.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("crystalOn");
             }
 
-            objDictionary["GameManager"].GetComponent<gameLoader>().showContinue();
+            gameLoader gameInfo = objDictionary["GameManager"].GetComponent<gameLoader>();
+            GameObject levelObj = gameInfo.levelObj;
+            if (levelObj != null && !gameInfo.spawnedPerks){
+                levelData levelInfo = levelObj.GetComponent<levelData>();
+                if (levelInfo && !levelInfo.skipPerks && levelInfo.type != RoomType.Shop){
+                    objDictionary["GameManager"].GetComponent<gameLoader>().spawnPerks();
+                }
+            }
+
+            gameInfo.spawnedPerks = true;
+            gameInfo.showContinue();
         }
     }
 }

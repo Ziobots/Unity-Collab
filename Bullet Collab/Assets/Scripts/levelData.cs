@@ -18,6 +18,7 @@ public class levelData : MonoBehaviour
 {
     // Room Data
     public RoomType type = RoomType.None;
+    public int roomSpawnMinimum = 0;
     public int waveCount = 1;
 
     // Reward
@@ -58,7 +59,7 @@ public class levelData : MonoBehaviour
     }
 
     // this is for unique levels or something for subclass levels
-    public virtual bool allowLevel(){
+    public virtual bool allowLevel(int currentRoom){
         return false;// do not change this
     }
 }

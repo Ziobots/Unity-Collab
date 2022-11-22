@@ -326,7 +326,7 @@ public class gameLoader : MonoBehaviour
                 levelData levelInfo = level.GetComponent<levelData>();
                 if (levelInfo){
                     // check if the room can appear
-                    if (levelInfo.type == getType || levelInfo.allowLevel()){
+                    if ((levelInfo.type == getType && currentRoom >= levelInfo.roomSpawnMinimum) || levelInfo.allowLevel(currentRoom)){
                         roomList.Add(level.name);
                     }
                 }
@@ -448,7 +448,7 @@ public class gameLoader : MonoBehaviour
         }
 
         List<string> roomList = getRoomList(nextType);
-        print(currentRoom + " ROOM LIST: " + roomList.Count + "_" + nextType);
+        print(currentRoom + " ROOM LIST: " + roomList.Count + "_" + nextType + " _ " + setID);
 
         if (roomList != null && roomList.Count > 0){
             System.Random randomGen = new System.Random(gameSeed + (currentRoom * 1000) + 111);// gotta offset from the original seed a bit for uniqueness
@@ -457,18 +457,13 @@ public class gameLoader : MonoBehaviour
                 chosenRoomID = roomList[randomGen.Next(0,roomList.Count)];
             }
 
-            // check for forced room
-            if (setID != null && setID != ""){
-                foreach (string roomID in roomList){
-                    if (roomID == setID){
-                        chosenRoomID = roomID;
-                        break;
-                    }
-                }
-            }
-
             if (currentRoom <= 0 && (setID == null  || setID == "")){
                 chosenRoomID = "tutorial";
+            }
+
+            // check for forced room
+            if (setID != null && setID != "" && getRoom(setID) != null){
+                chosenRoomID = setID;
             }
 
             if (chosenRoomID != null && chosenRoomID != ""){
@@ -711,7 +706,7 @@ public class gameLoader : MonoBehaviour
 
             currentRoom = dataInfo.currentTempData.room - 1;
             nextRoom(dataInfo.currentTempData.roomID);
-            currentWave = dataInfo.currentTempData.wave;
+            currentWave = dataInfo.currentTempData.wave - 1;
 
             if (levelObj != null && currentWave > 0){
                 levelData levelInfo = levelObj.GetComponent<levelData>();
@@ -758,6 +753,7 @@ public class gameLoader : MonoBehaviour
                 uiUpdate.updateHealth();
             }
 
+            dataInfo.canDoSave = false;
             //switchMusic(musicGame,0.5f);
         }
     }

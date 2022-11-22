@@ -143,9 +143,9 @@ MonoBehaviour:
   faceSwapTime: 0
   checkAngle: 1
   flipSprite: 1
-  myType: 1
+  myType: 0
   roomSpawnMinimum: 0
-  roomSpawnMaximum: -1
+  roomSpawnMaximum: 0
   lastSeeTime: 0
   Loaded: 0
 --- !u!114 &6770360506613481947

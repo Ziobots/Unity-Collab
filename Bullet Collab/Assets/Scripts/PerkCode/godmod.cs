@@ -16,7 +16,7 @@ public class godmod : perkData
 {
     public override void shootEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
         if (initialize && objDictionary.ContainsKey("GameManager")){
-            objDictionary["GameManager"].GetComponent<gameLoader>().clearGameObj();
+            objDictionary["GameManager"].GetComponent<gameLoader>().showContinue();
         }
     }
 }

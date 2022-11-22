@@ -19567,7 +19567,7 @@ MonoBehaviour:
     roomID: 
     enemiesKilled: 0
     totalScore: 0
-    wave: 0
+    wave: 1
     room: -1
     elapsedTime: 0
   currentPersistData:
@@ -21769,6 +21769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  roomSpawnMinimum: 0
   waveCount: 2
   skipPerks: 0
   valueList: 

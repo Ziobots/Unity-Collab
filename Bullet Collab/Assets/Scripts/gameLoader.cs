@@ -274,13 +274,13 @@ public class gameLoader : MonoBehaviour
                     
                     // check if point is active
                     if (pointData.minWave >= 0){
-                        if (currentWave <= pointData.minWave){
+                        if (currentWave < pointData.minWave){
                             continue;
                         }
                     }
 
                     if (pointData.maxWave >= 0){
-                        if (currentWave > pointData.maxWave){
+                        if (currentWave >= pointData.maxWave){
                             continue;
                         }
                     }

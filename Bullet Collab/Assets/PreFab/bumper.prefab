@@ -110,6 +110,7 @@ MonoBehaviour:
   damageAmount: 0
   currency: 0
   weight: 50
+  meleeDamage: 0
   damagedBy: {fileID: 0}
   tookDamage: 0
   uiManager: {fileID: 0}
@@ -131,6 +132,7 @@ MonoBehaviour:
   automaticGun: 0
   reloadingGun: 1
   deflectBullets: 1
+  shootingGun: 0
   reloadStartTime: 0
   delayStartTime: 0
   gunNoise: {fileID: 0}

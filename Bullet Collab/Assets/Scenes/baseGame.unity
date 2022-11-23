@@ -19255,6 +19255,7 @@ MonoBehaviour:
   damageAmount: 0
   currency: 0
   weight: 15
+  meleeDamage: 1
   damagedBy: {fileID: 0}
   tookDamage: 0
   uiManager: {fileID: 0}
@@ -22210,6 +22211,10 @@ PrefabInstance:
       propertyPath: gunAnimator
       value: 
       objectReference: {fileID: 558453274}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: meleeDamage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: reloadNoise
       value: 

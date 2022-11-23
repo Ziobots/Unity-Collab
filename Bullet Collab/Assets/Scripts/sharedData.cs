@@ -160,6 +160,7 @@ public class sharedData : MonoBehaviour
                 entityInfo.reloadingGun = false;
                 entityInfo.weight = -20f;
                 entityInfo.walkSpeed = 6f;
+                entityInfo.meleeDamage = 0f;
                 entityInfo.damagedBy = null;
 
                 // player obj unique stats

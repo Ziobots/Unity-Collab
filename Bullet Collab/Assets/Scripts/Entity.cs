@@ -33,6 +33,7 @@ public class Entity : MonoBehaviour
     [HideInInspector] public float damageAmount = 0;
     public int currency = 0;
     public float weight = 5f;
+    public float meleeDamage = 1f;
 
     // Stat Variables
     [HideInInspector] public GameObject damagedBy;
@@ -321,8 +322,8 @@ public class Entity : MonoBehaviour
                     }
 
                     // Player should take damage when bumped
-                    if (entityObj.tag == "Player" && gameObject.tag == "Enemy"){
-                        entityData.takeDamage(1);
+                    if (entityObj.tag != gameObject.tag && meleeDamage > 0 && !entityData.perkIDList.Contains("noMelee")){
+                        entityData.takeDamage(meleeDamage);
                     }else{
                         pushForce = pushForce + (randomDir * 0.1f);
                     }

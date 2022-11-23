@@ -16,7 +16,7 @@ MonoBehaviour:
   perkName: Heart Container
   perkCost: 500
   perkDescription: Gain one extra heart of health.
-  perkRarity: 5
+  perkRarity: 4
   stackablePerk: 1
   enemyPerk: 0
   healthInc: 2

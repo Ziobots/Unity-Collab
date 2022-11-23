@@ -16,7 +16,7 @@ MonoBehaviour:
   perkName: Full Heart
   perkCost: 100
   perkDescription: Heal one full heart worth of health.
-  perkRarity: 5
+  perkRarity: 4
   stackablePerk: 1
   enemyPerk: 0
   healthInc: 2

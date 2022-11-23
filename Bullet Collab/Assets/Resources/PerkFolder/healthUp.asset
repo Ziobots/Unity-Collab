@@ -16,7 +16,8 @@ MonoBehaviour:
   perkName: Half Heart
   perkCost: 50
   perkDescription: Heal one half heart worth of health.
-  perkRarity: 5
+  perkRarity: 4
   stackablePerk: 1
   enemyPerk: 0
   healthInc: 1
+  maxHealthInc: 0

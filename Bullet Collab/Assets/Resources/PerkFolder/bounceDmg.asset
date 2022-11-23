@@ -16,7 +16,7 @@ MonoBehaviour:
   perkName: Bounce Damage
   perkCost: 120
   perkDescription: Add 3 bounces to your bullets. Bullets gain damage each bounce.
-  perkRarity: 3
+  perkRarity: 2
   stackablePerk: 1
   enemyPerk: 1
   addBounce: 3

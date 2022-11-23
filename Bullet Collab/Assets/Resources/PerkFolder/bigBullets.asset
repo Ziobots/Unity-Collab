@@ -17,7 +17,7 @@ MonoBehaviour:
   perkCost: 95
   perkDescription: Increase the size and damage of bullets, longer delay between
     shells.
-  perkRarity: 2
+  perkRarity: 1
   stackablePerk: 1
   enemyPerk: 1
   addDelay: 0.05

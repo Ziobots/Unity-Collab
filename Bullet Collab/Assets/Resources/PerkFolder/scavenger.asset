@@ -16,7 +16,7 @@ MonoBehaviour:
   perkName: Scavenger
   perkCost: 250
   perkDescription: Dealing damage reloads your gun, longer reload time.
-  perkRarity: 4
+  perkRarity: 3
   stackablePerk: 0
   enemyPerk: 1
   addReload: 0.5

@@ -17,7 +17,7 @@ MonoBehaviour:
   perkCost: 90
   perkDescription: Fire an extra shell each shot, less damage, more spread, longer
     reload time, plus 2 ammo.
-  perkRarity: 2
+  perkRarity: 1
   stackablePerk: 1
   enemyPerk: 1
   addFireCount: 1

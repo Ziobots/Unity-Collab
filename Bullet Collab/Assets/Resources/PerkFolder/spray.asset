@@ -17,7 +17,7 @@ MonoBehaviour:
   perkCost: 125
   perkDescription: Add 5 shells, increased spread, decrease damage, faster reload
     and faster fire rate.
-  perkRarity: 3
+  perkRarity: 2
   stackablePerk: 1
   enemyPerk: 1
   addBullets: 5

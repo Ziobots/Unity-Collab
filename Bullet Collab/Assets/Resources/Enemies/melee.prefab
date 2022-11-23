@@ -91,11 +91,12 @@ MonoBehaviour:
   perkCommands: {fileID: 0}
   gameManager: {fileID: 0}
   gameInfo: {fileID: 0}
-  currentHealth: 3
-  maxHealth: 3
+  currentHealth: 2
+  maxHealth: 2
   damageAmount: 0
   currency: 0
   weight: 1
+  meleeDamage: 1
   damagedBy: {fileID: 0}
   tookDamage: 0
   uiManager: {fileID: 0}
@@ -118,6 +119,7 @@ MonoBehaviour:
   automaticGun: 0
   reloadingGun: 1
   deflectBullets: 0
+  shootingGun: 0
   reloadStartTime: 0
   delayStartTime: 0
   gunNoise: {fileID: 0}
@@ -138,11 +140,14 @@ MonoBehaviour:
   killPrefab: {fileID: 2817201403534161433, guid: 1b4161adb8eefd2459a0b8965b39ee9a, type: 3}
   defaultFace: eyes_Shock
   currentFace: eyes_Shock
+  hurtFace: eyes_Hurt
+  deathFace: eyes_Shock
   faceSwapTime: 0
   checkAngle: 1
   flipSprite: 1
   myType: 1
   roomSpawnMinimum: 3
+  roomSpawnMaximum: -1
   lastSeeTime: 0
   Loaded: 0
 --- !u!114 &6770360506613481947

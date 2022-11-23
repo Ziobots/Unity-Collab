@@ -124,6 +124,7 @@ MonoBehaviour:
   damageAmount: 0
   currency: 10
   weight: 15
+  meleeDamage: 1
   damagedBy: {fileID: 0}
   tookDamage: 0
   uiManager: {fileID: 0}
@@ -172,7 +173,7 @@ MonoBehaviour:
   faceSwapTime: 0
   checkAngle: 0
   flipSprite: 1
-  myType: 5
+  myType: 3
   roomSpawnMinimum: 0
   roomSpawnMaximum: -1
   lastSeeTime: 0

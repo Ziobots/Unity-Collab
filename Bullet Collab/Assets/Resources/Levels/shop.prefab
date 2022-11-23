@@ -2194,6 +2194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  roomSpawnMinimum: 0
   waveCount: 0
   skipPerks: 1
   valueList: 

@@ -21,7 +21,7 @@ using Pathfinding;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public enum EnemyType {None,Mob,StrongMob,UniqueMob,MiniBoss,Boss};
+public enum EnemyType {None,Mob,StrongMob,Boss};
 
 public class Enemy : Entity
 {

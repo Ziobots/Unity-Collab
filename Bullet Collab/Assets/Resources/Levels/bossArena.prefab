@@ -2198,7 +2198,7 @@ MonoBehaviour:
   enemySpawns: []
   minWave: -1
   maxWave: -1
-  spawnType: 5
+  spawnType: 3
 --- !u!212 &3609152324366332264
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2315,6 +2315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  roomSpawnMinimum: 0
   waveCount: 1
   skipPerks: 0
   valueList: 

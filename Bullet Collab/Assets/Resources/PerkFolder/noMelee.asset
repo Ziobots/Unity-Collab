@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 21300000, guid: 21198c22a1c8e4441a4cd3e4a8485fe3, type: 3}
   perkName: Tough Edge
-  perkCost: 0
+  perkCost: 150
   perkDescription: You deal melee damage to enemies instead of them dealing melee
     damage to you.
   perkRarity: 3

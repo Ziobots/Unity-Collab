@@ -21,6 +21,7 @@ public class buttonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public GameObject cursorObj;
     public Vector2 pivotHover = new Vector2(0.5f,0.5f);
     public float rotationHover = 0f;
+    public bool canHover = true;
 
     public bool hovering = false;
     private Transform holderUI;
@@ -49,7 +50,7 @@ public class buttonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData pointerEventData){
         setupButton();
-        if (cursorObj != null){
+        if (cursorObj != null && canHover){
             cursorObj.GetComponent<mouseCursor>().updateHover(true);
 
             // tween animations
@@ -67,9 +68,8 @@ public class buttonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 LeanTween.value(gameObject,currentRotation,rotationHover,0.25f).setIgnoreTimeScale(true).setEaseOutQuad().setOnUpdate(setRotation);
             }
 
+            hovering = true;
         }
-            
-        hovering = true;
     }
 
     // cursor stops hovering over button

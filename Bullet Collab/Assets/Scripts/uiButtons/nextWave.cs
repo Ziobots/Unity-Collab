@@ -71,6 +71,8 @@ public class nextWave : MonoBehaviour
         transitioning = true;
         buttonActive = false;
 
+        gameObject.GetComponent<buttonHover>().canHover = false;
+
         // tween the fade
         LeanTween.cancel(gameObject);
         LeanTween.value(gameObject,startPivot,endPivot,fadeTime).setIgnoreTimeScale(true).setEaseOutBack().setOnUpdateVector2(setPivot).setOnComplete(showComplete);
@@ -81,6 +83,7 @@ public class nextWave : MonoBehaviour
 
         StartCoroutine(doWait(fadeTime,delegate{
             if (nextVisible){
+                gameObject.GetComponent<buttonHover>().canHover = true;
                 showComplete();
             }
         }));

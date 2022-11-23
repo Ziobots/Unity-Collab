@@ -186,6 +186,10 @@ public class Entity : MonoBehaviour
 
                     bulletSystem newBullet = Instantiate(bulletPrefab,point.position,point.rotation * spreadQuaternion,bulletFolder);
                     if (newBullet != null){
+                        if (gameObject.tag == "Enemy"){
+                            newBullet.enemyBullet = true;
+                        }
+
                         List<string> copyPerkList = new List<string>(perkIDList);
                         // set the default bullet stats
                         newBullet.dataManager = dataManager;

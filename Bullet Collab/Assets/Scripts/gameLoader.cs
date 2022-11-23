@@ -555,7 +555,7 @@ public class gameLoader : MonoBehaviour
                 int spawnPerkCount = playerData.perkCount;
 
                 if (levelInfo.type == RoomType.Shop){
-                    spawnPerkCount = 6;
+                    spawnPerkCount = 5;
                     blackList.Add("COST_ONLY_PERK");
                 }else if (levelInfo.type == RoomType.Boss){
                     spawnPerkCount += 2;
@@ -582,7 +582,7 @@ public class gameLoader : MonoBehaviour
 
                     if (levelInfo.type == RoomType.Shop){
                         // change to item shop
-                        if (i >= spawnPerkCount - 3){
+                        if (i >= spawnPerkCount - 2){
                             blackList.Add("SHOP_ONLY_PERK");
                         }
                     }
@@ -599,7 +599,7 @@ public class gameLoader : MonoBehaviour
                     perkPosition.x = -Mathf.Ceil((float)columnCount / (float)2f) + ((i % columnCount) + offsetX);
                     perkPosition.y = Mathf.Floor((float)i/(float)columnCount);
 
-                    perkPickup newPerk = Instantiate(perkPrefab,perkBasePosition + (perkPosition * 2.5f),new Quaternion(),debriFolder);
+                    perkPickup newPerk = Instantiate(perkPrefab,perkBasePosition + (perkPosition * 2.6f),new Quaternion(),debriFolder);
 
                     if (newPerk != null){
                         // set the default perk stats
@@ -634,7 +634,7 @@ public class gameLoader : MonoBehaviour
                             if (levelInfo.type == RoomType.Shop){
                                 float discount = ((float)currentRoom / 10);
                                 if (discount <= 1){
-                                    discount = 1;
+                                    discount = 0.8f;
                                 }
 
                                 newPerk.cost = (int)((float)chosenPerk.perkCost * discount);

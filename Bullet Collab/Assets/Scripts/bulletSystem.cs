@@ -32,6 +32,7 @@ public class bulletSystem : MonoBehaviour
     public float bulletSize = 0.1f;
     public float bulletDamage = 1f;
     public int bulletBounces = 0;
+    public bool enemyBullet = false;
     public List<string> perkIDList;
 
     // Base Variables
@@ -48,8 +49,12 @@ public class bulletSystem : MonoBehaviour
     private bool firstFrame = true;
     private bool bulletSetup = false;
     private float deflectTime = 0;
-
     private Vector2 lastPosition;
+
+    // Sprite Variables
+    public Sprite defaultSprite;
+    public Sprite enemySprite;
+    public Sprite customSprite = null;
 
     public void setupBullet() {
         createTime = Time.time;
@@ -66,6 +71,14 @@ public class bulletSystem : MonoBehaviour
             gameInfo = gameManager.GetComponent<gameLoader>();
         }
 
+        if (customSprite != null){
+            gameObject.GetComponent<SpriteRenderer>().sprite = customSprite;
+        }else if (enemyBullet && enemySprite){
+            gameObject.GetComponent<SpriteRenderer>().sprite = enemySprite;
+        }else{
+            gameObject.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+        }
+        
         lastPosition = transform.position;
         bulletSetup = true;
     }

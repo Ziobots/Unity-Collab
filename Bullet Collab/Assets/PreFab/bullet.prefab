@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -248320225
   m_SortingLayer: 1
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 58865b6d31d51324f82b0ef8a6702f62, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f6fb6a91a929a34a8c7e2501afb7231, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -140,16 +140,24 @@ MonoBehaviour:
   dataManager: {fileID: 0}
   dataInfo: {fileID: 0}
   perkCommands: {fileID: 0}
+  gameManager: {fileID: 0}
+  gameInfo: {fileID: 0}
   bulletOwner: {fileID: 0}
   bulletSpeed: 5
   bulletSize: 0.5
   bulletDamage: 1
   bulletBounces: 0
+  enemyBullet: 0
   perkIDList: []
   rb: {fileID: 1245196261793414158}
   myCollider: {fileID: 1245196261793414159}
   hitPrefab: {fileID: -7383498891874203177, guid: 46354f8b06ce8e440852794cae6383ae, type: 3}
   bulletFolder: {fileID: 0}
+  debriFolder: {fileID: 0}
+  lifeTime: 20
+  defaultSprite: {fileID: 21300000, guid: 6f6fb6a91a929a34a8c7e2501afb7231, type: 3}
+  enemySprite: {fileID: 21300000, guid: 4acd27ce38df4404b977a1be07db1691, type: 3}
+  customSprite: {fileID: 0}
 --- !u!96 &6166754280176791178
 TrailRenderer:
   serializedVersion: 2

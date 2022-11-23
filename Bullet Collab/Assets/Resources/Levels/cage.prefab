@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawns: []
   minWave: -1
-  maxWave: 0
+  maxWave: 2
   spawnType: 1
 --- !u!212 &7717223836841738733
 SpriteRenderer:
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawns: []
   minWave: -1
-  maxWave: 0
+  maxWave: 2
   spawnType: 1
 --- !u!212 &2621175115378538321
 SpriteRenderer:
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawns: []
   minWave: -1
-  maxWave: 0
+  maxWave: 2
   spawnType: 1
 --- !u!212 &8963535414418490489
 SpriteRenderer:
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawns: []
-  minWave: 1
+  minWave: 2
   maxWave: -1
   spawnType: 1
 --- !u!212 &8944817069144241841
@@ -2094,7 +2094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawns: []
   minWave: -1
-  maxWave: 0
+  maxWave: 2
   spawnType: 1
 --- !u!212 &7357007719720336266
 SpriteRenderer:
@@ -2194,7 +2194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawns: []
-  minWave: 1
+  minWave: 2
   maxWave: -1
   spawnType: 2
 --- !u!212 &2304366164452135177
@@ -2296,7 +2296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawns: []
   minWave: -1
-  maxWave: 0
+  maxWave: 2
   spawnType: 1
 --- !u!212 &813966524275808860
 SpriteRenderer:
@@ -2396,7 +2396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawns: []
-  minWave: 1
+  minWave: 2
   maxWave: -1
   spawnType: 1
 --- !u!212 &6144325814198730496
@@ -2498,7 +2498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawns: []
   minWave: -1
-  maxWave: 0
+  maxWave: 2
   spawnType: 1
 --- !u!212 &2813418358692773031
 SpriteRenderer:
@@ -2599,7 +2599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawns: []
   minWave: -1
-  maxWave: 0
+  maxWave: 2
   spawnType: 1
 --- !u!212 &6696440165506405771
 SpriteRenderer:
@@ -2699,7 +2699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawns: []
-  minWave: 1
+  minWave: 2
   maxWave: -1
   spawnType: 1
 --- !u!212 &4534631485155235998
@@ -2800,7 +2800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawns: []
-  minWave: 1
+  minWave: 2
   maxWave: -1
   spawnType: 1
 --- !u!212 &51441430076152581
@@ -2902,7 +2902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawns: []
   minWave: -1
-  maxWave: 0
+  maxWave: 2
   spawnType: 1
 --- !u!212 &1239774019662363687
 SpriteRenderer:

@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawns: []
-  minWave: 1
+  minWave: 2
   maxWave: -1
   spawnType: 2
 --- !u!212 &934127462301226577

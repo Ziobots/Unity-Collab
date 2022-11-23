@@ -147,6 +147,17 @@ public class Player : Entity
 
     // Update is called once per frame
     void Update() {
+        if (Input.GetKeyDown("escape") && pauseUI != null){
+            pauseButton pauseInfo = pauseUI.GetComponent<pauseButton>();
+            if (pauseInfo != null){
+                if (pauseInfo.gamePaused){
+                    pauseInfo.resumeGame();
+                }else{
+                    pauseInfo.pauseGame();
+                }
+            }
+        }
+        
         if (Time.timeScale <= 0){
             return;
         }
@@ -196,17 +207,6 @@ public class Player : Entity
             // check to see if they, just fired bullet, have max ammo, are currently reloading
             if (Time.time - delayStartTime >= 0.25f && currentAmmo < maxAmmo && Time.time - reloadStartTime >= reloadTime){
                 reloadGun();
-            }
-        }
-
-        if (Input.GetKeyDown("escape") && pauseUI != null){
-            pauseButton pauseInfo = pauseUI.GetComponent<pauseButton>();
-            if (pauseInfo != null){
-                if (pauseInfo.gamePaused){
-                    pauseInfo.resumeGame();
-                }else{
-                    pauseInfo.pauseGame();
-                }
             }
         }
     }

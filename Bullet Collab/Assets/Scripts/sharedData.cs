@@ -458,6 +458,10 @@ public class sharedData : MonoBehaviour
         if (uiManager != null){
             uiUpdate = uiManager.GetComponent<UIManager>();
         }
+
+        if (settingMenu != null){
+            settingMenu.GetComponent<settingSetup>().loadFields();
+        }
         
         //resetTempData();
         DontDestroyOnLoad(gameObject);

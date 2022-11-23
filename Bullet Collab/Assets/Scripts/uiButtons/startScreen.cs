@@ -29,6 +29,9 @@ public class startScreen : MonoBehaviour
     public GameObject transitioner; 
     public GameObject loginScreen;
 
+    // Sound Stuff
+    public AudioSource startNoise;
+
     // Start is called before the first frame update
     private void Start(){
         // get event sytem
@@ -112,8 +115,12 @@ public class startScreen : MonoBehaviour
             }
 
             // check for any key press
-            if (Time.fixedTime - gameLoadTime >= 1f){
+            if (Time.fixedTime - gameLoadTime >= 0.5f){
                 if (Input.anyKey && !anyKeyPressed){
+                    if (startNoise != null){
+                        startNoise.PlayOneShot(startNoise.clip,startNoise.volume);
+                    }
+
                     anyKeyPressed = true;
                     transitioner.GetComponent<fadeTransition>().startFade(delegate{
                         gameObject.SetActive(false);

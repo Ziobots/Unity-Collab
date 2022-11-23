@@ -151,6 +151,10 @@ public class gameLoader : MonoBehaviour
                 entityInfo.gameManager = gameObject;
                 entityInfo.levelObj = levelObj;
                 entityInfo.currentCamera = currentCamera;
+
+                if (currentRoom > 10){
+                    entityInfo.maxHealth *= (currentRoom/10);
+                }
                 
                 // put the default perks into the spawn list
                 if (entityInfo.perkIDList != null && entityInfo.perkIDList.Count > 0){
@@ -170,7 +174,12 @@ public class gameLoader : MonoBehaviour
                     levelData levelInfo = levelObj.GetComponent<levelData>();
                     if (levelInfo){
                         // random number of perks based on room number
-                        int perkCount = randomGen.Next(0,(int) Mathf.Ceil(currentRoom/10));
+                        int minPerk = (int)Mathf.Ceil(((float)currentRoom - 10f)/10f);
+                        if (minPerk <= 0){
+                            minPerk = 0;
+                        }
+
+                        int perkCount = randomGen.Next(minPerk,(int) Mathf.Ceil(currentRoom/5f));
                         for (int i = 1; i < perkCount; i++){
                             int perkSeed = gameSeed + randomGen.Next(0,10000) + (i * 150);
                             perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
@@ -209,6 +218,9 @@ public class gameLoader : MonoBehaviour
                         gameObject.GetComponent<perkModule>().fixEntity(entityInfo);
                     }
                 }
+
+                // just in case max health was changed
+                entityInfo.currentHealth = entityInfo.maxHealth;
 
                 if (bossHealthBar != null && entityInfo.myType == EnemyType.Boss){
                     bossHealthBar.GetComponent<bossHP>().displayHealthBar(entityInfo);
@@ -543,10 +555,10 @@ public class gameLoader : MonoBehaviour
                 int spawnPerkCount = playerData.perkCount;
 
                 if (levelInfo.type == RoomType.Shop){
-                    spawnPerkCount = 5;
+                    spawnPerkCount = 6;
                     blackList.Add("COST_ONLY_PERK");
                 }else if (levelInfo.type == RoomType.Boss){
-                    spawnPerkCount += 1;
+                    spawnPerkCount += 2;
                 }
 
                 int maxColumn = 7;
@@ -570,7 +582,7 @@ public class gameLoader : MonoBehaviour
 
                     if (levelInfo.type == RoomType.Shop){
                         // change to item shop
-                        if (i >= spawnPerkCount - 2){
+                        if (i >= spawnPerkCount - 3){
                             blackList.Add("SHOP_ONLY_PERK");
                         }
                     }
@@ -620,7 +632,12 @@ public class gameLoader : MonoBehaviour
                         if (chosenPerk){
                             newPerk.perkID = chosenPerk.name;
                             if (levelInfo.type == RoomType.Shop){
-                                newPerk.cost = chosenPerk.perkCost;
+                                float discount = ((float)currentRoom / 10);
+                                if (discount <= 1){
+                                    discount = 1;
+                                }
+
+                                newPerk.cost = (int)((float)chosenPerk.perkCost * discount);
                                 newPerk.collectNoise = buyNoise;
                             }
 
@@ -826,7 +843,9 @@ public class gameLoader : MonoBehaviour
                 if (currentWave >= levelInfo.waveCount){
                     // get time spent clearing room
                     if (roomStartTime != 0){
-                        dataInfo.elapsedTime += Time.time - roomStartTime;
+                        float roomTime = Time.time - roomStartTime;
+                        dataInfo.elapsedTime += roomTime;
+                        dataInfo.totalScore += (int)(Mathf.Clamp(120 - roomTime,0,120) * 1.5f);
                         roomStartTime = 0;
                     }
 

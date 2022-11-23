@@ -36,6 +36,7 @@ public class perkPickup : MonoBehaviour
     public visualFx collectPrefab;
     public Transform addFolder;
     private Vector3 basePosition;
+    public TMPro.TextMeshProUGUI costField;
 
     public bool interactActive = false;
     [HideInInspector] public System.Action perkGet = null;
@@ -115,6 +116,7 @@ public class perkPickup : MonoBehaviour
         }
 
         basePosition = transform.position;
+        costField.text = cost > 0 ? "<sprite index=0>" + cost : "";
         
         // do spawn animation
         spawnAnimation();

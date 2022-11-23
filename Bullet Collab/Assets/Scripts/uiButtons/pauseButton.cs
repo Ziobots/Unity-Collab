@@ -162,7 +162,9 @@ public class pauseButton : MonoBehaviour
         if (dataInfo != null){
             // get time spent clearing room
             if (gameInfo.roomStartTime != 0){
-                dataInfo.elapsedTime += Time.time - gameInfo.roomStartTime;
+                float roomTime = Time.time - gameInfo.roomStartTime;
+                dataInfo.elapsedTime += roomTime;
+                dataInfo.totalScore += (int)(Mathf.Clamp(120 - roomTime,0,120) * 1.5f);
                 gameInfo.roomStartTime = 0;
             }
 

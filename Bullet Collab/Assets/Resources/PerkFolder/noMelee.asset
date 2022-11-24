@@ -17,7 +17,7 @@ MonoBehaviour:
   perkCost: 150
   perkDescription: You deal melee damage to enemies instead of them dealing melee
     damage to you.
-  perkRarity: 2
+  perkRarity: 3
   stackablePerk: 1
   enemyPerk: 0
   addMelee: 0.5

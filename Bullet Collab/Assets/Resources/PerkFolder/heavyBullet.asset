@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c01d97920652134fad7f8782aa77a4c, type: 3}
+  m_Name: heavyBullet
+  m_EditorClassIdentifier: 
+  perkIcon: {fileID: 0}
+  perkName: Heavy Bullets
+  perkCost: 130
+  perkDescription: Bullets are slower but deal more damage and extra knockback.
+  perkRarity: 2
+  stackablePerk: 1
+  enemyPerk: 1
+  speedMultiple: 0.7
+  damageMultiple: 1.3
+  sizeMultiple: 1.15
+  addWeight: 1.25

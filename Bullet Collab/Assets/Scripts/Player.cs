@@ -147,6 +147,11 @@ public class Player : Entity
 
     // Update is called once per frame
     void Update() {
+        if (currentHealth <= 0){
+            movement = new Vector2(0,0);
+            return;
+        }
+        
         if (Input.GetKeyDown("escape") && pauseUI != null){
             pauseButton pauseInfo = pauseUI.GetComponent<pauseButton>();
             if (pauseInfo != null){
@@ -159,11 +164,6 @@ public class Player : Entity
         }
         
         if (Time.timeScale <= 0){
-            return;
-        }
-
-        if (currentHealth <= 0){
-            movement = new Vector2(0,0);
             return;
         }
 

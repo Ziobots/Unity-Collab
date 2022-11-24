@@ -49,11 +49,11 @@ public class perkModule : MonoBehaviour
     }
 
     public Rarity GetRarity(int value,levelData level){
-        int[] valueList = {50,90,100};
+        int[] valueList = {60,90,100};
         if (level != null && level.valueList != null && level.valueList.Length > 0){
             valueList = level.valueList;
         }else if (level != null && level.type == RoomType.Shop){
-            int[] replace = {40,80,100};
+            int[] replace = {50,80,100};
             valueList = replace;
         }
 
@@ -94,7 +94,7 @@ public class perkModule : MonoBehaviour
 
         // get random perk
         System.Random randomGen = new System.Random(perkSeed);
-        Rarity chosenTier = GetRarity(randomGen.Next(0,1000)/1000,level);
+        Rarity chosenTier = GetRarity(randomGen.Next(0,100),level);
         if (blackList != null && blackList.Contains("SHOP_ONLY_PERK")){
             chosenTier = Rarity.ShopOnly;
         }

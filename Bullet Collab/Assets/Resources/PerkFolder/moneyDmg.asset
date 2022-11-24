@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44771e251b59589448d13e795ffd0447, type: 3}
+  m_Name: moneyDmg
+  m_EditorClassIdentifier: 
+  perkIcon: {fileID: 0}
+  perkName: Loose Change
+  perkCost: 90
+  perkDescription: Earn 15 gold any time you take damage.
+  perkRarity: 2
+  stackablePerk: 1
+  enemyPerk: 0
+  addMoney: 25

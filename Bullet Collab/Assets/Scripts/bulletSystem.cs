@@ -28,10 +28,12 @@ public class bulletSystem : MonoBehaviour
 
     // Editable Variables
     public GameObject bulletOwner;
+    public float bulletWeight = 1f;
     public float bulletSpeed = 1f;
     public float bulletSize = 0.1f;
     public float bulletDamage = 1f;
     public int bulletBounces = 0;
+    public int bulletPierce = 0;
     public bool enemyBullet = false;
     public List<string> perkIDList;
 
@@ -50,6 +52,8 @@ public class bulletSystem : MonoBehaviour
     private bool bulletSetup = false;
     private float deflectTime = 0;
     private Vector2 lastPosition;
+    private Dictionary<GameObject, float> hitList = new Dictionary<GameObject, float>();
+
 
     // Sprite Variables
     public Sprite defaultSprite;
@@ -100,6 +104,10 @@ public class bulletSystem : MonoBehaviour
 
     public void bulletHitEvent(Collider2D hit){
         if (hit != null && hit.gameObject != null){
+            if (hitList.ContainsKey(hit.gameObject) && Time.time - hitList[hit.gameObject] <= 0.1){
+                return;
+            }
+
             // Check if hit obj can take damage
             Entity hitObj = hit.gameObject.GetComponent<Entity>();
             Dictionary<string, GameObject> editList = new Dictionary<string, GameObject>();
@@ -110,6 +118,9 @@ public class bulletSystem : MonoBehaviour
             editList.Add("DataManager",dataManager);
 
             if (hitObj != null){
+                bulletPierce -= 1;
+                hitList[hit.gameObject] = Time.time;
+
                 if (bulletOwner != hit.gameObject){
                     hitObj.damagedBy = bulletOwner;
                 }
@@ -121,7 +132,7 @@ public class bulletSystem : MonoBehaviour
                 if (hitObj.weight > 0f){
                     Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
                     if (rb != null){
-                        rb.velocity = gameObject.transform.right.normalized * ((Mathf.Sqrt(bulletSpeed) * 10f ) / hitObj.weight);
+                        rb.velocity = gameObject.transform.right.normalized * (((Mathf.Sqrt(bulletSpeed) * 10f ) * bulletWeight) / hitObj.weight);
                     }
                 }
             }
@@ -145,6 +156,10 @@ public class bulletSystem : MonoBehaviour
             myCollider.enabled = false;
 
             bulletHitEvent(hit);
+
+            if (hit != null && bulletPierce >= 1){
+                return;
+            }
 
             Destroy(gameObject);
         }

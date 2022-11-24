@@ -20,4 +20,4 @@ MonoBehaviour:
   perkRarity: 3
   stackablePerk: 1
   enemyPerk: 0
-  addMelee: 0.5
+  addMelee: 1

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98718182aac716d4b8636f4244692bd3, type: 3}
-  m_Name: New Extra Perk
+  m_Name: extraPerk
   m_EditorClassIdentifier: 
   perkIcon: {fileID: 0}
   perkName: Extra Perk

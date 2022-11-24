@@ -64,7 +64,8 @@ public class bulletSystem : MonoBehaviour
         createTime = Time.time;
 
         transform.localScale = new Vector3(bulletSize,bulletSize,1);
-                
+        hitList = new Dictionary<GameObject, float>();
+
         // Get data management script
         if (dataManager != null){
             dataInfo = dataManager.GetComponent<sharedData>();
@@ -104,7 +105,7 @@ public class bulletSystem : MonoBehaviour
 
     public void bulletHitEvent(Collider2D hit){
         if (hit != null && hit.gameObject != null){
-            if (hitList.ContainsKey(hit.gameObject) && Time.time - hitList[hit.gameObject] <= 0.1){
+            if (hitList.ContainsKey(hit.gameObject) && Time.time - hitList[hit.gameObject] <= 0.2){
                 return;
             }
 
@@ -117,8 +118,9 @@ public class bulletSystem : MonoBehaviour
             editList.Add("GameManager",gameManager);
             editList.Add("DataManager",dataManager);
 
+            bulletPierce -= 1;
+
             if (hitObj != null){
-                bulletPierce -= 1;
                 hitList[hit.gameObject] = Time.time;
 
                 if (bulletOwner != hit.gameObject){
@@ -135,6 +137,8 @@ public class bulletSystem : MonoBehaviour
                         rb.velocity = gameObject.transform.right.normalized * (((Mathf.Sqrt(bulletSpeed) * 10f ) * bulletWeight) / hitObj.weight);
                     }
                 }
+            }else if (bulletBounces <= 0){
+                transform.position = lastPosition;
             }
 
             // Apply an on hit modifiers
@@ -158,6 +162,7 @@ public class bulletSystem : MonoBehaviour
             bulletHitEvent(hit);
 
             if (hit != null && bulletPierce >= 1){
+                myCollider.enabled = true;
                 return;
             }
 

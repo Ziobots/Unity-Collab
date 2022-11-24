@@ -84,6 +84,16 @@ public class perkData : ScriptableObject
         return null;
     }
 
+    public Player getPlayerStats(Dictionary<string, GameObject> objDictionary){
+        if (objDictionary.ContainsKey("Owner")){
+            GameObject entityObj = objDictionary["Owner"];
+            Player playerStats = entityObj.GetComponent<Player>();
+            return playerStats;
+        }
+
+        return null;
+    }
+
     public Entity getTargetStats(Dictionary<string, GameObject> objDictionary){
         if (objDictionary.ContainsKey("Target")){
             GameObject entityObj = objDictionary["Target"];

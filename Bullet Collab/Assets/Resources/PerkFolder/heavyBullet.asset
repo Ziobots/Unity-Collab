@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c01d97920652134fad7f8782aa77a4c, type: 3}
   m_Name: heavyBullet
   m_EditorClassIdentifier: 
-  perkIcon: {fileID: 0}
+  perkIcon: {fileID: 21300000, guid: 822ce9718ac89bb4da29c6cf2ad2fe7e, type: 3}
   perkName: Heavy Bullets
   perkCost: 130
   perkDescription: Bullets are slower but deal more damage and extra knockback.

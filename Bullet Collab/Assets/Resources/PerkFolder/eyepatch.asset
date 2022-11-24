@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf4c86099080594ab3392d0a550542f, type: 3}
   m_Name: eyepatch
   m_EditorClassIdentifier: 
-  perkIcon: {fileID: 21300000, guid: 5f9f5929aaef6384a8f56a803e84cd43, type: 3}
+  perkIcon: {fileID: 21300000, guid: fd226db608063c8438f9c7cfa8c37a82, type: 3}
   perkName: Eye Patch
   perkCost: 125
   perkDescription: Increased damage and spread.
@@ -20,8 +20,9 @@ MonoBehaviour:
   stackablePerk: 1
   enemyPerk: 1
   addBullets: 0
-  damageMultiple: 1.2
+  damageMultiple: 1.35
   delayMultiple: 1
   reloadMultiple: 1
-  spreadMultiple: 1.5
+  spreadMultiple: 1.2
+  addSpread: 15
   sizeMultiple: 1.05

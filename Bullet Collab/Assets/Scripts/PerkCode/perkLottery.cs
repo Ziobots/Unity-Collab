@@ -21,7 +21,7 @@ public class perkLottery : perkData
 
             // do a 50% chance for # of this perk they have
             for (int i = 1; i <= Count; i++){
-                if (Random.Range(1,100) <= 25){
+                if (Random.Range(1,101) <= 25){
                     wonPerks = true;
                     break;
                 }

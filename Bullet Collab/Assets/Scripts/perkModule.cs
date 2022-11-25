@@ -94,7 +94,7 @@ public class perkModule : MonoBehaviour
 
         // get random perk
         System.Random randomGen = new System.Random(perkSeed);
-        Rarity chosenTier = GetRarity(randomGen.Next(0,100),level);
+        Rarity chosenTier = GetRarity(randomGen.Next(0,101),level);
         if (blackList != null && blackList.Contains("SHOP_ONLY_PERK")){
             chosenTier = Rarity.ShopOnly;
         }

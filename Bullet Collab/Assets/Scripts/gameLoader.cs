@@ -448,7 +448,7 @@ public class gameLoader : MonoBehaviour
     // find the next room for the player, based on seed
     public void nextRoom(string setID){
         currentRoom++;
-        RoomType nextType = RoomType.Enemy;
+        RoomType nextType = RoomType.Boss;
         if ((currentRoom + 1) % 10 == 0 && currentRoom > 5){
             nextType = RoomType.Boss;
         }else if ((currentRoom + 1) % 10 == 5){
@@ -543,6 +543,54 @@ public class gameLoader : MonoBehaviour
         }
     }
 
+    // create a perk obj
+    public perkPickup createPerk(string perkID,Vector3 position){
+        perkPickup newPerk = Instantiate(perkPrefab,position,new Quaternion(),debriFolder);
+        perkData chosenPerk = gameObject.GetComponent<perkModule>().getPerk(perkID);
+        levelData levelInfo = levelObj.GetComponent<levelData>();
+
+        if (newPerk != null){
+            // set the default perk stats
+            newPerk.dataManager = dataManager;
+            newPerk.gameManager = gameObject;
+            newPerk.uiManager = uiManager;
+
+            newPerk.cost = 0;
+            newPerk.count = 1;
+            newPerk.addFolder = debriFolder;
+            newPerk.collectNoise = collectNoise;
+            newPerk.errorNoise = errorNoise;
+
+            newPerk.perkGet = delegate{
+                currentWave++;
+                dataInfo.currentRoom = currentRoom;
+                dataInfo.currentWave = currentWave;
+            };
+
+            // get the perk
+            
+            if (chosenPerk){
+                newPerk.perkID = chosenPerk.name;
+                if (levelInfo.type == RoomType.Shop){
+                    float discount = ((float)currentRoom / 10);
+                    if (discount <= 1){
+                        discount = 0.8f;
+                    }
+
+                    newPerk.cost = (int)((float)chosenPerk.perkCost * discount);
+                    newPerk.collectNoise = buyNoise;
+                }
+            }
+
+            // finish setting up the perk
+            newPerk.setupPickup();
+
+            return newPerk;
+        }
+
+        return null;
+    }
+
     public void spawnPerks(){
         if (playerObj && levelObj){
             Player playerData = playerObj.GetComponent<Player>();
@@ -558,7 +606,7 @@ public class gameLoader : MonoBehaviour
                     spawnPerkCount = 5;
                     blackList.Add("COST_ONLY_PERK");
                 }else if (levelInfo.type == RoomType.Boss){
-                    spawnPerkCount += 2;
+                    spawnPerkCount += 1;
                 }
 
                 int maxColumn = 7;
@@ -574,10 +622,20 @@ public class gameLoader : MonoBehaviour
                     }
                 }
 
+                // get the spawn position for the perks
+                Vector3 perkBasePosition = new Vector3(0,0,0);
+                float perkPadding = 2.6f;
+                if (levelObj != null && levelObj.transform.Find("spawnPosition")){
+                    perkBasePosition = levelObj.transform.Find("spawnPosition").position;
+                }
+
+                if (levelObj && levelObj.transform.Find("shopPosition")){
+                    perkBasePosition = levelObj.transform.Find("shopPosition").position;
+                }
+
                 // spawn the perks
                 for (int i = 0; i < spawnPerkCount; i++){
                     // get the position of the perk
-                    Vector3 perkBasePosition = new Vector3(0,0,0);
                     Vector3 perkPosition = new Vector3(0,0,0);
 
                     if (levelInfo.type == RoomType.Shop){
@@ -587,71 +645,27 @@ public class gameLoader : MonoBehaviour
                         }
                     }
 
-                    if (levelObj != null && levelObj.transform.Find("spawnPosition")){
-                        perkBasePosition = levelObj.transform.Find("spawnPosition").position;
-                    }
-
-                    if (levelObj && levelObj.transform.Find("shopPosition")){
-                        perkBasePosition = levelObj.transform.Find("shopPosition").position;
-                    }
-
                     float offsetX = columnCount % 2 == 0 ? 0.5f : 1f;
                     perkPosition.x = -Mathf.Ceil((float)columnCount / (float)2f) + ((i % columnCount) + offsetX);
-                    perkPosition.y = Mathf.Floor((float)i/(float)columnCount);
+                    perkPosition.y = -Mathf.Floor((float)i/(float)columnCount);
 
-                    perkPickup newPerk = Instantiate(perkPrefab,perkBasePosition + (perkPosition * 2.6f),new Quaternion(),debriFolder);
+                    Vector3 setPosition = perkBasePosition + (perkPosition * perkPadding);
+                    int perkSeed = gameSeed + (i * 100) + (currentRoom * 1000) + 894636;
+                    perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
 
-                    if (newPerk != null){
-                        // set the default perk stats
-                        newPerk.dataManager = dataManager;
-                        newPerk.gameManager = gameObject;
-                        newPerk.uiManager = uiManager;
-
-                        newPerk.cost = 0;
-                        newPerk.count = 1;
-                        newPerk.addFolder = debriFolder;
+                    perkPickup newPerk = createPerk(chosenPerk.name,setPosition);
+                    if (newPerk){
                         newPerk.perkObjList = perkObjList;
-                        newPerk.collectNoise = collectNoise;
-                        newPerk.errorNoise = errorNoise;
-
-                        newPerk.perkGet = delegate{
-                            currentWave++;
-                            dataInfo.currentRoom = currentRoom;
-                            dataInfo.currentWave = currentWave;
-                        };
-
-                        // get the perk
-                        int perkSeed = gameSeed + (i * 100) + (currentRoom * 1000) + 894636;
-                        perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
-                        if (levelInfo.type == RoomType.Boss){
-                            if (i == 0){
-                                chosenPerk = gameObject.GetComponent<perkModule>().getPerk("maxHPIncrease");
-                            }
-                        }
-                        
-                        if (chosenPerk){
-                            newPerk.perkID = chosenPerk.name;
-                            if (levelInfo.type == RoomType.Shop){
-                                float discount = ((float)currentRoom / 10);
-                                if (discount <= 1){
-                                    discount = 0.8f;
-                                }
-
-                                newPerk.cost = (int)((float)chosenPerk.perkCost * discount);
-                                newPerk.collectNoise = buyNoise;
-                            }
-
-                            // check if should add to blacklist
-                            if (chosenPerk && !chosenPerk.stackablePerk){
-                                blackList.Add(chosenPerk.name);
-                            }
+                        // check if should add to blacklist
+                        if (chosenPerk && !chosenPerk.stackablePerk){
+                            blackList.Add(chosenPerk.name);
                         }
 
-                        // finish setting up the perk
-                        newPerk.setupPickup();
+                        // perks shouldnt destroy eachother in shop
                         if (levelInfo.type != RoomType.Shop){
                             perkObjList.Add(newPerk.gameObject);
                         }
+
                     }
                 }
 
@@ -659,6 +673,10 @@ public class gameLoader : MonoBehaviour
                     foreach (GameObject perkObj in perkObjList){
                         perkObj.GetComponent<perkPickup>().perkObjList = perkObjList;
                     }
+                }
+
+                if (levelInfo.type == RoomType.Boss){
+                    createPerk("maxHPIncrease",perkBasePosition + new Vector3(0,perkPadding,0));
                 }
             }
         }

@@ -15,8 +15,8 @@ MonoBehaviour:
   perkIcon: {fileID: 21300000, guid: 8fd5655507f04f04f9526cd1270db33e, type: 3}
   perkName: Piercing
   perkCost: 120
-  perkDescription: Bullets can hit 3 more times before destroyed. One less max max
-    and some more reload.
+  perkDescription: Bullets can hit 2 more times before destroyed. One less max ammo
+    and more reload.
   perkRarity: 2
   stackablePerk: 1
   enemyPerk: 1

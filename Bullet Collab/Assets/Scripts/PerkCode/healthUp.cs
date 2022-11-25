@@ -21,12 +21,6 @@ public class healthUp : perkData
         Entity entityInfo = getEntityStats(objDictionary);
         if (entityInfo){
             entityInfo.maxHealth += maxHealthInc;
-        }
-    }
-
-    public override void buyEvent(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
-        Entity entityInfo = getEntityStats(objDictionary);
-        if (entityInfo){
             entityInfo.currentHealth += healthInc;
         }
     }

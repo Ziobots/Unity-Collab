@@ -48,6 +48,8 @@ public class Entity : MonoBehaviour
     public float walkSpeed = 6f;
     public Rigidbody2D rb;
     [HideInInspector] public bool facingRight = true;
+    public float lastSeeTime = 0;
+
 
     // Bullet Variables
     public bulletSystem bulletPrefab;
@@ -235,6 +237,56 @@ public class Entity : MonoBehaviour
         }
 
         return true;
+    }
+
+    public bool checkVisibility(GameObject target, float circleRadius){
+        bool canSee = false;
+
+        if (target != null && gameObject){
+            Vector2 direction = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
+            Vector2 origin = (Vector2)transform.position - direction;
+            float distance = Vector2.Distance(origin, target.transform.position) + 5f;
+
+            if (distance > 0){
+                List<RaycastHit2D> contactList = new List<RaycastHit2D>();
+                RaycastHit2D[] contacts = Physics2D.RaycastAll(origin,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
+                foreach(RaycastHit2D contact in contacts){
+                    contactList.Add(contact);
+                } 
+                
+                if (circleRadius != 0f){
+                    float radius = gameObject.GetComponent<CircleCollider2D>().radius * 1.1f;
+                    if (circleRadius > 0){
+                        radius = circleRadius;
+                    }
+
+                    RaycastHit2D[] addList = Physics2D.CircleCastAll(origin,radius,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
+                    foreach(RaycastHit2D contact in addList){
+                        contactList.Add(contact);
+                    } 
+                }
+
+                RaycastHit2D closestHit = new RaycastHit2D();
+
+                foreach(RaycastHit2D contact in contactList){
+                    if (!closestHit.collider || Vector3.Distance(contact.point,origin) < Vector3.Distance(closestHit.point,origin)){
+                        if (contact.collider.gameObject != gameObject){
+                            closestHit = contact;
+                        }
+                    }
+                }
+
+                if (closestHit && closestHit.collider && closestHit.collider.gameObject == target){
+                    canSee = true;
+                }
+            }
+        }
+
+        if (canSee){
+            lastSeeTime = Time.time;
+        }
+
+        return canSee;
     }
 
     // bullets will call this when they hit

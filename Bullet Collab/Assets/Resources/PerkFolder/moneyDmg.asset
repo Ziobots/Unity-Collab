@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44771e251b59589448d13e795ffd0447, type: 3}
   m_Name: moneyDmg
   m_EditorClassIdentifier: 
-  perkIcon: {fileID: 0}
-  perkName: Loose Change
+  perkIcon: {fileID: 21300000, guid: 4397ba36978f7ea49a766f22248db4b4, type: 3}
+  perkName: Gold Hearts
   perkCost: 90
   perkDescription: Earn 25 gold any time you take damage.
   perkRarity: 2

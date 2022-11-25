@@ -54,7 +54,7 @@ public class laserPoint : perkData
                             laser.endColor = new Color32(253,106,106,220);
                         }
 
-                        laser.enabled = !entityInfo.reloadingGun;
+                        laser.enabled = !entityInfo.reloadingGun && entityInfo.currentHealth > 0;
 
                         if (laser && laser.enabled){
                             Vector3 startPosition = launchPoint.position;

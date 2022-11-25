@@ -105,6 +105,7 @@ MonoBehaviour:
   walkSpeed: 8.5
   rb: {fileID: 6770360506613481945}
   facingRight: 1
+  lastSeeTime: 0
   bulletPrefab: {fileID: 1245196261793414157, guid: 57aa78eb88978ed4da98a25baf265501, type: 3}
   launchPoints:
   - {fileID: 6770360507337970323}
@@ -141,6 +142,7 @@ MonoBehaviour:
   defaultFace: eyes_Shock
   currentFace: eyes_Shock
   hurtFace: eyes_Hurt
+  angryFace: eyes_Hurt
   deathFace: eyes_Shock
   faceSwapTime: 0
   checkAngle: 1
@@ -148,7 +150,7 @@ MonoBehaviour:
   myType: 1
   roomSpawnMinimum: 3
   roomSpawnMaximum: -1
-  lastSeeTime: 0
+  angerMeter: 0
   Loaded: 0
 --- !u!114 &6770360506613481947
 MonoBehaviour:

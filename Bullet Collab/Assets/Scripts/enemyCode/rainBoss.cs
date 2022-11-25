@@ -77,7 +77,7 @@ public class rainBoss : Enemy
 
     public override void reloadGun(){
         walkSpeed = secondPhase ? 2f : 3.5f;
-        defaultFace = "eyes_Normal";
+        defaultFace = secondPhase ? angryFace : "eyes_Normal";
         shooting = false;
 
         if (currentHealth <= maxHealth * 0.6f && !secondPhase){

@@ -16,7 +16,7 @@ MonoBehaviour:
   perkName: Fast Reload
   perkCost: 120
   perkDescription: Your gun will reload faster.
-  perkRarity: 2
+  perkRarity: 1
   stackablePerk: 1
   enemyPerk: 1
   delayMultiple: 0.9

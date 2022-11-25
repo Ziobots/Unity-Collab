@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 6770360506613481949}
   - component: {fileID: 6770360506613481945}
   - component: {fileID: 6770360506613481946}
-  - component: {fileID: 6770360506613481951}
   - component: {fileID: 6770360506613481947}
+  - component: {fileID: -5017108281891207066}
   m_Layer: 7
-  m_Name: dummy
-  m_TagString: Destructable
+  m_Name: rainSmall
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6770360506613481948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6770360507105887829}
@@ -73,85 +73,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
---- !u!114 &6770360506613481951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6770360506613481948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 764efc96f98385b4cb45bd7460ba2088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dataManager: {fileID: 0}
-  dataInfo: {fileID: 0}
-  perkCommands: {fileID: 0}
-  gameManager: {fileID: 0}
-  gameInfo: {fileID: 0}
-  currentHealth: 5
-  maxHealth: 5
-  damageAmount: 0
-  currency: 0
-  weight: 5
-  meleeDamage: 0
-  damagedBy: {fileID: 0}
-  tookDamage: 0
-  uiManager: {fileID: 0}
-  uiUpdate: {fileID: 0}
-  movement: {x: 0, y: 0}
-  walkSpeed: 2
-  rb: {fileID: 6770360506613481945}
-  facingRight: 1
-  lastSeeTime: 0
-  bulletPrefab: {fileID: 1245196261793414157, guid: 57aa78eb88978ed4da98a25baf265501, type: 3}
-  launchPoints:
-  - {fileID: 6770360507337970323}
-  bulletFolder: {fileID: 0}
-  debriFolder: {fileID: 0}
-  maxAmmo: 0
-  fireCount: 0
-  currentAmmo: 0
-  reloadTime: 0.85
-  bulletTime: 0.4
-  bulletSpread: 3
-  automaticGun: 0
-  reloadingGun: 1
-  deflectBullets: 0
-  shootingGun: 0
-  reloadStartTime: 0
-  delayStartTime: 0
-  gunNoise: {fileID: 0}
-  reloadNoise: {fileID: 0}
-  hurtNoise: {fileID: 0}
-  damageNoise: {fileID: 0}
-  currentCamera: {fileID: 0}
-  spriteColor: {r: 1, g: 0.81960785, b: 0.4392157, a: 255}
-  perkIDList: []
-  currentTarget: {fileID: 0}
-  shootDistance: 5
-  lookDirection: {x: 1, y: 0}
-  turnSpeed: 5
-  lastTargetPosition: {x: 0, y: 0}
-  wayPointDistance: 1
-  levelObj: {fileID: 0}
-  pathTarget: {fileID: 0}
-  killPrefab: {fileID: 2817201403534161433, guid: 1b4161adb8eefd2459a0b8965b39ee9a, type: 3}
-  defaultFace: eyes_Dummy
-  currentFace: eyes_Dummy
-  hurtFace: eyes_Hurt
-  angryFace: eyes_Hurt
-  deathFace: eyes_Dummy
-  faceSwapTime: 0
-  checkAngle: 1
-  flipSprite: 1
-  myType: 0
-  roomSpawnMinimum: 0
-  roomSpawnMaximum: 0
-  angerMeter: 0
-  Loaded: 0
+  m_Radius: 2.8
 --- !u!114 &6770360506613481947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +102,84 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &-5017108281891207066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6770360506613481948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764efc96f98385b4cb45bd7460ba2088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataManager: {fileID: 0}
+  dataInfo: {fileID: 0}
+  perkCommands: {fileID: 0}
+  gameManager: {fileID: 0}
+  gameInfo: {fileID: 0}
+  currentHealth: 8
+  maxHealth: 8
+  damageAmount: 0
+  currency: 0
+  weight: 8
+  meleeDamage: 1
+  damagedBy: {fileID: 0}
+  tookDamage: 0
+  uiManager: {fileID: 0}
+  uiUpdate: {fileID: 0}
+  movement: {x: 0, y: 0}
+  walkSpeed: 4
+  rb: {fileID: 6770360506613481945}
+  facingRight: 1
+  lastSeeTime: 0
+  bulletPrefab: {fileID: 1245196261793414157, guid: 57aa78eb88978ed4da98a25baf265501, type: 3}
+  launchPoints:
+  - {fileID: 6770360507337970323}
+  bulletFolder: {fileID: 0}
+  debriFolder: {fileID: 0}
+  maxAmmo: 10
+  fireCount: 1
+  currentAmmo: 10
+  reloadTime: 1.5
+  bulletTime: 0.12
+  bulletSpread: 3
+  automaticGun: 1
+  reloadingGun: 0
+  deflectBullets: 0
+  shootingGun: 0
+  reloadStartTime: 0
+  delayStartTime: 0
+  gunNoise: {fileID: 0}
+  reloadNoise: {fileID: 0}
+  hurtNoise: {fileID: 0}
+  damageNoise: {fileID: 0}
+  currentCamera: {fileID: 0}
+  spriteColor: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 255}
+  perkIDList: []
+  currentTarget: {fileID: 0}
+  shootDistance: 6.5
+  lookDirection: {x: 1, y: 0}
+  turnSpeed: 4
+  lastTargetPosition: {x: 0, y: 0}
+  wayPointDistance: 1
+  levelObj: {fileID: 0}
+  pathTarget: {fileID: 0}
+  killPrefab: {fileID: 2817201403534161433, guid: 1b4161adb8eefd2459a0b8965b39ee9a, type: 3}
+  defaultFace: eyes_Sad
+  currentFace: eyes_Sad
+  hurtFace: eyes_Hurt
+  angryFace: eyes_Angry
+  deathFace: eyes_Shock
+  faceSwapTime: 0
+  checkAngle: 1
+  flipSprite: 1
+  myType: 1
+  roomSpawnMinimum: 10
+  roomSpawnMaximum: -1
+  angerMeter: 3
+  Loaded: 0
 --- !u!1 &6770360507100599415
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 6770360507100599415}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6770360507337970323}
@@ -254,8 +254,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d544c238cc8fe05458784f8abaf302b0, type: 3}
-  m_Color: {r: 1, g: 0.81960785, b: 0.4392157, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8ea2b1a3d64dd594ab03a1073f45e78a, type: 3}
+  m_Color: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -290,8 +290,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6770360507105887828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 0, y: 1.48, z: 0}
+  m_LocalScale: {x: 2.8, y: 2.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6770360506613481949}
@@ -338,12 +338,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 9f1a24dbd193e56449c33d6dd556e14e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8d59f5bf86d9c14bb07ce12244fcd3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -373,7 +373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6770360507337970322}
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: -3.5, y: 0, z: 0}
+  m_LocalPosition: {x: -3.15, y: 0, z: 0}
   m_LocalScale: {x: 0.43785, y: 0.43785, z: 0.17492999}
   m_ConstrainProportionsScale: 0
   m_Children: []

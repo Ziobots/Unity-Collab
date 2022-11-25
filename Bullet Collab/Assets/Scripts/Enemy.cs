@@ -12,6 +12,7 @@
 * 11/10/22  0.50                 DS              spawn in animation
 * 11/10/22  0.60                 DS              enemies patrol the area instead of standing still when no target
 * 11/10/22  0.70                 DS              added stats stuff
+* 11/25/22  0.80                 DS              added anger
 *******************************************************************************/
 
 using System.Collections;
@@ -47,6 +48,7 @@ public class Enemy : Entity
     public string defaultFace = "eyes_Normal";
     public string currentFace = "eyes_Normal";
     public string hurtFace = "eyes_Hurt";
+    public string angryFace = "eyes_Angry";
     public string deathFace = "eyes_Shock";
     public float faceSwapTime = 0;
 
@@ -56,6 +58,7 @@ public class Enemy : Entity
     public EnemyType myType = EnemyType.None;
     public int roomSpawnMinimum = 0;
     public int roomSpawnMaximum = -1;
+    public float angerMeter = 0f;
 
     // Spawn Visuals
     public bool Loaded = false;
@@ -70,6 +73,22 @@ public class Enemy : Entity
         GameObject[] targetChoices = GameObject.FindGameObjectsWithTag("Player");
         GameObject returnTarget = null;
 
+        // anger meter
+        if (angerMeter >= 10f){
+            Entity[] entityChoice = FindObjectsOfType<Entity>();
+            List<GameObject> targetList = new List<GameObject>();
+            foreach (Entity targetInfo in entityChoice){
+                GameObject target = targetInfo.gameObject;
+                if (target != null && targetInfo.currentHealth > 0){
+                    if (target.GetComponent<Player>() || target.GetComponent<Enemy>()){
+                        targetList.Add(target);
+                    }
+                }
+            }
+
+            targetChoices = targetList.ToArray();
+        }
+
         // check currentTarget
         if (currentTarget != null){
             Entity entityData = currentTarget.GetComponent<Entity>();
@@ -83,7 +102,7 @@ public class Enemy : Entity
 
         // prioritize entities that have dealt damage to this
         if (damagedBy != null && damagedBy.GetComponent<Entity>().currentHealth > 0){
-            if (damagedBy.tag != gameObject.tag){
+            if (damagedBy.tag != gameObject.tag || angerMeter >= 5f){
                 returnTarget = damagedBy;
             }
         }else{
@@ -349,6 +368,8 @@ public class Enemy : Entity
                             uiUpdate.updateGameUI();
                         }
                     }
+                }else if (damagedBy.tag == gameObject.tag){
+                    angerMeter += 1f;
                 }
             }
 
@@ -404,6 +425,10 @@ public class Enemy : Entity
     // for facial animations
     private string setFace = "";
     public virtual void faceCheck(){
+        if (angerMeter >= 10){
+            defaultFace = angryFace;
+        }
+
         // should the face return to the default
         if (currentFace != defaultFace && Time.time - faceSwapTime >= .25){
             if (currentHealth <= 0){

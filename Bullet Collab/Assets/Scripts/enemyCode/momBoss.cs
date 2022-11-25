@@ -80,7 +80,7 @@ public class momBoss : Enemy
             secondPhase = true;
             reloadTime += 1.5f;
             bulletTime *= 1.1f;
-            turnSpeed += 2f;
+            turnSpeed += 1f;
             maxAmmo += 8 * 4;
         }
 

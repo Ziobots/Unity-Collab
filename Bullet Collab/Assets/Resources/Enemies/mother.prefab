@@ -252,8 +252,8 @@ MonoBehaviour:
   perkCommands: {fileID: 0}
   gameManager: {fileID: 0}
   gameInfo: {fileID: 0}
-  currentHealth: 60
-  maxHealth: 60
+  currentHealth: 80
+  maxHealth: 80
   damageAmount: 0
   currency: 0
   weight: 12
@@ -263,7 +263,7 @@ MonoBehaviour:
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
-  walkSpeed: 1.4
+  walkSpeed: 2.6
   rb: {fileID: 6770360506613481945}
   facingRight: 1
   lastSeeTime: 0

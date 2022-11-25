@@ -1,5 +1,133 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1286612057965808033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4849403020549276219}
+  - component: {fileID: 6530645301516656121}
+  m_Layer: 0
+  m_Name: sniper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4849403020549276219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286612057965808033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6770360506613481949}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &6530645301516656121
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286612057965808033}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -4111005062800308623, guid: 1655b19d925f2524dbe5d7a083cd0413, type: 2}
+  m_audioClip: {fileID: 8300000, guid: bff4fda516a3c164d9862fde4fa51ed1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 166
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6770360506613481948
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,9 +140,9 @@ GameObject:
   - component: {fileID: 6770360506613481945}
   - component: {fileID: 6770360506613481946}
   - component: {fileID: 6770360506613481947}
-  - component: {fileID: -5017108281891207066}
+  - component: {fileID: 6770360506613481951}
   m_Layer: 7
-  m_Name: rainSmall
+  m_Name: sniper
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,11 +157,12 @@ Transform:
   m_GameObject: {fileID: 6770360506613481948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.26, y: 0.26, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6770360507105887829}
   - {fileID: 6770360507100599408}
+  - {fileID: 4849403020549276219}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,7 +202,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.8
+  m_Radius: 3
 --- !u!114 &6770360506613481947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +231,7 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &-5017108281891207066
+--- !u!114 &6770360506613481951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,18 +248,18 @@ MonoBehaviour:
   perkCommands: {fileID: 0}
   gameManager: {fileID: 0}
   gameInfo: {fileID: 0}
-  currentHealth: 8
-  maxHealth: 8
+  currentHealth: 15
+  maxHealth: 15
   damageAmount: 0
   currency: 0
-  weight: 8
+  weight: 9
   meleeDamage: 1
   damagedBy: {fileID: 0}
   tookDamage: 0
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
-  walkSpeed: 4
+  walkSpeed: 3
   rb: {fileID: 6770360506613481945}
   facingRight: 1
   lastSeeTime: 0
@@ -139,49 +268,54 @@ MonoBehaviour:
   - {fileID: 6770360507337970323}
   bulletFolder: {fileID: 0}
   debriFolder: {fileID: 0}
-  maxAmmo: 10
+  maxAmmo: 1
   fireCount: 1
-  currentAmmo: 10
-  reloadTime: 1.5
-  bulletTime: 0.23
-  bulletSpread: 3
-  reloadDelay: 0
-  automaticGun: 1
+  currentAmmo: 0
+  reloadTime: 1.25
+  bulletTime: 0.4
+  bulletSpread: -50
+  reloadDelay: 1
+  automaticGun: 0
   reloadingGun: 0
   deflectBullets: 0
   shootingGun: 0
   reloadStartTime: 0
   delayStartTime: 0
   reloadFinishTime: 0
-  gunNoise: {fileID: 0}
+  gunNoise: {fileID: 6530645301516656121}
   reloadNoise: {fileID: 0}
   hurtNoise: {fileID: 0}
   damageNoise: {fileID: 0}
   currentCamera: {fileID: 0}
   spriteColor: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 255}
-  perkIDList: []
+  perkIDList:
+  - laserPoint
+  - windUp
+  - windUp
+  - windUp
+  - windUp
   currentTarget: {fileID: 0}
-  shootDistance: 6.5
+  shootDistance: 12
   lookDirection: {x: 1, y: 0}
-  turnSpeed: 7
+  turnSpeed: 25
   lastTargetPosition: {x: 0, y: 0}
   wayPointDistance: 1
   levelObj: {fileID: 0}
   pathTarget: {fileID: 0}
   killPrefab: {fileID: 2817201403534161433, guid: 1b4161adb8eefd2459a0b8965b39ee9a, type: 3}
-  defaultFace: eyes_Sad
-  currentFace: eyes_Sad
+  defaultFace: eyes_Aim
+  currentFace: eyes_Aim
   hurtFace: eyes_Hurt
   angryFace: eyes_Angry
   deathFace: eyes_Shock
   faceSwapTime: 0
-  checkAngle: 1
-  checkVisible: 1
+  checkAngle: 0
+  checkVisible: 0
   flipSprite: 1
-  myType: 1
-  roomSpawnMinimum: 10
+  myType: 2
+  roomSpawnMinimum: 8
   roomSpawnMaximum: -1
-  angerMeter: 3
+  angerMeter: -2
   Loaded: 0
 --- !u!1 &6770360507100599415
 GameObject:
@@ -209,7 +343,7 @@ Transform:
   m_GameObject: {fileID: 6770360507100599415}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6770360507337970323}
@@ -257,7 +391,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8ea2b1a3d64dd594ab03a1073f45e78a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 26a7d52a7d61bfd4aa071371ab8babad, type: 3}
   m_Color: {r: 0.96862745, g: 0.7529412, b: 0.2901961, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -293,8 +427,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6770360507105887828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.48, z: 0}
-  m_LocalScale: {x: 2.8, y: 2.8, z: 1}
+  m_LocalPosition: {x: 0, y: 1.45, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6770360506613481949}
@@ -341,7 +475,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f8d59f5bf86d9c14bb07ce12244fcd3e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63368af8a916d44488dae88bbb61102d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -376,7 +510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6770360507337970322}
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: -3.15, y: 0, z: 0}
+  m_LocalPosition: {x: -3.84, y: 0, z: 0}
   m_LocalScale: {x: 0.43785, y: 0.43785, z: 0.17492999}
   m_ConstrainProportionsScale: 0
   m_Children: []

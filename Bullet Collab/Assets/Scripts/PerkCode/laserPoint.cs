@@ -50,11 +50,14 @@ public class laserPoint : perkData
                             laser.material = defaultMaterial;
                             laser.startWidth = 0.1f;
                             laser.endWidth = 0.1f;
-                            laser.startColor = new Color32(253,106,106,220);
-                            laser.endColor = new Color32(253,106,106,220);
                         }
 
-                        laser.enabled = !entityInfo.reloadingGun && entityInfo.currentHealth > 0;
+                        laser.enabled = entityInfo.currentHealth > 0;
+
+                        float alpha = entityInfo.reloadingGun ? 0f : 220f;
+                        float lerpAlpha = Mathf.Lerp(laser.startColor.a * 255,alpha,15f * Time.deltaTime);
+                        laser.startColor = new Color32(253,106,106,(byte)lerpAlpha);
+                        laser.endColor = new Color32(253,106,106,(byte)lerpAlpha);
 
                         if (laser && laser.enabled){
                             Vector3 startPosition = launchPoint.position;

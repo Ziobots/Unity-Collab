@@ -156,6 +156,7 @@ public class sharedData : MonoBehaviour
                 entityInfo.reloadTime = 0.7f;
                 entityInfo.bulletTime = 0.25f;
                 entityInfo.bulletSpread = 2;
+                entityInfo.reloadDelay = 0f;
                 entityInfo.automaticGun = false;
                 entityInfo.reloadingGun = false;
                 entityInfo.weight = -20f;

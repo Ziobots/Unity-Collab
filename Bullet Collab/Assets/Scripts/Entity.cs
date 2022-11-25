@@ -64,6 +64,7 @@ public class Entity : MonoBehaviour
     public float reloadTime;
     public float bulletTime;
     public float bulletSpread;
+    public float reloadDelay = 0f;
     public bool automaticGun = false;
     public bool reloadingGun = false;
     public bool deflectBullets = false;
@@ -71,6 +72,7 @@ public class Entity : MonoBehaviour
     // time vars
     [HideInInspector] public float reloadStartTime = 0;
     [HideInInspector] public float delayStartTime = 0;
+    [HideInInspector] public float reloadFinishTime = 0;
 
     // Sound Stuff
     public AudioSource gunNoise;
@@ -131,6 +133,7 @@ public class Entity : MonoBehaviour
     // This function exits for enemies with unique bullet phases
     public virtual void finishedReload(){
         currentAmmo = maxAmmo;
+        reloadFinishTime = Time.time;
         reloadingGun = false;
     }
 
@@ -158,6 +161,11 @@ public class Entity : MonoBehaviour
 
         // check if entity is reloading
         if (Time.time - reloadStartTime < reloadTime || reloadingGun){
+            return false;
+        }
+
+        // check for reload delay - this is only works for enemies
+        if (Time.time - reloadFinishTime < reloadDelay){
             return false;
         }
 
@@ -239,56 +247,6 @@ public class Entity : MonoBehaviour
         return true;
     }
 
-    public bool checkVisibility(GameObject target, float circleRadius){
-        bool canSee = false;
-
-        if (target != null && gameObject){
-            Vector2 direction = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
-            Vector2 origin = (Vector2)transform.position - direction;
-            float distance = Vector2.Distance(origin, target.transform.position) + 5f;
-
-            if (distance > 0){
-                List<RaycastHit2D> contactList = new List<RaycastHit2D>();
-                RaycastHit2D[] contacts = Physics2D.RaycastAll(origin,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
-                foreach(RaycastHit2D contact in contacts){
-                    contactList.Add(contact);
-                } 
-                
-                if (circleRadius != 0f){
-                    float radius = gameObject.GetComponent<CircleCollider2D>().radius * 1.1f;
-                    if (circleRadius > 0){
-                        radius = circleRadius;
-                    }
-
-                    RaycastHit2D[] addList = Physics2D.CircleCastAll(origin,radius,direction,distance,LayerMask.GetMask("EntityCollide","Obstacle"));
-                    foreach(RaycastHit2D contact in addList){
-                        contactList.Add(contact);
-                    } 
-                }
-
-                RaycastHit2D closestHit = new RaycastHit2D();
-
-                foreach(RaycastHit2D contact in contactList){
-                    if (!closestHit.collider || Vector3.Distance(contact.point,origin) < Vector3.Distance(closestHit.point,origin)){
-                        if (contact.collider.gameObject != gameObject){
-                            closestHit = contact;
-                        }
-                    }
-                }
-
-                if (closestHit && closestHit.collider && closestHit.collider.gameObject == target){
-                    canSee = true;
-                }
-            }
-        }
-
-        if (canSee){
-            lastSeeTime = Time.time;
-        }
-
-        return canSee;
-    }
-
     // bullets will call this when they hit
     public virtual void takeDamage(float amount){
         if (amount > 0 && currentHealth > 0){
@@ -304,6 +262,7 @@ public class Entity : MonoBehaviour
 
             // check if the entity has died
             if (currentHealth <= 0){
+                damageOnDeath();
                 perkCommands.applyPerk(perkIDList,"Killed",editList);
                 if (hurtNoise != null){
                     hurtNoise.PlayOneShot(hurtNoise.clip,hurtNoise.volume);// * dataInfo.gameVolume * dataInfo.masterVolume
@@ -415,6 +374,10 @@ public class Entity : MonoBehaviour
                 }));
             }
         }
+    }
+
+    public virtual void damageOnDeath(){
+
     }
 
     public virtual void setupEntity(){

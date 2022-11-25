@@ -131,7 +131,7 @@ public class gameLoader : MonoBehaviour
         return enemyList;
     }
 
-    public GameObject createEnemy(string enemyID,GameObject spawnPoint,System.Random randomGen){
+    public GameObject createEnemy(string enemyID,GameObject spawnPoint,System.Random randomGen,System.Action<Entity> customSetup){
         if (randomGen == null){
             randomGen = new System.Random(gameSeed + (currentWave * 2) + (currentRoom * 1000) + 1234);
         }
@@ -195,6 +195,11 @@ public class gameLoader : MonoBehaviour
 
                 // overwrite the default perk list
                 entityInfo.perkIDList = new List<string>();
+
+                // check for customSetup
+                if (customSetup != null){
+                    customSetup(entityInfo);
+                }
 
                 // finish setting up the enemy
                 entityInfo.setupEntity();
@@ -296,7 +301,7 @@ public class gameLoader : MonoBehaviour
                         chosenID = choiceList[randomGen.Next(0,choiceList.Count)];
                     }
 
-                    createEnemy(chosenID,point,randomGen);
+                    createEnemy(chosenID,point,randomGen,null);
                 }
             }
         }
@@ -448,7 +453,7 @@ public class gameLoader : MonoBehaviour
     // find the next room for the player, based on seed
     public void nextRoom(string setID){
         currentRoom++;
-        RoomType nextType = RoomType.Enemy;
+        RoomType nextType = RoomType.Boss;
         if ((currentRoom + 1) % 10 == 0 && currentRoom > 5){
             nextType = RoomType.Boss;
         }else if ((currentRoom + 1) % 10 == 5){

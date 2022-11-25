@@ -181,12 +181,14 @@ MonoBehaviour:
   reloadTime: 1.5
   bulletTime: 0.4
   bulletSpread: 0
+  reloadDelay: 0
   automaticGun: 0
   reloadingGun: 0
   deflectBullets: 0
   shootingGun: 0
   reloadStartTime: 0
   delayStartTime: 0
+  reloadFinishTime: 0
   gunNoise: {fileID: 0}
   reloadNoise: {fileID: 0}
   hurtNoise: {fileID: 0}
@@ -210,9 +212,10 @@ MonoBehaviour:
   deathFace: eyes_Shock
   faceSwapTime: 0
   checkAngle: 1
+  checkVisible: 1
   flipSprite: 1
   myType: 1
-  roomSpawnMinimum: 2
+  roomSpawnMinimum: 3
   roomSpawnMaximum: -1
   angerMeter: 1
   Loaded: 0

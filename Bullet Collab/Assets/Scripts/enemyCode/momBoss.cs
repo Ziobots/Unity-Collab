@@ -55,15 +55,17 @@ public class momBoss : Enemy
         bulletObj.bulletSize *= 1.1f;
 
         if (secondPhase){
-
+            bulletObj.bulletSpeed *= 1.1f;
+            bulletObj.bulletDamage *= 0.8f;
+            bulletObj.bulletSize *= 1.2f;
         }
 
         // hide prevention - just spawn a bunch of homing bouncing bullets
         if (Time.time - lastSeeTime >= 20f){
-            bulletObj.bulletBounces = 15;
-            bulletObj.bulletSpeed *= 1.1f;
-            bulletObj.perkIDList.Add("remoteBullet");
-            deflectBullets = true;
+            //bulletObj.bulletBounces = 15;
+            //bulletObj.bulletSpeed *= 1.1f;
+            //bulletObj.perkIDList.Add("remoteBullet");
+            //deflectBullets = true;
         }
     }
 
@@ -76,13 +78,14 @@ public class momBoss : Enemy
 
         if (currentHealth <= maxHealth * 0.6f && !secondPhase){
             secondPhase = true;
-            reloadTime += 1f;
-            bulletTime *= 0.7f;
+            reloadTime += 1.5f;
+            bulletTime *= 1.1f;
             turnSpeed += 2f;
+            maxAmmo += 8 * 4;
         }
 
-        meleeSpawnCount = secondPhase ? 4 : 2;
         meleeSpawnTime = Time.time;
+        meleeSpawnCount = secondPhase ? 4 : 2;
 
         base.reloadGun();
     }
@@ -91,16 +94,16 @@ public class momBoss : Enemy
         gameInfo.createEnemy("melee",spawnPoint,null,delegate(Entity entityInfo){
             if (entityInfo.gameObject.GetComponent<Enemy>()){
                 entityInfo.gameObject.GetComponent<Enemy>().skipSpawnAnimation = true;
-                entityInfo.weight = weight * 0.7f;
+                entityInfo.weight = weight * 0.5f;
 
                 if (secondPhase){
-                    entityInfo.maxHealth *= 1.5f;
+                    entityInfo.maxHealth *= 0.8f;
                     entityInfo.walkSpeed *= 0.85f;
                 }
 
                 if (Time.time - lastSeeTime >= 20f){
-                    entityInfo.walkSpeed *= 2f;
-                    entityInfo.maxHealth += 10;
+                    //entityInfo.walkSpeed *= 2f;
+                    //entityInfo.maxHealth += 10;
                 }
             }
         });
@@ -122,7 +125,7 @@ public class momBoss : Enemy
         }
 
         if (Time.time - lastSeeTime >= 20f){
-            meleeSpawnCount = 10;
+            //meleeSpawnCount = 10;
         }
 
         base.FixedUpdate();

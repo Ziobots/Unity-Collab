@@ -263,7 +263,7 @@ MonoBehaviour:
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
-  walkSpeed: 0.8
+  walkSpeed: 1.4
   rb: {fileID: 6770360506613481945}
   facingRight: 1
   lastSeeTime: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
   maxAmmo: 80
   fireCount: 1
   currentAmmo: 80
-  reloadTime: 3
+  reloadTime: 4.5
   bulletTime: 0.5
   bulletSpread: 0
   reloadDelay: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
   wayPointDistance: 1
   levelObj: {fileID: 0}
   pathTarget: {fileID: 0}
-  killPrefab: {fileID: 0}
+  killPrefab: {fileID: 2817201403534161433, guid: 1b4161adb8eefd2459a0b8965b39ee9a, type: 3}
   defaultFace: eyes_Mom
   currentFace: eyes_Mom
   hurtFace: eyes_Hurt

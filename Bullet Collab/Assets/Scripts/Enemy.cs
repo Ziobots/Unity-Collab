@@ -61,6 +61,7 @@ public class Enemy : Entity
     public int roomSpawnMinimum = 0;
     public int roomSpawnMaximum = -1;
     public float angerMeter = 0f;
+    public Vector3 spawnPosition;
 
     // Spawn Visuals
     public bool Loaded = false;
@@ -293,10 +294,9 @@ public class Enemy : Entity
 
     public virtual void movePattern(){
         if (currentHealth <= 0){
-            rb.velocity = rb.velocity * 0.95f;
             return;
         }
-                
+
         if (currentTarget != null){
             float distance = Vector2.Distance((Vector2)transform.position, (Vector2)currentTarget.transform.position);
 
@@ -373,10 +373,6 @@ public class Enemy : Entity
                 }
             }
         }
-
-        Vector3 moveDirection = (movement.normalized * walkSpeed);
-        float alpha = Time.fixedDeltaTime * 2f;
-        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,alpha);
     }
 
     // base enemy bullet stats
@@ -562,5 +558,15 @@ public class Enemy : Entity
         movePattern();
         rotateEnemy();
         faceCheck();
+
+        if (currentHealth <= 0){
+            rb.velocity = rb.velocity * 0.95f;
+            return;
+        }
+
+        // move entity
+        Vector3 moveDirection = (movement.normalized * walkSpeed);
+        float alpha = Time.fixedDeltaTime * 2f;
+        rb.velocity = Vector3.Lerp(rb.velocity,moveDirection,alpha);
     }
 }

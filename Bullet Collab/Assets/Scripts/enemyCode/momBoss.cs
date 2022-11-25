@@ -67,12 +67,16 @@ public class momBoss : Enemy
         }
     }
 
+    public override void movePattern(){
+        movement = ((Vector2)spawnPosition - (Vector2)transform.position).normalized;
+    }
+
     public override void reloadGun(){
         shooting = false;
 
         if (currentHealth <= maxHealth * 0.6f && !secondPhase){
             secondPhase = true;
-            reloadTime *= 0.8f;
+            reloadTime += 1f;
             bulletTime *= 0.7f;
             turnSpeed += 2f;
         }
@@ -87,6 +91,7 @@ public class momBoss : Enemy
         gameInfo.createEnemy("melee",spawnPoint,null,delegate(Entity entityInfo){
             if (entityInfo.gameObject.GetComponent<Enemy>()){
                 entityInfo.gameObject.GetComponent<Enemy>().skipSpawnAnimation = true;
+                entityInfo.weight = weight * 0.7f;
 
                 if (secondPhase){
                     entityInfo.maxHealth *= 1.5f;
@@ -110,7 +115,7 @@ public class momBoss : Enemy
     }
 
     public override void FixedUpdate(){
-        if (currentHealth > 0 && Time.time - meleeSpawnTime >= 0.15f && meleeSpawnCount > 0){
+        if (currentHealth > 0 && Time.time - meleeSpawnTime >= 0.3f && meleeSpawnCount > 0){
             meleeSpawnCount--;
             meleeSpawnTime = Time.time;
             spawnMelee();

@@ -256,14 +256,14 @@ MonoBehaviour:
   maxHealth: 60
   damageAmount: 0
   currency: 0
-  weight: 10
+  weight: 12
   meleeDamage: 1
   damagedBy: {fileID: 0}
   tookDamage: 0
   uiManager: {fileID: 0}
   uiUpdate: {fileID: 0}
   movement: {x: 0, y: 0}
-  walkSpeed: 0.35
+  walkSpeed: 0.8
   rb: {fileID: 6770360506613481945}
   facingRight: 1
   lastSeeTime: 0
@@ -282,10 +282,10 @@ MonoBehaviour:
   maxAmmo: 80
   fireCount: 1
   currentAmmo: 80
-  reloadTime: 5
+  reloadTime: 3
   bulletTime: 0.5
   bulletSpread: 0
-  reloadDelay: 2
+  reloadDelay: 0
   automaticGun: 0
   reloadingGun: 0
   deflectBullets: 0
@@ -323,6 +323,7 @@ MonoBehaviour:
   roomSpawnMinimum: 0
   roomSpawnMaximum: -1
   angerMeter: 1
+  spawnPosition: {x: 0, y: 0, z: 0}
   Loaded: 0
   spawnPoint: {fileID: 2084427986849830655}
 --- !u!1 &6770360507100599415

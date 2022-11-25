@@ -151,6 +151,7 @@ public class gameLoader : MonoBehaviour
                 entityInfo.gameManager = gameObject;
                 entityInfo.levelObj = levelObj;
                 entityInfo.currentCamera = currentCamera;
+                entityInfo.spawnPosition = spawnPoint.transform.position;
 
                 if (currentRoom > 10){
                     entityInfo.maxHealth *= (currentRoom/10);

@@ -28,6 +28,10 @@ public class remoteBullet : perkData
     }
     
     public override void updateBullet(Dictionary<string, GameObject> objDictionary,int Count,bool initialize) {
+        if (Time.timeScale <= 0){
+            return;
+        }
+
         if (objDictionary.ContainsKey("Bullet") && initialize){
             // Get Mouse Position
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

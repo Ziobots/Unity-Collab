@@ -53,6 +53,10 @@ public class Player : Entity
 
     private void moveGun() {
         if (arrow != null) {
+            if (Time.timeScale <= 0){
+                return;
+            }
+
             Vector2 checkMousePosition = mousePosition;
 
             arrowDirection = (checkMousePosition - (Vector2)arrow.position).normalized;
@@ -250,6 +254,10 @@ public class Player : Entity
 
     // Fixed Update is called every physics step
     public override void FixedUpdate() {
+        if (Time.timeScale <= 0){
+            return;
+        }
+
         base.FixedUpdate();
 
         // Arrow Movement

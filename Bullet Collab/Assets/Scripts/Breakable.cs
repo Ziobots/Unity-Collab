@@ -127,7 +127,7 @@ public class Breakable : Entity
     }
 
     public override void FixedUpdate(){
-        if (rb && moveToSpawn){
+        if (rb && moveToSpawn && Time.timeScale > 0){
 
             float alpha = Time.fixedDeltaTime * 12f;
             transform.position = Vector2.Lerp(transform.position,spawnPosition,alpha);

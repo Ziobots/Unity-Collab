@@ -173,7 +173,7 @@ public class bulletSystem : MonoBehaviour
     }
 
     public void bounceBullet(Collider2D otherCollider,Vector2 hitNormal){
-        if (bulletBounces > 0){
+        if (bulletBounces > 0 && Time.timeScale > 0){
             // Get the new direction of the bullet
             bulletBounces -= 1;
             damageOwner = true;
@@ -221,7 +221,7 @@ public class bulletSystem : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (!bulletSetup){
+        if (!bulletSetup || Time.timeScale <= 0){
             return;
         }
 

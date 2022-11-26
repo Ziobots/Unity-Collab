@@ -213,6 +213,10 @@ public class perkPickup : MonoBehaviour
 
     private void FixedUpdate() {
         if (gameObject && interactActive){
+            if (Time.timeScale <= 0){
+                return;
+            }
+
             Vector3 setPosition = basePosition;
             float rotation = 0;
             

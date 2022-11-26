@@ -22,6 +22,10 @@ public class fallingObj : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate(){
+        if (Time.timeScale <= 0){
+            return;
+        }
+
         if (parentRect != null){
             gameObject.GetComponent<RectTransform>().rotation = gameObject.GetComponent<RectTransform>().rotation * Quaternion.Euler(0f, 0f, rotationSpeed * 108f * Time.fixedDeltaTime);
             if (swtichAxis){

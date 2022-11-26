@@ -49,6 +49,10 @@ public class CameraBehavior : MonoBehaviour
 
     // Late Update is called after the normal Update - important because of input stuff
     private void FixedUpdate() {
+        if (Time.timeScale <= 0){
+            return;
+        }
+        
         // Move the reticle
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

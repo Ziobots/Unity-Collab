@@ -35,6 +35,10 @@ public class laserPoint : perkData
     }
 
     public override void updateEntity(Dictionary<string, GameObject> objDictionary, int Count, bool initialize){
+        if (Time.timeScale <= 0){
+            return;
+        }
+
         Entity entityInfo = getEntityStats(objDictionary);
         if (entityInfo != null && initialize){
             if (entityInfo.launchPoints != null){

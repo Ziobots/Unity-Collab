@@ -168,7 +168,7 @@ public class mouseCursor : MonoBehaviour
                 }
                 
                 Quaternion setRotationEuler = Quaternion.Euler(0, 0, cursorRotation);
-                float alpha = Time.fixedDeltaTime * 10f;
+                float alpha = 0.8f;
                 cursorRect.rotation = Quaternion.Lerp(cursorRect.rotation, setRotationEuler, alpha);
                 cursorRect.anchoredPosition = screenPosition;
             }

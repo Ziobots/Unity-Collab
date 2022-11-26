@@ -109,6 +109,10 @@ public class infoPopup : MonoBehaviour
 
         // gotta use StartCoroutine so use while loop
         while (progress < duration && visible == popupVisible){
+            if (Time.timeScale <= 0){
+                break;
+            }
+
             progress += Time.deltaTime;
             float alpha = progress / duration;
             float yOffset = easeOutBack(alpha);

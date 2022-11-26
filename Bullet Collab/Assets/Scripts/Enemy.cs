@@ -220,6 +220,10 @@ public class Enemy : Entity
     }
 
     public virtual void rotateEnemy(){
+        if (Time.timeScale <= 0){
+            return;
+        }
+
         // get the look direction
         lookDirection = getLookDirection();
 
@@ -547,6 +551,10 @@ public class Enemy : Entity
 
     // Fixed Update is called every physics step
     public override void FixedUpdate() {
+        if (Time.timeScale <= 0){
+            return;
+        }
+
         if (!Loaded){
             return;
         }

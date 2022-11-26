@@ -96,4 +96,10 @@ public class nextWave : MonoBehaviour
             onClick();
         }
     }
+
+    private void Update() {
+        if (Input.GetKeyDown("space") && buttonActive){
+            onWaveClick();
+        }
+    }
 }

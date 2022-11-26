@@ -29,6 +29,7 @@ public class Player : Entity
     // Rig Variables
     public Transform playerRig;
     public float armDistance = 0;
+    public visualFx killPrefab;
 
     // Local Variables
     public float hitTime = 0f;
@@ -84,6 +85,23 @@ public class Player : Entity
         }
     }
 
+    public void killEffect(){
+        visualFx killVFX = Instantiate(killPrefab,new Vector3(transform.position.x,transform.position.y,-0.1f),new Quaternion(),gameObject.transform);
+        if (killVFX != null){
+            killVFX.lifeTime = 0f;
+            killVFX.killAnimation = true;
+            killVFX.animSpeed = 1.3f;
+            killVFX.gameObject.GetComponent<SpriteRenderer>().color = spriteColor;
+
+            transform.Find("body").gameObject.SetActive(false);
+            transform.Find("Gun").gameObject.SetActive(false);
+
+            float radius = gameObject.GetComponent<CapsuleCollider2D>().size.y * 1.5f;
+            killVFX.transform.localScale = new Vector3(radius,radius,1);
+            killVFX.setupVFX();
+        }
+    }
+
     // overwrite the take damage function so its only 1 damage - also check for gameover here
     public override void takeDamage(float amount){
         // Player can only take damage every so often
@@ -114,7 +132,18 @@ public class Player : Entity
                         currentCamera.GetComponent<CameraBehavior>().zoomSpeed = 4f;
                     }
 
+                    // remove animations
+                    bodyAnimator.SetFloat("Speed", 0);
+                    bodyAnimator.SetBool("Hurt", false);
+                    gunAnimator.SetBool("Reloading", false);
+                    gunAnimator.SetBool("Shoot", false);
+
+                    StartCoroutine(doWait(.75f,delegate{
+                        killEffect();
+                    }));
+
                     StartCoroutine(doWait(1.5f,delegate{
+                        print("END GAME? PLAYER");
                         gameInfo.endGame();
                     }));
                 }
@@ -150,6 +179,9 @@ public class Player : Entity
         if (currentHealth <= 0){
             movement = new Vector2(0,0);
             return;
+        }else{
+            transform.Find("body").gameObject.SetActive(true);
+            transform.Find("Gun").gameObject.SetActive(true);
         }
         
         if (Input.GetKeyDown("escape") && pauseUI != null){

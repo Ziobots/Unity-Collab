@@ -22316,6 +22316,10 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
+      propertyPath: killPrefab
+      value: 
+      objectReference: {fileID: 2817201403534161433, guid: 1b4161adb8eefd2459a0b8965b39ee9a, type: 3}
+    - target: {fileID: 4282372811394036773, guid: bf3e74b1a8f3df742904bd3b215fa1b3, type: 3}
       propertyPath: reloadTime
       value: 0.7
       objectReference: {fileID: 0}

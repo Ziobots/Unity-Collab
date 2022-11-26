@@ -61,6 +61,10 @@ public class pauseButton : MonoBehaviour
             return;
         }
         
+        if (gamePaused){
+            return;
+        }
+
         setupMenu();
 
         pauseActive = true;
@@ -119,6 +123,11 @@ public class pauseButton : MonoBehaviour
         if (!pauseActive){
             return;
         }
+
+        if (!gamePaused){
+            return;
+        }
+
 
         setupMenu();
         // Update Mouse

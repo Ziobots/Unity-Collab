@@ -211,7 +211,7 @@ public class playscreenSetup : MonoBehaviour
         if (backPanel != null && backPanel.transform.Find("background")){
             RawImage scrollBack =  backPanel.transform.Find("background").gameObject.GetComponent<RawImage>();
             if (Time.timeScale > 0){
-                scrollBack.uvRect = new Rect(scrollBack.uvRect.position + new Vector2(0,-4.20f) * Time.fixedDeltaTime,scrollBack.uvRect.size);
+                scrollBack.uvRect = new Rect(scrollBack.uvRect.position + new Vector2(0,-4.20f) * Time.deltaTime,scrollBack.uvRect.size);
             }
         }
 

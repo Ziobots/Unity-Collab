@@ -64,7 +64,7 @@ public class mouseCursor : MonoBehaviour
             gameObject.GetComponent<Image>().color = new Color32(0,0,0,118);
             gameObject.transform.Find("recharge").gameObject.SetActive(true);
             currentCursorImg = "reticle2";
-       }else{
+       }else if (dataInfo != null){
             byte alpha = dataInfo.mobileControls ? (byte)0 : (byte)255;
             if (currentCursorImg != "cursor"){
                 gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("cursor");

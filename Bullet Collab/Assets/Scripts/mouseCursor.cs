@@ -37,6 +37,7 @@ public class mouseCursor : MonoBehaviour
 
     // mobile
     public Joystick aimStick;
+    public bool mobileEnabled = false;
     public Transform playerObj;
 
     public void cursorHover(){
@@ -44,7 +45,9 @@ public class mouseCursor : MonoBehaviour
         if (currentCursorImg != "hoverCursor"){
             gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("hoverCursor");
         }
-        gameObject.GetComponent<Image>().color = new Color32(255,255,255,255);
+
+        byte alpha = dataInfo.mobileControls ? (byte)0 : (byte)255;
+        gameObject.GetComponent<Image>().color = new Color32(255,255,255,alpha);
         gameObject.transform.Find("recharge").gameObject.SetActive(false);
         currentCursorImg = "hoverCursor";
     }
@@ -60,11 +63,12 @@ public class mouseCursor : MonoBehaviour
             gameObject.transform.Find("recharge").gameObject.SetActive(true);
             currentCursorImg = "reticle2";
        }else{
+            byte alpha = dataInfo.mobileControls ? (byte)0 : (byte)255;
             if (currentCursorImg != "cursor"){
                 gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("cursor");
             }
 
-            gameObject.GetComponent<Image>().color = new Color32(255,255,255,255);
+            gameObject.GetComponent<Image>().color = new Color32(255,255,255,alpha);
             gameObject.transform.Find("recharge").gameObject.SetActive(false);
             currentCursorImg = "cursor";
         }
@@ -130,6 +134,11 @@ public class mouseCursor : MonoBehaviour
     void Update(){
         // Check for mouse cursor
         if (gameObject != null){
+            if (mobileEnabled != dataInfo.mobileControls){
+                mobileEnabled = dataInfo.mobileControls;
+                currentCursorImg = "";
+            }
+
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (overwriteMovement){
                 mousePosition = movementPosition;

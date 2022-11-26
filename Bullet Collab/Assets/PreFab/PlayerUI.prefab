@@ -150,6 +150,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.55, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1 &51353555298870525
@@ -1819,6 +1820,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &1374242920725924452
@@ -2733,6 +2735,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1 &861078033035988074
@@ -4919,6 +4922,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.4, y: 0.5}
   rotationHover: 0.5
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &4966391399735202768
@@ -6159,6 +6163,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.4, y: 0.5}
   rotationHover: 0.5
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &2814343844355707657
@@ -6959,6 +6964,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0, y: 0}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &3840830401264351638
@@ -7187,6 +7193,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.4, y: 0.5}
   rotationHover: 0.5
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &2594518023427002342
@@ -8190,6 +8197,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1 &2284172115944352282
@@ -12053,6 +12061,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0, y: 0}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &7007322002109512963
@@ -13448,6 +13457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6031355289303883400}
   - component: {fileID: 7697457146733824267}
+  - component: {fileID: 2551482783361367625}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -13542,6 +13552,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2551482783361367625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794394373710120168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ab5d390fb15a64080ca6409c0a87c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorObj: {fileID: 4821340908508482251}
+  pivotHover: {x: 0.5, y: 0.5}
+  rotationHover: 0
+  canHover: 1
+  hovering: 0
+  clickNoise: {fileID: 0}
 --- !u!1 &3837239213091915813
 GameObject:
   m_ObjectHideFlags: 0
@@ -13711,6 +13739,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: 1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &6726828137662816587
@@ -14898,6 +14927,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: 1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &7706521572257447989
@@ -17122,6 +17152,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: 1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &375346765194639443
@@ -17402,6 +17433,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &2576369388475920393
@@ -17765,6 +17797,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.35}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &1962673656873043613
@@ -17952,6 +17985,7 @@ MonoBehaviour:
   movementPosition: {x: 0, y: 0}
   mousePosition: {x: 0, y: 0}
   aimStick: {fileID: 0}
+  mobileEnabled: 0
   playerObj: {fileID: 0}
 --- !u!225 &4348587137601524238
 CanvasGroup:
@@ -18028,6 +18062,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0, y: 0}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &4383241144914512346
@@ -19190,6 +19225,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.35}
   rotationHover: 1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &8650215475898976087
@@ -20109,6 +20145,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0, y: 0}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &4044460252582205636
@@ -20834,6 +20871,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.47, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &9201274105559380051
@@ -21601,6 +21639,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.45}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &5681541315242195695
@@ -23109,6 +23148,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0, y: 0}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &6924726226410795139
@@ -25575,6 +25615,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.35}
   rotationHover: 1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &4481157774819870943
@@ -26791,6 +26832,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.45}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &6065069148093410360
@@ -28933,6 +28975,7 @@ GameObject:
   m_Component:
   - component: {fileID: 194046936109421557}
   - component: {fileID: 4259258728474869186}
+  - component: {fileID: 8773770345957280959}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -29027,6 +29070,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8773770345957280959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7055532592362773421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ab5d390fb15a64080ca6409c0a87c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorObj: {fileID: 4821340908508482251}
+  pivotHover: {x: 0.5, y: 0.5}
+  rotationHover: 0
+  canHover: 1
+  hovering: 0
+  clickNoise: {fileID: 0}
 --- !u!1 &7068852861286676040
 GameObject:
   m_ObjectHideFlags: 0
@@ -29361,6 +29422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3653973412455367975}
   - component: {fileID: 8937088487061047408}
+  - component: {fileID: 5177331404277516543}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -29449,6 +29511,24 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
+--- !u!114 &5177331404277516543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211263948466719683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ab5d390fb15a64080ca6409c0a87c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorObj: {fileID: 4821340908508482251}
+  pivotHover: {x: 0.5, y: 0.5}
+  rotationHover: 0
+  canHover: 1
+  hovering: 0
+  clickNoise: {fileID: 0}
 --- !u!1 &7240828972829763223
 GameObject:
   m_ObjectHideFlags: 0
@@ -29943,6 +30023,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.45}
   rotationHover: 1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &4179760433417931618
@@ -30034,6 +30115,7 @@ MonoBehaviour:
   fallObjPrefab: {fileID: 9046323576907167490, guid: 600bdf7bab3a3874d9beabc317249b0b, type: 3}
   transitioner: {fileID: 7484231557570648093}
   loginScreen: {fileID: 2229122858928894127}
+  startNoise: {fileID: 0}
 --- !u!1 &7385657510093355976
 GameObject:
   m_ObjectHideFlags: 0
@@ -30410,6 +30492,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.55, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1 &7422022212813382400
@@ -31132,6 +31215,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.45}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &5954113226768087413
@@ -31444,6 +31528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 373140820191789923}
   - component: {fileID: 5735317566486508544}
+  - component: {fileID: 6081187039688478563}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -31538,6 +31623,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6081187039688478563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7718682991533842875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ab5d390fb15a64080ca6409c0a87c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorObj: {fileID: 4821340908508482251}
+  pivotHover: {x: 0.5, y: 0.5}
+  rotationHover: 0
+  canHover: 1
+  hovering: 0
+  clickNoise: {fileID: 0}
 --- !u!1 &7747086375329874084
 GameObject:
   m_ObjectHideFlags: 0
@@ -32608,6 +32711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4650911172381400757}
   - component: {fileID: 8118426359490143747}
+  - component: {fileID: 3873597611679593741}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -32696,6 +32800,24 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
+--- !u!114 &3873597611679593741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870392784880188456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ab5d390fb15a64080ca6409c0a87c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorObj: {fileID: 4821340908508482251}
+  pivotHover: {x: 0.5, y: 0.5}
+  rotationHover: 0
+  canHover: 1
+  hovering: 0
+  clickNoise: {fileID: 0}
 --- !u!1 &7891151439811107099
 GameObject:
   m_ObjectHideFlags: 0
@@ -33098,6 +33220,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &1978928247040022632
@@ -33522,6 +33645,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1 &7924832519742925690
@@ -33776,6 +33900,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &4673555444107706433
@@ -34462,6 +34587,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1 &8041459121946342070
@@ -36564,6 +36690,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: -1
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!114 &4814653425369867886
@@ -37105,6 +37232,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.55, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1 &8557849658581894723
@@ -37257,6 +37385,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.45, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1 &8581908905714490352
@@ -40271,6 +40400,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.55, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1001 &928715900040305437
@@ -40444,6 +40574,7 @@ MonoBehaviour:
   cursorObj: {fileID: 4821340908508482251}
   pivotHover: {x: 0.5, y: 0.5}
   rotationHover: 0
+  canHover: 1
   hovering: 0
   clickNoise: {fileID: 0}
 --- !u!1001 &6101369619559614805

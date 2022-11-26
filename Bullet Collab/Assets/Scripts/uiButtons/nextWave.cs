@@ -98,7 +98,7 @@ public class nextWave : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetKeyDown("space") && buttonActive){
+        if (Input.GetKeyDown("space") && buttonActive && Time.timeScale > 0){
             onWaveClick();
         }
     }

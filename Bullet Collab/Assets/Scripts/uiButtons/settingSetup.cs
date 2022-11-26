@@ -135,6 +135,10 @@ public class settingSetup : MonoBehaviour
             if (Input.GetKeyDown("escape")){
                 backButton();
             }
+
+            if (Input.GetKeyDown("space")){
+                resetButton();
+            }
         }
     }
 }

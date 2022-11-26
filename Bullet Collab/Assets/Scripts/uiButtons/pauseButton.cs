@@ -9,6 +9,7 @@
 * 11/02/22  0.20                 DS              added blur + changed ui visual
 * 11/04/22  0.20                 DS              saving + playfab
 * 11/16/22  0.40                 DS              added settings menu
+* 11/26/22  0.40                 DS              removed blur, was crashing on mobile
 *******************************************************************************/
 
 using System.Collections;

@@ -5,8 +5,10 @@
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 10/27/22  0.10                 DS              Made the thing
-* 11/18/22  0.10                 DS              added sounds
+* 10/27/22  0.10                 DS              Made the thing, cursor image stuff
+* 10/30/22  0.20                 DS              added rotations and offset
+* 11/18/22  0.40                 ST              added sound effects for enemies, damage, shooting, etc
+
 *******************************************************************************/
 
 using System.Collections;

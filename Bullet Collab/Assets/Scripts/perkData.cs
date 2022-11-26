@@ -6,8 +6,8 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/23/22  0.10                 DS              Made the thing
-* 11/03/22  0.10                 DS              Added new events + useful functions
-* 11/05/22  0.10                 DS              Added get bullet system
+* 11/03/22  0.20                 DS              Added new events + useful functions
+* 11/05/22  0.30                 DS              Added get bullet system
 *******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;

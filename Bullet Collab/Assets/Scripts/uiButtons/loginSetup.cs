@@ -5,7 +5,9 @@
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 11/04/22  0.10                 DS              Made the thing
+* 11/04/22  0.10                 DS              Made the thing + playfab
+* 11/05/22  0.20                 JT              Helped connect the login screen to playfab
+* 11/05/22  0.20                 KJ              Helped connect the login screen to playfab
 * 11/16/22  0.40                 DS              login as guest creates a temp account
 *******************************************************************************/
 

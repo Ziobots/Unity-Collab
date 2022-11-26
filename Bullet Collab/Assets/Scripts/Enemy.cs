@@ -11,8 +11,9 @@
 * 11/09/22  0.40                 DS              bumping + damage effects
 * 11/10/22  0.50                 DS              spawn in animation
 * 11/10/22  0.60                 DS              enemies patrol the area instead of standing still when no target
-* 11/10/22  0.70                 DS              added stats stuff
-* 11/25/22  0.80                 DS              added anger + sniper noise set
+* 11/11/22  0.70                 DS              added stats stuff
+* 11/17/22  0.80                 ST              added sound effects for enemies, damage, shooting, etc
+* 11/25/22  0.90                 DS              added anger + sniper noise set
 *******************************************************************************/
 
 using System.Collections;

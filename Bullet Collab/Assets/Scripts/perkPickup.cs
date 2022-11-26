@@ -6,6 +6,8 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/31/22  0.10                 DS              Made the thing
+* 11/02/22  0.20                 DS              adding perks
+* 11/20/22  0.30                 DS              shop stuff
 *******************************************************************************/
 
 using System.Collections;

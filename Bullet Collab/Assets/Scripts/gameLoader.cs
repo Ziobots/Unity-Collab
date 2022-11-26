@@ -9,7 +9,17 @@
 * 11/10/22  0.20                 DS              Added enemy spawning + perks
 * 11/11/22  0.30                 DS              added level loading + next button
 * 11/14/22  0.40                 DS              added game start + end + stats
-* 11/16/22  0.50                 DS              added music
+* 11/16/22  0.50                 ST              added music + sound effects
+* 11/20/22  0.60                 DS              added shop
+* 11/23/22  0.70                 DS              added waves + bosses
+
+---------------------------------------
+- AUDIO SOURCES -
+---------------------------------------
+We used some sounds and music from some copyright free sources, all sounds in this game are from the links below
+Sound Effects - https://freesound.org/
+Music - https://www.youtube.com/@NoCALib
+
 *******************************************************************************/
 
 using System.Collections;

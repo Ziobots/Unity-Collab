@@ -6,6 +6,8 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 11/11/22  0.10                 DS              Made the thing
+* 11/15/22  0.20                 DS              fix for button not working?
+* 11/26/22  0.20                 DS              press space to continue
 *******************************************************************************/
 
 using System.Collections;

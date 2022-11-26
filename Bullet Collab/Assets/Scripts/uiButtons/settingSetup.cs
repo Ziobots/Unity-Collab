@@ -6,6 +6,9 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 11/16/22  0.10                 DS              Made the thing
+* 11/17/22  0.20                 MG              Helped work on the settings menu
+* 11/17/22  0.30                 DS              ui stuff
+* 11/19/22  0.40                 DS              mobile support
 *******************************************************************************/
 
 using System.Collections;
@@ -77,6 +80,7 @@ public class settingSetup : MonoBehaviour
         }
     }
 
+    // set the stats to the default values
     public void resetButton(){
         setupMenu();
 
@@ -89,6 +93,7 @@ public class settingSetup : MonoBehaviour
         loadMenu();
     }
 
+    // return to previous menu
     public void backButton(){
         if (menuActive){
             menuActive = false;
@@ -98,6 +103,7 @@ public class settingSetup : MonoBehaviour
         }
     }
 
+    // load in the saved settings values
     public void loadFields(){
         setupMenu();
 

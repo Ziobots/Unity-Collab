@@ -6,7 +6,9 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/27/22  0.10                 DS              Made the thing
-* 11/02/22  0.10                 DS              added blur + changed ui visual
+* 11/02/22  0.20                 DS              added blur + changed ui visual
+* 11/04/22  0.20                 DS              saving + playfab
+* 11/16/22  0.40                 DS              added settings menu
 *******************************************************************************/
 
 using System.Collections;

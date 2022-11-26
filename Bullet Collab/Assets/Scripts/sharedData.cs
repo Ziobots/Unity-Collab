@@ -9,7 +9,9 @@
 * 10/23/22  0.10                 DS              Made the thing
 * 10/26/22  0.20                 DS              Added Health to connect to healthbar
 * 11/04/22  0.30                 DS              Added saving system + json
-* 11/14/22  0.40                 DS              Added game handler + stats + reset functions
+* 11/05/22  0.40                 JT              Helped connect the game to playfab
+* 11/05/22  0.40                 KJ              Helped connect the game to playfab
+* 11/14/22  0.50                 DS              Added game handler + stats + reset functions
 *******************************************************************************/
 
 using System.Collections;

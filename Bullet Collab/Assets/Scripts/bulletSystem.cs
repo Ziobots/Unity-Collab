@@ -6,9 +6,11 @@
 * ------------------------------- 
 * Date		Software Version	Initials		Description
 * 10/24/22  0.10                 DS              Made the thing
-* 11/08/22  0.80                 DS              fixed bullet bouncing
-* 11/09/22  0.90                 DS              fixed bullet damage 
-* 11/12/22  0.90                 DS              optimizations? 
+* 11/05/22  0.20                 KJ              Added walls for bullets to collide with
+* 11/08/22  0.50                 DS              fixed bullet bouncing
+* 11/09/22  0.60                 DS              fixed bullet damage 
+* 11/12/22  0.70                 DS              optimizations? 
+* 11/18/22  0.70                 DS              some changes to perks 
 *******************************************************************************/
 
 using System.Collections;

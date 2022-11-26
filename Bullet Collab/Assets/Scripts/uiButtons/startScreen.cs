@@ -6,6 +6,8 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 11/18/22  0.10                 DS              Made the thing
+* 11/19/22  0.20                 MG              Helped work on the start screen
+* 11/20/22  0.30                 DS              changed some graphics
 *******************************************************************************/
 
 using System.Collections;

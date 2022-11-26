@@ -6,6 +6,8 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 10/27/22  0.10                 DS              Made the thing
+* 11/01/22  0.20                 DS              ui fix
+* 11/26/22  0.30                 DS              mobile stuff
 *******************************************************************************/
 
 using System.Collections;

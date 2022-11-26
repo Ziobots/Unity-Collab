@@ -1,14 +1,11 @@
 /*******************************************************************************
 * Name : spiral.cs
-* Section Description : This is a superclass for bullet detection purposes. Player, Enemy (and by extension Boss), 
-* and possibly destructable obstacles will be subclasses.
+* Section Description : spiral enemy.
 * -------------------------------
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 10/24/22  0.10                 DS              Made the thing
-* 11/03/22  0.20                 DS              updated health stuff
-* 11/07/22  0.70                 DS              added enemy stuff and knockback
+* 10/28/22  0.10                 DS              Made the thing
 *******************************************************************************/
 
 using System.Collections;

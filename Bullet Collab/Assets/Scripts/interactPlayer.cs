@@ -7,7 +7,7 @@
 * Date		Software Version	Initials		Description
 * 10/31/22  0.10                 DS              made the thing
 * 11/02/22  0.20                 DS              added popup functionality
-* 11/02/22  0.30                 DS              hide when player dies
+* 11/03/22  0.30                 DS              hide when player dies
 *******************************************************************************/
 
 using System.Collections;

@@ -6,12 +6,15 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 11/10/22  0.10                 DS              Made the thing
+* 11/12/22  0.30                 KJ              Made some test levels for the game
+* 11/21/22  0.30                 KJ              Made a couple of levels for the game
 *******************************************************************************/
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// the types of rooms that can spawn
 public enum RoomType {None,Shop,Boss,Enemy,Other};
 
 public class levelData : MonoBehaviour

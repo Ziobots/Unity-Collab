@@ -1,11 +1,13 @@
 /*******************************************************************************
-* Name : loginSetup.cs
-* Section Description : This code handles input fields.
+* Name : playscreenSetup.cs
+* Section Description : This code handles playscreen ui.
 * -------------------------------
 * - HISTORY OF CHANGES -
 * -------------------------------
 * Date		Software Version	Initials		Description
-* 11/04/22  0.10                 DS              Made the thing
+* 11/04/22  0.10                 DS              Made the thing + playfab
+* 11/05/22  0.20                 MG              Helped work on the playscreen
+* 11/06/22  0.30                 DS              added some graphics
 *******************************************************************************/
 
 using System.Collections;

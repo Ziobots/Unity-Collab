@@ -6,6 +6,7 @@
 * -------------------------------
 * Date		Software Version	Initials		Description
 * 11/05/22  0.10                 DS              Made the thing
+* 11/08/22  0.10                 DS              split the fade into 2 functions so that it stops when it fully covers the screen
 *******************************************************************************/
 
 using System.Collections;

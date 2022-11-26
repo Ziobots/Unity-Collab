@@ -11,7 +11,12 @@
 * 10/25/22  0.11                 KJ              Moved gun and flip to Fixed, changed Lerp alpha values to 10
 * 11/02/22  0.15                 DS              used ref for perkidlist 
 * 11/03/22  0.20                 DS              updated health stuff, removed ref for perk list
-* 11/19/22  0.20                 DS              added mobile support
+* 11/06/22  0.40                 JH              Added player animations for moving and standing still
+* 11/14/22  0.40                 JH              More animations for taking damage and walking backwards
+* 11/16/22  0.50                 ST              added sound effects for the player, damage, shooting, etc
+* 11/19/22  0.60                 DS              added mobile support
+* 11/20/22  0.70                 JH              Gun Animations, reloading and shooting
+* 11/26/22  0.80                 DS              added death fx
 *******************************************************************************/
 
 using System.Collections;

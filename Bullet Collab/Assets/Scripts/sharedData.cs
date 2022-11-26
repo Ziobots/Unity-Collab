@@ -164,6 +164,16 @@ public class sharedData : MonoBehaviour
                 entityInfo.meleeDamage = 0f;
                 entityInfo.damagedBy = null;
 
+                // remove anything created by perks
+                foreach (Transform launchPoint in entityInfo.launchPoints){
+                    if (launchPoint.gameObject){
+                        LineRenderer laser = launchPoint.gameObject.GetComponent<LineRenderer>();
+                        if (laser){
+                            laser.enabled = false;
+                        }
+                    }
+                }
+
                 // player obj unique stats
                 Player playerInfo = playerObj.GetComponent<Player>();
                 if (playerInfo != null){

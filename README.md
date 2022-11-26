@@ -10,8 +10,7 @@ Here is a link to the folder with all the other assets we made and used: (ignore
 https://github.com/Ziobots/Unity-Collab/tree/baseMain/Bullet%20Collab/Assets/Resources
 
 
-# Audio Sources
+## Audio Sources
 We used some sounds and music from some copyright free sources, all sounds in this game are from the links below
-
 Sound Effects - https://freesound.org/
 Music - https://www.youtube.com/@NoCALib

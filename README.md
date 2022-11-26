@@ -7,8 +7,8 @@ Here is a link to the folder with all the other assets we made and used: (ignore
 
 
 ## Play the game here
-- Password: UCF_BULLETHELL 
-- https://zionbots.itch.io/bullet-hero
+- https://zionbots.itch.io/bullet-hero?password=UCF_BULLETHELL
+- Password to access page: UCF_BULLETHELL
 
 ## Audio Sources
 We used some sounds and music from some copyright free sources, all sounds in this game are from the links below

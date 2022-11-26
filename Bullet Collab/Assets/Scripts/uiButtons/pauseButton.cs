@@ -86,8 +86,8 @@ public class pauseButton : MonoBehaviour
         }
 
         // set the blur
-        blurField.focusDistance.value = 0f;
-        blurObj.SetActive(true);
+        //blurField.focusDistance.value = 0f;
+        //blurObj.SetActive(true);
 
         // hide the main game ui
         if (gamePanel != null){
@@ -139,8 +139,8 @@ public class pauseButton : MonoBehaviour
 
         gamePaused = false;
         pausePanel.SetActive(false);
-        blurField.focusDistance.value = 10f;
-        blurObj.SetActive(true);
+        //blurField.focusDistance.value = 10f;
+        //blurObj.SetActive(true);
 
         if (gamePanel != null){
             gamePanel.GetComponent<CanvasGroup>().alpha = 1f;
@@ -182,7 +182,7 @@ public class pauseButton : MonoBehaviour
             dataInfo.saveTemporaryData(null);
         }
 
-        print("GO HOME");
+        print("GO HOME ");
 
         transitioner.GetComponent<fadeTransition>().startFade(delegate{
             pauseActive = true;
@@ -206,10 +206,10 @@ public class pauseButton : MonoBehaviour
             gameInfo = gameManager.GetComponent<gameLoader>();
         }
 
-        postVolume = blurObj.GetComponent<PostProcessVolume>();
-        if (postVolume){
-            postVolume.profile.TryGetSettings(out blurField);
-        }
+        //postVolume = blurObj.GetComponent<PostProcessVolume>();
+        //if (postVolume){
+        //    postVolume.profile.TryGetSettings(out blurField);
+        //}
     }
 
     private void Start(){

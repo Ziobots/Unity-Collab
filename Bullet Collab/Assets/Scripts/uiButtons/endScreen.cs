@@ -119,8 +119,8 @@ public class endScreen : MonoBehaviour
         }
 
         // set the blur
-        blurField.focusDistance.value = 2f;
-        blurObj.SetActive(true);
+        //blurField.focusDistance.value = 2f;
+        //blurObj.SetActive(true);
 
         // hide the main game ui
         if (gameMenu != null){
@@ -167,10 +167,10 @@ public class endScreen : MonoBehaviour
         }
 
         // blur game
-        postVolume = blurObj.GetComponent<PostProcessVolume>();
-        if (postVolume){
-            postVolume.profile.TryGetSettings(out blurField);
-        }
+        //postVolume = blurObj.GetComponent<PostProcessVolume>();
+        //if (postVolume){
+        //    postVolume.profile.TryGetSettings(out blurField);
+        //}
     }
 
     private void Start() {

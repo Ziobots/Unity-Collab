@@ -72,8 +72,16 @@ public class perkModule : MonoBehaviour
         // load all the perks to sort through
         loadPerkFolder();
         bool costOnly = false;
-        if (blackList != null && blackList.Contains("COST_ONLY_PERK")){
-            costOnly = true;
+        bool enemyOnly = false;
+        
+        if (blackList != null){
+            if (blackList.Contains("COST_ONLY_PERK")){
+                costOnly = true;
+            }
+
+            if (blackList.Contains("ENEMY_CHOICE")){
+                enemyOnly = true;
+            }
         }
 
         // get perks and put them into each rarity list
@@ -85,6 +93,10 @@ public class perkModule : MonoBehaviour
         foreach (perkData perk in perkObjects){
             if (perk && (blackList == null || !blackList.Contains(perk.name))){
                 if (costOnly && perk.perkCost <= 0){
+                    continue;
+                }
+
+                if (enemyOnly && !perk.enemyPerk){
                     continue;
                 }
                 

@@ -77,8 +77,10 @@ public class perkData : ScriptableObject
     public Entity getEntityStats(Dictionary<string, GameObject> objDictionary){
         if (objDictionary.ContainsKey("Owner")){
             GameObject entityObj = objDictionary["Owner"];
-            Entity entityStats = entityObj.GetComponent<Entity>();
-            return entityStats;
+            if (entityObj != null){
+                Entity entityStats = entityObj.GetComponent<Entity>();
+                return entityStats;
+            }
         }
 
         return null;
@@ -87,8 +89,10 @@ public class perkData : ScriptableObject
     public Player getPlayerStats(Dictionary<string, GameObject> objDictionary){
         if (objDictionary.ContainsKey("Owner")){
             GameObject entityObj = objDictionary["Owner"];
-            Player playerStats = entityObj.GetComponent<Player>();
-            return playerStats;
+            if (entityObj != null){
+                Player playerStats = entityObj.GetComponent<Player>();
+                return playerStats;
+            }
         }
 
         return null;
@@ -97,8 +101,10 @@ public class perkData : ScriptableObject
     public Entity getTargetStats(Dictionary<string, GameObject> objDictionary){
         if (objDictionary.ContainsKey("Target")){
             GameObject entityObj = objDictionary["Target"];
-            Entity entityStats = entityObj.GetComponent<Entity>();
-            return entityStats;
+            if (entityObj != null){
+                Entity entityStats = entityObj.GetComponent<Entity>();
+                return entityStats;
+            }
         }
 
         return null;
@@ -107,8 +113,10 @@ public class perkData : ScriptableObject
     public bulletSystem getBulletStats(Dictionary<string, GameObject> objDictionary){
         if (objDictionary.ContainsKey("Bullet")){
             GameObject bulletObj = objDictionary["Bullet"];
-            bulletSystem bulletStats = bulletObj.GetComponent<bulletSystem>();
-            return bulletStats;
+            if (bulletObj != null){
+                bulletSystem bulletStats = bulletObj.GetComponent<bulletSystem>();
+                return bulletStats;
+            }
         }
 
         return null;

@@ -142,6 +142,7 @@ public class gameLoader : MonoBehaviour
             if (entityInfo){
                 List<string> spawnPerkIDs = new List<string>();
                 List<string> blackList = new List<string>();
+                float colorAlpha = 0f;
 
                 // set the enemy info
                 entityInfo.dataManager = dataManager;
@@ -154,7 +155,7 @@ public class gameLoader : MonoBehaviour
                 entityInfo.spawnPosition = spawnPoint.transform.position;
 
                 if (currentRoom > 10){
-                    entityInfo.maxHealth *= (currentRoom/10);
+                    entityInfo.maxHealth *= (currentRoom/7);
                 }
                 
                 // put the default perks into the spawn list
@@ -171,7 +172,9 @@ public class gameLoader : MonoBehaviour
                 }
 
                 // increase difficulty of enemies by giving them perks after room 10
-                if (levelObj != null && currentRoom > 10){
+                if (levelObj != null && currentRoom > 15){
+                    blackList.Add("ENEMY_CHOICE");
+
                     levelData levelInfo = levelObj.GetComponent<levelData>();
                     if (levelInfo){
                         // random number of perks based on room number
@@ -181,6 +184,8 @@ public class gameLoader : MonoBehaviour
                         }
 
                         int perkCount = randomGen.Next(minPerk,(int) Mathf.Ceil(currentRoom/5f));
+                        colorAlpha = perkCount/15f;
+
                         for (int i = 1; i < perkCount; i++){
                             int perkSeed = gameSeed + randomGen.Next(0,10000) + (i * 150);
                             perkData chosenPerk = gameObject.GetComponent<perkModule>().getRandomPerk(perkSeed,blackList,levelInfo);
@@ -196,6 +201,21 @@ public class gameLoader : MonoBehaviour
 
                 // overwrite the default perk list
                 entityInfo.perkIDList = new List<string>();
+
+                //set color
+                if (entityInfo.transform.Find("body")){
+                    Color32 setColor = entityInfo.spriteColor;
+                    if (colorAlpha > 1){
+                        colorAlpha = Mathf.Clamp(colorAlpha - 1,0f,1f);
+                        setColor = Color32.Lerp(new Color32(253,106,106,255),new Color32(0,0,0,255),colorAlpha);
+                    }else if (colorAlpha > 0){
+                        setColor = Color32.Lerp(entityInfo.spriteColor,new Color32(253,106,106,255),colorAlpha);
+                    }
+
+                    entityInfo.transform.Find("body").gameObject.GetComponent<SpriteRenderer>().color = setColor;
+                    entityInfo.spriteColor = setColor;
+                }
+
 
                 // check for customSetup
                 if (customSetup != null){

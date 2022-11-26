@@ -28,7 +28,7 @@ public class perkLottery : perkData
             }
 
             // remove the perks destroy list if they win
-            if (wonPerks){
+            if (wonPerks && objDictionary["PerkObj"] != null){
                 objDictionary["PerkObj"].GetComponent<perkPickup>().perkObjList = new List<GameObject>();
             }
         }

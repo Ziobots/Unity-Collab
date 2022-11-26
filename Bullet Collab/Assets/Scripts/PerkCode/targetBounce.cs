@@ -46,6 +46,9 @@ public class targetBounce : perkData
         if (bulletInfo != null && initialize){
             Entity[] targetChoices = FindObjectsOfType<Entity>();
             GameObject bulletObj = objDictionary["Bullet"];
+            if (bulletObj == null){
+                return;
+            }
 
             RaycastHit2D closestHit = new RaycastHit2D();
             List<RaycastHit2D> contactList = new List<RaycastHit2D>();

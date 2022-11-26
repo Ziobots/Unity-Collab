@@ -31,7 +31,7 @@ public class remoteBullet : perkData
         if (objDictionary.ContainsKey("Bullet") && initialize){
             // Get Mouse Position
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (objDictionary.ContainsKey("Owner")){
+            if (objDictionary.ContainsKey("Owner") && objDictionary["Owner"] != null){
                 Enemy enemyData = objDictionary["Owner"].GetComponent<Enemy>();
                 if (enemyData != null){
                     if (enemyData.currentTarget){
@@ -43,14 +43,15 @@ public class remoteBullet : perkData
             }
 
             GameObject bulletObj = objDictionary["Bullet"];
+            if (bulletObj != null){
+                // Get the direction
+                Vector2 cursorDirection = (mousePosition - (Vector2)bulletObj.transform.position).normalized;
 
-            // Get the direction
-            Vector2 cursorDirection = (mousePosition - (Vector2)bulletObj.transform.position).normalized;
-
-            // turn speed is based on how many of this perk you have
-            float alphaSpeed = ((float)Count) * 5f;
-            float alpha = Time.fixedDeltaTime * alphaSpeed;
-            bulletObj.transform.right = Vector2.Lerp(bulletObj.transform.right,cursorDirection,alpha);
+                // turn speed is based on how many of this perk you have
+                float alphaSpeed = ((float)Count) * 5f;
+                float alpha = Time.fixedDeltaTime * alphaSpeed;
+                bulletObj.transform.right = Vector2.Lerp(bulletObj.transform.right,cursorDirection,alpha);
+            }
         }
     }
 }

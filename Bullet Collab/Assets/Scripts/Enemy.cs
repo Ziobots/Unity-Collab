@@ -444,7 +444,7 @@ public class Enemy : Entity
             currentFace = hurtFace;
             faceSwapTime = Time.time;
 
-            if (damagedBy.tag == gameObject.tag){
+            if (damagedBy != null && gameObject != null && damagedBy.tag == gameObject.tag){
                 angerMeter += 1f;
             }
         }

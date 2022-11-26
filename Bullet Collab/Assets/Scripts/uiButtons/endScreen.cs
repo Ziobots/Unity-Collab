@@ -143,7 +143,6 @@ public class endScreen : MonoBehaviour
         cursorData.overwriteMovement = false;
         cursorData.updateHover(false);
 
-        gameObject.SetActive(true);
         if (currentCamera != null){
             currentCamera.GetComponent<CameraBehavior>().factorMouse = false;
         }
@@ -151,6 +150,7 @@ public class endScreen : MonoBehaviour
         // tween the fade
         LeanTween.cancel(gameObject);
         LeanTween.value(gameObject,new Vector2(0.5f,1f),new Vector2(0.5f,0.5f),0.4f).setIgnoreTimeScale(true).setEaseOutBack().setOnUpdateVector2(setPivot);
+        gameObject.SetActive(true);
 
         optionMade = false;
     }

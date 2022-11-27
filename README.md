@@ -1,5 +1,6 @@
 # Bullet-Hero
 Here is a link to the folder with all the original code: (just the .cs files)
+This project was made using Unity 2021.3.10f1
 - https://github.com/Ziobots/Unity-Collab/tree/baseMain/Bullet%20Collab/Assets/Scripts
 
 Here is a link to the folder with all the other assets we made and used: (ignore the .meta files)
@@ -16,6 +17,13 @@ We used some sounds and music from some copyright free sources, all sounds in th
 - Sound Effects - https://freesound.org/
 - Music - https://www.youtube.com/@NoCALib
 
+## Packages
+We used some packages for our project that are not included with Unity by default.
+- JSON package: For converting classes in to strings for saving.
+- AstarPathfindingProject: For enemy pathfinding.
+- Joystick Pack: For the mobile control scheme.
+- LeanTween: For smoothly animation UI and objects.
+- Playfab: For creating user accounts, saving user data, and the leaderboard system.
 
 ## Info
 Tutorial I used to set up this Repository.

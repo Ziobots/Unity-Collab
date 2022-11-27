@@ -20,7 +20,7 @@ We used some sounds and music from some copyright free sources, all sounds in th
 
 ## Packages
 We used some packages for our project that are not included with Unity by default.
-- JSON package: For converting classes in to strings for saving.
+- JSON package: For converting classes into strings for saving.
 - AstarPathfindingProject: For enemy pathfinding.
 - Joystick Pack: For the mobile control scheme.
 - LeanTween: For smoothly animation UI and objects.

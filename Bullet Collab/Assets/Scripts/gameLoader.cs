@@ -853,6 +853,10 @@ public class gameLoader : MonoBehaviour
                 dataInfo.statHighscore = dataInfo.totalScore;
             }
 
+            if (dataInfo.elapsedTime > dataInfo.statTimeCount){
+                dataInfo.statTimeCount = dataInfo.elapsedTime;
+            }
+
             // overwrite the current run data
             dataInfo.canDoSave = true;
             dataInfo.saveTemporaryData(dataInfo.currentTempData);

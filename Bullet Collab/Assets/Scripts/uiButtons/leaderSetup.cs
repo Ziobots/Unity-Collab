@@ -225,6 +225,23 @@ public class leaderSetup : MonoBehaviour
         }
     }
 
+    // get readable time
+    public string padInteger(int padNumber){
+        if (Mathf.Abs(padNumber) < 10){
+            return "0" + Mathf.Abs(padNumber);
+        }
+
+        return "" + padNumber;
+    }
+    
+    public string getReadableTime(float duration){
+        int hours = (int) Mathf.Floor(duration/60f/60f);
+        duration -= hours * 60f * 60f;
+        int minutes = (int) Mathf.Floor(duration/60f);
+        duration -= minutes * 60f;
+        return padInteger(hours) + ":" + padInteger(minutes) + ":" + padInteger((int)duration);
+    }
+
     public void loadMenu(){
         setupMenu();
         
@@ -232,7 +249,7 @@ public class leaderSetup : MonoBehaviour
         if (dataInfo != null){
             setStatValue("stat_Score","" + dataInfo.statHighscore);
             setStatValue("stat_Run","" + dataInfo.statRunCount);
-            setStatValue("stat_Win","" + dataInfo.statWinCount);
+            setStatValue("stat_Win","" + getReadableTime(dataInfo.statTimeCount));
             setStatValue("stat_Enemy","" + dataInfo.statKillCount);
             setStatValue("stat_Perk","" + dataInfo.statPerkCount);
             setStatValue("stat_Room","" + dataInfo.statRoomCount);

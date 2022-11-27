@@ -51,6 +51,7 @@ public class persistDataClass{
     public int statHighscore = 0;
     public int statRunCount = 0;
     public int statWinCount = 0;
+    public float statTimeCount = 0;
     public int statKillCount = 0;
     public int statPerkCount = 0;
     public int statRoomCount = 0;
@@ -88,6 +89,7 @@ public class sharedData : MonoBehaviour
     public int statHighscore = 0;
     public int statRunCount = 0;
     public int statWinCount = 0;
+    public float statTimeCount = 0;
     public int statKillCount = 0;
     public int statPerkCount = 0;
     public int statRoomCount = 0;
@@ -267,6 +269,7 @@ public class sharedData : MonoBehaviour
         permData.statRoomCount = statRoomCount;
         permData.statRunCount = statRunCount;
         permData.statWinCount = statWinCount;
+        permData.statTimeCount = statTimeCount;
 
         return permData;
     }
@@ -440,6 +443,7 @@ public class sharedData : MonoBehaviour
                     statRoomCount = permData.statRoomCount;
                     statRunCount = permData.statRunCount;
                     statWinCount = permData.statWinCount;
+                    statTimeCount = permData.statTimeCount;
 
                     // run any change functions
                     if (settingMenu != null){

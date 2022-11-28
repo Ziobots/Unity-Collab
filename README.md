@@ -1,7 +1,7 @@
 # Bullet-Hero
-Here is a link to the folder with all the original code: (just the .cs files)
-
 This project was made using Unity 2021.3.10f1
+
+Here is a link to the folder with all the original code: (just the .cs files)
 - https://github.com/Ziobots/Unity-Collab/tree/baseMain/Bullet%20Collab/Assets/Scripts
 
 Here is a link to the folder with all the other assets we made and used: (ignore the .meta files)

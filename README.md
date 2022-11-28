@@ -23,7 +23,7 @@ We used some packages for our project that are not included with Unity by defaul
 - JSON package: For converting classes into strings for saving.
 - AstarPathfindingProject: For enemy pathfinding.
 - Joystick Pack: For the mobile control scheme.
-- LeanTween: For smoothly animation UI and objects.
+- LeanTween: For smoothly animating UI and objects.
 - Playfab: For creating user accounts, saving user data, and the leaderboard system.
 
 ## Info
